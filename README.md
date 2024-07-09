@@ -10,7 +10,7 @@ To preview and run the project on your device:
 
 -
 
-#Here are the API's endpoints. Please use these and remove all the hardcoded data:
+# Here are the API's endpoints. Please use these and remove all the hardcoded data:
 #### Initial Filter - http://api.jewelcloud.com/api/RingBuilder/GetInitialFilter?DealerId=1089&IsLabGrown=true
 
 #### Additional options - http://api.jewelcloud.com/api/RingBuilder/GetDiamondsJCOptions?DealerID=1089
