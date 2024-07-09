@@ -11,22 +11,22 @@ To preview and run the project on your device:
 -
 
 #Here are the API's endpoints. Please use these and remove all the hardcoded data:
-### Initial Filter - http://api.jewelcloud.com/api/RingBuilder/GetInitialFilter?DealerId=1089&IsLabGrown=true
+#### Initial Filter - http://api.jewelcloud.com/api/RingBuilder/GetInitialFilter?DealerId=1089&IsLabGrown=true
 
-### Additional options - http://api.jewelcloud.com/api/RingBuilder/GetDiamondsJCOptions?DealerID=1089
+#### Additional options - http://api.jewelcloud.com/api/RingBuilder/GetDiamondsJCOptions?DealerID=1089
 
-### Category API - http://api.jewelcloud.com/api/jewelry/GetJewelryCategory?dealerid=3075
+#### Category API - http://api.jewelcloud.com/api/jewelry/GetJewelryCategory?dealerid=3075
 
-### Style API - http://api.jewelcloud.com/api/RingBuilder/GetStyleSetting?DealerId=3916
+#### Style API - http://api.jewelcloud.com/api/RingBuilder/GetStyleSetting?DealerId=3916
 
-### Navigation - http://api.jewelcloud.com/api/RingBuilder/GetNavigation?DealerId=1089
+#### Navigation - http://api.jewelcloud.com/api/RingBuilder/GetNavigation?DealerId=1089
 
-### RB - Navigation - http://api.jewelcloud.com/api/RingBuilder/GetRBNavigation?DealerID=3075
+#### RB - Navigation - http://api.jewelcloud.com/api/RingBuilder/GetRBNavigation?DealerID=3075
 
-### Filter - http://api.jewelcloud.com/api/RingBuilder/GetDiamondFilter?DealerId=1089
+#### Filter - http://api.jewelcloud.com/api/RingBuilder/GetDiamondFilter?DealerId=1089
 
-### Filter Fancy - http://api.jewelcloud.com/api/RingBuilder/GetColorDiamondFilter?DealerId=1089
+#### Filter Fancy - http://api.jewelcloud.com/api/RingBuilder/GetColorDiamondFilter?DealerId=1089
 
-### Ring Filter - http://api.jewelcloud.com/api/RingBuilder/GetFilters?DealerId=1089
+#### Ring Filter - http://api.jewelcloud.com/api/RingBuilder/GetFilters?DealerId=1089
 
-### Ring Video - http://api.jewelcloud.com/api/jewelry/GetVideoUrl?InventoryID=2793556&Type=Jewelry
+#### Ring Video - http://api.jewelcloud.com/api/jewelry/GetVideoUrl?InventoryID=2793556&Type=Jewelry
