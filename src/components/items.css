@@ -1,0 +1,189 @@
+.princess-1001-carath5 {
+  margin-right: -31px;
+  width: 261px;
+  position: relative;
+  line-height: 120%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.product-name {
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0px 0px 0px 0px;
+  box-sizing: border-box;
+}
+.video-icon2 {
+  height: 15.1px;
+  width: 24px;
+  position: relative;
+}
+.actions11 {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.compare-icon2 {
+  height: 40px;
+  width: 40px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  min-height: 40px;
+}
+.vector-icon27 {
+  height: 4px;
+  width: 20px;
+  position: relative;
+}
+.actions10 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+  flex-shrink: 0;
+}
+.product-info1 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  row-gap: 20px;
+}
+.image-9-icon13 {
+  height: 310px;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
+.empty3 {
+  position: relative;
+  display: inline-block;
+  min-width: 65px;
+  white-space: nowrap;
+}
+.vs2-excellent {
+  position: relative;
+  display: inline-block;
+  color: var(--grey);
+  min-width: 97px;
+}
+.down {
+  margin: 0 !important;
+  position: absolute;
+  bottom: -12.3px;
+  left: -8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+  z-index: 1;
+}
+.info-overlay {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  max-width: 100%;
+}
+.image-wrapper1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0px var(--padding-xs) 0px var(--padding-5xs);
+  box-sizing: border-box;
+  max-width: 100%;
+  text-align: center;
+  font-size: var(--body-14-reg-size);
+  font-family: var(--body-14-reg);
+}
+.product-card {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs-7);
+  flex-shrink: 0;
+  max-width: 100%;
+}
+.diamond_item--link {
+  align-self: stretch;
+  text-transform: uppercase;
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+}
+.button29 {
+  align-self: stretch;
+  height: 52px;
+  border-radius: var(--br-37xl);
+  background-color: var(--accent);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--padding-mini) var(--padding-xl);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: var(--buttom-size);
+  color: var(--white);
+  font-family: var(--body-14-reg);
+}
+.items {
+  flex: 1 1 300px;
+  margin: 0 auto;
+  width: 100%;
+  margin: 0 !important;
+  position: unset !important;
+  top: 24px;
+  left: 120px;
+  border-radius: var(--br-xs);
+  background-color: var(--beige-00);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-13xl) var(--padding-xl) var(--padding-33xl-3)
+    var(--padding-5xl);
+  box-sizing: border-box;
+  gap: var(--gap-45xl-3);
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--h3-size);
+  color: var(--black);
+  font-family: var(--h4);
+}
+
+@media screen and (max-width: 825px) {
+  .princess-1001-carath5 {
+    font-size: var(--font-size-lgi);
+    line-height: 23px;
+  }
+
+  .product-info1 {
+    flex-wrap: wrap;
+  }
+
+  .items {
+    height: auto;
+    position: unset;
+  }
+}

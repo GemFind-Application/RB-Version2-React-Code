@@ -1,0 +1,354 @@
+.diamond-details3 {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  font-size: inherit;
+  line-height: 120%;
+  font-weight: 700;
+  font-family: inherit;
+}
+.stock-number1 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 98px;
+}
+.attribute-value {
+  text-decoration: none;
+  position: relative;
+  font-weight: 700;
+  color: var(--black);
+  display: inline-block;
+  min-width: 74px;
+}
+.attributes-header {
+  border-radius: var(--br-base);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-10xs);
+}
+.price5 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 38px;
+}
+.b6 {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 65px;
+  white-space: nowrap;
+}
+.attributes-header1 {
+  border-radius: var(--br-base);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.price-per-carat1 {
+  text-decoration: none;
+  position: relative;
+  font-weight: 500;
+  color: inherit;
+  display: inline-block;
+  min-width: 102px;
+}
+.a7 {
+  text-decoration: none;
+  position: relative;
+  font-weight: 700;
+  color: var(--black);
+  display: inline-block;
+  min-width: 46px;
+  white-space: nowrap;
+}
+.carat-weight1 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 91px;
+}
+.b7 {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 31px;
+}
+.cut2 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 29px;
+}
+.excellent2 {
+  text-decoration: none;
+  position: relative;
+  font-weight: 700;
+  color: var(--black);
+  display: inline-block;
+  min-width: 63px;
+}
+.color1 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 41px;
+}
+.e1 {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 9px;
+}
+.clarity1 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 48px;
+}
+.i12 {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 11px;
+}
+.polish1 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 45px;
+}
+.very-good1 {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 68px;
+}
+.symmetry1 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 72px;
+}
+.excellent3 {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 63px;
+}
+.girdle1 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 44px;
+}
+.b8 {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 6px;
+}
+.none2 {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 36px;
+}
+.fluorescence2 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 93px;
+}
+.stats2 {
+  align-self: stretch;
+  border-top: 1px solid var(--divider);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-5xl) var(--padding-35xl) 0px 0px;
+  gap: var(--gap-5xl);
+  min-height: 172px;
+  text-align: center;
+  font-size: var(--body-14-reg-size);
+  color: var(--grey);
+  font-family: var(--body-14-reg);
+}
+.top7 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xl);
+}
+.fi-8467779-icon1 {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.length-width {
+  position: relative;
+  line-height: 120%;
+  display: inline-block;
+  min-width: 60px;
+}
+.depth1 {
+  position: relative;
+  font-size: var(--body-14-reg-size);
+  font-family: var(--body-14-reg);
+  color: var(--grey);
+  display: inline-block;
+  min-width: 40px;
+}
+.dimensions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--gap-9xs);
+}
+.measurement-header {
+  border-radius: var(--br-base);
+  background-color: var(--beige-00);
+  border: 1px dashed var(--beige-04);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xl) var(--padding-45xl) var(--padding-3xl)
+    var(--padding-5xl);
+  gap: var(--gap-base);
+}
+.b9 {
+  position: relative;
+  line-height: 120%;
+  display: inline-block;
+  min-width: 37px;
+}
+.table1 {
+  position: relative;
+  font-size: var(--body-14-reg-size);
+  font-family: var(--body-14-reg);
+  color: var(--grey);
+  display: inline-block;
+  min-width: 35px;
+}
+.measurement-header1 {
+  border-radius: var(--br-base);
+  background-color: var(--beige-00);
+  border: 1px dashed var(--beige-04);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xl) var(--padding-68xl) var(--padding-3xl)
+    var(--padding-5xl);
+  gap: var(--gap-base);
+}
+.x371x2321 {
+  position: relative;
+  line-height: 120%;
+}
+.measurement1 {
+  position: relative;
+  font-size: var(--body-14-reg-size);
+  font-family: var(--body-14-reg);
+  color: var(--grey);
+  display: inline-block;
+  min-width: 90px;
+}
+.measurement-header2 {
+  border-radius: var(--br-base);
+  background-color: var(--beige-00);
+  border: 1px dashed var(--beige-04);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xl) var(--padding-4xl);
+  gap: var(--gap-base);
+}
+.number1 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0px var(--padding-7xs) 0px 0px;
+  gap: var(--gap-xs);
+  text-align: center;
+}
+.content7 {
+  position: absolute;
+  top: 39.5px;
+  left: calc(50% - 268px);
+  width: 536px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-13xl);
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--h4-size);
+  color: var(--black);
+  font-family: var(--h4);
+}
+.close-icon6 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  z-index: 1;
+}
+.diamond-details2 {
+  width: 100%;
+  height: 466px;
+  position: relative;
+  border-radius: var(--br-base);
+  background-color: var(--white);
+  overflow: hidden;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+@media screen and (max-width: 1275px) {
+  .diamond-details2 {
+    height: auto;
+    min-height: 466;
+  }
+}
+@media screen and (max-width: 825px) {
+  .diamond-details3 {
+    font-size: var(--buttom-size);
+    line-height: 19px;
+  }
+
+  .length-width {
+    font-size: var(--buttom-size);
+    line-height: 19px;
+  }
+
+  .b9 {
+    font-size: var(--buttom-size);
+    line-height: 19px;
+  }
+
+  .x371x2321 {
+    font-size: var(--buttom-size);
+    line-height: 19px;
+  }
+}

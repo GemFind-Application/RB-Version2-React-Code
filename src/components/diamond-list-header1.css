@@ -1,0 +1,292 @@
+.image-icon4 {
+  height: 84px;
+  width: 84px;
+  position: relative;
+  border-radius: var(--br-xl);
+  object-fit: cover;
+}
+.princess-1001-carath3 {
+  position: relative;
+  line-height: 120%;
+}
+.diamond-weight-type {
+  position: relative;
+  font-size: var(--body-14-reg-size);
+  display: inline-block;
+  font-family: var(--body-14-reg);
+  text-align: center;
+  min-width: 65px;
+  white-space: nowrap;
+}
+.name2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-6xs);
+}
+.diamond-details4 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-6xl);
+  max-width: 100%;
+  font-size: var(--h4-size);
+  font-family: var(--h4);
+}
+.union-icon {
+  height: 20px;
+  width: 20px;
+  position: relative;
+  min-height: 20px;
+}
+.princess1 {
+  position: relative;
+  display: inline-block;
+  min-width: 59px;
+}
+.img {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-xl) 0px;
+  gap: var(--gap-smi);
+}
+.diamond-carat-value {
+  position: relative;
+  display: inline-block;
+  min-width: 35px;
+}
+.carat2 {
+  position: relative;
+  color: var(--grey);
+  display: inline-block;
+  min-width: 36px;
+}
+.diamond-carat-info {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.d1 {
+  position: relative;
+  display: inline-block;
+  min-width: 10px;
+}
+.color3 {
+  position: relative;
+  color: var(--grey);
+  display: inline-block;
+  min-width: 35px;
+}
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-xl) 0px;
+  gap: var(--gap-9xs);
+}
+.vvs11 {
+  position: relative;
+  display: inline-block;
+  min-width: 34px;
+}
+.clarity7 {
+  position: relative;
+  color: var(--grey);
+  display: inline-block;
+  min-width: 45px;
+}
+.very-good5 {
+  position: relative;
+  display: inline-block;
+  min-width: 68px;
+}
+.cut8 {
+  position: relative;
+  color: var(--grey);
+  display: inline-block;
+  min-width: 24px;
+}
+.diamond-table-label {
+  position: relative;
+  display: inline-block;
+  min-width: 29px;
+}
+.table5 {
+  position: relative;
+  color: var(--grey);
+  text-align: center;
+  display: inline-block;
+  min-width: 35px;
+}
+.diamond-table-value {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.diamond-depth-label {
+  position: relative;
+  display: inline-block;
+  min-width: 43px;
+}
+.depth4 {
+  position: relative;
+  color: var(--grey);
+  text-align: center;
+  display: inline-block;
+  min-width: 40px;
+}
+.symmetry3 {
+  position: relative;
+  color: var(--grey);
+  display: inline-block;
+  min-width: 69px;
+}
+.polish4 {
+  position: relative;
+  color: var(--grey);
+  display: inline-block;
+  min-width: 39px;
+}
+.diamond-measurement-value {
+  width: 0px;
+  height: 19px;
+  position: relative;
+  display: inline-block;
+}
+.cell4 {
+  width: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-xl) 0px;
+  box-sizing: border-box;
+  color: var(--grey);
+}
+.x371x2322 {
+  position: relative;
+  display: inline-block;
+  min-width: 101px;
+}
+.measurement2 {
+  position: relative;
+  color: var(--grey);
+  text-align: center;
+  display: inline-block;
+  min-width: 90px;
+}
+.diamond-card-action {
+  position: relative;
+  display: inline-block;
+  min-width: 6px;
+}
+.intensity1 {
+  position: relative;
+  color: var(--grey);
+  display: inline-block;
+  min-width: 57px;
+}
+.video-icon {
+  height: 15.1px;
+  width: 24px;
+  position: relative;
+}
+.actions4 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-smi-4) var(--padding-5xs) var(--padding-smi-5);
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+}
+.compare-icon {
+  height: 40px;
+  width: 40px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.actions5 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.button-item {
+  height: 4px;
+  width: 8px;
+  position: relative;
+  object-fit: contain;
+}
+.button25 {
+  height: 40px;
+  width: 40px;
+  border-radius: var(--br-37xl);
+  background-color: var(--accent);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-lg) var(--padding-base);
+  box-sizing: border-box;
+}
+.actions3 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-xl) 0px;
+  gap: var(--gap-2xs);
+}
+.diamond-card-details {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+  gap: var(--gap-xl);
+}
+.diamond-list-header {
+  width: 1680px;
+  border-radius: var(--br-xl);
+  background-color: var(--beige-00);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-5xl);
+  box-sizing: border-box;
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--body-14-reg-size);
+  color: var(--black);
+  font-family: var(--body-14-reg);
+}
+
+@media screen and (max-width: 1575px) {
+  .diamond-card-details {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 450px) {
+  .princess-1001-carath3 {
+    font-size: var(--buttom-size);
+    line-height: 19px;
+  }
+
+  .diamond-details4 {
+    flex-wrap: wrap;
+  }
+}

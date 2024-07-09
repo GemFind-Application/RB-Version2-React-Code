@@ -1,0 +1,237 @@
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Search, ChevronDown, BookmarkMinus, RotateCcw, X } from 'lucide-react';
+import './SettingsFilterPanel.css';
+import MultiRangeSlider from './MultiRangeSlider';
+
+const FilterOption = ({ label, icon, isActive, onClick }) => (
+  <div className={`filter-option ${isActive ? 'active' : ''}`} onClick={onClick}>
+    {isActive && <X size={10} />}
+    {icon && <img src={icon} alt={label} className="filter-option-icon" />}
+    <span>{label}</span>
+  </div>
+);
+
+const SettingsFilterPanel = ({ 
+  className = "", 
+  filterData, 
+  isLabGrown, 
+  setIsLabGrown, 
+  applyFilters, 
+  totalSettings,
+  sortOrder,
+  onSortOrderChange,
+  itemsPerPage,
+  onItemsPerPageChange,
+  activeFilters,
+  resetFilters,
+  saveFilters
+}) => {
+  const [openFilter, setOpenFilter] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(activeFilters.search || '');
+  const [priceRange, setPriceRange] = useState(activeFilters.price || [0, 29678.00]);
+
+  useEffect(() => {
+    setPriceRange(activeFilters.price || [0, 29678.00]);
+  }, [activeFilters]);
+
+  const toggleFilter = (filter) => {
+    setOpenFilter(openFilter === filter ? null : filter);
+  };
+
+  const toggleFilterOption = (filter, option) => {
+    applyFilters({
+      ...activeFilters,
+      [filter]: activeFilters[filter].includes(option)
+        ? activeFilters[filter].filter(item => item !== option)
+        : [...activeFilters[filter], option]
+    });
+  };
+
+  const handlePriceChange = ({ min, max }) => {
+    setPriceRange([min, max]);
+    applyFilters({
+      ...activeFilters,
+      price: [min, max]
+    });
+  };
+
+  const handleLabGrownToggle = (value) => {
+    setIsLabGrown(value);
+  };
+
+  return (
+    <div className={`SettingsFilterPanel ${className}`}>
+      <div className="settingsfilter-wrapper">
+        <div className="mined-lab-wrapper">
+          <div className={`mined-settings ${!isLabGrown ? 'active' : ''}`} 
+              onClick={() => handleLabGrownToggle(false)}>
+            <div 
+              className={`mined2`}
+            >
+              Mined
+            </div>
+            <div className="separator"><b className="i22">i</b></div>
+          </div>
+          <div className={`lab-settings ${isLabGrown ? 'active' : ''}`} 
+              onClick={() => handleLabGrownToggle(true)}>
+            <div 
+              className={`lab-growned2`} 
+            >
+              Lab Grown
+            </div>
+            <div className="separator"><b className="i22">i</b></div>
+          </div>
+        </div>
+      </div>
+      <div className="list-header">
+        <div className="settingfilter-top">
+          <b className="settings-founded">{totalSettings || 0} Settings Found</b>
+          <div className="settings-sort">
+            <div className="settings-sort-page">
+              <div className="sort-by4">Sort by:</div>
+              <select className='no-appearance' value={sortOrder} onChange={(e) => onSortOrderChange(e.target.value)}>
+                <option value="Low to High">Low to High</option>
+                <option value="High to Low">High to Low</option>
+                <option value="Newest">Newest</option>
+              </select>
+            </div>
+            <div className="settings-sort-page">
+              <div className="show7">Show:</div>
+              <select className='no-appearance' value={itemsPerPage} onChange={(e) => onItemsPerPageChange(Number(e.target.value))}>
+                <option value={8}>8 per Page</option>
+                <option value={12}>12 per Page</option>
+                <option value={24}>24 per Page</option>
+                <option value={48}>48 per Page</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className="filters-setting">
+          <div className="mid2">
+            <div className="filters9">
+              <div className="filters-wrapper1">
+                <div className="filters-label">Filters:</div>
+              </div>
+              <div className="filter-container">
+                {['collections', 'metalType', 'shapes'].map((filter) => (
+                  <div key={filter} className="filter-dropdown">
+                    <button
+                      className={`filter-button ${openFilter === filter ? 'active' : ''}`}
+                      onClick={() => toggleFilter(filter)}
+                    >
+                      <div className="filter-label">{filter.charAt(0).toUpperCase() + filter.slice(1)}</div>
+                      <ChevronDown size={16} />
+                      {activeFilters[filter].length > 0 && (
+                        <div className="filter-count">{activeFilters[filter].length}</div>
+                      )}
+                    </button>
+                  </div>
+                ))}
+                <div className="filter-dropdown">
+                  <button
+                    className={`filter-button ${openFilter === 'price' ? 'active' : ''}`}
+                    onClick={() => toggleFilter('price')}
+                  >
+                    <div className="filter-label">Price</div>
+                    <ChevronDown size={16} />
+                  </button>
+                </div>
+              </div>
+              <div className="actions13">
+                <button className="button30" onClick={saveFilters}>
+                  <BookmarkMinus size={16} />
+                </button>
+                <button className="button31" onClick={() => {
+                  resetFilters();
+                  setPriceRange([0, 29678.00]);
+                }}>
+                  <RotateCcw size={16} />
+                </button>
+              </div>
+            </div>
+            <div className="search6">
+              <div className="search-input">
+                <Search size={16} />
+              </div>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  applyFilters({ ...activeFilters, search: e.target.value });
+                }}
+                className="search7"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      {openFilter && (
+        <div className="filter-options-container">
+          {openFilter === 'collections' && filterData.collections && filterData.collections.map(collection => (
+            <FilterOption
+              key={collection.collectionName}
+              label={collection.collectionName}
+              icon={collection.collectionImage}
+              isActive={activeFilters.collections.includes(collection.collectionName)}
+              onClick={() => toggleFilterOption('collections', collection.collectionName)}
+            />
+          ))}
+          {openFilter === 'metalType' && filterData.metalType && filterData.metalType.map(metal => (
+            <FilterOption
+              key={metal.metalType}
+              label={metal.metalType}
+              isActive={activeFilters.metalType.includes(metal.metalType)}
+              onClick={() => toggleFilterOption('metalType', metal.metalType)}
+            />
+          ))}
+          {openFilter === 'shapes' && filterData.shapes && filterData.shapes.map(shape => (
+            <FilterOption
+              key={shape.shapeName}
+              label={shape.shapeName}
+              icon={shape.shapeImage}
+              isActive={activeFilters.shapes.includes(shape.shapeName)}
+              onClick={() => toggleFilterOption('shapes', shape.shapeName)}
+            />
+          ))}
+          {openFilter === 'price' && (
+            <div className="filter-options">
+              <MultiRangeSlider
+                min={parseFloat(filterData.priceRange[0].minPrice)}
+                max={parseFloat(filterData.priceRange[0].maxPrice)}
+                onChange={handlePriceChange}
+                value={priceRange}
+              />
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+SettingsFilterPanel.propTypes = {
+  className: PropTypes.string,
+  filterData: PropTypes.shape({
+    collections: PropTypes.array,
+    metalType: PropTypes.array,
+    shapes: PropTypes.array,
+    priceRange: PropTypes.array,
+    totalCount: PropTypes.number
+  }),
+  isLabGrown: PropTypes.bool.isRequired,
+  setIsLabGrown: PropTypes.func.isRequired,
+  totalSettings: PropTypes.number.isRequired,
+  applyFilters: PropTypes.func.isRequired,
+  sortOrder: PropTypes.string.isRequired,
+  onSortOrderChange: PropTypes.func.isRequired,
+  itemsPerPage: PropTypes.number.isRequired,
+  onItemsPerPageChange: PropTypes.func.isRequired,
+  activeFilters: PropTypes.object.isRequired,
+  resetFilters: PropTypes.func.isRequired,
+  saveFilters: PropTypes.func.isRequired
+};
+
+export default SettingsFilterPanel;

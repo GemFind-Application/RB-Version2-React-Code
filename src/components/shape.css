@@ -1,0 +1,32 @@
+.child {
+  height: 35px;
+  width: 35px;
+  position: relative;
+  object-fit: contain;
+}
+.div45 {
+  border-radius: var(--br-base);
+  background-color: var(--beige-02);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-mini-5) var(--padding-sm);
+}
+.round1 {
+  position: relative;
+  display: inline-block;
+  min-width: 44px;
+}
+.shape2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px var(--padding-11xs);
+  gap: var(--gap-9xs);
+  text-align: center;
+  font-size: var(--body-14-reg-size);
+  color: var(--black);
+  font-family: var(--body-14-reg);
+}

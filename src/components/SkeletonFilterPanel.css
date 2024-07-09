@@ -1,0 +1,46 @@
+.SettingsFilterPanel.skeleton .skeleton-box {
+    background: #e0e0e0;
+    border-radius: 4px;
+    height: 20px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .SettingsFilterPanel.skeleton .skeleton-line {
+    background: #e0e0e0;
+    border-radius: 4px;
+    height: 20px;
+    width: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .SettingsFilterPanel.skeleton .mined-lab-wrapper .mined2.skeleton-box,
+  .SettingsFilterPanel.skeleton .mined-lab-wrapper .lab-growned2.skeleton-box {
+    height: 30px;
+    width: 100px;
+    margin-bottom: 0;
+  }
+  
+  .SettingsFilterPanel.skeleton .skeleton-line {
+    height: 15px;
+    width: 80px;
+  }
+  
+  .SettingsFilterPanel.skeleton .search7.skeleton-box {
+    height: 30px;
+    width: 100%;
+  }
+  
+  .SettingsFilterPanel.skeleton .search-input.skeleton-box {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+  }
+  
+  .SettingsFilterPanel.skeleton .button30.skeleton-box,
+  .SettingsFilterPanel.skeleton .button31.skeleton-box {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+  }
+  

@@ -1,0 +1,32 @@
+.setting-product-list {
+  align-self: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  /* align-items: flex-start; */
+  justify-content: flex-start;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  gap: 24px 22.7px;
+  margin: 30px;
+}
+.settings {
+  width: 100%;
+  position: relative;
+  background-color: var(--white);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+@media(min-width: 768px) and (max-width: 1080px) {
+
+  .setting-product-list {
+    margin: 15px;
+  }
+}
+/* SKELTON */

@@ -1,0 +1,114 @@
+.image-10-icon2 {
+  position: absolute;
+  top: calc(50% - 211.8px);
+  left: calc(50% - 230px);
+  width: 460px;
+  height: 422px;
+  object-fit: contain;
+}
+.image11 {
+  align-self: stretch;
+  height: 581px;
+  position: relative;
+  border-radius: var(--br-xs);
+  background-color: var(--beige-00);
+}
+.gallery-items-child {
+  width: 2.5px;
+  height: 5px;
+  position: relative;
+  object-fit: contain;
+}
+.gallery-items {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-37xl) 0px 0px;
+}
+.image-icon {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  border-radius: var(--br-5xs);
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+  min-width: 101px;
+  min-height: 117px;
+}
+.gallery-items-item {
+  width: 2.5px;
+  height: 5px;
+  position: relative;
+}
+.image-gallery1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-base);
+}
+.note1 {
+  position: relative;
+  display: inline-block;
+  min-width: 38px;
+}
+.all-metal-color1 {
+  position: relative;
+  color: var(--grey);
+}
+.div62 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--gap-9xs);
+}
+.note-content1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.div61 {
+  align-self: stretch;
+  border-radius: var(--br-base);
+  background-color: var(--beige-01);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-base);
+}
+.image-parent {
+  width: 710px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xl);
+  min-width: 710px;
+  max-width: 100%;
+  text-align: center;
+  font-size: var(--body-14-reg-size);
+  color: var(--black);
+  font-family: var(--body-14-reg);
+}
+
+@media screen and (max-width: 1575px) {
+  .image-parent {
+    flex: 1;
+  }
+}
+@media screen and (max-width: 1275px) {
+  .image-gallery1 {
+    flex-wrap: wrap;
+  }
+
+  .image-parent {
+    min-width: 100%;
+  }
+}

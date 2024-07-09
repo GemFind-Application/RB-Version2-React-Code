@@ -1,0 +1,165 @@
+.setting-details3 {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  font-size: var(--h4-size);
+  line-height: 120%;
+  font-weight: 700;
+  font-family: inherit;
+}
+.setting-number1 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 108px;
+}
+.f1619-33-14kw-21 {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 121px;
+}
+.setting-row {
+  flex: 1;
+  border-radius: var(--br-base);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+  min-width: 94px;
+}
+.price8 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 38px;
+}
+.a14 {
+  text-decoration: none;
+  position: relative;
+  font-weight: 700;
+  color: var(--black);
+  display: inline-block;
+  min-width: 35px;
+  white-space: nowrap;
+}
+.metal-type1 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 77px;
+}
+.white-gold1 {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 75px;
+}
+.stats6 {
+  align-self: stretch;
+  border-top: 1px solid var(--divider);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xl) var(--padding-3xl) 0px 0px;
+  gap: var(--gap-5xl);
+  text-align: center;
+  color: var(--grey);
+  font-family: var(--body-14-reg);
+}
+.side-diamond-details {
+  align-self: stretch;
+  position: relative;
+  line-height: 17px;
+}
+.number-of-diamonds {
+  position: relative;
+  font-weight: 500;
+}
+.number-separator {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 7px;
+}
+.number-row {
+  border-radius: var(--br-base);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.cut4 {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 29px;
+}
+.round2 {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 44px;
+}
+.carat-separator {
+  position: relative;
+  display: inline-block;
+  color: var(--black);
+  min-width: 49px;
+}
+.carat-row {
+  flex: 1;
+  border-radius: var(--br-base);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+  min-width: 124px;
+}
+.stats7 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0px var(--padding-10xs) 0px 0px;
+  gap: 24px 23.5px;
+  text-align: center;
+  color: var(--grey);
+  font-family: var(--body-14-reg);
+}
+.side {
+  align-self: stretch;
+  border-top: 1px solid var(--divider);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xl) 0px 0px;
+  gap: var(--gap-5xl);
+}
+.top10 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xl);
+  text-align: left;
+  font-size: var(--body-14-reg-size);
+  color: var(--black);
+  font-family: var(--h4);
+}
+
+@media screen and (max-width: 1275px) {
+  .setting-details3 {
+    font-size: var(--buttom-size);
+    line-height: 19px;
+  }
+}
