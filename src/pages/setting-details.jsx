@@ -329,13 +329,12 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
                           </div>
                         </div> */}
                         <div className="filter-opened6">
-                        {/* <div className="select-ring-size">Select Ring Size</div> */}
+                          <div className="select-ring-size">Select Ring Size</div>
                           <select
                             className="no-appearance select--outline"
                             value={selectedRingSize}
                             onChange={(e) => setSelectedRingSize(e.target.value)}
                           >
-                            <option value="" disabled className="selected-ring">Select Ring Size</option>
                             {product.ringSize && product.ringSize.map((size, index) => (
                               <option
                                 key={index}
