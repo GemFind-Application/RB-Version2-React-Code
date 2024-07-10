@@ -907,10 +907,10 @@ img.round-icon-caret {
   border-radius: var(--br-base);
   overflow: hidden;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
-  padding: 0px 361px 0px 0px;
+  /* padding: 0px 361px 0px 0px; */
   gap: var(--gap-5xs);
 }
 .select-ring-size {

@@ -138,3 +138,36 @@
   cursor: pointer;
   accent-color: #8e6962;
 }
+
+/* Validation errors css styles */
+.error {
+  border: 1px solid #b00;
+}
+
+.error::placeholder {
+  color: #b00;
+}
+
+/* For older browsers */
+.error:-ms-input-placeholder {
+  color: #b00;
+}
+
+.error::-ms-input-placeholder {
+  color: #b00;
+}
+
+.error-message {
+  color: #b00;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+/* Style for radio buttons in error state */
+.error-radio {
+  color: #b00;
+}
+
+input.error, textarea.error {
+  border: 1px solid #b00;
+}

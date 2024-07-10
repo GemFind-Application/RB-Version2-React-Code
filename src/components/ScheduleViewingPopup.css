@@ -135,3 +135,34 @@
   font-weight: 600;
   color: #ffffff;
 }
+
+/* VALIDATION CSS STYLES */
+.error {
+  border: 1px solid rgb(175, 0, 0);;
+}
+
+.error::placeholder {
+  color: rgb(175, 0, 0);;
+}
+
+.error:-ms-input-placeholder {
+  color: rgb(175, 0, 0);;
+}
+
+.error::-ms-input-placeholder {
+  color: rgb(175, 0, 0);;
+}
+
+.error-message {
+  color: rgb(175, 0, 0);
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+.error-radio {
+  color: rgb(175, 0, 0);
+}
+
+.error:focus {
+  outline: 1px solid rgb(175, 0, 0);
+}
