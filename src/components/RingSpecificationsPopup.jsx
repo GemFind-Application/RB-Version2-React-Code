@@ -1,6 +1,6 @@
 import React from 'react';
 import "./ringspecs.css"
-
+import ShowCostInCard from './showCostInCard';
 const RingSpecificationsPopup = ({ product, onClose }) => {
   return (
     <div className="popup-overlay ring-specs-popup">
@@ -10,7 +10,7 @@ const RingSpecificationsPopup = ({ product, onClose }) => {
         <div className="setting-details">
           <div className="settings_info flex">
             <p>Setting Number: <b>{product.styleNumber}</b></p>
-            <p>Price: <b>{product.currencySymbol}{product.cost}</b></p>
+            <p>Price: <b><ShowCostInCard settingDetailForCost={product}></ShowCostInCard></b></p>
             <p>Metal Type: <b>{product.metalType}</b></p>
           </div>
           <hr className='hr' />
@@ -25,10 +25,33 @@ const RingSpecificationsPopup = ({ product, onClose }) => {
               </div>
             </div>
           )}
+           {product.sideDiamondDetail1 && (
+             product.sideDiamondDetail1.map((item,index) => {
+            return <div className="side-diamond-details" key={index}>
+              <h3>Side Diamond Details</h3>
+              <div className="diamonds_info flex">
+                <p>Number of Diamonds {index+1}: <b>{item.noOfDiamonds}</b></p>
+                <p>Cut {index+1}: <b>{item.diamondCut}</b></p>
+                <p>Minimum Carat Weight (ct.tw.) {index+1}: <b>{item.minimumCaratWeight}</b></p>
+              </div>
+            </div>
+             })
+          )}
         </div>
         <hr className='hr' />
         <div className="can-be-set-with">
           <h3>Can be set with:</h3>
+          {product.centerStoneFit && 
+           product.centerStoneFit.split(",").map((item,index) => {
+            return (    
+            <>   
+              <div className="diamonds_info flex" key={index}>
+                <p>{item}  -  </p>
+                <p>&nbsp; </p>
+                <p> {product.centerStoneMinCarat} - {product.centerStoneMaxCarat} </p>              
+              </div>
+            </>)
+          })}  
           {/* Diamond shape icons */}
         </div>
       </div>

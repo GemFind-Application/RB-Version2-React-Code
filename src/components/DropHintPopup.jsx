@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./hint.css"
 
-const DropHintPopup = ({ onClose }) => {
+const DropHintPopup = ({ onClose,settingId,isLabSetting }) => {
   const [formData, setFormData] = useState({
     yourName: '',
     yourEmail: '',
@@ -18,11 +18,33 @@ const DropHintPopup = ({ onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newErrors = validateForm(formData);
     // Form submission here
     console.log(formData);
     onClose();
   };
-
+  const validateForm = (data) => {
+    const errors = {};
+    console.log(data)
+    if (!data.yourName.trim()) {
+        errors.yourName = 'Name is required';
+    }
+    if (!data.yourEmail.trim()) {
+        errors.yourEmail = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(data.yourEmail)) {
+        errors.yourEmail = 'Email is invalid';
+    }
+    if (!data.recipientEmail.trim()) {
+      errors.recipientEmail = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(data.recipientEmail)) {
+      errors.recipientEmail = 'Email is invalid';
+    }    
+    if (!data.recipientName.trim()) {
+      errors.recipientName = 'RecipientName is required';    
+    }
+    console.log(errors);   
+    return errors;
+};
   return (
     <div className="popup-overlay drop-hint-popup">
       <div className="popup-content">
@@ -32,16 +54,27 @@ const DropHintPopup = ({ onClose }) => {
         <hr className="hr" />
         <form onSubmit={handleSubmit}>
           <div className="input-group form-group">
-            <input type="text" name="name" placeholder="Your Name" onChange={handleInputChange} required />
-            <input type="email" name="email" placeholder="Your Email" onChange={handleInputChange} required />
+            <input type="text" name="yourEmail" placeholder="Your Name" onChange={handleInputChange} required />
+            {errors.yourName && <span className="error-message"> {errors.yourName}</span> }
+            <input type="email" name="yourEmail" placeholder="Your Email" onChange={handleInputChange} required />
+            {errors.yourEmail && <span className="error-message"> {errors.yourEmail}</span> }
           </div>
           <div className="input-group form-group">
             <input type="text" name="recipientName" placeholder="Hint Recipient Name" onChange={handleInputChange} required />
+            {errors.recipientName && <span className="error-message"> {errors.recipientName}</span> }
             <input type="email" name="recipientEmail" placeholder="Hint Recipient Email" onChange={handleInputChange} required />
+            {errors.recipientEmail && <span className="error-message"> {errors.recipientEmail}</span> }
           </div>
           <div className="form-group flex-col">
             <input type="text" name="reason" placeholder="Reason for this gift" onChange={handleInputChange} required />
+            {errors.reason && <span className="error-message"> {errors.reason}</span> }
             <textarea name="message" placeholder="Your Message" onChange={handleInputChange} rows={6} required></textarea>
+          </div>
+          <div>
+            <input type="text" value="settingid" name="shopurl"> </input>
+            <input type="text" value={isLabSetting} name="islabsettings"> </input> 
+            <input type="text" value={settingId} name="settingid"> </input>
+            <input type="text" value="settingid" name="ringurl"> </input>
           </div>
           <div className="gift-deadline">
             <label>Gift deadline:</label>

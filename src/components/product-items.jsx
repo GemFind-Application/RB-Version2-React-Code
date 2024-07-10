@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import "./product-items.css";
 import { Link } from "react-router-dom";
-
+import ShowCostInCard from "./showCostInCard";
 const VideoPopup = ({ videoURL, onClose }) => (
   <div className="video-popup-overlay" onClick={onClose}>
     <div className="video-popup-content" onClick={(e) => e.stopPropagation()}>
@@ -89,7 +89,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick }) =
             onMouseEnter={handleImageHover}
             onMouseLeave={handleImageLeave}
           >
-            {product.videoURL ? (
+            {/*product.videoURL ? (
               <video 
                 ref={videoRef}
                 className="image-9-icon15" 
@@ -101,13 +101,14 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick }) =
               >
                 Your browser does not support the video tag.
               </video>
-            ) : (
-              <img className="image-9-icon15" alt={product.name} src={product.imageUrl} />
-            )}
+            </video>
+            ) : (*/
+            <img className="image-9-icon15" alt={product.name} src={product.imageUrl} />
+            /* )*/}
           </div>
           <div className="product-footer">
             {product.showPrice && (
-              <b className="b38">{product.currencySymbol}{product.cost}</b>
+              <b className="b38"> <ShowCostInCard settingDetailForCost={product}></ShowCostInCard> </b>
             )}
             <button className="virtual-try-on1">Virtual Try On</button>
           </div>
@@ -134,7 +135,6 @@ ProductItems.propTypes = {
     showPrice: PropTypes.bool.isRequired
   }).isRequired,
   className: PropTypes.string,
-  onClick: PropTypes.func.isRequired
 };
 
 export default ProductItems;

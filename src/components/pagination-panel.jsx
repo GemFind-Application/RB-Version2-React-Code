@@ -103,6 +103,7 @@ const PaginationPanel = ({
           <div className="results2">Results</div>
           <b className="total-results">{`${startItem}-${endItem} of ${totalItems} `}</b>
         </div>
+        {totalItems>0&& 
         <div className="pages1">
           <div 
             className="page-number-icons-wrapper"
@@ -118,6 +119,7 @@ const PaginationPanel = ({
             <img className="instance-item" alt="Next" src="/vector-2-12.svg" />
           </div>
         </div>
+        }
       </div>
       <Footer/>
     </div>

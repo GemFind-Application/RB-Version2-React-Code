@@ -8,7 +8,8 @@ import PaginationPanel from "../components/pagination-panel";
 import Header from '../components/Header';
 import { BASE_URL, DEALER_ID } from '../components/api';
 import "./settings.css";
-
+import { settingService } from '../Services';
+import Footer from "../components/Footer"
 const SkeletonProductItem = () => (
   <div className="product-item-skeleton">
     <div className="skeleton-image"></div>
@@ -17,30 +18,44 @@ const SkeletonProductItem = () => (
   </div>
 );
 
-const Settings = () => {
+const Settings = ({settingNavigationData}) => {
   const [isLabGrown, setIsLabGrown] = useState(false); // Default to Mined
   const [filterData, setFilterData] = useState(null);
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
-  const [sortOrder, setSortOrder] = useState('Low to High');
+  const [sortOrder, setSortOrder] = useState('High to Low');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeFilters, setActiveFilters] = useState({
+  /*const [activeFilters, setActiveFilters] = useState({
     collections: [],
     metalType: [],
     shapes: [],
     price: [0, 29678.00],
     search: ''
+  });*/
+  const [isProductLoaded, setIsProductLoaded] = useState(false); 
+  //const [settingNavigation,setSettingNavigation] = useState(settingNavigationData);
+  const [navigation, setNavigation] = useState("") ;
+  const [isSettingFilterLoaded, setIsSettingFilterLoaded] = useState(false);
+  const [isserachIsClicked, setIsSerachIsClicked] = useState(false) ;
+  let storedData = JSON.parse(localStorage.getItem('activeFilters')); 
+  const [activeFilters, setActiveFilters] = useState({
+    collections: storedData ? storedData.collections.length > 0 ? storedData.collections:[]:[],
+    metalType: storedData ? storedData.metalType.length > 0 ?storedData.metalType:[]:[],
+    shapes: storedData ? storedData.shapes.length > 0 ?storedData.shapes:[]:[],
+    price:storedData ?   storedData.price.length > 0 ? storedData.price :[0, 29678.00]:[0, 29678.00],
+    search: storedData ?storedData.search!="" ? storedData.search :'':''
   });
+  //const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
   const navigate = useNavigate();
 
   const fetchProducts = async (page, pageSize, isLab, sort, filters) => {
     setLoading(true);
     setError(null);
     try {
-      let url = `${BASE_URL}/GetMountingList?DealerID=${DEALER_ID}&PageNumber=${page}&PageSize=${pageSize}&IsLabSettingsAvailable=${isLab ? 1 : 0}`;
+      /*let url = `${BASE_URL}/GetMountingList?DealerID=${DEALER_ID}&PageNumber=${page}&PageSize=${pageSize}&IsLabSettingsAvailable=${isLab ? 1 : 0}`;
 
       // Add sorting
       url += `&OrderBy=${sort === 'Low to High' ? 'cost+asc' : sort === 'High to Low' ? 'cost+desc' : 'newest'}`;
@@ -72,10 +87,36 @@ const Settings = () => {
       setError("Failed to fetch products. Please try again later.");
     } finally {
       setLoading(false);
+    }*/
+      let option = {
+        pageNumber:page,    
+        pageSize:pageSize,
+        searchSetting:filters.search,
+        orderBy:sort === 'Low to High' ? 'cost+asc' : sort === 'High to Low' ? 'cost+desc' : 'newest',       
+        priceMin:filters.price[0],
+        priceMax:filters.price[1],
+        shape:filters.shapes.join(','),
+        metalType:filters.metalType.join(','),
+        style:filters.collections.join(','),
+        IsLabSettingsAvailable:isLab ? 1 : 0
+    }
+      const data = await settingService.getAllSettings(option); 
+      if(data.mountingList) {
+        setProducts(data.mountingList);
+        setTotalProducts(data.count);
+        setIsProductLoaded(true)
+      }
+      
+
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setError("Failed to fetch products. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const fetchFilterData = async (isLab) => {
+  /*const fetchFilterData = async (isLab) => {
     try {
       const url = `${BASE_URL}/GetFilters?DealerID=${DEALER_ID}&IsLabSettingsAvailable=${isLab ? 1 : 0}`;
       const response = await fetch(url);
@@ -88,10 +129,30 @@ const Settings = () => {
       console.error("Error fetching filter data:", error);
       setError("Failed to fetch filter data. Please try again later.");
     }
+  };*/
+  const fetchFilterData = async (isLab,filters) => {
+    try {
+      let option = {         
+        //shape:filters.shapes.join(','),
+        //metalType:filters.metalType.join(','),
+        //style:filters.collections.join(','),
+        IsLabSettingsAvailable:isLab ? 1 : 0
+      }
+      const res = await settingService.getSettingFilters(option);  
+      if(res && res.length>0)     {
+        setFilterData(res[1][0]); 
+        setIsSettingFilterLoaded(true);
+       // setSettingNavigation(settingNavigationData)
+      }   
+    }
+    catch (error) {
+      console.error("Error fetching filter data:", error);
+      setError("Failed to fetch filter data. Please try again later.");
+    }
   };
-
+ 
   useEffect(() => {
-    fetchFilterData(isLabGrown).then(() => fetchProducts(currentPage, itemsPerPage, isLabGrown, sortOrder, activeFilters));
+    fetchFilterData(isLabGrown,activeFilters).then(() => fetchProducts(currentPage, itemsPerPage, isLabGrown, sortOrder, activeFilters));
   }, [isLabGrown, currentPage, itemsPerPage, sortOrder, activeFilters]);
 
   const handlePageChange = (pageNumber) => {
@@ -118,7 +179,7 @@ const Settings = () => {
     setCurrentPage(1);
   };
 
-  const handleProductClick = async (settingId) => {
+  /*const handleProductClick = async (settingId) => {
     try {
       const response = await fetch(`${BASE_URL}/GetMountingDetail?DealerId=${DEALER_ID}&SID=${settingId}`);
       if (!response.ok) {
@@ -130,8 +191,17 @@ const Settings = () => {
       console.error("Error fetching product details:", error);
       setError("Failed to fetch product details. Please try again later.");
     }
-  };
-
+  };*/
+  const searchSetting = event => { 
+    if(event.target.value === ""){
+      setIsSerachIsClicked(!isserachIsClicked);
+      applyFilters({ ...activeFilters, search: event.target.value });
+    }
+    if(event.key==="Enter"){
+      setIsSerachIsClicked(!isserachIsClicked);
+      applyFilters({ ...activeFilters, search: event.target.value });
+    }    
+  }; 
   const resetFilters = () => {
     setActiveFilters({
       collections: [],
@@ -140,6 +210,7 @@ const Settings = () => {
       price: [0, 29678.00],
       search: ''
     });
+    localStorage.removeItem('activeFilters');
     setCurrentPage(1);
   };
 
@@ -151,7 +222,7 @@ const Settings = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
+//console.log(settingNavigation)
   return (
     <div className="settings">
       <Header />
@@ -171,27 +242,29 @@ const Settings = () => {
             activeFilters={activeFilters}
             resetFilters={resetFilters}
             saveFilters={saveFilters}
+            settingNavigation={settingNavigationData}
+            searchSetting={searchSetting} 
           />
         ) : (
           <SkeletonFilterPanel />
         )}
       </div>
       <div className="setting-product-list">
-        {loading ? (
-          Array(itemsPerPage).fill().map((_, index) => (
-            <SkeletonProductItem key={index} />
-          ))
-        ) : (
-          products.map(product => (
+        {!loading && isProductLoaded ? (
+           products.length===0 ? <div>No Settings Found</div> : 
+           products.map(product => (
             <ProductItems 
               key={product.settingId} 
               product={{
                 ...product,
-                showPrice: true, 
                 videoURL: product.videoURL || null,
               }}
-              onClick={() => handleProductClick(product.settingId)}
             />
+          ))
+        
+        ) : (
+          Array(itemsPerPage).fill().map((_, index) => (
+            <SkeletonProductItem key={index} />
           ))
         )}
       </div>

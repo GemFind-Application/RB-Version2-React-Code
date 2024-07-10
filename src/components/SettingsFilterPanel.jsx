@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 import { Search, ChevronDown, BookmarkMinus, RotateCcw, X } from 'lucide-react';
 import './SettingsFilterPanel.css';
 import MultiRangeSlider from './MultiRangeSlider';
-
-const FilterOption = ({ label, icon, isActive, onClick }) => (
-  <div className={`filter-option ${isActive ? 'active' : ''}`} onClick={onClick}>
+import { debounce } from "lodash";
+const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive}) => (
+  <>
+ {!isActive&&isCollectionisActive && isCollectionisActive==0 ?
+  <div className={`filter-option`}>
     {isActive && <X size={10} />}
     {icon && <img src={icon} alt={label} className="filter-option-icon" />}
     <span>{label}</span>
   </div>
+  :
+  <div    className={`filter-option ${isActive ? 'active' : ''}`}      onClick={onClick}>
+      {isActive && <X size={10} />}
+      {icon && <img src={icon} alt={label} className="filter-option-icon" />}
+      <span>{label}</span>
+    </div>
+    }
+    </>
 );
 
 const SettingsFilterPanel = ({ 
@@ -25,26 +35,35 @@ const SettingsFilterPanel = ({
   onItemsPerPageChange,
   activeFilters,
   resetFilters,
-  saveFilters
+  saveFilters,
+  settingNavigation,
+  searchSetting  
+
 }) => {
   const [openFilter, setOpenFilter] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(activeFilters.search || '');
+  const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
   const [priceRange, setPriceRange] = useState(activeFilters.price || [0, 29678.00]);
-
+  const [availableFilter, setAvailableFilter] = useState([]); 
   useEffect(() => {
     setPriceRange(activeFilters.price || [0, 29678.00]);
-  }, [activeFilters]);
-
+    let filterAvailable = [];
+    filterData.collections.length>0 && filterAvailable.push('collections');  
+    filterData.metalType.length>0 && filterAvailable.push('metalType');  
+    filterData.shapes.length>0 && filterAvailable.push('shapes');
+    setSearchQuery(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
+    setAvailableFilter(filterAvailable)
+   
+  }, []);
   const toggleFilter = (filter) => {
     setOpenFilter(openFilter === filter ? null : filter);
   };
-
+ 
   const toggleFilterOption = (filter, option) => {
     applyFilters({
       ...activeFilters,
       [filter]: activeFilters[filter].includes(option)
         ? activeFilters[filter].filter(item => item !== option)
-        : [...activeFilters[filter], option]
+        : [ option]
     });
   };
 
@@ -59,29 +78,34 @@ const SettingsFilterPanel = ({
   const handleLabGrownToggle = (value) => {
     setIsLabGrown(value);
   };
-
+ // const debounced = React.useCallback(debounce(handlePriceChange, 1500), []);
+  //console.log(settingNavigation)
   return (
     <div className={`SettingsFilterPanel ${className}`}>
       <div className="settingsfilter-wrapper">
         <div className="mined-lab-wrapper">
+        {settingNavigation.navStandard && 
           <div className={`mined-settings ${!isLabGrown ? 'active' : ''}`} 
               onClick={() => handleLabGrownToggle(false)}>
             <div 
               className={`mined2`}
             >
-              Mined
+              {settingNavigation.navStandard}
             </div>
             <div className="separator"><b className="i22">i</b></div>
           </div>
+           }
+           {settingNavigation.navLabGrown && 
           <div className={`lab-settings ${isLabGrown ? 'active' : ''}`} 
               onClick={() => handleLabGrownToggle(true)}>
             <div 
               className={`lab-growned2`} 
             >
-              Lab Grown
+             {settingNavigation.navLabGrown}
             </div>
             <div className="separator"><b className="i22">i</b></div>
           </div>
+          }
         </div>
       </div>
       <div className="list-header">
@@ -114,7 +138,7 @@ const SettingsFilterPanel = ({
                 <div className="filters-label">Filters:</div>
               </div>
               <div className="filter-container">
-                {['collections', 'metalType', 'shapes'].map((filter) => (
+                {availableFilter.map((filter) => (
                   <div key={filter} className="filter-dropdown">
                     <button
                       className={`filter-button ${openFilter === filter ? 'active' : ''}`}
@@ -158,9 +182,10 @@ const SettingsFilterPanel = ({
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
+                onKeyDown={searchSetting}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
-                  applyFilters({ ...activeFilters, search: e.target.value });
+                 // applyFilters({ ...activeFilters, search: e.target.value });
                 }}
                 className="search7"
               />
@@ -177,9 +202,10 @@ const SettingsFilterPanel = ({
               icon={collection.collectionImage}
               isActive={activeFilters.collections.includes(collection.collectionName)}
               onClick={() => toggleFilterOption('collections', collection.collectionName)}
+              isCollectionisActive={collection.isActive}
             />
           ))}
-          {openFilter === 'metalType' && filterData.metalType && filterData.metalType.map(metal => (
+          {openFilter === 'metalType' && filterData.metalType && filterData.metalType.length>0 && filterData.metalType.map(metal => (
             <FilterOption
               key={metal.metalType}
               label={metal.metalType}

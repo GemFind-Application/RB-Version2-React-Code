@@ -17,8 +17,11 @@ import "react-loading-skeleton/dist/skeleton.css";
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import "./setting-page.css";
-
-const SettingPage = () => {
+import ShowCostInCard from "../components/showCostInCard";
+import SocialIcon from "../components/SocialIcon";
+import Footer from "../components/Footer"
+import { settingService } from '../Services';
+const SettingPage = ({formSetting,settingNavigationData}) => {
   const { settingId } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
@@ -27,6 +30,7 @@ const SettingPage = () => {
   const [isRingSpecsOpen, setIsRingSpecsOpen] = useState(false);
   const [isDropHintOpen, setIsDropHintOpen] = useState(false);
   const [isScheduleViewingOpen, setIsScheduleViewingOpen] = useState(false);
+  const [isEmailAFriendOpen, setIsEmailAFriendOpen] = useState(false);
   const [isRequestInfoOpen, setIsRequestInfoOpen] = useState(false);
   const [selectedMetalType, setSelectedMetalType] = useState("");
   const [selectedSideStoneQuality, setSelectedSideStoneQuality] = useState("");
@@ -34,12 +38,16 @@ const SettingPage = () => {
   const [selectedRingSize, setSelectedRingSize] = useState("");
   const [selectedDiamondType, setSelectedDiamondType] = useState("");
   const [reviews, setReviews] = useState([]);
-
+  const [settingNavigation,setSettingNavigation] = useState(settingNavigationData);
+  const [navigation, setNavigation] = useState("") ;
+  const [loading, setLoading] = useState(true);
+  //const [socialIconSetting,setSocialIconSetting] = useState(socialIconSettingData);
+  const [selectedDiamondShape, setSelectedDiamondShape] = useState("");
   useEffect(() => {
     fetchProductDetails(settingId);
   }, [settingId]);
 
-  const fetchProductDetails = async (id) => {
+  /*const fetchProductDetails = async (id) => {
     try {
       const response = await fetch(`${BASE_URL}/GetMountingDetail?DealerId=${DEALER_ID}&SID=${id}`);
       if (!response.ok) throw new Error('Failed to fetch product details');
@@ -50,6 +58,22 @@ const SettingPage = () => {
       setSelectedRingSize(data.ringSize && data.ringSize.length > 0 ? data.ringSize[0] : "");
       setSelectedDiamondType(data.isLabSetting ? 'Lab Grown' : 'Mined');
       setReviews(data.reviews || []);
+    } catch (error) {
+      console.error("Error fetching product details:", error);
+    }
+  };*/
+  const fetchProductDetails = async (id) => {
+    try {
+      const res = await settingService.getSettingDetail(settingId); 
+      setProduct(res);
+      let selectedSetting= res.configurableProduct.filter(item=>item.gfInventoryId ==settingId );      
+      const allDiamondShape = res.configurableProduct?[...new Set(res.configurableProduct.map(item => item.diamondShape))] : []; 
+      setSelectedMetalType(res.metalType || ""); 
+      setSelectedCenterStoneSize(selectedSetting[0].centerStoneSize || "");
+      setSelectedDiamondShape(allDiamondShape[0])
+      setSelectedRingSize('');
+      setSelectedDiamondType(res.isLabSetting ? 'Lab Grown' : 'Mined');
+      setReviews(res.reviews || []);
     } catch (error) {
       console.error("Error fetching product details:", error);
     }
@@ -78,9 +102,14 @@ const SettingPage = () => {
   const uniqueMetalTypes = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.metalType))] : [];
   const uniqueSideStoneQualities = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.sideStoneQuality).filter(Boolean))] : [];
   const uniqueCenterStoneSizes = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.centerStoneSize))] : [];
-
+  const uniqueDiamondShape = product.configurableProduct?[...new Set(product.configurableProduct.map(item => item.diamondShape))] : [];
+   
   const images = [];
   if (product.extraImage && product.extraImage.length > 0) {
+    images.push({
+      original: product.mainImageURL,
+      thumbnail: product.mainImageURL,
+    });
     images.push(...product.extraImage.map((image) => ({
       original: image,
       thumbnail: image,
@@ -131,6 +160,7 @@ const SettingPage = () => {
                       </div>
                     </div>
                   </div>
+                  {formSetting.internalUseLink&&
                   <div className="link1">
                     <div className="dealer__info">
                       <span>{`Internal Use Only: `}</span>
@@ -142,6 +172,7 @@ const SettingPage = () => {
                       </div>
                     </div>
                   </div>
+                  }
                 </div>
               </div>
               <div className="product-info-container-wrapper">
@@ -153,7 +184,7 @@ const SettingPage = () => {
                         <h1 className="product--title">{product.settingName}</h1>
                         <div className="product-specs">
                           <div className="spec-items">
-                            <b className="spec-labels12">{product.currencySymbol} {product.cost}</b>
+                            <b className="spec-labels12"><ShowCostInCard settingDetailForCost={product}></ShowCostInCard></b>
                           </div>
                           <div className="spec-items1">
                             <div className="spec-items-child" />
@@ -267,6 +298,22 @@ const SettingPage = () => {
                             </div>
                           </div>
                         )}
+                        {uniqueDiamondShape.length > 0 && (
+                          <div className="filter-opened4">
+                            <div className="select-side-stone">Select Diamond Shape</div>
+                            <div className="stone-quality">
+                              {uniqueDiamondShape.map((shape, index) => (
+                                <div
+                                  key={index}
+                                  className={`range10 ${selectedDiamondShape === shape ? 'active' : ''}`}
+                                  onClick={() => setSelectedDiamondShape(quality)}
+                                >
+                                  <div className="txt10">{shape}</div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                         <div className="filter-opened6">
                           <div className="select-ring-size">Select Ring Size</div>
                           <div className="from-to4">
@@ -281,23 +328,53 @@ const SettingPage = () => {
                             ))}
                           </div>
                         </div>
+                        {(settingNavigation && (settingNavigation.navStandard || settingNavigation.navLabGrown)   ) && (
                         <div className="filter-opened7">
                           <div className="select-side-stone">Select Diamond Type</div>
                           <div className="diamond-type-filter">
+                          {product.isLabSetting==1 ? (
+                            <>
+                            {settingNavigation.navLabGrown && 
+                            <button
+                              className={`range66 ${selectedDiamondType === 'Lab Grown' ? 'active' : ''}`}
+                              onClick={() => setSelectedDiamondType('Lab Grown')}
+                            >
+                              <div className="txt66">{settingNavigation.navLabGrown}</div>
+                            </button>
+                            }
+                            {settingNavigation.navStandard &&
+                            <button
+                              className={`range67 ${selectedDiamondType === 'Mined' ? 'active' : ''}`}
+                              onClick={() => setSelectedDiamondType('Mined')}
+                            >
+                              <div className="txt67">{settingNavigation.navStandard}</div>
+                            </button>
+                            }
+                            </>
+                          ):(
+                            <>  
+                            {settingNavigation.navStandard &&                          
                             <button
                               className={`range66 ${selectedDiamondType === 'Mined' ? 'active' : ''}`}
                               onClick={() => setSelectedDiamondType('Mined')}
                             >
-                              <div className="txt66">Mined</div>
+                              <div className="txt66">{settingNavigation.navStandard}</div>
                             </button>
+                            }
+                            {settingNavigation.navLabGrown &&
                             <button
                               className={`range67 ${selectedDiamondType === 'Lab Grown' ? 'active' : ''}`}
                               onClick={() => setSelectedDiamondType('Lab Grown')}
                             >
-                              <div className="txt67">Lab Grown</div>
+                              <div className="txt67">{settingNavigation.navLabGrown}</div>
                             </button>
+                            }
+                            </>
+                          )
+                        }
                           </div>
                         </div>
+                        )}
                       </div>
                     </form>
                     <div className="actions1">
@@ -307,35 +384,20 @@ const SettingPage = () => {
                           <b className="select-485">Select - {product.currencySymbol}{product.cost}</b>
                         </button> */}
                         <button type="submit" className="submitring_product">
-                          <b className="select-485">Select - {product.currencySymbol}{product.cost}</b>
+                          <b className="select-485">Select - <ShowCostInCard settingDetailForCost={product}></ShowCostInCard></b>
                         </button>
                         <button className="button-fav1">
                           <img className="heart-icon1" alt="" src="/heart.svg" />
                           <b className="add-to-favorites1">Add to Favorites</b>
                         </button>
                       </div>
-                      <div className="share2">
-                        <button className="button15">
-                          <img className="social-icons1" alt="" src="/vector-32.svg" />
-                          <b className="save2">Save</b>
-                        </button>
-                        <button className="button16">
-                          <img className="vector-icon12" alt="" src="/vector-41.svg" />
-                          <b className="post1">Post</b>
-                        </button>
-                        <button className="button15">
-                          <img className="vector-icon13" alt="" src="/vector-51.svg" />
-                          <b className="share3">Share</b>
-                        </button>
-                        <button className="button16">
-                          <img className="vector-icon14" alt="" src="/vector-6.svg" />
-                          <b className="like1">Like</b>
-                        </button>
-                      </div>
+                      
+                      <SocialIcon socialIconSetting={formSetting}></SocialIcon>
                     </div>
                   </div>
                   <Stats
-                    openRingSpecs={() => setIsRingSpecsOpen(true)}
+                    formSetting={formSetting}
+                    emailAFriend={() => setIsEmailAFriendOpen(true)}
                     openDropHint={() => setIsDropHintOpen(true)}
                     openScheduleViewing={() => setIsScheduleViewingOpen(true)}
                     openRequestInfo={() => setIsRequestInfoOpen(true)}
@@ -388,7 +450,10 @@ const SettingPage = () => {
           overlayColor="rgba(0, 0, 0, 0.3)"
           onOutsideClick={() => setIsDropHintOpen(false)}
         >
-          <DropHintPopup onClose={() => setIsDropHintOpen(false)} />
+          <DropHintPopup  
+           settingId={product.settingId}
+           isLabSetting={product.isLabSetting}
+           onClose={() => setIsDropHintOpen(false)} />
         </PortalPopup>
       )}
       {isScheduleViewingOpen && (

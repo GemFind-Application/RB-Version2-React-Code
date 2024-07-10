@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import {
   Routes,
   Route,
@@ -15,8 +15,14 @@ import DiamondTable from "./pages/diamond-table";
 import Diamond from "./pages/diamond";
 import Settings from "./pages/settings";
 import SettingDetails from "./pages/setting-details"; 
-
+import { appService } from './Services';
+import { settingService } from './Services';
 function App() {
+  const [ socialIconSetting,setSocialIconSetting] = useState([]);
+  const [ isSocialIconSetting,setIsSocialIconSetting] = useState(false);
+  const [settingNavigation,setSettingNavigation] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isSettingNavLoaded, setIsSettingNavLoaded] = useState(false);
   const action = useNavigationType();
   const location = useLocation();
   const pathname = location.pathname;
@@ -26,7 +32,36 @@ function App() {
       window.scrollTo(0, 0);
     }
   }, [action, pathname]);
-
+  useEffect(() => {
+    async function fetchAppSetting(){
+      try {
+        const res = await appService.getAdditionalOption();  
+        if(res[0]) {
+          setSocialIconSetting(res[0][0]);
+          setIsSocialIconSetting(true);
+        }       
+      } catch (err) {        
+      }
+    }
+    fetchAppSetting();
+  },[])
+  useEffect(() => {   
+    async function fetchSettingNavigation(){
+      try {
+        const res = await settingService.getSettingNavigation();  
+        console.log(res); 
+        if(res[0]) {
+          setSettingNavigation(res[0]);
+          setIsSettingNavLoaded(true);
+          setLoading(true);
+        }       
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setError("Failed to fetch products. Please try again later.");
+      } 
+    }
+    fetchSettingNavigation();
+  },[])
   useEffect(() => {
     let title = "";
     let metaDescription = "";
@@ -89,9 +124,12 @@ function App() {
   }, [pathname]);
 
   return (
+    <div>
+    {loading &&
     <Routes>
-      <Route path="/" element={<Settings />} />
-      <Route path="/setting-details/:settingId" element={<SettingDetails />} /> 
+    <Route path="/" element={<Settings settingNavigationData={settingNavigation}/>} />
+      <Route path="/settings" element={<Settings settingNavigationData={settingNavigation}/>} />      
+      <Route path="/setting-details/:settingId" element={<SettingDetails formSetting={socialIconSetting} settingNavigationData={settingNavigation}/>} />
       <Route path="/compare" element={<Compare />} />
       <Route path="/diamond" element={<Diamond />} />
       <Route path="/diamond-details" element={<DiamondPage />} />
@@ -101,6 +139,8 @@ function App() {
       {/* <Route path="/request-sent" element={<RequestSent />} /> */}
       {/* <Route path="/hint-sent" element={<HintSent />} /> */}
     </Routes>
+    }
+    </div>
   );
 }
 export default App;
