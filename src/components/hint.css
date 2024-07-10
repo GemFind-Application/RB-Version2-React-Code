@@ -99,3 +99,28 @@
   width: 36px;
   padding: 0px;
 }
+
+/* FORM ERRORS */
+.drop-hint-popup .error {
+  border: 1px solid red;
+}
+
+.drop-hint-popup .error::placeholder {
+  color: red;
+}
+
+.drop-hint-popup .error:-ms-input-placeholder {
+  color: red;
+}
+
+.drop-hint-popup .error::-ms-input-placeholder {
+  color: red;
+}
+
+.drop-hint-popup input[type="date"].error::-webkit-datetime-edit {
+  color: red;
+}
+
+.drop-hint-popup input[type="date"].error::-moz-placeholder {
+  color: red;
+}
