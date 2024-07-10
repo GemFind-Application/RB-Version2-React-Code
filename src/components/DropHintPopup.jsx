@@ -11,7 +11,7 @@ const DropHintPopup = ({ onClose,settingId,isLabSetting }) => {
     message: '',
     giftDeadline: ''
   });
-
+  const errors = {};
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -71,10 +71,7 @@ const DropHintPopup = ({ onClose,settingId,isLabSetting }) => {
             <textarea name="message" placeholder="Your Message" onChange={handleInputChange} rows={6} required></textarea>
           </div>
           <div>
-            <input type="text" value="settingid" name="shopurl"> </input>
-            <input type="text" value={isLabSetting} name="islabsettings"> </input> 
-            <input type="text" value={settingId} name="settingid"> </input>
-            <input type="text" value="settingid" name="ringurl"> </input>
+           
           </div>
           <div className="gift-deadline">
             <label>Gift deadline:</label>
