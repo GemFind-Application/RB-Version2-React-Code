@@ -567,6 +567,8 @@ img.round-icon-caret {
   min-width: 57px;
 }
 .filter-opened3 {
+  max-width: 100%;
+  width: 100%;
   align-self: stretch;
   display: flex;
   flex-direction: row;
@@ -789,7 +791,8 @@ img.round-icon-caret {
   gap: var(--gap-5xs);
 }
 .filter-opened4 {
-  width: 713px;
+  max-width: 713px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
