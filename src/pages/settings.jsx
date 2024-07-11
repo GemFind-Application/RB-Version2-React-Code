@@ -18,8 +18,8 @@ const SkeletonProductItem = () => (
   </div>
 );
 
-const Settings = ({settingNavigationData}) => {
-  const [isLabGrown, setIsLabGrown] = useState(false); // Default to Mined
+const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
+ 
   const [filterData, setFilterData] = useState(null);
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -244,6 +244,7 @@ const Settings = ({settingNavigationData}) => {
             saveFilters={saveFilters}
             settingNavigation={settingNavigationData}
             searchSetting={searchSetting} 
+           
           />
         ) : (
           <SkeletonFilterPanel />

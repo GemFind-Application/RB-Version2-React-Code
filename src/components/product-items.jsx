@@ -75,7 +75,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick }) =
             productid={product.settingId}
             onClick={handleVideoIconClick}
           >
-            {product.videoURL && <img className="video-icon3" alt="" src="/video.svg" />}
+            {(product.videoURL&&product.videoURL!="") && <img className="video-icon3" alt="" src="/video.svg" />}
           </div>
           <div className="ring-items__item-wishlist" productid={product.settingId}>
             <img className="heart-icon" alt="" src="/heart1.svg" />
@@ -113,7 +113,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick }) =
             <button className="virtual-try-on1">Virtual Try On</button>
           </div>
           <div className="btn__outer">
-            <Link to={`/setting-details/${product.settingId}`}>View Details</Link>
+            <Link to={`/setting-details/${product.priceSettingId}`}>View Details</Link>
           </div>
         </div>
       </div>

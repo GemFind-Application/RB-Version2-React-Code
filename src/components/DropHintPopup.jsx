@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./hint.css"
-
-const DropHintPopup = ({ onClose, settingId, isLabSetting }) => {
+import { settingService } from '../Services';
+const DropHintPopup = ({ onClose, settingId, isLabSetting ,ringurl,shopurl}) => {
   const [formData, setFormData] = useState({
     yourName: '',
     yourEmail: '',
@@ -9,7 +9,11 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting }) => {
     recipientEmail: '',
     reason: '',
     message: '',
-    giftDeadline: ''
+    giftDeadline: '',
+    settingId:settingId,
+    isLabSetting:isLabSetting,
+    ringurl:ringurl,
+    shopurl:shopurl
   });
 
   const [errors, setErrors] = useState({});
@@ -62,12 +66,20 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (validateForm()) {
       // Form submission here
-      console.log(formData);
-      onClose();
+      console.log(JSON.stringify(formData));
+      let stringToPass = "";
+      Object.keys(formData).forEach(function (key) {
+       console.log(key)
+       stringToPass += key+"="+(formData[key])+"&";
+    });
+      console.log(stringToPass)
+      const res = await settingService.dropAHint(stringToPass); 
+      
+      //onClose();
     }
   };
 
@@ -79,6 +91,10 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting }) => {
         <button className="close-button" onClick={onClose}>×</button>
         <hr className="hr" />
         <form onSubmit={handleSubmit}>
+          <div>
+          <input name="ringurl" type="hidden" value=""/>
+          <input name="shopurl" type="hidden" value=""/>
+          </div>
           <div className="input-group form-group">
             <input 
               type="text" 
@@ -132,7 +148,7 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting }) => {
               rows={6} 
               className={errors.message ? 'error' : ''}
             ></textarea>
-          </div>
+          </div>          
           <div className="gift-deadline">
             <label>Gift deadline:</label> {errors.giftDeadline && <span className="error-message">{errors.giftDeadline}</span>}
             <div className="input-group form-group flex-50">

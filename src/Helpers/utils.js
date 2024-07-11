@@ -4,5 +4,8 @@ function kFormatter(num) {
     : Math.sign(num) * Math.abs(num);
 }
 
-const utils = { kFormatter };
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
+const utils = { kFormatter,numberWithCommas };
 export { utils };

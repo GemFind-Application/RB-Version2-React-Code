@@ -37,6 +37,20 @@ function dropAHint(data){
   //  data
   //);
 }
+function scheduleViewing(data){
+  console.log(data);
+ // return fetchWrapper.put(
+  //  `${baseUrl}/ringbuilder/settings/resultscheview}/`,
+  //  data
+  //);
+}
+function requestMoreInfo(data){
+  console.log(data);
+ // return fetchWrapper.put(
+  //  `${baseUrl}/ringbuilder/settings/resultreqinfo}/`,
+  //  data
+  //);
+}
 function getQueryParam(option){
   //console.log(option)
   let filterString = "";

@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams,useLocation } from "react-router-dom";
 import DealerInfo from "../components/dealer-info";
 import PortalPopup from "../components/portal-popup";
 import SettingDetails1 from "../components/setting-details1";
@@ -21,9 +21,13 @@ import ShowCostInCard from "../components/showCostInCard";
 import SocialIcon from "../components/SocialIcon";
 import Footer from "../components/Footer"
 import { settingService } from '../Services';
-const SettingPage = ({ formSetting, settingNavigationData }) => {
+const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => {
+  console.log(isLabGrown)
   const { settingId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  //const history = useHistory();
+  console.log(location.pathname)
   const [product, setProduct] = useState(null);
   const [isDealerInfoOpen, setIsDealerInfoOpen] = useState(false);
   const [isSettingDetailsOpen, setSettingDetailsOpen] = useState(false);
@@ -36,16 +40,22 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
   const [selectedSideStoneQuality, setSelectedSideStoneQuality] = useState("");
   const [selectedCenterStoneSize, setSelectedCenterStoneSize] = useState("");
   const [selectedRingSize, setSelectedRingSize] = useState("");
-  const [selectedDiamondType, setSelectedDiamondType] = useState("");
+  const [selectedDiamondType, setSelectedDiamondType] = useState(isLabGrown ?'Mined':'Lab Grown');
   const [reviews, setReviews] = useState([]);
   const [settingNavigation, setSettingNavigation] = useState(settingNavigationData);
   const [navigation, setNavigation] = useState("");
   const [loading, setLoading] = useState(true);
+  const [uniqueCenterStoneSizes, setUniqueCenterStoneSizes] = useState(true);
   //const [socialIconSetting,setSocialIconSetting] = useState(socialIconSettingData);
   const [selectedDiamondShape, setSelectedDiamondShape] = useState("");
+  const [settingIdToShow, setSettingIdToShow] = useState(settingId);
+  const [configurableProduct,setConfigurableProduct]= useState([]);
+  const [selectedParam,setSelectedParam]= useState('');
+
+  //const [selectedRingSize,setSelectedRingSize]= useState('');
   useEffect(() => {
-    fetchProductDetails(settingId);
-  }, [settingId]);
+    fetchProductDetails(settingIdToShow);
+  }, [settingIdToShow]);
 
   /*const fetchProductDetails = async (id) => {
     try {
@@ -62,23 +72,73 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
       console.error("Error fetching product details:", error);
     }
   };*/
-  const fetchProductDetails = async (id) => {
+  const fetchProductDetails = async (settingId) => {
     try {
-      const res = await settingService.getSettingDetail(settingId);
-      setProduct(res);
-      let selectedSetting = res.configurableProduct.filter(item => item.gfInventoryId == settingId);
-      const allDiamondShape = res.configurableProduct ? [...new Set(res.configurableProduct.map(item => item.diamondShape))] : [];
-      setSelectedMetalType(res.metalType || "");
-      setSelectedCenterStoneSize(selectedSetting[0].centerStoneSize || "");
-      setSelectedDiamondShape(allDiamondShape[0])
-      setSelectedRingSize('');
-      setSelectedDiamondType(res.isLabSetting ? 'Lab Grown' : 'Mined');
-      setReviews(res.reviews || []);
+      const res = await settingService.getSettingDetail(settingId); 
+      if(res) {
+        navigate("/setting-details/"+settingId)
+        setProduct(res);
+        setConfigurableProduct(res.configurableProduct);
+        let selectedSetting= res.configurableProduct.filter(item=>item.gfInventoryId ==settingId );      
+        const allDiamondShape = res.configurableProduct?[...new Set(res.configurableProduct.map(item => item.diamondShape))] : []; 
+        setSelectedMetalType(res.metalType || ""); 
+        setSelectedCenterStoneSize(selectedSetting[0].centerStoneSize || "");
+        if(selectedParam == 'centerStoneSize'){
+          setSelectedDiamondShape(allDiamondShape[0])
+        }else{
+          setSelectedDiamondShape(selectedSetting[0]['diamondShape'])
+        }        
+        setSelectedRingSize('');
+        setSelectedDiamondType(res.isLabSetting ? 'Lab Grown' : 'Mined');
+        let newfilterForCenterStone = res.configurableProduct.filter(item=>item.metalType == res.metalType);    
+        let sortedarray = newfilterForCenterStone.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
+        const uniqueCenterStoneSizesArray = [...new Set(sortedarray.map(item => item.centerStoneSize))] ;
+        setUniqueCenterStoneSizes(uniqueCenterStoneSizesArray);
+      }
+     
     } catch (error) {
       console.error("Error fetching product details:", error);
     }
   };
+  const selectByMetalType = async (metalValue) => { 
+    var selectedMetalType= configurableProduct.filter(item=> item.metalType ==metalValue );
+    let sortedarray = selectedMetalType.sort((a, b) => a.centerStoneSize - b.centerStoneSize);   
+    setSelectedParam('metalType');
+    if(sortedarray.length>0){
+      setSettingIdToShow(sortedarray[0].gfInventoryId);
+    }    
+  }
+  const selectByCenterStoneSize = async (size) => {
+    setSelectedParam('centerStoneSize')
+    const selectedCenterStoneSizeProduct= configurableProduct.filter(item=> item.metalType ==selectedMetalType &&  item.centerStoneSize == size  );
+    if(selectedCenterStoneSizeProduct.length>0){
+      setSettingIdToShow(selectedCenterStoneSizeProduct[0].gfInventoryId);
+    }         
+  }
+  const selectByDiamondShape = async (shape) => {
+    var selectedShapeProduct= configurableProduct.filter(item=> item.metalType ==selectedMetalType &&  item.diamondShape ===  shape );
+    let sortedarray = selectedShapeProduct.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
+    setSelectedParam('diamondShape');
+    setSettingIdToShow(sortedarray[0].gfInventoryId)
+    }
+    const selectRingSetting = async ()=>{
+    if(selectedRingSize===""){
+      alert("Please select ring size.")
+    }else{
+      localStorage.setItem('selectedRing', JSON.stringify({settingId:settingIdToShow,ringSize:selectedRingSize}));
+      const selectedDiamondId = JSON.parse(localStorage.getItem('selectedDiamondId'));
+      if(selectedDiamondId){
+        navigate("/diamondtools/completering/");
+      }else{
+        if(selectedDiamondType!='Mined'){
+         // $navigate = '/diamondtools/diamondtype/navlabgrown'; 
+        }else{
+          navigate('/diamondtools'); 
+        }
+      }
 
+    }
+  }
   const onBreadContainerClick = useCallback(() => {
     navigate("/");
   }, [navigate]);
@@ -101,9 +161,9 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
 
   const uniqueMetalTypes = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.metalType))] : [];
   const uniqueSideStoneQualities = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.sideStoneQuality).filter(Boolean))] : [];
-  const uniqueCenterStoneSizes = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.centerStoneSize))] : [];
-  const uniqueDiamondShape = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.diamondShape))] : [];
-
+  //const uniqueCenterStoneSizes = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.centerStoneSize))] : [];
+  const uniqueDiamondShape = product.configurableProduct?[...new Set(product.configurableProduct.map(item => item.diamondShape))] : [];
+ 
   const images = [];
   if (product.extraImage && product.extraImage.length > 0) {
     images.push({
@@ -185,10 +245,11 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
                         <div className="product-specs">
                           <div className="spec-items">
                             <b className="spec-labels12"><ShowCostInCard settingDetailForCost={product}></ShowCostInCard></b>
-                          </div>
+                          </div>                        
                           <div className="spec-items1">
                             <div className="spec-items-child" />
                           </div>
+                           {/*
                           <div className="shipping-header">
                             <div className="ships-by">Ships by:</div>
                           </div>
@@ -197,7 +258,7 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
                           </div>
                           <div className="spec-items1">
                             <div className="spec-items-child" />
-                          </div>
+                          </div>*/}
                           <div className="ships2" onClick={() => setIsRingSpecsOpen(true)}>
                             <div className="shipping-header">
                               <div className="ring-specifications">Ring Specifications</div>
@@ -230,30 +291,17 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
                           ringSize: selectedRingSize,
                           diamondType: selectedDiamondType
                         });
-                      }}>
+                      }}>                      
                       <div className="setting-filters-data">
+                        {uniqueMetalTypes.length > 0 &&
                         <div className="filter-opened2">
-                          <div className="select-metal-type">Select Metal Type</div>
-                          {/* <div className="filter-opened3">
-                            {uniqueMetalTypes.map((metal, index) => (
-                              <div
-                                key={index}
-                                className={`metal-type ${selectedMetalType === metal ? 'active' : ''}`}
-                                onClick={() => setSelectedMetalType(metal)}
-                              >
-                                <div className="div40">
-                                  <div style={{ backgroundColor: metal.toLowerCase().includes('white') ? 'silver' : metal.toLowerCase().includes('yellow') ? 'gold' : metal.toLowerCase().includes('rose') ? 'rosegold' : 'gray', width: 20, height: 20, borderRadius: '50%' }} />
-                                </div>
-                                <b className="white">{metal}</b>
-                              </div>
-                            ))}
-                          </div> */}
+                          <div className="select-metal-type">Select Metal Type</div>                         
                           <div className="filter-opened3">
                             {uniqueMetalTypes.map((metal, index) => (
                               <div
                                 key={index}
                                 className={`metal-type ${selectedMetalType === metal ? 'active' : ''}`}
-                                onClick={() => setSelectedMetalType(metal)}
+                                onClick={() => selectByMetalType(metal)}
                               >
                                 <div className={`metal-icon ${metal.toLowerCase()} `}>
                                   <div className="ring"></div>
@@ -264,8 +312,8 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
                               </div>
                             ))}
                           </div>
-
                         </div>
+                        }
                         {uniqueSideStoneQualities.length > 0 && (
                           <div className="filter-opened4">
                             <div className="select-side-stone">Select Side Stone Quality</div>
@@ -290,7 +338,7 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
                                 <button
                                   key={index}
                                   className={`range20 ${selectedCenterStoneSize === size ? 'active' : ''}`}
-                                  onClick={() => setSelectedCenterStoneSize(size)}
+                                  onClick={() => selectByCenterStoneSize(size)}
                                 >
                                   <div className="txt20">{size}</div>
                                 </button>
@@ -306,7 +354,7 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
                                 <div
                                   key={index}
                                   className={`range10 ${selectedDiamondShape === shape ? 'active' : ''}`}
-                                  onClick={() => setSelectedDiamondShape(quality)}
+                                  onClick={() => selectByDiamondShape(shape)}
                                 >
                                   <div className="txt10">{shape}</div>
                                 </div>
@@ -318,13 +366,13 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
                           <div className="select-ring-size">Select Ring Size</div>
                           <div className="from-to4">
                             {product.ringSize && product.ringSize.map((size, index) => (
-                              <div
+                              <option
                                 key={index}
+                                value={size}
                                 className={`range25 ${selectedRingSize === size ? 'active' : ''}`}
-                                onClick={() => setSelectedRingSize(size)}
                               >
-                                <div className="txt25">{size}</div>
-                              </div>
+                                {size}
+                              </option>
                             ))}
                           </div>
                         </div> */}
@@ -401,7 +449,7 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
                         {/* <button type="submit" className="submitring_product" onClick={onButtonClick}>
                           <b className="select-485">Select - {product.currencySymbol}{product.cost}</b>
                         </button> */}
-                        <button type="submit" className="submitring_product">
+                        <button type="button" className="submitring_product" onClick={selectRingSetting} >
                           <b className="select-485">Select - <ShowCostInCard settingDetailForCost={product}></ShowCostInCard></b>
                         </button>
                         <button className="button-fav1">
@@ -424,20 +472,16 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
               </div>
             </div>
           </section>
-          <section className="reviews">
+          {/*<section className="reviews">
             <Top1 totalReviews={reviews.length} />
             <div className="reviews1">
               {reviews.map((review, index) => (
                 <Review key={index} review={review} productName={product.settingName} />
               ))}
             </div>
-          </section>
+          </section>*/}
         </main>
-        <div className="pagination4">
-          <div className="select-side-stone">
-            © 2024 GemFind App Store Powered by GemFind.
-          </div>
-        </div>
+        <Footer></Footer>
       </div>
       {isDealerInfoOpen && (
         <PortalPopup
@@ -470,6 +514,8 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
         >
           <DropHintPopup
             settingId={product.settingId}
+            ringUrl={window.location.hostname+"/setting-details/"+settingId}
+            shopurl={shopUrl}
             isLabSetting={product.isLabSetting}
             onClose={() => setIsDropHintOpen(false)} />
         </PortalPopup>
@@ -480,6 +526,10 @@ const SettingPage = ({ formSetting, settingNavigationData }) => {
           onOutsideClick={() => setIsScheduleViewingOpen(false)}
         >
           <ScheduleViewingPopup
+            settingId={product.settingId}
+            ringUrl={window.location.hostname+"/setting-details/"+settingId}
+            shopurl={shopUrl}
+            isLabSetting={product.isLabSetting}
             onClose={() => setIsScheduleViewingOpen(false)}
             locations={product.addressList ? product.addressList.map(address => address.locationName) : []}
           />

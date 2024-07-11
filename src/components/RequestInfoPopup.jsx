@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import "./requestinfo.css";
-
-const RequestInfoPopup = ({ onClose }) => {
+import { settingService } from '../Services';
+const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl}) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phoneNumber: '',
     message: '',
-    preference: ''
+    preference: '',
+    settingId:settingId,
+    isLabSetting:isLabSetting,
+    ringurl:ringurl,
+    shopurl:shopurl
   });
 
   const [errors, setErrors] = useState({});
@@ -57,11 +61,17 @@ const RequestInfoPopup = ({ onClose }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Handle form submission here
-      console.log(formData);
+      console.log(JSON.stringify(formData));
+      let stringToPass = "";
+      Object.keys(formData).forEach(function (key) {
+       console.log(key)
+       stringToPass += key+"="+(formData[key])+"&";
+    });
+      console.log(stringToPass)
+      const res = await settingService.requestMoreInfo(stringToPass); 
       onClose();
     }
   };

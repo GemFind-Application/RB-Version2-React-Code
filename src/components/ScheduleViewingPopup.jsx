@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import "./ScheduleViewingPopup.css";
-
-const RequestInfoPopup = ({ onClose }) => {
+import { settingService } from '../Services';
+const RequestInfoPopup = ({ onClose,locations,settingId,isLabSetting,ringurl,shopurl }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phoneNumber: '',
     message: '',
-    preference: ''
+    preference: '',
+    settingId:settingId,
+    isLabSetting:isLabSetting,
+    ringurl:ringurl,
+    shopurl:shopurl
   });
 
   const [errors, setErrors] = useState({});
@@ -56,11 +60,18 @@ const RequestInfoPopup = ({ onClose }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (validateForm()) {
       // Handle form submission here
+      let stringToPass = "";
+      Object.keys(formData).forEach(function (key) {
+        console.log(key)
+        stringToPass += key+"="+(formData[key])+"&";
+     });
+
       console.log(formData);
+      const res = await settingService.scheduleViewing(stringToPass); 
       onClose();
     }
   };

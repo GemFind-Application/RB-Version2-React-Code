@@ -11,7 +11,7 @@ const Stats = ({
 }) => {
   return (
     <div className="stats9">
-      {formSetting.drop_A_Hint &&
+      {!formSetting.drop_A_Hint &&
       <div className="stat-items" onClick={openDropHint}>
         <img
           className="fi-8429504-icon"
@@ -25,7 +25,7 @@ const Stats = ({
         </div>
       </div>
       }
-      {formSetting.scheduleViewing &&
+      {!formSetting.scheduleViewing &&
       <div className="stat-items1" onClick={openScheduleViewing}>
         <img
           className="fi-8429504-icon"
@@ -38,7 +38,7 @@ const Stats = ({
         </div>
       </div>
       }
-      {formSetting.email_A_Friend &&
+      {!formSetting.email_A_Friend &&
       <div className="stat-items2" onClick={emailAFriend}>
         <img
           className="fi-8429504-icon"
@@ -51,7 +51,7 @@ const Stats = ({
         </div>
       </div>
       }
-      {formSetting.markup_Your_Own_Inventory &&
+      {!formSetting.markup_Your_Own_Inventory &&
       <div className="stat-items3" onClick={openRequestInfo}>
         <img
           className="fi-8429504-icon"

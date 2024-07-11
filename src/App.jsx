@@ -23,10 +23,11 @@ function App() {
   const [settingNavigation,setSettingNavigation] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isSettingNavLoaded, setIsSettingNavLoaded] = useState(false);
+   const [isLabGrown, setIsLabGrown] = useState(false); // Default to Mined
   const action = useNavigationType();
   const location = useLocation();
   const pathname = location.pathname;
-
+  const [shopUrl,setShopUrl]=useState(`${import.meta.env.VITE_SHOP_URL}`);
   useEffect(() => {
     if (action !== "POP") {
       window.scrollTo(0, 0);
@@ -127,11 +128,11 @@ function App() {
     <div>
     {loading &&
     <Routes>
-    <Route path="/" element={<Settings settingNavigationData={settingNavigation}/>} />
-      <Route path="/settings" element={<Settings settingNavigationData={settingNavigation}/>} />      
-      <Route path="/setting-details/:settingId" element={<SettingDetails formSetting={socialIconSetting} settingNavigationData={settingNavigation}/>} />
+      <Route path="/" element={<Settings shopUrl={shopUrl} settingNavigationData={settingNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown} />} />
+      <Route path="/settings" element={<Settings shopUrl={shopUrl} settingNavigationData={settingNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown}/>} />      
+      <Route path="/setting-details/:settingId" element={<SettingDetails shopUrl={shopUrl} formSetting={socialIconSetting} isLabGrown={isLabGrown} settingNavigationData={settingNavigation}/>} />
       <Route path="/compare" element={<Compare />} />
-      <Route path="/diamond" element={<Diamond />} />
+      <Route path="/diamondtools" element={<Diamond />} />
       <Route path="/diamond-details" element={<DiamondPage />} />
       <Route path="/diamond-table" element={<DiamondTable />} />
       <Route path="/complete" element={<Complete />} />
