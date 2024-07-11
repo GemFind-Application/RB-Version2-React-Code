@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import "./ScheduleViewingPopup.css";
 import { settingService } from '../Services';
-const RequestInfoPopup = ({ onClose,locations,settingId,isLabSetting,ringurl,shopurl }) => {
+
+const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phoneNumber: '',
     message: '',
-    preference: '',
-    settingId:settingId,
-    isLabSetting:isLabSetting,
-    ringurl:ringurl,
-    shopurl:shopurl
+    preference: null,
+    location: '',
+    settingId: settingId,
+    isLabSetting: isLabSetting,
+    ringurl: ringurl,
+    shopurl: shopurl
   });
 
   const [errors, setErrors] = useState({});
@@ -24,54 +28,39 @@ const RequestInfoPopup = ({ onClose,locations,settingId,isLabSetting,ringurl,sho
     }
   };
 
+  const handleDateChange = (date) => {
+    setFormData({ ...formData, preference: date });
+    if (errors.preference) {
+      setErrors({ ...errors, preference: '' });
+    }
+  };
+
   const validateForm = () => {
     let newErrors = {};
 
-    // Name validation
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-
-    // Email validation
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-
-    // Phone number validation
-    if (!formData.phoneNumber.trim()) {
-      newErrors.phoneNumber = 'Phone number is required';
-    } else if (!/^\d{10}$/.test(formData.phoneNumber.replace(/\D/g, ''))) {
-      newErrors.phoneNumber = 'Phone number is invalid';
-    }
-
-    // Message validation
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    }
-
-    // Preference validation
-    if (!formData.preference) {
-      newErrors.preference = 'Please select a contact preference';
-    }
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
+    if (!formData.phoneNumber.trim()) newErrors.phoneNumber = 'Phone number is required';
+    else if (!/^\d{10}$/.test(formData.phoneNumber.replace(/\D/g, ''))) newErrors.phoneNumber = 'Phone number is invalid';
+    if (!formData.message.trim()) newErrors.message = 'Message is required';
+    if (!formData.preference) newErrors.preference = 'Please select a date';
+    if (!formData.location) newErrors.location = 'Please select a location';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Handle form submission here
       let stringToPass = "";
       Object.keys(formData).forEach(function (key) {
-        console.log(key)
-        stringToPass += key+"="+(formData[key])+"&";
-     });
+        stringToPass += key + "=" + (formData[key] instanceof Date ? formData[key].toISOString() : formData[key]) + "&";
+      });
 
       console.log(formData);
-      const res = await settingService.scheduleViewing(stringToPass); 
+      // const res = await settingService.scheduleViewing(stringToPass); 
       onClose();
     }
   };
@@ -121,35 +110,43 @@ const RequestInfoPopup = ({ onClose,locations,settingId,isLabSetting,ringurl,sho
             ></textarea>
           </div>
           <div className="request_infocta">
+            <div className="select_location">
+                <div className="flex-col">
+                  <div className="preference_val">
+                    <select
+                      name="location"
+                      value={formData.location}
+                      onChange={handleInputChange}
+                      className={errors.location ? 'error' : 'no-appearance select--outline'}
+                      placeholder='Select Location'
+                    >
+                      <option value="">Select a location</option>
+                      {locations.map((location, index) => (
+                        <option key={index} value={location}>{location}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                {errors.location && <span className="error-message">{errors.location}</span>}
+              </div>
             <div className="flex flex-cta">
               <div className="availability">
-                <label>Contact Preference</label>
+                <label>When are you available?</label>
                 <div className="preferences">
                   <div className="preference_val">
-                    <input 
-                      id="preference-phone" 
-                      value="By Phone" 
-                      type="radio" 
-                      name="preference" 
-                      checked={formData.preference === "By Phone"}
-                      onChange={handleInputChange} 
+                    <DatePicker 
+                      selected={formData.preference}
+                      onChange={handleDateChange}
+                      placeholderText="00.00.0000"
+                      className={errors.preference ? 'error' : ''}
+                      dateFormat="dd.MM.yyyy"
+                      minDate={new Date()}
                     />
-                    <label htmlFor="preference-phone">By Phone</label>
-                  </div>
-                  <div className="preference_val">
-                    <input 
-                      id="preference-email" 
-                      value="By Email" 
-                      type="radio" 
-                      name="preference" 
-                      checked={formData.preference === "By Email"}
-                      onChange={handleInputChange} 
-                    />
-                    <label htmlFor="preference-email">By Email</label>
                   </div>
                 </div>
                 {errors.preference && <span className="error-message">{errors.preference}</span>}
               </div>
+              
               <button type="submit" className="submit-button">Request</button>
             </div>
           </div>

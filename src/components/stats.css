@@ -16,6 +16,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   padding: var(--padding-6xs-5) 0px 0px;
+  cursor: pointer;
 }
 .stat-items {
   width: 300px;

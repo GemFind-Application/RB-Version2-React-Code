@@ -11,6 +11,7 @@ import RingSpecificationsPopup from "../components/RingSpecificationsPopup";
 import DropHintPopup from "../components/DropHintPopup";
 import ScheduleViewingPopup from "../components/ScheduleViewingPopup";
 import RequestInfoPopup from "../components/RequestInfoPopup";
+import EmailFriendPopup from "../components/EmailFriendPopup";
 import { BASE_URL, DEALER_ID } from '../components/api';
 import Skeleton from 'react-loading-skeleton';
 import "react-loading-skeleton/dist/skeleton.css";
@@ -541,6 +542,14 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
           onOutsideClick={() => setIsRequestInfoOpen(false)}
         >
           <RequestInfoPopup onClose={() => setIsRequestInfoOpen(false)} />
+        </PortalPopup>
+      )}
+      {isEmailAFriendOpen && (
+        <PortalPopup
+          overlayColor="rgba(0, 0, 0, 0.3)"
+          onOutsideClick={() => setIsEmailAFriendOpen(false)}
+        >
+          <EmailFriendPopup onClose={() => setIsEmailAFriendOpen(false)} />
         </PortalPopup>
       )}
     </>

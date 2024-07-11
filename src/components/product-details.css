@@ -590,6 +590,7 @@
   position: relative;
   display: inline-block;
   min-width: 95px;
+  cursor: pointer;
 }
 .engagement-action-icons2 {
   width: 300px;

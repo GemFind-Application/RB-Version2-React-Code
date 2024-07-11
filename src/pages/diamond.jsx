@@ -24,13 +24,13 @@ const Diamond = () => {
       <FrameComponent2 />
       <div className="list2">
         <Items />
-        <Items propLeft="546px" propTop="24px" />
-        <Items propLeft="972px" propTop="24px" />
-        <Items propLeft="1398px" propTop="24px" />
-        <Items propLeft="120px" propTop="504px" />
-        <Items propLeft="546px" propTop="504px" />
-        <Items propLeft="972px" propTop="504px" />
-        <Items propLeft="1398px" propTop="504px" />
+        <Items  />
+        <Items />
+        <Items  />
+        <Items />
+        <Items />
+        <Items />
+        <Items />
       </div>
       <PaginationPanel 
        currentPage={currentPage}

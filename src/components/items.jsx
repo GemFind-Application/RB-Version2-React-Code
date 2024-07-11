@@ -3,16 +3,10 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./items.css";
 
-const Items = ({ className = "", propLeft, propTop }) => {
-  const itemsStyle = useMemo(() => {
-    return {
-      left: propLeft,
-      top: propTop,
-    };
-  }, [propLeft, propTop]);
+const Items = ({ className = "" }) => {
 
   return (
-    <div className={`items ${className}`} style={itemsStyle}>
+    <div className={`items ${className}`}>
       <div className="product-card">
         <div className="product-info1">
           <div className="product-name">
@@ -48,9 +42,6 @@ const Items = ({ className = "", propLeft, propTop }) => {
 Items.propTypes = {
   className: PropTypes.string,
 
-  /** Style props */
-  propLeft: PropTypes.any,
-  propTop: PropTypes.any,
 };
 
 export default Items;

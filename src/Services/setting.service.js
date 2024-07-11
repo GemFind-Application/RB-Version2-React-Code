@@ -9,7 +9,8 @@ export const settingService = {
   getAllSettings,
   getSettingNavigation,
   getSettingDetail,
-  dropAHint
+  dropAHint,
+  friendsEmail,
 };
 
 function getSettingFilters(option) {
@@ -31,6 +32,13 @@ function getSettingNavigation(){
 }
 
 function dropAHint(data){
+  console.log(data);
+ // return fetchWrapper.put(
+  //  `${baseUrl}/ringbuilder/settings/resultdrophint}/`,
+  //  data
+  //);
+}
+function friendsEmail(data){
   console.log(data);
  // return fetchWrapper.put(
   //  `${baseUrl}/ringbuilder/settings/resultdrophint}/`,

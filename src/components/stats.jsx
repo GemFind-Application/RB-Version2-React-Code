@@ -38,7 +38,7 @@ const Stats = ({
         </div>
       </div>
       }
-      {!formSetting.email_A_Friend &&
+      {!formSetting.emailAFriend &&
       <div className="stat-items2" onClick={emailAFriend}>
         <img
           className="fi-8429504-icon"

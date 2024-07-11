@@ -14,6 +14,7 @@ const ProductDetails = ({ className = "" }) => {
   const [isHintOpen, setHintOpen] = useState(false);
   const [isScheduleOpen, setScheduleOpen] = useState(false);
   const [isRequestInfoOpen, setRequestInfoOpen] = useState(false);
+  const [isemailAFriendOpen, setemailAFriendOpen] = useState(false);
 
   const openSettingDetails = useCallback(() => {
     setSettingDetailsOpen(true);
@@ -45,6 +46,14 @@ const ProductDetails = ({ className = "" }) => {
 
   const closeSchedule = useCallback(() => {
     setScheduleOpen(false);
+  }, []);
+
+  const emailAFriend = useCallback(() => {
+    setRequestInfoOpen(true);
+  }, []);
+
+  const closeemailAFriend = useCallback(() => {
+    setRequestInfoOpen(false);
   }, []);
 
   const openRequestInfo = useCallback(() => {
@@ -287,6 +296,15 @@ const ProductDetails = ({ className = "" }) => {
           onOutsideClick={closeRequestInfo}
         >
           <RequestInfo onClose={closeRequestInfo} />
+        </PortalPopup>
+      )}
+      {isemailAFriendOpen && (
+        <PortalPopup
+          overlayColor="rgba(113, 113, 113, 0.3)"
+          placement="Centered"
+          onOutsideClick={closeemailAFriend}
+        >
+          <RequestInfo onClose={closeemailAFriend} />
         </PortalPopup>
       )}
     </>

@@ -115,7 +115,7 @@
   flex: 1;
 }
 
-.availability_container button {
+button.submit-button {
   cursor: pointer;
   border: none;
   padding: var(--padding-mini) var(--padding-xl);
@@ -134,6 +134,15 @@
   font-size: 14px;
   font-weight: 600;
   color: #ffffff;
+  border-radius: 50px;
+}
+
+.select_location {
+  margin-bottom: 20px;
+}
+
+.flex-cta .request_infocta .availability label {
+  margin-bottom: 0 ;
 }
 
 /* VALIDATION CSS STYLES */
@@ -164,5 +173,17 @@
 }
 
 .error:focus {
+  outline: 1px solid rgb(175, 0, 0);
+}
+
+.preference_val .react-datepicker-wrapper {
+  width: 100%;
+}
+
+.preference_val .react-datepicker__input-container input {
+  width: 100%;
+  border-radius: 50px;
+}
+.preference_val .react-datepicker__input-container input.error {
   outline: 1px solid rgb(175, 0, 0);
 }
