@@ -14,7 +14,8 @@ import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
 import { BASE_URL, DEALER_ID } from '../components/api';
 import Skeleton from 'react-loading-skeleton';
-import "react-loading-skeleton/dist/skeleton.css";
+// import "react-loading-skeleton/dist/skeleton.css";
+import PdpLoader from '../components/PdpLoader'
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import "./setting-page.css";
@@ -150,13 +151,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
 
   if (!product) {
     return (
-      <div className="skeleton-wrapper">
-        <Skeleton height={40} />
-        <Skeleton height={200} />
-        <Skeleton height={40} />
-        <Skeleton count={3} height={40} />
-        <Skeleton height={200} />
-      </div>
+      <PdpLoader />
     );
   }
 
@@ -197,7 +192,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
                   <b className="select-side-stone">Back to All Settings</b>
                 </div>
                 <div className="image-container">
-                  <div className="image5">
+                  <div className="plp-image-gallery">
                     <div className="image-wrapper">
                       <ImageGallery items={images} />
                     </div>
