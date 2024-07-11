@@ -15,6 +15,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl }) =>
   });
 
   const [errors, setErrors] = useState({});
+  const [SendEmail, setSendEmail] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -71,15 +72,18 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl }) =>
 
       console.log(formData);
       const res = await settingService.friendsEmail(stringToPass); 
-      onClose();
+      setSendEmail(true);
+      // onClose();
     }
   };
 
   return (
     <div className="popup-overlay EmailFriendPopup-overlay">
       <div className="popup-content">
+      <button className="close-button" onClick={onClose}>×</button>
+      {!SendEmail ? (
+      <>
         <h2>E-Mail A Friend</h2>
-        <button className="close-button" onClick={onClose}>×</button>
         <form onSubmit={handleSubmit}>
           <div className="flex basic_info">
             <input 
@@ -133,6 +137,13 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl }) =>
             </div>
           </div>
         </form>
+        </>
+        ) : (
+          <div className="success-message">
+            <h2>Email sent!</h2>
+            <p>Blandit est volutpat sit sit purus sagittis risus in. Sed ut sagittis elementum at leo. In aliquet odio dui amet tincidunt suspendisse ut. Amet sed vitae pellentesque turpis egestas. Posuere molestie elementum neque quis posuere fusce diam augue.</p>
+          </div>
+        )}
       </div>
     </div>
   );

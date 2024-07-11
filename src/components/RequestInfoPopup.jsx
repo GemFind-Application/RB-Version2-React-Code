@@ -15,6 +15,7 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl}) 
   });
 
   const [errors, setErrors] = useState({});
+  const [requestSend, setRequestSend] = useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -71,16 +72,20 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl}) 
        stringToPass += key+"="+(formData[key])+"&";
     });
       console.log(stringToPass)
-      const res = await settingService.requestMoreInfo(stringToPass); 
-      onClose();
+      const res = await settingService.requestMoreInfo(stringToPass);
+      setRequestSend(true); 
+      // onClose();
     }
   };
 
   return (
     <div className="popup-overlay requestInfopopup-overlay">
       <div className="popup-content">
+       <button className="close-button" onClick={onClose}>×</button>
+        
+        {!requestSend ? (
+        <>
         <h2>Request More Information</h2>
-        <button className="close-button" onClick={onClose}>×</button>
         <p>Our specialists will contact you.</p>
         <form onSubmit={handleSubmit}>
           <div className="flex basic_info">
@@ -154,6 +159,13 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl}) 
             </div>
           </div>
         </form>
+        </>
+        ) : (
+          <div className="success-message">
+            <h2>Request Sent!!</h2>
+            <p>Blandit est volutpat sit sit purus sagittis risus in. Sed ut sagittis elementum at leo. In aliquet odio dui amet tincidunt suspendisse ut. Amet sed vitae pellentesque turpis egestas. Posuere molestie elementum neque quis posuere fusce diam augue.</p>
+          </div>
+        )}
       </div>
     </div>
   );
