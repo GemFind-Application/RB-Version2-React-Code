@@ -1,9 +1,9 @@
 import { fetchWrapper } from '../Helpers';
 
 const baseUrl = `${import.meta.env.VITE_APP_API_URL}`;
-//const dealerId = 4141
-//const dealerId = 1089
-const dealerId=3943
+const dealerId = 3943
+//const tamayouInfluencerbaseUrl = `${process.env.REACT_APP_API_URL}/tamayou_influencers`;
+
 export const settingService = {
   getSettingFilters,
   getAllSettings,
@@ -41,7 +41,7 @@ function dropAHint(data){
 function friendsEmail(data){
   console.log(data);
  // return fetchWrapper.put(
-  //  `${baseUrl}/ringbuilder/settings/resultemailfriend}/`,
+  //  `${baseUrl}/ringbuilder/settings/resultdrophint}/`,
   //  data
   //);
 }
@@ -60,7 +60,7 @@ function requestMoreInfo(data){
   //);
 }
 function getQueryParam(option){
-  console.log(option)
+  //console.log(option)
   let filterString = "";
   if(option.pageSize && option.pageSize!==undefined){   
     filterString = 'pageSize='+option.pageSize;    
@@ -78,7 +78,7 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'OrderBy='+option.orderBy  ; 
   }
-  if(option.priceMin && option.priceMax){
+  if(option.priceMin=== 0 || option.priceMin > 0){
     //console.log("=====");
 
     filterString += filterString.length > 0 ? `&` : '';
