@@ -165,7 +165,7 @@ const DealerInfo = ({ className = "", onClose }) => {
               Dealer Address:
               </div>             
               <div className="enter-your-password">
-                {dealerInfo.retailerAddress}
+                {dealerInfo.retailerAddress} 
               </div>
             </div>
           </div>
