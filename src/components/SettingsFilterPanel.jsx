@@ -94,7 +94,7 @@ const SettingsFilterPanel = ({
   );
 
  // const debounced = React.useCallback(debounce(handlePriceChange, 1500), []);
-  //console.log(settingNavigation)
+  console.log(settingNavigation)
   return (
     <div className={`SettingsFilterPanel ${className}`}>
       <div className="settingsfilter-wrapper">

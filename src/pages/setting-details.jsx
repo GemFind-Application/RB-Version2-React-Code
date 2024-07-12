@@ -31,6 +31,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
   //const history = useHistory();
   console.log(location.pathname)
   const [product, setProduct] = useState(null);
+  const [isProductLoaded, setIsProductLoaded] = useState(false);
   const [isDealerInfoOpen, setIsDealerInfoOpen] = useState(false);
   const [isSettingDetailsOpen, setSettingDetailsOpen] = useState(false);
   const [isRingSpecsOpen, setIsRingSpecsOpen] = useState(false);
@@ -81,26 +82,39 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
       const res = await settingService.getSettingDetail(settingId); 
       if(res) {
         if(selectedParam!=""){
-          navigate("/setting-details/"+settingId);
+         navigate("/setting-details/"+settingId);
         }
        
         setProduct(res);
         setConfigurableProduct(res.configurableProduct);
-        let selectedSetting= res.configurableProduct.filter(item=>item.gfInventoryId ==settingId );      
+        let selectedSetting= res.configurableProduct.filter(item=>item.gfInventoryId ==settingId );   
+        console.log(selectedSetting)   
+        let  filterBySideStoneType=[];
+        if(selectedSetting.length > 0){
+          setSelectedCenterStoneSize(selectedSetting[0].centerStoneSize || "");
+          if(selectedParam == 'centerStoneSize'){
+           // setSelectedDiamondShape(allDiamondShape[0])
+           setSelectedDiamondShape(selectedSetting[0]['diamondShape'])
+          }else{
+            setSelectedDiamondShape(selectedSetting[0]['diamondShape'])
+          } 
+          setSelectedSideStoneQuality(selectedSetting[0]['sideStoneQuality']);
+          console.log(selectedSetting)
+          if(selectedSetting[0]['sideStoneQuality']!=null) {
+            filterBySideStoneType = filterByMetalType.filter(item=>item.sideStoneQuality == selectedSetting[0]['sideStoneQuality'][0]);
+          }
+        }
         const allDiamondShape = res.configurableProduct?[...new Set(res.configurableProduct.map(item => item.diamondShape))] : []; 
         setSelectedMetalType(res.metalType || ""); 
-        setSelectedCenterStoneSize(selectedSetting[0].centerStoneSize || "");
-        if(selectedParam == 'centerStoneSize'){
-          setSelectedDiamondShape(allDiamondShape[0])
-        }else{
-          setSelectedDiamondShape(selectedSetting[0]['diamondShape'])
-        }        
+        
+               
         setSelectedRingSize('');
-        setSelectedSideStoneQuality(selectedSetting[0]['sideStoneQuality']);
-        console.log(selectedSetting)
+       
         setSelectedDiamondType(res.isLabSetting ? 'Lab Grown' : 'Mined');
-        let filterByMetalType = res.configurableProduct.filter(item=>item.metalType == res.metalType);  
-        let filterBySideStoneType = filterByMetalType.filter(item=>item.sideStoneQuality == selectedSetting[0]['sideStoneQuality'][0]);  
+        let filterByMetalType = res.configurableProduct.filter(item=>item.metalType == res.metalType); 
+        
+       
+         
         console.log(filterByMetalType)
         let sortedarray = filterByMetalType.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
         let sortedarrayforSideStoneQuality = filterBySideStoneType.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
@@ -109,10 +123,10 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
           let uniqueCenterStoneSizesArray=[]
           if(uniqueSideStoneQualityArray.length>0){
 
-             uniqueCenterStoneSizesArray = [...new Set(sortedarray.map(item => item.centerStoneSize))].filter(function(e){return e}) ;
+             uniqueCenterStoneSizesArray = [...new Set(sortedarrayforSideStoneQuality.map(item => item.centerStoneSize))].filter(function(e){return e}) ;
          
           }else{
-             uniqueCenterStoneSizesArray = [...new Set(sortedarrayforSideStoneQuality.map(item => item.centerStoneSize))].filter(function(e){return e}) ;
+             uniqueCenterStoneSizesArray = [...new Set(sortedarray.map(item => item.centerStoneSize))].filter(function(e){return e}) ;
          
           }
          
@@ -121,6 +135,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
           setUniqueCenterStoneSizes(uniqueCenterStoneSizesArray);
           setUniqueSideStoneQualities(uniqueSideStoneQualityArray)
           setUniqueDiamondShape(uniqueDiamondShapeArray)
+          setIsProductLoaded(true)
         }
       
       }
@@ -230,7 +245,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
       thumbnail: product.mainImageURL,
     });
   }
-//console.log(uniqueDiamondShape)
+console.log(uniqueCenterStoneSizes)
   return (
     <>
       <div className="setting-page">
@@ -245,6 +260,8 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
                   </div>
                   <b className="select-side-stone">Back to All Settings</b>
                 </div>
+                {isProductLoaded &&
+                <>
                 <div className="image-container">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
@@ -284,6 +301,8 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
                     </div>
                   }
                 </div>
+                </>
+                }
               </div>
               <div className="product-info-container-wrapper">
                 <div className="product-info-container">
