@@ -45,7 +45,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
     collections: storedData ? storedData.collections.length > 0 ? storedData.collections:[]:[],
     metalType: storedData ? storedData.metalType.length > 0 ?storedData.metalType:[]:[],
     shapes: storedData ? storedData.shapes.length > 0 ?storedData.shapes:[]:[],
-    price:storedData ?   storedData.price.length > 0 ? storedData.price :[0, 29678.00]:[0, 29678.00],
+    price:storedData ?   storedData.price.length > 0 ? storedData.price :[]:[],
     search: storedData ?storedData.search!="" ? storedData.search :'':''
   });
   //const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
@@ -100,11 +100,13 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
         style:filters.collections.join(','),
         IsLabSettingsAvailable:isLab ? 1 : 0
     }
+    console.log(option)
       const data = await settingService.getAllSettings(option); 
       if(data.mountingList) {
         setProducts(data.mountingList);
         setTotalProducts(data.count);
-        setIsProductLoaded(true)
+        setIsProductLoaded(true);
+        console.log(activeFilters)
       }
       
 
@@ -141,6 +143,9 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
       const res = await settingService.getSettingFilters(option);  
       if(res && res.length>0)     {
         setFilterData(res[1][0]); 
+       
+        
+       //applyFilters({ ...activeFilters, price:[res[1][0].priceRange[0].minPrice,res[1][0].priceRange[0].maxPrice] });
         setIsSettingFilterLoaded(true);
        // setSettingNavigation(settingNavigationData)
       }   
@@ -203,11 +208,12 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
     }    
   }; 
   const resetFilters = () => {
+    console.log(filterData.priceRange)
     setActiveFilters({
       collections: [],
       metalType: [],
       shapes: [],
-      price: [0, 29678.00],
+      price: [],
       search: ''
     });
     localStorage.removeItem('activeFilters');

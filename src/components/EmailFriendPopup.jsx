@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./email-friend.css";
 import { settingService } from '../Services';
-const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl }) => {
+const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringUrl,shopurl }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,7 +10,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl }) =>
     message: '',
     settingId:settingId,
     isLabSetting:isLabSetting,
-    ringurl:ringurl,
+    ringurl:ringUrl,
     shopurl:shopurl
   });
 

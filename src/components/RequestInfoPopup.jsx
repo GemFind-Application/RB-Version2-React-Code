@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./requestinfo.css";
 import { settingService } from '../Services';
-const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl}) => {
+const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringUrl,shopurl}) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,7 +10,7 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl}) 
     preference: '',
     settingId:settingId,
     isLabSetting:isLabSetting,
-    ringurl:ringurl,
+    ringurl:ringUrl,
     shopurl:shopurl
   });
 

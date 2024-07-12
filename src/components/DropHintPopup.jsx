@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./hint.css"
 import { settingService } from '../Services';
 
-const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl }) => {
+const DropHintPopup = ({ onClose, settingId, isLabSetting ,ringUrl,shopurl}) => {
   const [formData, setFormData] = useState({
     yourName: '',
     yourEmail: '',
@@ -11,10 +11,10 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl }) =
     reason: '',
     message: '',
     giftDeadline: '',
-    settingId: settingId,
-    isLabSetting: isLabSetting,
-    ringurl: ringurl,
-    shopurl: shopurl
+    settingId:settingId,
+    isLabSetting:isLabSetting,
+    ringurl:ringUrl,
+    shopurl:shopurl
   });
 
   const [errors, setErrors] = useState({});
@@ -86,6 +86,29 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl }) =
     }
   };
 
+  /*const sendEmail = async () => {
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.example.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: 'puja.vagrawal@example.com',
+        pass: 'MahalNagpur2712',
+      },
+    });
+    const mailOptions = {
+      from: 'puja.vagrawal@example.com',
+      to: 'puja.vagrawal@example.com',
+      subject: 'Hello from ReactJS',
+      text: 'This is email',
+    };
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log('Email sent successfully');
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };*/
   return (
     <div className="popup-overlay drop-hint-popup">
       <div className="popup-content">
