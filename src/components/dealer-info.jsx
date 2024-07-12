@@ -4,25 +4,32 @@ import "./dealer-info.css";
 
 const DealerInfo = ({ className = "", onClose }) => {
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState('');
-  const [isPasswordAuthenticated, setIsPasswordAuthenticated] = useState(false);
-  const [dealerInfo, setDealerInfo] = useState([]);
+  const [error, setError] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const validatePassword = (password) => {
+    return password.length >= 4;
+  };
+
   const handleSubmit = () => {
-    // Handle submission
     if (!password.trim()) {
-      setErrors('Password is required');
-    }else{
-      setErrors('');
-      setIsPasswordAuthenticated(true)
-      console.log('Password submitted:', password);
-      onClose();
+      setError('Password is required');
+      return;
     }
-   
+
+    if (!validatePassword(password)) {
+      setError('Invalid password. It should be at least 6 characters long.');
+      return;
+    }
+
+    // If password is valid, clear error and show details
+    setError('');
+    setIsSuccess(true);
+
   };
 
   return (
     <div className={`dealer-info ${className}`}>
-      {(!isPasswordAuthenticated) ? (
       <section className="content3">
         <div className="top3">
           <div className="h11">
@@ -31,21 +38,32 @@ const DealerInfo = ({ className = "", onClose }) => {
               Enter your password to continue
             </div>
           </div>
-          <div className="inputs1">
-            <div className= {errors!='' ? ' drop4 error ' : 'drop4 '}>
-              <input
-                className= 'your-gemfind-password'                
-                name="dealer-password"
-                placeholder="Your Gemfind Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+          {!isSuccess ? (
+            <div className="inputs1">
+              <div className="drop4">
+                <input
+                  className={`your-gemfind-password ${error ? 'error' : ''}`}
+                  name="dealer-password"
+                  placeholder="Your Gemfind Password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setError('');
+                  }}
+                />
+                {error && <div className="error-message">{error}</div>}
+              </div>
+              <button className="button4" onClick={handleSubmit}>
+                <b className="submit dealer_info">Submit</b>
+              </button>
             </div>
-            <button className="button4" onClick={handleSubmit}>
-              <b className="submit dealer_info">Submit</b>
-            </button>
-          </div>
+          ) : (
+            <div className="success-message">
+              <h2>Dealer Information!</h2>
+              <p>Show dealer info here....</p>
+            </div>
+          )}
         </div>
       </section>
        ) : (

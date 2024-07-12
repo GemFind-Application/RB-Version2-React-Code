@@ -54,7 +54,6 @@ function App() {
         if(res[0]) {
           setSettingNavigation(res[0]);
           setIsSettingNavLoaded(true);
-          setIsLabGrown(res[0].navStandard!=null ? false :true);
           setLoading(true);
         }       
       } catch (error) {

@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./ScheduleViewingPopup.css";
 import { settingService } from '../Services';
 
-const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringUrl, shopurl }) => {
+const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,11 +14,12 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringUrl
     location: '',
     settingId: settingId,
     isLabSetting: isLabSetting,
-    ringurl: ringUrl,
+    ringurl: ringurl,
     shopurl: shopurl
   });
 
   const [errors, setErrors] = useState({});
+  const [ScheduleViewing, setScheduleViewing] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -59,17 +60,20 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringUrl
         stringToPass += key + "=" + (formData[key] instanceof Date ? formData[key].toISOString() : formData[key]) + "&";
       });
 
-      console.log(stringToPass);
-      // const res = await settingService.scheduleViewing(stringToPass); 
-      onClose();
+      console.log(formData);
+      const res = await settingService.scheduleViewing(stringToPass); 
+      setScheduleViewing(true);
+      // onClose();
     }
   };
 
   return (
     <div className="popup-overlay requestInfopopup-overlay">
       <div className="popup-content">
-        <h2>Schedule Viewing</h2>
         <button className="close-button" onClick={onClose}>×</button>
+        {!ScheduleViewing ? (
+        <>
+        <h2>Schedule Viewing</h2> 
         <p>See This Item & More In Our Store.</p>
         <form onSubmit={handleSubmit}>
           <div className="flex basic_info">
@@ -151,9 +155,17 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringUrl
             </div>
           </div>
         </form>
+        </>
+        ) : (
+          <div className="success-message">
+            <h2>Scheduled View!</h2>
+            <p>Blandit est volutpat sit sit purus sagittis risus in. Sed ut sagittis elementum at leo. In aliquet odio dui amet tincidunt suspendisse ut. Amet sed vitae pellentesque turpis egestas. Posuere molestie elementum neque quis posuere fusce diam augue.</p>
+          </div>
+        )}
       </div>
     </div>
   );
 };
+
 
 export default RequestInfoPopup;

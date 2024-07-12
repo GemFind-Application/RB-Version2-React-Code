@@ -7,7 +7,7 @@ const FrameComponent7 = ({ className = "" }) => {
   const navigate = useNavigate();
 
   const onGridContainerClick = useCallback(() => {
-    navigate("/diamond");
+    navigate("/diamondtools");
   }, [navigate]);
 
   return (

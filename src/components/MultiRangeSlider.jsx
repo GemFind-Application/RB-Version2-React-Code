@@ -3,19 +3,16 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './MultiRangeSlider.css';
 
-const MultiRangeSlider = ({ min, max, onChange,value }) => {
- 
-  const [minVal, setMinVal] = useState(value[0]);
-  const [maxVal, setMaxVal] = useState(value[1]);
-  const [minD, setMinD] = useState(min);
-  const [maxD, setMaxD] = useState(max);
+const MultiRangeSlider = ({ min, max, onChange }) => {
+  const [minVal, setMinVal] = useState(min);
+  const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef(null);
   const maxValRef = useRef(null);
   const range = useRef(null);
 
   const getPercent = useCallback(
-    (value) => Math.round(((value - minD) / (maxD - minD)) * 100),
-    [minD, maxD]
+    (value) => Math.round(((value - min) / (max - min)) * 100),
+    [min, max]
   );
 
   useEffect(() => {
@@ -31,31 +28,27 @@ const MultiRangeSlider = ({ min, max, onChange,value }) => {
   }, [minVal, maxVal, getPercent]);
 
   useEffect(() => {
-    setMinVal(value[0]);
-    setMaxVal(value[1]);
-    //onChange({ min: minVal, max: maxVal });
-  }, [value]);
+    onChange({ min: minVal, max: maxVal });
+  }, [minVal, maxVal]);
 
   const handleMinChange = (event) => {
     const value = Math.min(Number(event.target.value), maxVal - 1);
     setMinVal(value);
     event.target.value = value.toString();
-    onChange({ min: value, max: maxVal });
   };
 
   const handleMaxChange = (event) => {
     const value = Math.max(Number(event.target.value), minVal + 1);
     setMaxVal(value);
     event.target.value = value.toString();
-    onChange({ min: minVal, max: value });
   };
 
   return (
     <div className="container">
       <input
         type="range"
-        min={minD}
-        max={maxD}
+        min={min}
+        max={max}
         value={minVal}
         ref={minValRef}
         onChange={handleMinChange}
@@ -65,8 +58,8 @@ const MultiRangeSlider = ({ min, max, onChange,value }) => {
       />
       <input
         type="range"
-        min={minD}
-        max={maxD}
+        min={min}
+        max={max}
         value={maxVal}
         ref={maxValRef}
         onChange={handleMaxChange}
