@@ -401,6 +401,13 @@ const SettingPage = ({ formSetting, settingNavigationData, isLabGrown, shopUrl }
                             value={selectedRingSize}
                             onChange={(e) => setSelectedRingSize(e.target.value)}
                           >
+                            <option
+                                key={'ringSize0'}
+                                value={''}
+                                className={`range25 ${selectedRingSize === '' ? 'active' : ''}`}
+                              >
+                                {'Ring Size'}
+                              </option>
                             {product.ringSize && product.ringSize.map((size, index) => (
                               <option
                                 key={index}
