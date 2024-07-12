@@ -342,6 +342,10 @@ select.select--outline option {
   background-color: transparent;
 }
 
+.no-decoration {
+  text-decoration: none;
+}
+
 /* Responsive utilities */
 @media (max-width: 640px) {
   .sm\:flex-col {
