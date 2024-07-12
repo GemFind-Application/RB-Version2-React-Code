@@ -1856,6 +1856,11 @@ img.round-icon-caret {
   box-shadow: 0 0 0 1px #836A5D, 0 0 0 4px #E4E3E1, 0 0 0 6px #836A5D; 
 }
 
+.two.tone .ring {
+  box-shadow: 0 0 0 1px #D7BF79, 0 0 0 4px #E4E3E1, 0 0 0 6px #D7BF79;
+}
+
+
 .metal-name {
   font-size: 14px;
   color: #836A5D;
