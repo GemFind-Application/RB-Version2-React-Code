@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head1 from "../components/head1";
-import FrameComponent1 from "../components/frame-component1";
-import FrameComponent2 from "../components/frame-component2";
+import DiamondNavigation from "../components/diamond-navigation";
+import DiamondFilter from "../components/diamond-filter";
 import Items from "../components/items";
 import PaginationPanel from "../components/pagination-panel";
 import "./diamond.css";
@@ -20,8 +20,8 @@ const Diamond = () => {
   return (
     <div className="diamond">
       <Head1 />
-      <FrameComponent1 />
-      <FrameComponent2 />
+      <DiamondNavigation />
+      <DiamondFilter />
       <div className="list2">
         <Items />
         <Items  />

@@ -8,7 +8,7 @@ const Settingsbreadcrumb = ({ className = "" }) => {
   const navigate = useNavigate();
 
   const onStepItemsContainer1Click = useCallback(() => {
-    navigate("/diamond");
+    navigate("/diamondtools");
   }, [navigate]);
 
   return (

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./frame-component2.css";
 
-const FrameComponent2 = ({ className = "" }) => {
+const DiamondFilter = ({ className = "" }) => {
   const navigate = useNavigate();
 
   const onCompContainerClick = useCallback(() => {
@@ -155,8 +155,8 @@ const FrameComponent2 = ({ className = "" }) => {
   );
 };
 
-FrameComponent2.propTypes = {
+DiamondFilter.propTypes = {
   className: PropTypes.string,
 };
 
-export default FrameComponent2;
+export default DiamondFilter;
