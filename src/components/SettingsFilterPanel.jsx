@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback,useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Search, ChevronDown, BookmarkMinus, RotateCcw, X } from 'lucide-react';
 import './SettingsFilterPanel.css';
@@ -42,10 +42,10 @@ const SettingsFilterPanel = ({
 }) => {
   const [openFilter, setOpenFilter] = useState(null);
   const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
-  const [priceRange, setPriceRange] = useState(activeFilters.price || [0, 29678.00]);
+  const [priceRange, setPriceRange] = useState(activeFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [activeFilters.price[0], activeFilters.price[1]]);
   const [availableFilter, setAvailableFilter] = useState([]); 
   useEffect(() => {
-    setPriceRange(activeFilters.price || [0, 29678.00]);
+    //setPriceRange(activeFilters.price || [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]);
     let filterAvailable = [];
     filterData.collections.length>0 && filterAvailable.push('collections');  
     filterData.metalType.length>0 && filterAvailable.push('metalType');  
@@ -68,18 +68,33 @@ const SettingsFilterPanel = ({
   };
 
   const handlePriceChange = ({ min, max }) => {
+    console.log(min)
     setPriceRange([min, max]);
-    applyFilters({
-      ...activeFilters,
-      price: [min, max]
-    });
+    //console.log(activeFilters)
+    
+    //console.log(activeFilters)
+    //setValue(value);
+    handleDebounce({min,max});
   };
 
   const handleLabGrownToggle = (value) => {
     setIsLabGrown(value);
   };
+  // memoize the callback with useCallback
+  // we need it since it's a dependency in useMemo below
+  const handleSetTimeRange = (value) => {
+   
+  
+    console.log("myFilter: ", value);
+    applyFilters({ ...activeFilters, price: [value.min,value.max] });
+  };
+  const handleDebounce = useCallback(
+    debounce(handleSetTimeRange, 500),
+    [activeFilters],
+  );
+
  // const debounced = React.useCallback(debounce(handlePriceChange, 1500), []);
-  //console.log(settingNavigation)
+  console.log(settingNavigation)
   return (
     <div className={`SettingsFilterPanel ${className}`}>
       <div className="settingsfilter-wrapper">
@@ -168,7 +183,7 @@ const SettingsFilterPanel = ({
                 </button>
                 <button className="button31" onClick={() => {
                   resetFilters();
-                  setPriceRange([0, 29678.00]);
+                  setPriceRange([filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]);
                 }}>
                   <RotateCcw size={16} />
                 </button>

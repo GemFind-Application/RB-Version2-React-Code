@@ -45,7 +45,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
     collections: storedData ? storedData.collections.length > 0 ? storedData.collections:[]:[],
     metalType: storedData ? storedData.metalType.length > 0 ?storedData.metalType:[]:[],
     shapes: storedData ? storedData.shapes.length > 0 ?storedData.shapes:[]:[],
-    price:storedData ?   storedData.price.length > 0 ? storedData.price :[0, 29678.00]:[0, 29678.00],
+    price:storedData ?   storedData.price.length > 0 ? storedData.price :[]:[],
     search: storedData ?storedData.search!="" ? storedData.search :'':''
   });
   //const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
@@ -54,40 +54,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
   const fetchProducts = async (page, pageSize, isLab, sort, filters) => {
     setLoading(true);
     setError(null);
-    try {
-      /*let url = `${BASE_URL}/GetMountingList?DealerID=${DEALER_ID}&PageNumber=${page}&PageSize=${pageSize}&IsLabSettingsAvailable=${isLab ? 1 : 0}`;
-
-      // Add sorting
-      url += `&OrderBy=${sort === 'Low to High' ? 'cost+asc' : sort === 'High to Low' ? 'cost+desc' : 'newest'}`;
-
-      // Add other filters
-      if (filters.collections.length > 0) {
-        url += `&Collection=${filters.collections.join(',')}`;
-      }
-      if (filters.metalType.length > 0) {
-        url += `&MetalType=${filters.metalType.join(',')}`;
-      }
-      if (filters.shapes.length > 0) {
-        url += `&Shape=${filters.shapes.join(',')}`;
-      }
-      url += `&PriceMin=${filters.price[0]}&PriceMax=${filters.price[1]}`;
-      if (filters.search) {
-        url += `&SearchTerm=${encodeURIComponent(filters.search)}`;
-      }
-
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      setProducts(data.mountingList);
-      setTotalProducts(data.count);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-      setError("Failed to fetch products. Please try again later.");
-    } finally {
-      setLoading(false);
-    }*/
+    try {     
       let option = {
         pageNumber:page,    
         pageSize:pageSize,
@@ -100,13 +67,14 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
         style:filters.collections.join(','),
         IsLabSettingsAvailable:isLab ? 1 : 0
     }
+    console.log(option)
       const data = await settingService.getAllSettings(option); 
       if(data.mountingList) {
         setProducts(data.mountingList);
         setTotalProducts(data.count);
-        setIsProductLoaded(true)
-      }
-      
+        setIsProductLoaded(true);
+        console.log(activeFilters)
+      }     
 
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -116,20 +84,6 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
     }
   };
 
-  /*const fetchFilterData = async (isLab) => {
-    try {
-      const url = `${BASE_URL}/GetFilters?DealerID=${DEALER_ID}&IsLabSettingsAvailable=${isLab ? 1 : 0}`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      setFilterData(data[1][0]);
-    } catch (error) {
-      console.error("Error fetching filter data:", error);
-      setError("Failed to fetch filter data. Please try again later.");
-    }
-  };*/
   const fetchFilterData = async (isLab,filters) => {
     try {
       let option = {         
@@ -141,6 +95,9 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
       const res = await settingService.getSettingFilters(option);  
       if(res && res.length>0)     {
         setFilterData(res[1][0]); 
+       
+        
+       //applyFilters({ ...activeFilters, price:[res[1][0].priceRange[0].minPrice,res[1][0].priceRange[0].maxPrice] });
         setIsSettingFilterLoaded(true);
        // setSettingNavigation(settingNavigationData)
       }   
@@ -178,20 +135,6 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
     setActiveFilters(filters);
     setCurrentPage(1);
   };
-
-  /*const handleProductClick = async (settingId) => {
-    try {
-      const response = await fetch(`${BASE_URL}/GetMountingDetail?DealerId=${DEALER_ID}&SID=${settingId}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const productDetails = await response.json();
-      navigate(`/setting-details/${settingId}`, { state: { productDetails } });
-    } catch (error) {
-      console.error("Error fetching product details:", error);
-      setError("Failed to fetch product details. Please try again later.");
-    }
-  };*/
   const searchSetting = event => { 
     if(event.target.value === ""){
       setIsSerachIsClicked(!isserachIsClicked);
@@ -203,11 +146,12 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
     }    
   }; 
   const resetFilters = () => {
+    console.log(filterData.priceRange)
     setActiveFilters({
       collections: [],
       metalType: [],
       shapes: [],
-      price: [0, 29678.00],
+      price: [],
       search: ''
     });
     localStorage.removeItem('activeFilters');
