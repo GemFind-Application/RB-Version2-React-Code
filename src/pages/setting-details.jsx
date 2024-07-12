@@ -31,7 +31,6 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
   //const history = useHistory();
   console.log(location.pathname)
   const [product, setProduct] = useState(null);
-  const [isProductLoaded, setIsProductLoaded] = useState(false);
   const [isDealerInfoOpen, setIsDealerInfoOpen] = useState(false);
   const [isSettingDetailsOpen, setSettingDetailsOpen] = useState(false);
   const [isRingSpecsOpen, setIsRingSpecsOpen] = useState(false);
@@ -48,15 +47,13 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
   const [settingNavigation, setSettingNavigation] = useState(settingNavigationData);
   const [navigation, setNavigation] = useState("");
   const [loading, setLoading] = useState(true);
-  const [uniqueCenterStoneSizes, setUniqueCenterStoneSizes] = useState([]);
+  const [uniqueCenterStoneSizes, setUniqueCenterStoneSizes] = useState(true);
   //const [socialIconSetting,setSocialIconSetting] = useState(socialIconSettingData);
   const [selectedDiamondShape, setSelectedDiamondShape] = useState("");
   const [settingIdToShow, setSettingIdToShow] = useState(settingId);
   const [configurableProduct,setConfigurableProduct]= useState([]);
   const [selectedParam,setSelectedParam]= useState('');
-  const [uniqueSideStoneQualities, setUniqueSideStoneQualities] = useState([]);
-  const [uniqueDiamondShape, setUniqueDiamondShape] = useState([]);
-  
+
   //const [selectedRingSize,setSelectedRingSize]= useState('');
   useEffect(() => {
     fetchProductDetails(settingIdToShow);
@@ -81,84 +78,30 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
     try {
       const res = await settingService.getSettingDetail(settingId); 
       if(res) {
-        if(selectedParam!=""){
-         navigate("/setting-details/"+settingId);
-        }
-       
+        navigate("/setting-details/"+settingId)
         setProduct(res);
         setConfigurableProduct(res.configurableProduct);
-        let selectedSetting= res.configurableProduct.filter(item=>item.gfInventoryId ==settingId );   
-        console.log(selectedSetting)   
-        let  filterBySideStoneType=[];
-        if(selectedSetting.length > 0){
-          setSelectedCenterStoneSize(selectedSetting[0].centerStoneSize || "");
-          if(selectedParam == 'centerStoneSize'){
-           // setSelectedDiamondShape(allDiamondShape[0])
-           setSelectedDiamondShape(selectedSetting[0]['diamondShape'])
-          }else{
-            setSelectedDiamondShape(selectedSetting[0]['diamondShape'])
-          } 
-          setSelectedSideStoneQuality(selectedSetting[0]['sideStoneQuality']);
-          console.log(selectedSetting)
-          if(selectedSetting[0]['sideStoneQuality']!=null) {
-            filterBySideStoneType = filterByMetalType.filter(item=>item.sideStoneQuality == selectedSetting[0]['sideStoneQuality'][0]);
-          }
-        }
+        let selectedSetting= res.configurableProduct.filter(item=>item.gfInventoryId ==settingId );      
         const allDiamondShape = res.configurableProduct?[...new Set(res.configurableProduct.map(item => item.diamondShape))] : []; 
         setSelectedMetalType(res.metalType || ""); 
-        
-               
+        setSelectedCenterStoneSize(selectedSetting[0].centerStoneSize || "");
+        if(selectedParam == 'centerStoneSize'){
+          setSelectedDiamondShape(allDiamondShape[0])
+        }else{
+          setSelectedDiamondShape(selectedSetting[0]['diamondShape'])
+        }        
         setSelectedRingSize('');
-       
         setSelectedDiamondType(res.isLabSetting ? 'Lab Grown' : 'Mined');
-        let filterByMetalType = res.configurableProduct.filter(item=>item.metalType == res.metalType); 
-        
-       
-         
-        console.log(filterByMetalType)
-        let sortedarray = filterByMetalType.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
-        let sortedarrayforSideStoneQuality = filterBySideStoneType.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
-        if(sortedarray.length>0){
-          const uniqueSideStoneQualityArray = [...new Set(sortedarray.map(item => item.sideStoneQuality))].filter(function(e){return e}) ;
-          let uniqueCenterStoneSizesArray=[]
-          if(uniqueSideStoneQualityArray.length>0){
-
-             uniqueCenterStoneSizesArray = [...new Set(sortedarrayforSideStoneQuality.map(item => item.centerStoneSize))].filter(function(e){return e}) ;
-         
-          }else{
-             uniqueCenterStoneSizesArray = [...new Set(sortedarray.map(item => item.centerStoneSize))].filter(function(e){return e}) ;
-         
-          }
-         
-          const uniqueDiamondShapeArray = [...new Set(sortedarray.map(item => item.diamondShape))].filter(function(e){return e}) ;
-          //console.log(sss);
-          setUniqueCenterStoneSizes(uniqueCenterStoneSizesArray);
-          setUniqueSideStoneQualities(uniqueSideStoneQualityArray)
-          setUniqueDiamondShape(uniqueDiamondShapeArray)
-          setIsProductLoaded(true)
-        }
-      
+        let newfilterForCenterStone = res.configurableProduct.filter(item=>item.metalType == res.metalType);    
+        let sortedarray = newfilterForCenterStone.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
+        const uniqueCenterStoneSizesArray = [...new Set(sortedarray.map(item => item.centerStoneSize))] ;
+        setUniqueCenterStoneSizes(uniqueCenterStoneSizesArray);
       }
      
     } catch (error) {
       console.error("Error fetching product details:", error);
     }
   };
-  const valdd = (sidestone,data)=>{
-   // function getSidestonefinal(sidestone, data) {
-      // Extract centerStoneSize values
-      let keys = data[sidestone].map(item => item.centerStoneSize);
-  
-      // Sort data[sidestone] based on centerStoneSize (ascending order)
-      data[sidestone].sort((a, b) => a.centerStoneSize - b.centerStoneSize);
-  
-      // Return gfInventoryId and sideStoneQuality of the first element
-      return {
-          gfInventoryId: data[sidestone][0].gfInventoryId,
-          sideStoneQuality: data[sidestone][0].sideStoneQuality
-      };
-  //}
-  }
   const selectByMetalType = async (metalValue) => { 
     var selectedMetalType= configurableProduct.filter(item=> item.metalType ==metalValue );
     let sortedarray = selectedMetalType.sort((a, b) => a.centerStoneSize - b.centerStoneSize);   
@@ -168,13 +111,8 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
     }    
   }
   const selectByCenterStoneSize = async (size) => {
-    setSelectedParam('centerStoneSize');
-    let selectedCenterStoneSizeProduct=[]
-    if(uniqueSideStoneQualities.length > 0) {
-       selectedCenterStoneSizeProduct= configurableProduct.filter(item=> item.metalType ==selectedMetalType &&  item.sideStoneQuality ==selectedSideStoneQuality && item.centerStoneSize == size  );
-    }else{
-      selectedCenterStoneSizeProduct= configurableProduct.filter(item=> item.metalType ==selectedMetalType &&  item.centerStoneSize == size  );
-    }    
+    setSelectedParam('centerStoneSize')
+    const selectedCenterStoneSizeProduct= configurableProduct.filter(item=> item.metalType ==selectedMetalType &&  item.centerStoneSize == size  );
     if(selectedCenterStoneSizeProduct.length>0){
       setSettingIdToShow(selectedCenterStoneSizeProduct[0].gfInventoryId);
     }         
@@ -184,15 +122,8 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
     let sortedarray = selectedShapeProduct.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
     setSelectedParam('diamondShape');
     setSettingIdToShow(sortedarray[0].gfInventoryId)
-  }
-  const selectBysideStoneQuality = async (sideStoneQuality) => {
-    var selectedSideStoneQualityProduct= configurableProduct.filter(item=> item.metalType ==selectedMetalType &&  item.sideStoneQuality ===  sideStoneQuality );
-    
-    let sortedarray = selectedSideStoneQualityProduct.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
-    setSelectedParam('sideStoneQuality');
-    setSettingIdToShow(sortedarray[0].gfInventoryId)
-  }
-  const selectRingSetting = async ()=>{
+    }
+    const selectRingSetting = async ()=>{
     if(selectedRingSize===""){
       alert("Please select ring size.")
     }else{
@@ -225,9 +156,9 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
   }
 
   const uniqueMetalTypes = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.metalType))] : [];
- // const uniqueSideStoneQualities = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.sideStoneQuality).filter(Boolean))] : [];
+  const uniqueSideStoneQualities = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.sideStoneQuality).filter(Boolean))] : [];
   //const uniqueCenterStoneSizes = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.centerStoneSize))] : [];
- // const uniqueDiamondShape = product.configurableProduct?[...new Set(product.configurableProduct.map(item => item.diamondShape))].filter(function(e){return e}) : [];
+  const uniqueDiamondShape = product.configurableProduct?[...new Set(product.configurableProduct.map(item => item.diamondShape))] : [];
  
   const images = [];
   if (product.extraImage && product.extraImage.length > 0) {
@@ -245,7 +176,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
       thumbnail: product.mainImageURL,
     });
   }
-console.log(uniqueCenterStoneSizes)
+
   return (
     <>
       <div className="setting-page">
@@ -260,8 +191,6 @@ console.log(uniqueCenterStoneSizes)
                   </div>
                   <b className="select-side-stone">Back to All Settings</b>
                 </div>
-                {isProductLoaded &&
-                <>
                 <div className="image-container">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
@@ -287,7 +216,7 @@ console.log(uniqueCenterStoneSizes)
                       </div>
                     </div>
                   </div>
-                  {!formSetting.internalUseLink &&
+                  {formSetting.internalUseLink &&
                     <div className="link1">
                       <div className="dealer__info">
                         <span>{`Internal Use Only: `}</span>
@@ -301,8 +230,6 @@ console.log(uniqueCenterStoneSizes)
                     </div>
                   }
                 </div>
-                </>
-                }
               </div>
               <div className="product-info-container-wrapper">
                 <div className="product-info-container">
@@ -391,7 +318,7 @@ console.log(uniqueCenterStoneSizes)
                                 <div
                                   key={index}
                                   className={`range10 ${selectedSideStoneQuality === quality ? 'active' : ''}`}
-                                  onClick={() => selectBysideStoneQuality(quality)}
+                                  onClick={() => setSelectedSideStoneQuality(quality)}
                                 >
                                   <div className="txt10">{quality}</div>
                                 </div>
@@ -452,13 +379,6 @@ console.log(uniqueCenterStoneSizes)
                             value={selectedRingSize}
                             onChange={(e) => setSelectedRingSize(e.target.value)}
                           >
-                            <option
-                                key={'ringoption'}
-                                value={''}
-                                className={`range25 ${selectedRingSize === '' ? 'active' : ''}`}
-                              >
-                                {'Ring Size' }
-                              </option>
                             {product.ringSize && product.ringSize.map((size, index) => (
                               <option
                                 key={index}
@@ -564,11 +484,7 @@ console.log(uniqueCenterStoneSizes)
           overlayColor="rgba(0, 0, 0, 0.3)"
           onOutsideClick={() => setIsDealerInfoOpen(false)}
         >
-          <DealerInfo settingId={product.settingId}
-            ringUrl={window.location.hostname+"/setting-details/"+settingId}
-            shopurl={shopUrl}
-            isLabSetting={product.isLabSetting}
-            onClose={() => setIsDealerInfoOpen(false)} />
+          <DealerInfo onClose={() => setIsDealerInfoOpen(false)} />
         </PortalPopup>
       )}
       {isSettingDetailsOpen && (
@@ -620,13 +536,7 @@ console.log(uniqueCenterStoneSizes)
           overlayColor="rgba(0, 0, 0, 0.3)"
           onOutsideClick={() => setIsRequestInfoOpen(false)}
         >
-          <RequestInfoPopup 
-          onClose={() => setIsRequestInfoOpen(false)}
-          settingId={product.settingId}
-          ringUrl={window.location.hostname+"/setting-details/"+settingId}
-          shopurl={shopUrl}
-          isLabSetting={product.isLabSetting}
-          />
+          <RequestInfoPopup onClose={() => setIsRequestInfoOpen(false)} />
         </PortalPopup>
       )}
       {isEmailAFriendOpen && (
@@ -634,12 +544,7 @@ console.log(uniqueCenterStoneSizes)
           overlayColor="rgba(0, 0, 0, 0.3)"
           onOutsideClick={() => setIsEmailAFriendOpen(false)}
         >
-          <EmailFriendPopup 
-          settingId={product.settingId}
-          ringUrl={window.location.hostname+"/setting-details/"+settingId}
-          shopurl={shopUrl}
-          isLabSetting={product.isLabSetting}
-          onClose={() => setIsEmailAFriendOpen(false)} />
+          <EmailFriendPopup onClose={() => setIsEmailAFriendOpen(false)} />
         </PortalPopup>
       )}
     </>

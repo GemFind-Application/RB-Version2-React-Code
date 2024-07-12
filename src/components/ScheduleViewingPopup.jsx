@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./ScheduleViewingPopup.css";
 import { settingService } from '../Services';
 
-const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringUrl, shopurl }) => {
+const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,7 +14,7 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringUrl
     location: '',
     settingId: settingId,
     isLabSetting: isLabSetting,
-    ringurl: ringUrl,
+    ringurl: ringurl,
     shopurl: shopurl
   });
 
