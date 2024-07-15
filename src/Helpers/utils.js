@@ -7,5 +7,15 @@ function kFormatter(num) {
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
-const utils = { kFormatter,numberWithCommas };
+function getUrl(metalType,name,settingId,page=""){
+  let metalTypeForUrl = metalType;
+  let viewUrl = metalTypeForUrl.split(" ").join("-");
+ 
+  let newUrl = (viewUrl.split("&").join("%26")).split('/').join('-');  
+  if(page==='details') {newUrl=newUrl+'-metaltype';}
+  let ringName =(name.replace(/ /g,'-').replace(/&/g,'%26').replace('/','-')).toLowerCase();       
+  let sku = '-sku-'+(settingId); 
+  return newUrl.toLowerCase()+'-'+ringName+sku;
+}
+const utils = { kFormatter,numberWithCommas,getUrl};
 export { utils };

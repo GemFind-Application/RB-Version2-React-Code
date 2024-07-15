@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import "./dealer-info.css";
-
-const DealerInfo = ({ className = "", onClose }) => {
+import { settingService } from '../Services';
+const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
-
+  //const [settingId, setSettingId] = useState(settingId);
+  //const [isLabSetting, setIsLabSetting] = useState(isLabSetting);
+  //const [shopurl, setShopurl] = useState(shopurl);
+  
   const validatePassword = (password) => {
     return password.length >= 4;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     if (!password.trim()) {
       setError('Password is required');
       return;
@@ -24,7 +27,15 @@ const DealerInfo = ({ className = "", onClose }) => {
 
     // If password is valid, clear error and show details
     setError('');
-    setIsSuccess(true);
+    try {
+      const res = await settingService.validateDealerPassword('auth_password'+password+'&settingId='+settingId+'&isLabSetting='+isLabSetting+'&shopurl='+shopurl);
+      //setHintDropped(true);
+      //setIsSuccess(true);
+    } catch (error) {
+      console.error('Error dropping hint:', error);
+      // show err msgs to user
+    }
+  
 
   };
 

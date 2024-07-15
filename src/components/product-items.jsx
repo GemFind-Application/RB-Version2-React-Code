@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef ,useEffect} from "react";
 import PropTypes from "prop-types";
 import "./product-items.css";
 import { Link } from "react-router-dom";
 import ShowCostInCard from "./showCostInCard";
+import { utils } from "../Helpers";
 const VideoPopup = ({ videoURL, onClose }) => (
   <div className="video-popup-overlay" onClick={onClose}>
     <div className="video-popup-content" onClick={(e) => e.stopPropagation()}>
@@ -38,10 +39,12 @@ const SkeletonProductItem = () => (
   </div>
 );
 
-const ProductItems = ({ product, className = "", isLoading = false, onClick }) => {
+const ProductItems = ({ product, className = "", isLoading = false, onClick ,showVirtualTryOnIframe,filterMetalType}) => {
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const videoRef = useRef(null);
+  const [viewUrlSetting, setViewUrlSetting] = useState('');
 
+     
   if (isLoading) {
     return <SkeletonProductItem />;
   }
@@ -51,6 +54,12 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick }) =
       setShowVideoPopup(true);
     }
   };
+  useEffect(() => {    
+    let metalTypeForUrl = filterMetalType.length >0? filterMetalType[0] : product.metalTypes[0].metalType;  
+  
+    let url = utils.getUrl(metalTypeForUrl,product.name,product.priceSettingId)
+    setViewUrlSetting(url)
+  }, []);
 
   const handleImageHover = () => {
     if (product.videoURL && videoRef.current) {
@@ -78,7 +87,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick }) =
             {(product.videoURL&&product.videoURL!="") && <img className="video-icon3" alt="" src="/video.svg" />}
           </div>
           <div className="ring-items__item-wishlist" productid={product.settingId}>
-            <img className="heart-icon" alt="" src="/heart1.svg" />
+            {/*<img className="heart-icon" alt="" src="/heart1.svg" />*/}
           </div>
         </div>
       </div>
@@ -110,10 +119,11 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick }) =
             {product.showPrice && (
               <b className="b38"> <ShowCostInCard settingDetailForCost={product}></ShowCostInCard> </b>
             )}
-            <button className="virtual-try-on1">Virtual Try On</button>
+            {product.try}
+           <button className="virtual-try-on1" onClick={()=>showVirtualTryOnIframe(product.stockNumber)}>Virtual Try On</button>
           </div>
           <div className="btn__outer">
-            <Link to={`/setting-details/${product.priceSettingId}`}>View Details</Link>
+            <Link to={`/setting-details/${viewUrlSetting}`}>View Details</Link>
           </div>
         </div>
       </div>
