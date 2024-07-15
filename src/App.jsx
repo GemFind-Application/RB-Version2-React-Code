@@ -133,7 +133,7 @@ function App() {
       <Route path="/settings" element={<Settings shopUrl={shopUrl} settingNavigationData={settingNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown}/>} />      
       <Route path="/setting-details/:settingId" element={<SettingDetails shopUrl={shopUrl} formSetting={socialIconSetting} isLabGrown={isLabGrown} settingNavigationData={settingNavigation}/>} />
       <Route path="/compare" element={<Compare />} />
-      <Route path="/diamondtools" element={<Diamond />} />
+      <Route path="/diamondtools" element={<Diamond isLabGrown={isLabGrown}/>} />
       <Route path="/diamond-details" element={<DiamondPage />} />
       <Route path="/diamond-table" element={<DiamondTable />} />
       <Route path="/complete" element={<Complete />} />

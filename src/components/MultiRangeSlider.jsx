@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './MultiRangeSlider.css';
 
-const MultiRangeSlider = ({ min, max, onChange,value }) => {
+const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true}) => {
  
   const [minVal, setMinVal] = useState(value[0]);
   const [maxVal, setMaxVal] = useState(value[1]);
@@ -12,7 +12,7 @@ const MultiRangeSlider = ({ min, max, onChange,value }) => {
   const minValRef = useRef(null);
   const maxValRef = useRef(null);
   const range = useRef(null);
-
+console.log(value)
   const getPercent = useCallback(
     (value) => Math.round(((value - minD) / (maxD - minD)) * 100),
     [minD, maxD]
@@ -44,9 +44,10 @@ const MultiRangeSlider = ({ min, max, onChange,value }) => {
   };
 
   const handleMaxChange = (event) => {
+    console.log(event.target.value)
     const value = Math.max(Number(event.target.value), minVal + 1);
     setMaxVal(value);
-    event.target.value = value.toString();
+    event.target.value = value.toString();    
     onChange({ min: minVal, max: value });
   };
 
@@ -76,8 +77,8 @@ const MultiRangeSlider = ({ min, max, onChange,value }) => {
       <div className="slider">
         <div className="slider__track"></div>
         <div ref={range} className="slider__range"></div>
-        <div className="slider__left-value">${minVal}</div>
-        <div className="slider__right-value">${maxVal}</div>
+        <div className="slider__left-value">{isPrice ? '$'+minVal:minVal}</div>
+        <div className="slider__right-value">{isPrice ? '$'+maxVal:maxVal}</div>
       </div>
     </div>
   );

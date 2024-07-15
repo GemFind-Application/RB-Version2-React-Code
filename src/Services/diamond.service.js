@@ -1,7 +1,9 @@
 import { fetchWrapper } from '../Helpers';
 
 const baseUrl = `${import.meta.env.VITE_APP_API_URL}`;
-const dealerId = 3943
+//const dealerId = 3943
+const dealerId = 1089
+
 //const tamayouInfluencerbaseUrl = `${process.env.REACT_APP_API_URL}/tamayou_influencers`;
 
 export const diamondService = {
@@ -18,13 +20,13 @@ function getDiamondFilter(option,settingId) {
  if(option==='fancy'){
   return fetchWrapper.get(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}`);
  }else{
-  if(settingId!=""){
+  if(settingId!="" &&  settingId!=undefined){
     return fetchWrapper.get(`${baseUrl}/GetInitialFilter?DealerId=${dealerId}&IsLabGrown=true`);
   }else{
-    if(option==="mined"){
-      return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}&IsLabGrown=false`);
+    if(option){
+      return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}`);
     }else{
-      return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}&IsLabGrown=true`);
+      return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}`);
     }  
   }
  
@@ -67,11 +69,11 @@ function getQueryParam(option){
   }
   if(option.orderByType && option.orderByType!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
-    filterString += 'OrderBy='+option.orderBy+"&OrderType="+option.orderByType  ; 
+    filterString += 'OrderBy=Size'+"&OrderType=asc"  ; 
   }
-  if(option.priceRange && option.priceRange!==undefined&&option.priceRange.length>0){
+  if(option.priceMin!==undefined&&option.priceMax!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
-    filterString += 'PriceMin='+option.priceRange[0]+"&PriceMax="+option.priceRange[1]  ;  
+    filterString += 'PriceMin='+option.priceMin+"&PriceMax="+option.priceMax  ;  
   }
   if(option.depth && option.depth!==undefined&&option.depth.length>0){
     filterString += filterString.length > 0 ? `&` : '';
@@ -89,17 +91,21 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'CutGradeId='+option.cut;    
   }
-  if(option.color && option.color!==undefined){
+  if(option.colour && option.colour!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
-    filterString += 'ColorId='+option.color;    
+    filterString += 'ColorId='+option.colour;    
   }
   if(option.clarity && option.clarity!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'ClarityId='+option.clarity;    
   }
-  if(option.navigation && option.navigation=='lab'){
+  if(option.isLabGrown===true){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'IsLabGrown=true';    
+  }
+  if(option.isLabGrown===false){
+    filterString += filterString.length > 0 ? `&` : '';
+    filterString += 'IsLabGrown=false';    
   }
   if(option.FancyColor && option.FancyColor!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
