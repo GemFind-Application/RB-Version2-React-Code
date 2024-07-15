@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import Head1 from "../components/head1";
 import FrameComponent6 from "../components/frame-component6";
-import FrameComponent7 from "../components/frame-component7";
+import DiamondFilter from "../components/diamond-filter";
 import List1 from "../components/list1";
 import PaginationPanel from "../components/pagination-panel";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ const DiamondTable = () => {
     <div className="diamond-table">
       <Head1 />
       <FrameComponent6 />
-      <FrameComponent7 />
+      <DiamondFilter />
       <List1 />
       <PaginationPanel />
       <div className="diamond-table-child" onClick={onRectangleClick} />
