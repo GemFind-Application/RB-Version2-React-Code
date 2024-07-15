@@ -82,8 +82,8 @@
   min-width: 77px;
 }
 .show-inner {
-  height: 5px;
-  width: 2.5px;
+  height: 8px;
+  width: 8px;
   position: relative;
 }
 .show4 {
@@ -128,9 +128,9 @@
   justify-content: flex-start;
   padding: var(--padding-2xs-5) 0px 0px;
 }
-.shape-icon {
-  height: 20px;
-  width: 20px;
+.icon--close {
+  height: 15px;
+  width: 15px;
   position: relative;
   min-height: 20px;
 }
@@ -156,11 +156,10 @@
   width: 22px;
   margin: 0 !important;
   position: absolute;
-  top: -11.5px;
-  left: 91px;
+  top: -12px;
+  left: 75px;
   border-radius: var(--br-xl);
   background-color: var(--accent);
-  border: 1px solid var(--white);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -194,8 +193,10 @@
   font-size: var(--m-sub-size);
   color: var(--black);
   font-family: var(--font-inter);
+  z-index: 99;
 }
-.price21 {
+
+.filter--val {
   flex: 1;
   border-radius: var(--br-21xl);
   border: 1px solid var(--beige-04);
@@ -204,11 +205,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0px var(--padding-xs) var(--padding-3xs) var(--padding-7xs);
+  padding: 8px;
   position: relative;
-  gap: var(--gap-xs);
-  min-width: 72px;
-  min-height: 40px;
+  gap: var(--gap-10xs);
+  cursor: pointer;
 }
 .price23 {
   position: relative;
@@ -224,7 +224,6 @@
   left: 5.5px;
   border-radius: var(--br-21xl);
   background-color: var(--beige-05);
-  border: 1px solid var(--white);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -254,7 +253,7 @@
   display: inline-block;
   min-width: 36px;
 }
-.div100 {
+.border--round {
   height: 18px;
   width: 18px;
   margin: 0 !important;
@@ -263,7 +262,6 @@
   left: 6px;
   border-radius: var(--br-21xl);
   background-color: var(--beige-05);
-  border: 1px solid var(--white);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -377,7 +375,7 @@
   width: 12.5px;
   position: relative;
 }
-.button27 {
+.save--filter {
   height: 40px;
   width: 40px;
   border-radius: var(--br-37xl);
@@ -394,7 +392,7 @@
   width: 18.5px;
   position: relative;
 }
-.button28 {
+.reset--filter {
   height: 40px;
   width: 40px;
   border-radius: var(--br-37xl);
@@ -406,14 +404,14 @@
   justify-content: center;
   padding: var(--padding-3xs);
 }
-.buttons3 {
+.diamond-save-reset {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-5xs);
 }
-.actions9 {
+.filter--reset {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -421,14 +419,20 @@
   padding: 0px 0px 0px var(--padding-5xs);
   gap: var(--gap-lgi);
 }
+.save--diamond_filter,.reset--diamond_filter {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
 .diamond-filters {
-  width: 841px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-xs);
-  max-width: 100%;
+  /* max-width: 841px; */
+  width: 100%;
 }
 .icon3 {
   height: 14.3px;
@@ -448,8 +452,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--padding-4xs) var(--padding-346xl) var(--padding-4xs)
-    var(--padding-xl);
+  padding: 2px 30px;
   gap: var(--gap-3xs);
   max-width: 100%;
 }
@@ -519,10 +522,12 @@
   justify-content: space-between;
   padding: var(--padding-11xs-5) 0px;
   box-sizing: border-box;
+  width: 100%;
   max-width: 100%;
   gap: var(--gap-xl);
+  margin-bottom: 30px;
 }
-.filters-stone1 {
+.filters-wrapper {
   align-self: stretch;
   display: flex;
   flex-direction: row;
@@ -530,6 +535,7 @@
   justify-content: flex-start;
   max-width: 100%;
   color: var(--grey);
+  flex-direction: column;
 }
 .top-group {
   align-self: stretch;
@@ -544,10 +550,11 @@
   position: relative;
   display: inline-block;
   min-width: 112px;
+  cursor: pointer;
 }
 .frame-child6 {
-  width: 5px;
-  height: 2.5px;
+  width: 9px;
+  height: 6px;
   position: relative;
   object-fit: contain;
 }
@@ -597,6 +604,127 @@
   color: var(--black);
   font-family: var(--body-14-reg);
 }
+
+.search-products {
+  max-width: 340px;
+}
+.search-products img {
+  padding-left: 10px;
+}
+.search-products input {
+  width: 100%;
+  max-width: 340px;
+  outline: none;
+  border: none;
+  padding: 10px;
+}
+
+.dropdown-content {
+  display: flex;
+  /* gap: 25px; */
+  margin-bottom: 20px;
+  border: 1px solid #F4EEEB;
+  border-radius: 50px;
+}
+
+.dropdown-content .dropdown-btns:first-child .option--btn {
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+.dropdown-content .dropdown-btns:last-child .option--btn {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.dropdown-content .option--btn {
+  padding: 15px 20px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.dropdown-content .option--btn.active--item {
+  background-color: #F4EEEB;
+}
+
+/* popup filter css */
+.filter--val {
+  position: relative;
+}
+
+.filter-popup {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.filter-popup::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 16px;
+  height: 16px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
+}
+
+.filter--hover-icon {
+  cursor: pointer;
+}
+
+.filter--hover-icon:hover + .filter-popup {
+  display: none;
+}
+
+.filter-popup {
+  border: 1px solid #e0e0e0;
+}
+
+.filter--hover-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 18px;
+  font-size: 12px;
+}
+/* ADVANCED FILTER */
+.filter--content_dropdown {
+  display: flex;
+  flex-wrap: wrap;
+}
+.filter--content_dropdown .advanced-filter--values {
+  flex: 1 1 50%;
+  width: 50%;
+}
+.filter--price-flex {
+  display: flex;
+}
+
+.advanced-filter-group {
+  margin-bottom: 20px;
+}
+
+.advanced-filter-group h4 {
+  margin-bottom: 10px;
+}
+/* END desktop styles */
+
 
 @media screen and (max-width: 1575px) {
   .mid1 {

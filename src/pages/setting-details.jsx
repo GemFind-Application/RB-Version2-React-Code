@@ -263,7 +263,7 @@ const SettingPage = ({ formSetting, settingNavigationData, isLabGrown, shopUrl }
                           </div>
                         </div>
                       </div>
-                      <div className="rating">
+                      {/* <div className="rating">
                         <b className="overall-rating">4,8</b>
                         <div className="stars">
                           <img className="stars-icon" alt="" src="/stars.svg" />
@@ -273,7 +273,7 @@ const SettingPage = ({ formSetting, settingNavigationData, isLabGrown, shopUrl }
                           <img className="stars-icon" alt="" src="/stars.svg" />
                         </div>
                         <div className="based-on-1234">Based on {reviews.length} Reviews</div>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="enim-at-fames">{product.description}</div>
                     {/* FORM DETAILS */}
@@ -478,8 +478,8 @@ const SettingPage = ({ formSetting, settingNavigationData, isLabGrown, shopUrl }
                           <b className="select-485">Select - <ShowCostInCard settingDetailForCost={product}></ShowCostInCard></b>
                         </button>
                         <button className="button-fav1">
-                          <img className="heart-icon1" alt="" src="/heart.svg" />
-                          <b className="add-to-favorites1">Add to Favorites</b>
+                          {/* <img className="heart-icon1" alt="" src="/heart.svg" /> */}
+                          <b className="add-to-favorites1 virtual_tryon">Virtual try on</b>
                         </button>
                       </div>
 
