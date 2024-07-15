@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import Head1 from "../components/head1";
-import FrameComponent6 from "../components/frame-component6";
+import DiamondNavigation from "../components/diamond-navigation";
 import DiamondFilter from "../components/diamond-filter";
 import List1 from "../components/list1";
 import PaginationPanel from "../components/pagination-panel";
@@ -17,7 +17,7 @@ const DiamondTable = () => {
   return (
     <div className="diamond-table">
       <Head1 />
-      <FrameComponent6 />
+      <DiamondNavigation />
       <DiamondFilter />
       <List1 />
       <PaginationPanel />
