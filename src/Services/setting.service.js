@@ -1,7 +1,10 @@
 import { fetchWrapper } from '../Helpers';
 
 const baseUrl = `${import.meta.env.VITE_APP_API_URL}`;
-const dealerId = 3943
+const dealerId = 1089
+
+//const dealerId = 4141
+//const dealerId = 1089
 //const tamayouInfluencerbaseUrl = `${process.env.REACT_APP_API_URL}/tamayou_influencers`;
 
 export const settingService = {
@@ -11,6 +14,7 @@ export const settingService = {
   getSettingDetail,
   dropAHint,
   friendsEmail,
+  validateDealerPassword
 };
 
 function getSettingFilters(option) {
@@ -40,10 +44,18 @@ function dropAHint(data){
 }
 function friendsEmail(data){
   console.log(data);
- // return fetchWrapper.put(
-  //  `${baseUrl}/ringbuilder/settings/resultdrophint}/`,
-  //  data
-  //);
+ return fetchWrapper.put(
+    'https://gemfind.org/ringbuilder/settings/resultemailfriend',
+   data
+  )
+
+}
+function validateDealerPassword(data){
+  console.log(data);
+ return fetchWrapper.put(
+    'http://api.jewelcloud.com/api/RingBuilder/AccountAuthentication',
+   data
+  );
 }
 function scheduleViewing(data){
   console.log(data);
@@ -78,8 +90,7 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'OrderBy='+option.orderBy  ; 
   }
-  if(option.priceMin=== 0 || option.priceMin > 0){
-    //console.log("=====");
+  if(option.priceMin && option.priceMax){
 
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'priceMin='+option.priceMin+"&priceMax="+option.priceMax  ;  

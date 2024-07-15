@@ -7,9 +7,11 @@ import ProductItems from "../components/product-items";
 import PaginationPanel from "../components/pagination-panel";
 import Header from '../components/Header';
 import { BASE_URL, DEALER_ID } from '../components/api';
+import PortalPopup from "../components/portal-popup";
 import "./settings.css";
 import { settingService } from '../Services';
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
+import VideoModal from "../components/VideoModal";
 const SkeletonProductItem = () => (
   <div className="product-item-skeleton">
     <div className="skeleton-image"></div>
@@ -19,7 +21,8 @@ const SkeletonProductItem = () => (
 );
 
 const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
- 
+  const [showVirtualTryOn, setShowVirtualTryOn] = useState(false);
+  const [showVirtualTryOnUrl, setShowVirtualTryOnUrl] = useState('');
   const [filterData, setFilterData] = useState(null);
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -45,7 +48,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
     collections: storedData ? storedData.collections.length > 0 ? storedData.collections:[]:[],
     metalType: storedData ? storedData.metalType.length > 0 ?storedData.metalType:[]:[],
     shapes: storedData ? storedData.shapes.length > 0 ?storedData.shapes:[]:[],
-    price:storedData ?   storedData.price.length > 0 ? storedData.price :[0, 29678.00]:[0, 29678.00],
+    price:storedData ?   storedData.price.length > 0 ? storedData.price :[]:[],
     search: storedData ?storedData.search!="" ? storedData.search :'':''
   });
   //const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
@@ -115,6 +118,12 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
       setLoading(false);
     }
   };
+  const showVirtualTryOnIframe = (stockNumber)=>{
+    console.log("here")
+    let url = `https://cdn.camweara.com/gemfind/index_client.php?company_name=Gemfind&ringbuilder=1&skus=${stockNumber}&buynow=0`;
+    setShowVirtualTryOn(true);
+    setShowVirtualTryOnUrl(url)
+  }
 
   /*const fetchFilterData = async (isLab) => {
     try {
@@ -133,9 +142,9 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
   const fetchFilterData = async (isLab,filters) => {
     try {
       let option = {         
-        //shape:filters.shapes.join(','),
-        //metalType:filters.metalType.join(','),
-        //style:filters.collections.join(','),
+        shape:filters.shapes.join(','),
+        metalType:filters.metalType.join(','),
+        style:filters.collections.join(','),
         IsLabSettingsAvailable:isLab ? 1 : 0
       }
       const res = await settingService.getSettingFilters(option);  
@@ -207,7 +216,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
       collections: [],
       metalType: [],
       shapes: [],
-      price: [0, 29678.00],
+      price: [],
       search: ''
     });
     localStorage.removeItem('activeFilters');
@@ -255,7 +264,9 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
            products.length===0 ? <div>No Settings Found</div> : 
            products.map(product => (
             <ProductItems 
+              filterMetalType = {activeFilters.metalType}
               key={product.settingId} 
+              showVirtualTryOnIframe={showVirtualTryOnIframe}
               product={{
                 ...product,
                 videoURL: product.videoURL || null,
@@ -276,7 +287,18 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
         onPageChange={handlePageChange}
         onItemsPerPageChange={handleItemsPerPageChange}
       />
+      {showVirtualTryOn && showVirtualTryOnUrl!="" &&
+      <PortalPopup
+        overlayColor="rgba(0, 0, 0, 0.3)"
+        onOutsideClick={() => {setShowVirtualTryOnUrl('') ; setShowVirtualTryOn(false)}}>
+       <VideoModal
+       src={showVirtualTryOnUrl}
+       onClose={() => {setShowVirtualTryOnUrl('') ; setShowVirtualTryOn(false)}}>
+ 
+       </VideoModal></PortalPopup>
+       }
     </div>
+    
   );
 };
 
