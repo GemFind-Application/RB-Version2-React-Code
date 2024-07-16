@@ -44,8 +44,8 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
   });
   const [advancedFilters, setAdvancedFilters] = useState({
     polish: [],
-    depth: { min: 0, max: 100 },
-    table: { min: 0, max: 100 },
+    depth: [],
+    table: [],
     fluorescence: [],
     symmetry: [],
     certificates: [],

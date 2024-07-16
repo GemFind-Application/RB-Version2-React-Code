@@ -29,6 +29,8 @@ const DiamondFilter = ({ className = "",
   const [activePopup, setActivePopup] = useState(null);
   const [priceRange, setPriceRange] = useState(selectedFilters.price.length === 0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice] : [selectedFilters.price[0], selectedFilters.price[1]]);
   const [caratRange, setCaratRange] = useState(selectedFilters.carat.length === 0 ? [filterData.caratRange[0].minCarat, filterData.caratRange[0].maxCarat] : [selectedFilters.carat[0], selectedFilters.carat[1]]);
+  const [depthRange, setDepthRange] = useState(advancedFilters.depth.length === 0 ? [filterData.depthRange[0].minDepth, filterData.depthRange[0].maxDepth] : [advancedFilters.depth[0], advancedFilters.depth[1]]);
+  const [tableRange, setTableRange] = useState(advancedFilters.table.length === 0 ? [filterData.tableRange[0].minTable, filterData.tableRange[0].maxTable] : [advancedFilters.table[0], advancedFilters.table[1]]);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [sortBy, setSortBy] = useState("Clarity");
   const [searchQuery, setSearchQuery] = useState(selectedFilters.search ? selectedFilters.search != "" ? selectedFilters.search : '' : '');
@@ -378,21 +380,23 @@ const DiamondFilter = ({ className = "",
                   <div className="advanced-filter-group">
                     <h4>Depth</h4>
                     <MultiRangeSlider
-                      min={0}
-                      max={100}
-                      onChange={(value) => handleAdvancedFilterChange('depth', value)}
-                      value={advancedFilters.depth}
-                    />
+                        min={parseFloat(filterData.depthRange[0].minDepth)}
+                        max={parseFloat(filterData.depthRange[0].maxDepth)}
+                        onChange={handleCaratChange}
+                        value={depthRange}
+                        isPrice={false}
+                      />
                   </div>
 
                   <div className="advanced-filter-group">
                     <h4>Table</h4>
                     <MultiRangeSlider
-                      min={0}
-                      max={100}
-                      onChange={(value) => handleAdvancedFilterChange('table', value)}
-                      value={advancedFilters.table}
-                    />
+                        min={parseFloat(filterData.tableRange[0].minTable)}
+                        max={parseFloat(filterData.tableRange[0].maxTable)}
+                        onChange={handleCaratChange}
+                        value={tableRange}
+                        isPrice={false}
+                      />
                   </div>
                 </div>
               </div>
@@ -400,13 +404,13 @@ const DiamondFilter = ({ className = "",
                 <div className="advanced-filter-group">
                   <h4>Fluorescence</h4>
                   <div className="group-inner">
-                    {['None', 'Faint', 'Medium', 'Strong', 'Very Strong'].map(fluorescence => (
-                      <div className="dropdown-btns" key={fluorescence}>
+                    {filterData.fluorescenceRange.map(fluorescence => (
+                      <div className="dropdown-btns" key={fluorescence.fluorescenceId}>
                         <button
-                          className={`option--btn ${advancedFilters.fluorescence.includes(fluorescence) ? 'active--item' : ''}`}
-                          onClick={() => handleAdvancedFilterChange('fluorescence', fluorescence)}
+                          className={`option--btn ${advancedFilters.fluorescence.includes(fluorescence.fluorescenceId) ? 'active--item' : ''}`}
+                          onClick={() => handleAdvancedFilterChange('fluorescence', fluorescence.fluorescenceId)}
                         >
-                          {fluorescence}
+                          {fluorescence.fluorescenceName}
                         </button>
                       </div>
                     ))}
@@ -415,13 +419,13 @@ const DiamondFilter = ({ className = "",
                 <div className="advanced-filter-group">
                   <h4>Symmetry</h4>
                   <div className="group-inner">
-                    {['Excellent', 'Very Good', 'Good', 'Fair'].map(symmetry => (
-                      <div className="dropdown-btns" key={symmetry}>
+                    {filterData.symmetryRange.map(symmetry => (
+                      <div className="dropdown-btns" key={symmetry.symmetryId}>
                         <button
-                          className={`option--btn ${advancedFilters.symmetry.includes(symmetry) ? 'active--item' : ''}`}
-                          onClick={() => handleAdvancedFilterChange('symmetry', symmetry)}
+                          className={`option--btn ${advancedFilters.symmetry.includes(symmetry.symmetryId) ? 'active--item' : ''}`}
+                          onClick={() => handleAdvancedFilterChange('symmetry', symmetry.symmetryId)}
                         >
-                          {symmetry}
+                          {symmetry.symmteryName}
                         </button>
                       </div>
                     ))}
@@ -433,12 +437,12 @@ const DiamondFilter = ({ className = "",
                   <h4>Certificates</h4>
                   <div className="group-inner">
                     {filterData.certificateRange.map(certificate => (
-                      <div className="dropdown-btns" key={certificate}>
+                      <div className="dropdown-btns" key={certificate.certificateId}>
                         <button
-                          className={`option--btn ${advancedFilters.certificates.includes(certificate) ? 'active--item' : ''}`}
-                          onClick={() => handleAdvancedFilterChange('certificates', certificate)}
+                          className={`option--btn ${advancedFilters.certificates.includes(certificate.certificateId) ? 'active--item' : ''}`}
+                          onClick={() => handleAdvancedFilterChange('certificates', certificate.certificateId)}
                         >
-                          {certificate}
+                          {certificate.certificateName}
                         </button>
                       </div>
                     ))}
