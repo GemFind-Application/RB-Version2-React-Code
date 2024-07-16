@@ -16,7 +16,7 @@ const SkeletonProductItem = () => (
     <div className="skeleton-price"></div>
   </div>
 );
-const Diamond = ({isLabGrown}) => {
+const Diamond = ({isLabGrown,setIsLabGrown}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -52,7 +52,7 @@ const Diamond = ({isLabGrown}) => {
   });
   useEffect(() => {   
     async function fetchDiamondNavigation(){
-      try {
+      try {      
         const res = await diamondService.getDiamondNavigation(); 
         if(res[0]) {
           setDiamondNavigation(res[0]);
@@ -66,8 +66,9 @@ const Diamond = ({isLabGrown}) => {
  
     const fetchDiamondFilter=async() => {
       try {          
-        
-        const res = await diamondService.getDiamondFilter();         
+        let option = {                  
+        isLabGrown:isLabGrown ? 1 : 0        }
+        const res = await diamondService.getDiamondFilter(option);         
         if(res){
           if(res[0].message === 'Success'){
             setFilterData(res[1][0]);
@@ -88,6 +89,7 @@ const Diamond = ({isLabGrown}) => {
  
  
     const fetchDiamond = async(page, pageSize, isLab, sort, selectedFilters)=> {
+      console.log(isLab)
       try {       
         let option = {
           pageNumber:page,    
@@ -97,12 +99,11 @@ const Diamond = ({isLabGrown}) => {
           cut:selectedFilters.cut.length>0?selectedFilters.cut.join(','):'',
           colour:selectedFilters.colour.length>0?selectedFilters.colour.join(','):'',
           clarity:selectedFilters.clarity.length>0?selectedFilters.clarity.join(','):'',
-          isLabGrown:isLabGrown,
+          isLabGrown:isLab==='fancy'?isLab:isLab===true?true:false,
           priceMin:selectedFilters.price[0],
           priceMax:selectedFilters.price[1],
           carat:[selectedFilters.carat[0],selectedFilters.carat[1]],
-          orderBy:sortOrder ,
-        
+          orderBy:sort ,        
         }        
         const res = await diamondService.getAllDiamond(option);
         if(res.diamondList && res.diamondList.length > 0) {
@@ -113,13 +114,12 @@ const Diamond = ({isLabGrown}) => {
         
       } catch (err) {
         console.error("Error fetching diamond  data:", error);
-        setError("Failed to fetch diamond  data. Please try again later.");
-        
+        setError("Failed to fetch diamond  data. Please try again later.");        
       }
     } 
     useEffect(() => {
       fetchDiamondFilter(selectedFilters);
-    }, [ ]);
+    }, [isLabGrown ]);
 
  
   /*useEffect(() => {
@@ -140,7 +140,7 @@ const Diamond = ({isLabGrown}) => {
 
   useEffect(() => {
     fetchDiamond(currentPage, itemsPerPage, isLabGrown,  sortOrder, selectedFilters);
-  }, [ currentPage, itemsPerPage, sortOrder, selectedFilters]);
+  }, [ currentPage, itemsPerPage, isLabGrown,sortOrder, selectedFilters]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -191,7 +191,7 @@ const Diamond = ({isLabGrown}) => {
   return (
     <div className="diamond">
       <Header />
-      <DiamondNavigation />
+      <DiamondNavigation diamondNavigation={diamondNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown}/>
       {filterData ? 
       isDiamondFilterLoaded &&
       <DiamondFilter 

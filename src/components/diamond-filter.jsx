@@ -335,7 +335,7 @@ const DiamondFilter = ({ className = "" ,
                 {activeDropdown === 'clarity' && (
                    filterData.clarityRange.map(clarity => (
                     <div className="dropdown-btns" key={clarity.clarityId}>
-                      <button className={`option--btn ${selectedFilters.clarity.includes(clarity.clarityName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('clarity', clarity.clarityName)}>{clarity.clarityName}</button>
+                      <button className={`option--btn ${selectedFilters.clarity.includes(clarity.clarityId) ? 'active--item' : ''}`} onClick={() => handleFilterChange('clarity', clarity.clarityId)}>{clarity.clarityName}</button>
                     </div>
                   ))
                 )}
