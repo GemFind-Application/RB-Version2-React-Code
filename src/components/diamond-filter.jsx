@@ -22,7 +22,8 @@ const DiamondFilter = ({ className = "",
   onSortOrderChange,
   sortOrder,
   searchSetting,
-  itemsPerPage
+  itemsPerPage,
+  applyAdvanceFilters
 }) => {
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -41,9 +42,13 @@ const DiamondFilter = ({ className = "",
     colour: [],
     clarity: [],
   });*/
+  console.log(selectedFilters);
+  console.log(advancedFilters)
   useEffect(() => {
     setPriceRange(selectedFilters.price.length === 0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice] : [selectedFilters.price[0], selectedFilters.price[1]]);
     setCaratRange(selectedFilters.carat.length === 0 ? [filterData.caratRange[0].minCarat, filterData.caratRange[0].maxCarat] : [selectedFilters.carat[0], selectedFilters.carat[1]]);
+    setDepthRange(advancedFilters.depth.length === 0 ? [filterData.depthRange[0].minDepth, filterData.depthRange[0].maxDepth] : [advancedFilters.depth[0], advancedFilters.depth[1]]);
+    setTableRange(advancedFilters.table.length === 0 ? [filterData.tableRange[0].minTable, filterData.tableRange[0].maxTable] : [advancedFilters.table[0], advancedFilters.table[1]]);
   }, [selectedFilters]);
 
   const onCompContainerClick = useCallback(() => {
@@ -72,10 +77,15 @@ const DiamondFilter = ({ className = "",
   };
   const handleCaratChange = ({ min, max }) => {
     setCaratRange([min, max]);
-    // setPriceRange(newRange);
     handleCaratDebounce({ min, max });
-    // setCaratRange(newRange);
-    // You can add logic here to update filters or trigger a search
+  };
+  const handleTableChange = ({ min, max }) => {
+    setTableRange([min, max]);
+    handleTableDebounce({ min, max });
+  };
+  const handleDepthChange = ({ min, max }) => {
+    setDepthRange([min, max]);
+    handleDepthDebounce({ min, max });
   };
   const handleSortChange = (newSort) => {
     setSortBy(newSort);
@@ -89,6 +99,13 @@ const DiamondFilter = ({ className = "",
   const handleSetCaratRange = (value) => {
     applyFilters({ ...selectedFilters, carat: [value.min, value.max] });
   };
+  const handleSetTableRange = (value) => {
+    applyAdvanceFilters({ ...advancedFilters, table: [value.min, value.max] });
+  };
+  const handleSetDepthRange = (value) => {
+    applyAdvanceFilters({ ...advancedFilters, depth: [value.min, value.max] });
+  };
+
   const handleDebounce = useCallback(
     debounce(handleSetTimeRange, 500),
     [selectedFilters],
@@ -97,7 +114,14 @@ const DiamondFilter = ({ className = "",
     debounce(handleSetCaratRange, 500),
     [selectedFilters],
   );
-
+  const handleTableDebounce = useCallback(
+    debounce(handleSetTableRange, 500),
+    [advancedFilters],
+  );
+  const handleDepthDebounce = useCallback(
+    debounce(handleSetDepthRange, 500),
+    [advancedFilters],
+  );
 
   const handleFilterChange = (filterType, value) => {
     setSelectedFilters(prev => ({
@@ -110,10 +134,7 @@ const DiamondFilter = ({ className = "",
 
   const handleAdvancedFilterChange = (filterType, value) => {
     if (filterType === 'depth' || filterType === 'table') {
-      setAdvancedFilters(prev => ({
-        ...prev,
-        [filterType]: value
-      }));
+     
     } else {
       setAdvancedFilters(prev => ({
         ...prev,
@@ -364,13 +385,13 @@ const DiamondFilter = ({ className = "",
                 <div className="advanced-filter-group">
                   <h4>Polish</h4>
                   <div className="group-inner">
-                    {['Excellent', 'Very Good', 'Good', 'Fair'].map(polish => (
-                      <div className="dropdown-btns" key={polish}>
+                    {filterData.polishRange.map(polish => (
+                      <div className="dropdown-btns" key={polish.polishId}>
                         <button
-                          className={`option--btn ${advancedFilters.polish.includes(polish) ? 'active--item' : ''}`}
-                          onClick={() => handleAdvancedFilterChange('polish', polish)}
+                          className={`option--btn ${advancedFilters.polish.includes(polish.polishId) ? 'active--item' : ''}`}
+                          onClick={() => handleAdvancedFilterChange('polish', polish.polishId)}
                         >
-                          {polish}
+                          {polish.polishName}
                         </button>
                       </div>
                     ))}
@@ -382,7 +403,7 @@ const DiamondFilter = ({ className = "",
                     <MultiRangeSlider
                         min={parseFloat(filterData.depthRange[0].minDepth)}
                         max={parseFloat(filterData.depthRange[0].maxDepth)}
-                        onChange={handleCaratChange}
+                        onChange={handleDepthChange}
                         value={depthRange}
                         isPrice={false}
                       />
@@ -393,7 +414,7 @@ const DiamondFilter = ({ className = "",
                     <MultiRangeSlider
                         min={parseFloat(filterData.tableRange[0].minTable)}
                         max={parseFloat(filterData.tableRange[0].maxTable)}
-                        onChange={handleCaratChange}
+                        onChange={handleTableChange}
                         value={tableRange}
                         isPrice={false}
                       />

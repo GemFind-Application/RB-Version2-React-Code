@@ -32,6 +32,7 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
   const [isserachIsClicked, setIsSerachIsClicked] = useState(false) ;
   const [sortOrder, setSortOrder] = useState('ASC');
   let storedData = JSON.parse(localStorage.getItem('saveDiamondFilters')); 
+  let advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFilters'));  
   //console.log(storedData.carat)
   const [selectedFilters, setSelectedFilters] = useState({
     shape:  storedData ? storedData.shape.length > 0 ?storedData.shape:[]:[],
@@ -39,16 +40,16 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
     cut:  storedData ? storedData.cut.length > 0 ?storedData.cut:[]:[],
     colour:  storedData ? storedData.colour.length > 0 ?storedData.colour:[]:[],
     clarity:  storedData ? storedData.clarity.length > 0 ?storedData.clarity:[]:[],  
-    price:storedData ?   storedData.price.length > 0 ? storedData.price :[]:[],
+    price:  storedData ?   storedData.price.length > 0 ? storedData.price :[]:[],
     search: storedData ?storedData.search!="" ? storedData.search :'':''
   });
   const [advancedFilters, setAdvancedFilters] = useState({
-    polish: [],
-    depth: [],
-    table: [],
-    fluorescence: [],
-    symmetry: [],
-    certificates: [],
+    polish:  advanceFilterStoredData ? advanceFilterStoredData.polish.length > 0 ?advanceFilterStoredData.polish:[]:[],
+    depth:  advanceFilterStoredData ? advanceFilterStoredData.depth.length > 0 ?advanceFilterStoredData.depth:[]:[],
+    table:advanceFilterStoredData ? advanceFilterStoredData.table.length > 0 ?advanceFilterStoredData.table:[]:[],
+    fluorescence: advanceFilterStoredData ? advanceFilterStoredData.fluorescence.length > 0 ?advanceFilterStoredData.fluorescence:[]:[],
+    symmetry: advanceFilterStoredData ? advanceFilterStoredData.symmetry.length > 0 ?advanceFilterStoredData.symmetry:[]:[],
+    certificates:advanceFilterStoredData ? advanceFilterStoredData.certificates.length > 0 ?advanceFilterStoredData.certificates:[]:[],
   });
   useEffect(() => {   
     async function fetchDiamondNavigation(){
@@ -88,7 +89,7 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
     }  
  
  
-    const fetchDiamond = async(page, pageSize, isLab, sort, selectedFilters)=> {
+    const fetchDiamond = async(page, pageSize, isLab, sort, selectedFilters,advancedFilters)=> {
       if(isDiamondFilterLoaded){
         try {       
           let option = {
@@ -102,8 +103,14 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
             isLabGrown:isLab==='fancy'?isLab:isLab===true?true:false,
             priceMin:selectedFilters.price[0],
             priceMax:selectedFilters.price[1],
-            carat:[selectedFilters.carat[0],selectedFilters.carat[1]],
-            orderBy:sort ,        
+            carat:selectedFilters.carat.length > 0 ? [selectedFilters.carat[0],selectedFilters.carat[1]]:[],
+            orderBy:sort ,
+            fluorescence:advancedFilters.fluorescence.length>0 ?advancedFilters.fluorescence.join(','):'',
+            certificates:advancedFilters.certificates.length>0 ?advancedFilters.certificates.join(','):'',
+            symmetry:advancedFilters.symmetry.length>0 ?advancedFilters.symmetry.join(','):'',
+            polish:advancedFilters.polish.length>0 ?advancedFilters.polish.join(','):'',
+            table:advancedFilters.table.length > 0 ? [advancedFilters.table[0],advancedFilters.table[1]]:[],
+            depth:advancedFilters.depth.length > 0?[advancedFilters.depth[0],advancedFilters.depth[1]]:[],
           }        
           const res = await diamondService.getAllDiamond(option);
           if(res.diamondList && res.diamondList.length > 0) {
@@ -141,8 +148,8 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
   }, [ isDiamondFilterLoaded]);*/
 
   useEffect(() => {
-    fetchDiamond(currentPage, itemsPerPage, isLabGrown,  sortOrder, selectedFilters);
-  }, [ currentPage, itemsPerPage, isLabGrown,sortOrder, selectedFilters]);
+    fetchDiamond(currentPage, itemsPerPage, isLabGrown,  sortOrder, selectedFilters,advancedFilters);
+  }, [ currentPage, itemsPerPage, isLabGrown,sortOrder, selectedFilters,advancedFilters]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -153,6 +160,10 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
   };
   const applyFilters = (filters) => {
     setSelectedFilters(filters);
+    setCurrentPage(1);
+  };
+  const applyAdvanceFilters = (filters) => {
+    setAdvancedFilters(filters);
     setCurrentPage(1);
   };
   const handleSortOrderChange = (order) => {
@@ -179,12 +190,21 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
       price: [filterData.priceRange[0].minPrice,filterData.priceRange[0].maxPrice],
       search: ''
     });
+    setAdvancedFilters({
+      polish: [],
+      depth: [filterData.depthRange[0].minDepth,filterData.depthRange[0].maxDepth],
+      table: [filterData.tableRange[0].minTable,filterData.tableRange[0].maxTable],
+      fluorescence: [],
+      symmetry: [],
+      certificates: [],
+    });
     localStorage.removeItem('saveDiamondFilters');
     setCurrentPage(1);
   };
   
   const saveFilters = () => {
     localStorage.setItem('saveDiamondFilters', JSON.stringify(selectedFilters));
+    localStorage.setItem('saveAdvanceDiamondFilters', JSON.stringify(advancedFilters));
     alert('Filters saved successfully');
   };
  
@@ -202,6 +222,7 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
        isGridView={isGridView}
        setIsGridView={setIsGridView} 
        applyFilters={applyFilters}
+       applyAdvanceFilters={applyAdvanceFilters}
        resetFilters={resetFilters}
        saveFilters={saveFilters}
        totalProducts={totalProducts}

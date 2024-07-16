@@ -46,7 +46,7 @@ function getDiamondDetail(settingId) {
 function getAllDiamond(option) {
   let queryParam = getQueryParam(option);
   if(option.isLabGrown==='fancy') {
-    return fetchWrapper.get(`${baseUrl}/GetColorDiamond?DealerId=${dealerId}${queryParam}&IsLabGrown=false&TableMin=0&TableMax=100`);
+    return fetchWrapper.get(`${baseUrl}/GetColorDiamond?DealerId=${dealerId}${queryParam}&IsLabGrown=false`);
   }else{
     return fetchWrapper.get(`${baseUrl}/GetDiamond?DealerId=${dealerId}${queryParam}`);
   }  
@@ -82,9 +82,29 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'DepthMin='+option.depth[0]+"&DepthMax="+option.depth[1]  ;  
   }
+  if(option.depth && option.table!==undefined&&option.table.length>0){
+    filterString += filterString.length > 0 ? `&` : '';
+    filterString += 'TableMin='+option.table[0]+"&TableMax="+option.table[1]  ;  
+  }
   if(option.shape && option.shape!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'Shape='+option.shape;    
+  }
+  if(option.symmetry && option.symmetry!==undefined && option.symmetry!=""){
+    filterString += filterString.length > 0 ? `&` : '';
+    filterString += 'SymmetryId='+option.symmetry;    
+  }
+  if(option.polish && option.polish!==undefined && option.polish!=""){
+    filterString += filterString.length > 0 ? `&` : '';
+    filterString += 'PolishId='+option.polish;    
+  }
+  if(option.certificates && option.certificates!==undefined &&  option.certificates!=""){
+    filterString += filterString.length > 0 ? `&` : '';
+    filterString += 'Certificate='+option.certificates;    
+  }
+  if(option.fluorescence && option.fluorescence!==undefined&& option.fluorescence!=""){
+    filterString += filterString.length > 0 ? `&` : '';
+    filterString += 'FluorescenceId='+option.fluorescence;    
   }
   if(option.carat && option.carat!==undefined && option.carat.length > 0 &&option.carat[0]!="" && option.carat[1]!=""){
     filterString += filterString.length > 0 ? `&` : '';
