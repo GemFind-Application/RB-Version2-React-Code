@@ -28,12 +28,11 @@ const Diamond = ({isLabGrown}) => {
   const [isDiamondFilterLoaded, setIsDiamondFilterLoaded] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isDiamondLoaded, setIsDiamondLoaded] = useState(false);
-  
+  const [isDiamondLoaded, setIsDiamondLoaded] = useState(false);  
   const [isserachIsClicked, setIsSerachIsClicked] = useState(false) ;
-  const [sortOrder, setSortOrder] = useState('High to Low');
-  let storedData = JSON.parse(localStorage.getItem('activeDiamondFilters')); 
-  console.log(storedData.carat)
+  const [sortOrder, setSortOrder] = useState('ASC');
+  let storedData = JSON.parse(localStorage.getItem('saveDiamondFilters')); 
+  //console.log(storedData.carat)
   const [selectedFilters, setSelectedFilters] = useState({
     shape:  storedData ? storedData.shape.length > 0 ?storedData.shape:[]:[],
     carat:  storedData ? storedData.carat.length > 0 ?storedData.carat:[]:[],
@@ -43,7 +42,6 @@ const Diamond = ({isLabGrown}) => {
     price:storedData ?   storedData.price.length > 0 ? storedData.price :[]:[],
     search: storedData ?storedData.search!="" ? storedData.search :'':''
   });
-  console.log(selectedFilters)
   const [advancedFilters, setAdvancedFilters] = useState({
     polish: [],
     depth: { min: 0, max: 100 },
@@ -68,10 +66,17 @@ const Diamond = ({isLabGrown}) => {
  
     const fetchDiamondFilter=async() => {
       try {          
+        
         const res = await diamondService.getDiamondFilter();         
         if(res){
           if(res[0].message === 'Success'){
             setFilterData(res[1][0]);
+            applyFilters({...selectedFilters,
+              colour: selectedFilters.colour.length===0 ? res[1][0].colorRange.map(item=> {return item.colorId}):selectedFilters.colour,
+              clarity: selectedFilters.clarity.length===0 ? res[1][0].clarityRange.map(item=> {return item.clarityName}):selectedFilters.clarity,
+              price:selectedFilters.price.length===0 ? [res[1][0].priceRange[0].minPrice,res[1][0].priceRange[0].maxPrice]:selectedFilters.price,
+              carat:selectedFilters.carat.length===0 ?[res[1][0].caratRange[0].minCarat,res[1][0].caratRange[0].maxCarat]:selectedFilters.carat,
+            });
             setIsDiamondFilterLoaded(true);            
           }
         }
@@ -83,7 +88,6 @@ const Diamond = ({isLabGrown}) => {
  
  
     const fetchDiamond = async(page, pageSize, isLab, sort, selectedFilters)=> {
-      console.log(selectedFilters)
       try {       
         let option = {
           pageNumber:page,    
@@ -97,15 +101,12 @@ const Diamond = ({isLabGrown}) => {
           priceMin:selectedFilters.price[0],
           priceMax:selectedFilters.price[1],
           carat:[selectedFilters.carat[0],selectedFilters.carat[1]],
-          depth:[0,100],
-          table:[0,100]
-        }
+          orderBy:sortOrder ,
         
+        }        
         const res = await diamondService.getAllDiamond(option);
-        console.log(option)
         if(res.diamondList && res.diamondList.length > 0) {
           setDiamond(res.diamondList);  
-          console.log(res.count)
           setTotalProducts(res.count);        
           setIsDiamondLoaded(true)
         }
@@ -121,7 +122,7 @@ const Diamond = ({isLabGrown}) => {
     }, [ ]);
 
  
-  useEffect(() => {
+  /*useEffect(() => {
     console.log(filterData)
     if(isDiamondFilterLoaded){
       setSelectedFilters({ 
@@ -135,7 +136,7 @@ const Diamond = ({isLabGrown}) => {
       });
     }
    
-  }, [ isDiamondFilterLoaded]);
+  }, [ isDiamondFilterLoaded]);*/
 
   useEffect(() => {
     fetchDiamond(currentPage, itemsPerPage, isLabGrown,  sortOrder, selectedFilters);
@@ -166,24 +167,25 @@ const Diamond = ({isLabGrown}) => {
       applyFilters({ ...selectedFilters, search: event.target.value });
     }    
   }; 
-  const saveFilters = () => {
-    localStorage.setItem('activeDiamondFilters', JSON.stringify(selectedFilters));
-    alert('Filters saved successfully');
-  };
   const resetFilters = () => {
-    console.log("sdfdsfdsf")
     setSelectedFilters({
-      shape:  [],
-    carat:  [],
-    cut:  [],
-    colour:  [],
-    clarity: [],  
-    price:[],
-    search: ''
+      shape: [],
+      cut: [],
+      colour: [],
+      clarity: [],
+      carat:[filterData.caratRange[0].minCarat,filterData.caratRange[0].maxCarat],
+      price: [filterData.priceRange[0].minPrice,filterData.priceRange[0].maxPrice],
+      search: ''
     });
-    localStorage.removeItem('activeDiamondFilters');
+    localStorage.removeItem('saveDiamondFilters');
     setCurrentPage(1);
   };
+  
+  const saveFilters = () => {
+    localStorage.setItem('saveDiamondFilters', JSON.stringify(selectedFilters));
+    alert('Filters saved successfully');
+  };
+ 
  
  
   return (
@@ -227,8 +229,7 @@ const Diamond = ({isLabGrown}) => {
             }} /> 
           
           ))
-        }
-            
+        }            
       </div>
       :   diamond.map(product => (
         <List1   

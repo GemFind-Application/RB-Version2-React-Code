@@ -45,8 +45,7 @@ function getAllDiamond(option) {
     return fetchWrapper.get(`${baseUrl}/GetColorDiamond?DealerId=${dealerId}${queryParam}&IsLabGrown=false&TableMin=0&TableMax=100`);
   }else{
     return fetchWrapper.get(`${baseUrl}/GetDiamond?DealerId=${dealerId}${queryParam}`);
-  }
-  
+  }  
 }
 function getDiamondNavigation(){
   return fetchWrapper.get(`${baseUrl}/GetNavigation?DealerId=${dealerId}`);
@@ -67,9 +66,9 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'DID='+option.searchDiamond;    
   }
-  if(option.orderByType && option.orderByType!==undefined){
+  if(option.orderBy && option.orderBy!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
-    filterString += 'OrderBy=Size'+"&OrderType=asc"  ; 
+    filterString += 'OrderBy=Size'+"&OrderType="+option.orderBy  ; 
   }
   if(option.priceMin!==undefined&&option.priceMax!==undefined){
     filterString += filterString.length > 0 ? `&` : '';

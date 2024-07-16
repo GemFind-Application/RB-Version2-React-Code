@@ -39,15 +39,9 @@ const DiamondFilter = ({ className = "" ,
     colour: [],
     clarity: [],
   });*/
-  console.log(selectedFilters);
-  console.log(filterData)
-
-
-  
-
   useEffect(() => {
-    //setPriceRange(selectedFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [selectedFilters.price[0], selectedFilters.price[1]]);
-    //setCaratRange(selectedFilters.carat.length===0 ? [filterData.caratRange[0].minCarat, filterData.caratRange[0].maxCarat]: [selectedFilters.carat[0], selectedFilters.carat[1]]);
+    setPriceRange(selectedFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [selectedFilters.price[0], selectedFilters.price[1]]);
+    setCaratRange(selectedFilters.carat.length===0 ? [filterData.caratRange[0].minCarat, filterData.caratRange[0].maxCarat]: [selectedFilters.carat[0], selectedFilters.carat[1]]);
   }, [selectedFilters]);
 
   const onCompContainerClick = useCallback(() => {
@@ -69,7 +63,6 @@ const DiamondFilter = ({ className = "" ,
   };
 
   const handlePriceChange =({ min, max })=> {
-    //console.log(newRange)
     setPriceRange([min, max]);  
    // setPriceRange(newRange);
    handleDebounce({min,max});
@@ -84,17 +77,14 @@ const DiamondFilter = ({ className = "" ,
   };
   const handleSortChange = (newSort) => {
     setSortBy(newSort);
-    console.log(newRange)
     setActiveDropdown(null);
   };
   // memoize the callback with useCallback
   // we need it since it's a dependency in useMemo below
   const handleSetTimeRange = (value) => { 
-    console.log("myFilter: ", value);
     applyFilters({ ...selectedFilters, price: [value.min,value.max] });
   };
   const handleSetCaratRange = (value) => { 
-    console.log("myFilter: ", value);
     applyFilters({ ...selectedFilters, carat: [value.min,value.max] });
   };
   const handleDebounce = useCallback(
@@ -248,8 +238,8 @@ const DiamondFilter = ({ className = "" ,
                     <div className="actions-child">
                       <div className="frame-child5" />
                     </div>
-                    <div className="diamond-save-reset" onClick={saveFilters}>
-                      <div className="save--filter">
+                    <div className="diamond-save-reset" >
+                      <div className="save--filter" onClick={saveFilters}>
                         <button className="save--diamond_filter">
                           <img className="icons3" alt="" src="/vector-4.svg" />
                         </button>
