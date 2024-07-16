@@ -745,9 +745,10 @@
   box-sizing: border-box;
   white-space: nowrap;
   color: var(--white);
-  padding: 20px 15px;
+  padding: 15px 35px;
   cursor: pointer;
-
+  text-transform: uppercase;
+  font-family: inherit;
 }
 .flex-advanced-filter > * {
   flex: 1 1 50%;
@@ -768,12 +769,13 @@
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
 }
-.flex-advanced-filter .group-inner .dropdown-btns:first-child .option--btn {
+.flex-advanced-filter .group-inner .dropdown-btns:last-child .option--btn {
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
 }
 .flex-advanced-filter .group-inner .option--btn {
   padding: 15px 20px;
+  width: 100%;
   outline: none;
   border: none;
   background-color: transparent;
