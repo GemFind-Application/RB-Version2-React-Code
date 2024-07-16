@@ -432,7 +432,7 @@ const DiamondFilter = ({ className = "",
                 <div className="advanced-filter-group">
                   <h4>Certificates</h4>
                   <div className="group-inner">
-                    {['AGS', 'EGL', 'GIA', 'IGI'].map(certificate => (
+                    {filterData.certificateRange.map(certificate => (
                       <div className="dropdown-btns" key={certificate}>
                         <button
                           className={`option--btn ${advancedFilters.certificates.includes(certificate) ? 'active--item' : ''}`}

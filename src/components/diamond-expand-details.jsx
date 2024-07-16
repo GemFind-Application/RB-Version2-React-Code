@@ -2,7 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./diamond-details1.css";
 import ImageGallery from 'react-image-gallery';
-
+import ShowCostInCardDiamond from "./showCostInCardDiamond";
+import ShowFltCostInCardDiamond from "./ShowFltCostInCardDiamond";
+ShowFltCostInCardDiamond
 const DiamondExpandDetail = ({ className = "", diamond }) => {
   const images = [];
   // if (diamond.diamondImage) {
@@ -25,7 +27,7 @@ const DiamondExpandDetail = ({ className = "", diamond }) => {
       </section>
       <section className="content2">
         <div className="top2">
-          <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.carat}</h3>
+          <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.carat} CARATH</h3>
           <div className="stats">
             <div className="spec-labels">
               <div className="stock-number">Stock Number:</div>
@@ -33,11 +35,11 @@ const DiamondExpandDetail = ({ className = "", diamond }) => {
             </div>
             <div className="spec-labels1">
               <div className="price4">Price:</div>
-              <b className="b1">{diamond.price ? `${diamond.currencySymbol}${diamond.price}` : '-'}</b>
+              <b className="b1"><ShowCostInCardDiamond diamondDetail={diamond}></ShowCostInCardDiamond></b>
             </div>
             <div className="spec-labels1">
               <a className="price-per-carat">Price Per Carat:</a>
-              <a className="a">{diamond.fltCaratPrice ? `${diamond.currencySymbol}${diamond.fltCaratPrice}` : '-'}</a>
+              <a className="a">{diamond.fltCaratPrice ? <ShowFltCostInCardDiamond diamondDetail={diamond}></ShowFltCostInCardDiamond> : '-'}</a>
             </div>
             <div className="spec-labels1">
               <div className="carat-weight">Carat Weight:</div>

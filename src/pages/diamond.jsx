@@ -89,33 +89,35 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
  
  
     const fetchDiamond = async(page, pageSize, isLab, sort, selectedFilters)=> {
-      console.log(isLab)
-      try {       
-        let option = {
-          pageNumber:page,    
-          pageSize:pageSize,
-          searchSetting:selectedFilters.search,           
-          shape:selectedFilters.shape.join(','),
-          cut:selectedFilters.cut.length>0?selectedFilters.cut.join(','):'',
-          colour:selectedFilters.colour.length>0?selectedFilters.colour.join(','):'',
-          clarity:selectedFilters.clarity.length>0?selectedFilters.clarity.join(','):'',
-          isLabGrown:isLab==='fancy'?isLab:isLab===true?true:false,
-          priceMin:selectedFilters.price[0],
-          priceMax:selectedFilters.price[1],
-          carat:[selectedFilters.carat[0],selectedFilters.carat[1]],
-          orderBy:sort ,        
-        }        
-        const res = await diamondService.getAllDiamond(option);
-        if(res.diamondList && res.diamondList.length > 0) {
-          setDiamond(res.diamondList);  
-          setTotalProducts(res.count);        
-          setIsDiamondLoaded(true)
+      if(isDiamondFilterLoaded){
+        try {       
+          let option = {
+            pageNumber:page,    
+            pageSize:pageSize,
+            searchSetting:selectedFilters.search,           
+            shape:selectedFilters.shape.join(','),
+            cut:selectedFilters.cut.length>0?selectedFilters.cut.join(','):'',
+            colour:selectedFilters.colour.length>0?selectedFilters.colour.join(','):'',
+            clarity:selectedFilters.clarity.length>0?selectedFilters.clarity.join(','):'',
+            isLabGrown:isLab==='fancy'?isLab:isLab===true?true:false,
+            priceMin:selectedFilters.price[0],
+            priceMax:selectedFilters.price[1],
+            carat:[selectedFilters.carat[0],selectedFilters.carat[1]],
+            orderBy:sort ,        
+          }        
+          const res = await diamondService.getAllDiamond(option);
+          if(res.diamondList && res.diamondList.length > 0) {
+            setDiamond(res.diamondList);  
+            setTotalProducts(res.count);        
+            setIsDiamondLoaded(true)
+          }
+          
+        } catch (err) {
+          console.error("Error fetching diamond  data:", error);
+          setError("Failed to fetch diamond  data. Please try again later.");        
         }
-        
-      } catch (err) {
-        console.error("Error fetching diamond  data:", error);
-        setError("Failed to fetch diamond  data. Please try again later.");        
       }
+     
     } 
     useEffect(() => {
       fetchDiamondFilter(selectedFilters);

@@ -2,26 +2,47 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import DiamondExpandDetail from "./diamond-expand-details";
 import "./diamond-list-header1.css";
-
+import ShowCostInCardDiamond from "./showCostInCardDiamond";
+import VideoPopup from "./VideoPopup";
+import { diamondService } from "../Services";
 const DiamondListHeader1 = ({ className = "", diamond }) => {
-  
+  const [showVideoPopup, setShowVideoPopup] = useState(false);
+  const [videoUrl, setVideoUrl] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
-
+  const handleVideoIconClick = async() => {
+    setShowVideoPopup(false)
+    try {     
+      const res = await diamondService.getDiamondVideoUrl(diamond.diamondId);  
+      if(res)     {
+        console.log(res);
+        if(res.showVideo !== false){
+          setVideoUrl(res.videoURL);         
+          setShowVideoPopup(true);          
+        }else{
+          setShowVideoPopup(false);
+        }        
+      }   
+    }
+    catch (error) {
+      console.error("Error fetching filter data:", error);
+      setError("Failed to fetch filter data. Please try again later.");
+    }  
+  };
   return (
     <div className={`diamond-list-header ${className}`}>
       <div className="diamond-card-details">
         <div className="diamond-details4">
-          <img className="image-icon4" alt="" src="/image@2x.png" />
+          <img className="image-icon4" alt="" src={diamond.biggerDiamondimage} />
           <div className="name2">
             <b className="princess-1001-carath3">{diamond.shape} {' '}{diamond.carat} CARATH</b>
-            <b className="diamond-weight-type">$ {diamond.price1}</b>
+            <b className="diamond-weight-type"><ShowCostInCardDiamond diamondDetail={diamond}></ShowCostInCardDiamond></b>
           </div>
         </div>
         <div className="img">
-          <img className="union-icon" alt="" src="/union.svg" />
+          <img className="union-icon" alt="" src={diamond.biggerDiamondimage} />
           <b className="princess1">{diamond.shape && diamond.shape !== "" ? diamond.shape : '-'}</b>
         </div>
         <div className="cell">
@@ -78,9 +99,12 @@ const DiamondListHeader1 = ({ className = "", diamond }) => {
           </div>
         </div>
         <div className="actions3">
-          <div className="actions4 list-diamond--video">
+        {(diamond.hasVideo)&&
+          <div className="actions4 list-diamond--video"  id={diamond.diamondId}
+          onClick={handleVideoIconClick}>
             <img className="video-icon" alt="" src="/video.svg" />
           </div>
+        }
           <div className="actions5 compare-list--diamond">
             <img className="compare-icon" alt="" src="/compare.svg" />
           </div>
@@ -98,6 +122,9 @@ const DiamondListHeader1 = ({ className = "", diamond }) => {
         <div className="diamond-expand-detail-wrapper">
           <DiamondExpandDetail diamond={diamond} />
         </div>
+      )}
+       {(showVideoPopup && videoUrl!="")  && (
+        <VideoPopup videoURL={videoUrl} onClose={() => setShowVideoPopup(false)} />
       )}
     </div>
   );

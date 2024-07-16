@@ -1,11 +1,35 @@
-import { useMemo } from "react";
+import { useMemo,useState ,useEffect} from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./items.css";
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
+import VideoPopup from "./VideoPopup";
+import { diamondService } from "../Services";
+const Items = ({ className = "",diamond }) => {
+  const [showVideoPopup, setShowVideoPopup] = useState(false);
+  const [videoUrl, setVideoUrl] = useState('');
+ 
 
-const Items = ({ className = "", diamond }) => {
 
+  const handleVideoIconClick = async() => {
+    setShowVideoPopup(false)
+    try {     
+      const res = await diamondService.getDiamondVideoUrl(diamond.diamondId);  
+      if(res)     {
+        console.log(res);
+        if(res.showVideo !== false){
+          setVideoUrl(res.videoURL);         
+          setShowVideoPopup(true);          
+        }else{
+          setShowVideoPopup(false);
+        }        
+      }   
+    }
+    catch (error) {
+      console.error("Error fetching filter data:", error);
+      setError("Failed to fetch filter data. Please try again later.");
+    }  
+  };
   return (
     <div className={`items ${className}`}>
       <div className="product-card">
@@ -13,30 +37,24 @@ const Items = ({ className = "", diamond }) => {
           <div className="product-name">
             <b className="princess-1001-carath5">{diamond.shape} {' '}{diamond.carat} CARATH</b>
           </div>
-          {/* diamond actions buttons */}
-          <div className="diamond-actions-container">
-            <div className="diamond--actions">
-              <button>
-                <img className="video-icon2 diamond--video" alt="" src="/video.svg" />
-              </button>
-              <button>
-                <img className="compare-icon2 diamond--compare" alt="" src="/compare.svg" />
-              </button>
+          <div className="actions10">
+            {(diamond.hasVideo)&&
+            <div className="actions11"
+                 id={diamond.diamondId}
+                 onClick={handleVideoIconClick}>
+              <img className="video-icon2" alt="" src="/video.svg" />
             </div>
-            <div className="diamond--actions show--diamond-info">
-              <button>
-                <img className="vector-icon27" alt="" src="/vector3.svg" />
-              </button>
-              <div className="diamond-popup-info">
-                {/* Popup content for diamond */}
-              </div>
+            }
+            <img className="compare-icon2" alt="" src="/compare.svg" />
+            <div className="actions11">
+              <img className="vector-icon27" alt="" src="/vector3.svg" />
             </div>
           </div>
           {/* end diamond actions buttons */}
         </div>
         <div className="image-wrapper1">
           <div className="info-overlay">
-            <img className="image-9-icon13" alt="" src="/image-9@2x.png" />
+            <img className="image-9-icon13" alt="" src={diamond.biggerDiamondimage} />
             <div className="down">
               <b className="empty3"><ShowCostInCardDiamond diamondDetail={diamond}></ShowCostInCardDiamond></b>
               <b className="vs2-excellent">{diamond.clarity} {diamond.polish && diamond.polish != '' && ',' + diamond.polish}</b>
@@ -47,6 +65,9 @@ const Items = ({ className = "", diamond }) => {
       <div className="button29 btn__group">
         <Link to="/diamond/" className="diamond_item--link">Select - <ShowCostInCardDiamond diamondDetail={diamond}></ShowCostInCardDiamond></Link>
       </div>
+      {(showVideoPopup && videoUrl!="")  && (
+        <VideoPopup videoURL={videoUrl} onClose={() => setShowVideoPopup(false)} />
+      )}
     </div>
   );
 };

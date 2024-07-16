@@ -4,17 +4,8 @@ import "./product-items.css";
 import { Link } from "react-router-dom";
 import ShowCostInCard from "./showCostInCard";
 import { utils } from "../Helpers";
-const VideoPopup = ({ videoURL, onClose }) => (
-  <div className="video-popup-overlay" onClick={onClose}>
-    <div className="video-popup-content" onClick={(e) => e.stopPropagation()}>
-      <video src={videoURL} controls autoPlay>
-        Your browser does not support the video tag.
-      </video>
-      <button className="close--button" onClick={onClose}>Close</button>
-    </div>
-  </div>
-);
 
+import VideoPopup from "./VideoPopup";
 const SkeletonProductItem = () => (
   <div className="skeleton">
     <div className="ring-items__header skeleton-header">

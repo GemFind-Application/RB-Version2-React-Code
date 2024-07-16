@@ -11,7 +11,8 @@ export const diamondService = {
   getAllDiamond,
   getDiamondNavigation,
   getDiamondDetail,
-  getFancyDiamondFilter
+  getFancyDiamondFilter,
+  getDiamondVideoUrl
 };
 
 function getDiamondFilter(option,settingId) {
@@ -31,6 +32,9 @@ function getDiamondFilter(option,settingId) {
   }
  
  }    
+}
+function getDiamondVideoUrl(diamondId){
+ return fetchWrapper.get(`http://api.jewelcloud.com/api/jewelry/GetVideoUrl?InventoryID=${diamondId}&Type=Diamond`); 
 }
 function getFancyDiamondFilter(option,settingId) {
   return fetchWrapper.get(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}`);
