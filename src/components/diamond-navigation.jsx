@@ -6,13 +6,25 @@ import Component1 from "./component1";
 import PropTypes from "prop-types";
 import "./frame-component1.css";
 
-const FrameComponent1 = ({ className = "" }) => {
+const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLabGrown}) => {
+  console.log(isLabGrown)
   const navigate = useNavigate();
 
   const onContainer2Click = useCallback(() => {
     navigate("/complete");
   }, [navigate]);
-
+  const handleLabGrownToggle = (value) => {
+    if(value === 'Lab Grown'){
+      setIsLabGrown(true);
+    }
+    if(value === 'Mined'){
+      setIsLabGrown(false);
+    }
+    if(value === 'Fancy Color'){
+      setIsLabGrown('fancy');
+    }
+   
+  };
   return (
     <div className={`wrapper3 ${className}`}>
       <div className="diamond-nav-container">
@@ -42,24 +54,30 @@ const FrameComponent1 = ({ className = "" }) => {
                 </div>
               </div>
               <div className="type1">
-                <div className="price18">
-                  <div className="mined1">Mined</div>
+                {(diamondNavigation.navStandard && diamondNavigation.navStandard!==null) &&
+                <div className={isLabGrown===false?'price18':'price19'}  onClick={()=>handleLabGrownToggle(diamondNavigation.navStandard)}>
+                  <div className="mined1">{diamondNavigation.navStandard}</div>
                   <div className="empty-row">
                     <b className="i10">i</b>
                   </div>
                 </div>
-                <div className="price19">
-                  <div className="lab-growned1">Lab Growned</div>
+                }
+                {(diamondNavigation.navLabGrown && diamondNavigation.navLabGrown!==null) &&
+                <div className={isLabGrown===true?'price18':'price19'} onClick={()=>handleLabGrownToggle(diamondNavigation.navLabGrown)}>
+                  <div className="lab-growned1">{diamondNavigation.navLabGrown}</div>
                   <div className="empty-row">
                     <b className="i10">i</b>
                   </div>
                 </div>
-                <div className="price20">
-                  <div className="fancy-colour1">Fancy Colour</div>
+                }
+                {(diamondNavigation.navFancyColored && diamondNavigation.navFancyColored!==null) &&
+                <div className={isLabGrown==='fancy'?'price18':'price19'} onClick={()=>handleLabGrownToggle(diamondNavigation.navFancyColored)}>
+                  <div className="fancy-colour1">{diamondNavigation.navFancyColored}</div>
                   <div className="empty-row">
                     <b className="i10">i</b>
                   </div>
                 </div>
+                }
               </div>
             </div>
             <div className="frame-wrapper1">

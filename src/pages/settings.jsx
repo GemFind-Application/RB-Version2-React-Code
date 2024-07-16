@@ -53,7 +53,9 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
   });
   //const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
   const navigate = useNavigate();
-
+  useEffect(() => {
+    setIsLabGrown(false)
+  }, []);
   const fetchProducts = async (page, pageSize, isLab, sort, filters) => {
     setLoading(true);
     setError(null);
@@ -163,7 +165,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown}) => {
   useEffect(() => {
     fetchFilterData(isLabGrown,activeFilters).then(() => fetchProducts(currentPage, itemsPerPage, isLabGrown, sortOrder, activeFilters));
   }, [isLabGrown, currentPage, itemsPerPage, sortOrder, activeFilters]);
-
+  //setIsLabGrown
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };

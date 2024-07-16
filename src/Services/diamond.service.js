@@ -23,10 +23,10 @@ function getDiamondFilter(option,settingId) {
   if(settingId!="" &&  settingId!=undefined){
     return fetchWrapper.get(`${baseUrl}/GetInitialFilter?DealerId=${dealerId}&IsLabGrown=true`);
   }else{
-    if(option){
-      return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}`);
+    if(option.isLabGrown===0){
+      return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}&IsLabGrown=false`);
     }else{
-      return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}`);
+      return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}&IsLabGrown=true`);
     }  
   }
  
@@ -41,7 +41,7 @@ function getDiamondDetail(settingId) {
 
 function getAllDiamond(option) {
   let queryParam = getQueryParam(option);
-  if(option.navigation==='fancy') {
+  if(option.isLabGrown==='fancy') {
     return fetchWrapper.get(`${baseUrl}/GetColorDiamond?DealerId=${dealerId}${queryParam}&IsLabGrown=false&TableMin=0&TableMax=100`);
   }else{
     return fetchWrapper.get(`${baseUrl}/GetDiamond?DealerId=${dealerId}${queryParam}`);
