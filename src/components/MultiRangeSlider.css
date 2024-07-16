@@ -7,10 +7,13 @@
     min-width: 220px;
     width: 100%;
   }
-
+ 
   @media(min-width: 970px) {
     .container  {
-        min-width: 500px;
+        min-width: 420px;
+    }
+    .advanced--price-sliders {
+      min-width: auto;
     }
   }
   
@@ -54,6 +57,10 @@
   }
   
   /* Removing the default appearance */
+
+  .advanced-filter-group .thumb{
+    position: relative;
+  }
   .thumb,
   .thumb::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -63,10 +70,10 @@
   .thumb {
     pointer-events: none;
     position: absolute;
-    height: 0;
+    height: 2px;
     width: 100%;
     outline: none;
-    top: 10px;
+    top: 7px;
   }
   
   .thumb--zindex-3 {
@@ -89,7 +96,7 @@
     cursor: pointer;
     height: 20px;
     width: 20px;
-    margin-top: -7px;
+    margin-top: 0;
     pointer-events: all;
     position: relative;
   }
@@ -102,7 +109,7 @@
     cursor: pointer;
     height: 20px;
     width: 20px;
-    margin-top: -7px;
+    margin-top: 0;
     pointer-events: all;
     position: relative;
   }
