@@ -1,60 +1,79 @@
+import React from "react";
 import PropTypes from "prop-types";
 import "./diamond-details1.css";
+import ImageGallery from 'react-image-gallery';
 
-const DiamondDetails1 = ({ className = "" }) => {
+const DiamondExpandDetail = ({ className = "", diamond }) => {
+  const images = [];
+  // if (diamond.diamondImage) {
+  //   images.push({
+  //     original: diamond.diamondImage,
+  //     thumbnail: diamond.diamondImage,
+  //   });
+  // }
+  if (diamond.biggerDiamondimage) {
+    images.push({
+      original: diamond.biggerDiamondimage,
+      thumbnail: diamond.biggerDiamondimage,
+    });
+  }
+
   return (
     <div className={`diamond-details ${className}`}>
+      <section className="dd-gallery">
+        <ImageGallery items={images} />
+      </section>
       <section className="content2">
         <div className="top2">
-          <h3 className="diamond-details1">Diamond Details</h3>
+          <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.carat}</h3>
           <div className="stats">
             <div className="spec-labels">
               <div className="stock-number">Stock Number:</div>
-              <a className="spec-values">387952732</a>
+              <a className="spec-values">{diamond.sku || '-'}</a>
             </div>
             <div className="spec-labels1">
               <div className="price4">Price:</div>
-              <b className="b1">$363,440</b>
+              <b className="b1">{diamond.price ? `${diamond.currencySymbol}${diamond.price}` : '-'}</b>
             </div>
             <div className="spec-labels1">
               <a className="price-per-carat">Price Per Carat:</a>
-              <a className="a">$1,990</a>
+              <a className="a">{diamond.fltCaratPrice ? `${diamond.currencySymbol}${diamond.fltCaratPrice}` : '-'}</a>
             </div>
             <div className="spec-labels1">
               <div className="carat-weight">Carat Weight:</div>
-              <b className="b2">0,30</b>
+              <b className="b2">{diamond.carat || '-'}</b>
             </div>
             <div className="spec-labels1">
               <div className="cut1">Cut:</div>
-              <a className="excellent">Excellent</a>
+              <a className="excellent">{diamond.cut || '-'}</a>
             </div>
             <div className="spec-labels1">
               <div className="color">Color:</div>
-              <b className="e">E</b>
+              <b className="e">{diamond.color || '-'}</b>
             </div>
             <div className="spec-labels1">
               <div className="clarity">Clarity:</div>
-              <b className="i11">I1</b>
+              <b className="i11">{diamond.clarity || '-'}</b>
             </div>
             <div className="spec-labels1">
               <div className="polish">Polish:</div>
-              <b className="very-good">Very good</b>
+              <b className="very-good">{diamond.polish || '-'}</b>
             </div>
             <div className="spec-labels1">
               <div className="symmetry">Symmetry:</div>
-              <b className="excellent1">Excellent</b>
+              <b className="excellent1">{diamond.symmetry || '-'}</b>
             </div>
             <div className="spec-labels1">
               <div className="girdle">Girdle:</div>
-              <b className="b3">-</b>
+              <b className="b3">{diamond.gridle || diamond.girdleThin || '-'}</b>
             </div>
             <div className="spec-labels1">
               <div className="color">Culet:</div>
-              <b className="none">None</b>
+              <b className="none">{diamond.culet || '-'}</b>
             </div>
             <div className="spec-labels1">
               <div className="fluorescence1">Fluorescence:</div>
-              <b className="none">None</b>
+              <b className="none">{diamond.fluorescence || '-'}</b>
             </div>
           </div>
         </div>
@@ -67,7 +86,7 @@ const DiamondDetails1 = ({ className = "" }) => {
               src="/fi-8467779.svg"
             />
             <div className="x-x-measurement">
-              <b className="x-x-values">62.4%</b>
+              <b className="x-x-values">{diamond.depth ? `${diamond.depth}%` : '-'}</b>
               <div className="depth">Depth</div>
             </div>
           </div>
@@ -79,7 +98,7 @@ const DiamondDetails1 = ({ className = "" }) => {
               src="/fi-12791189.svg"
             />
             <div className="x-x-measurement">
-              <b className="b4">57%</b>
+              <b className="b4">{diamond.table ? `${diamond.table}%` : '-'}</b>
               <div className="table">Table</div>
             </div>
           </div>
@@ -91,19 +110,19 @@ const DiamondDetails1 = ({ className = "" }) => {
               src="/fi-8052211.svg"
             />
             <div className="x-x-measurement">
-              <b className="x371x232">3.74X3.71X2.32</b>
+              <b className="x371x232">{diamond.measurement || '-'}</b>
               <div className="measurement">Measurement</div>
             </div>
           </div>
         </div>
       </section>
-      <img className="close-icon1" loading="lazy" alt="" src="/close.svg" />
     </div>
   );
 };
 
-DiamondDetails1.propTypes = {
+DiamondExpandDetail.propTypes = {
   className: PropTypes.string,
+  diamond: PropTypes.object.isRequired,
 };
 
-export default DiamondDetails1;
+export default DiamondExpandDetail;

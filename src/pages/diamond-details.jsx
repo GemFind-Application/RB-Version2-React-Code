@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import DealerInfo from "../components/dealer-info";
 import PortalPopup from "../components/portal-popup";
-import DiamondDetails1 from "../components/diamond-details1";
+import DiamondExpandDetail from "../components/diamond-expand-details";
 import { useNavigate } from "react-router-dom";
 import MeasurementItems from "../components/measurement-items";
 import Stats from "../components/stats";
@@ -367,7 +367,7 @@ const DiamondPage = () => {
           placement="Centered"
           onOutsideClick={closeDiamondDetails}
         >
-          <DiamondDetails1 onClose={closeDiamondDetails} />
+          <DiamondExpandDetail onClose={closeDiamondDetails} />
         </PortalPopup>
       )}
     </>

@@ -1,13 +1,12 @@
 .princess-1001-carath5 {
-  margin-right: -31px;
-  width: 261px;
   position: relative;
   line-height: 120%;
   display: inline-block;
   flex-shrink: 0;
 }
 .product-name {
-  width: 230px;
+  max-width: 230px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -20,13 +19,19 @@
   width: 24px;
   position: relative;
 }
-.actions11 {
+.diamond--actions {
   height: 40px;
   width: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+.diamond--actions button {
+  background-color: transparent;
+  outline: none;
+  border: 0;
+  cursor: pointer;
 }
 .compare-icon2 {
   height: 40px;
@@ -41,13 +46,16 @@
   width: 20px;
   position: relative;
 }
-.actions10 {
+.diamond-actions-container {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: var(--gap-9xs);
   flex-shrink: 0;
+}
+.show--diamond-info {
+  justify-content: flex-end;
 }
 .product-info1 {
   display: flex;
@@ -55,6 +63,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   row-gap: 20px;
+  width: 100%;
 }
 .image-9-icon13 {
   height: 310px;
@@ -146,13 +155,9 @@
   font-family: var(--body-14-reg);
 }
 .items {
-  flex: 1 1 300px;
+  flex: 1 1 315px;
   margin: 0 auto;
   width: 100%;
-  margin: 0 !important;
-  position: unset !important;
-  top: 24px;
-  left: 120px;
   border-radius: var(--br-xs);
   background-color: var(--beige-00);
   overflow: hidden;

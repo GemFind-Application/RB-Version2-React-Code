@@ -6,10 +6,10 @@ import MultiRangeSlider from "./MultiRangeSlider";
 import { debounce } from "lodash";
 import "./frame-component2.css";
 import { utils } from "../Helpers";
-const DiamondFilter = ({ className = "" ,
+const DiamondFilter = ({ className = "",
   onItemsPerPageChange,
   advancedFilters,
-  setAdvancedFilters ,
+  setAdvancedFilters,
   setSelectedFilters,
   selectedFilters,
   setIsGridView,
@@ -27,11 +27,11 @@ const DiamondFilter = ({ className = "" ,
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activePopup, setActivePopup] = useState(null);
-  const [priceRange, setPriceRange] = useState(selectedFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [selectedFilters.price[0], selectedFilters.price[1]]);
-  const [caratRange, setCaratRange] = useState(selectedFilters.carat.length===0 ? [filterData.caratRange[0].minCarat, filterData.caratRange[0].maxCarat]: [selectedFilters.carat[0], selectedFilters.carat[1]]);
+  const [priceRange, setPriceRange] = useState(selectedFilters.price.length === 0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice] : [selectedFilters.price[0], selectedFilters.price[1]]);
+  const [caratRange, setCaratRange] = useState(selectedFilters.carat.length === 0 ? [filterData.caratRange[0].minCarat, filterData.caratRange[0].maxCarat] : [selectedFilters.carat[0], selectedFilters.carat[1]]);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [sortBy, setSortBy] = useState("Clarity");
-  const [searchQuery, setSearchQuery] = useState(selectedFilters.search ? selectedFilters.search!=""? selectedFilters.search: '':'');
+  const [searchQuery, setSearchQuery] = useState(selectedFilters.search ? selectedFilters.search != "" ? selectedFilters.search : '' : '');
   /*const [selectedFilters, setSelectedFilters] = useState({
     shape: [],
     carat: [],
@@ -40,8 +40,8 @@ const DiamondFilter = ({ className = "" ,
     clarity: [],
   });*/
   useEffect(() => {
-    setPriceRange(selectedFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [selectedFilters.price[0], selectedFilters.price[1]]);
-    setCaratRange(selectedFilters.carat.length===0 ? [filterData.caratRange[0].minCarat, filterData.caratRange[0].maxCarat]: [selectedFilters.carat[0], selectedFilters.carat[1]]);
+    setPriceRange(selectedFilters.price.length === 0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice] : [selectedFilters.price[0], selectedFilters.price[1]]);
+    setCaratRange(selectedFilters.carat.length === 0 ? [filterData.caratRange[0].minCarat, filterData.caratRange[0].maxCarat] : [selectedFilters.carat[0], selectedFilters.carat[1]]);
   }, [selectedFilters]);
 
   const onCompContainerClick = useCallback(() => {
@@ -62,17 +62,17 @@ const DiamondFilter = ({ className = "" ,
     setActivePopup(activePopup === popup ? null : popup);
   };
 
-  const handlePriceChange =({ min, max })=> {
-    setPriceRange([min, max]);  
-   // setPriceRange(newRange);
-   handleDebounce({min,max});
+  const handlePriceChange = ({ min, max }) => {
+    setPriceRange([min, max]);
+    // setPriceRange(newRange);
+    handleDebounce({ min, max });
     // You can add logic here to update filters or trigger a search
   };
-  const handleCaratChange = ({ min, max })=> {
-    setCaratRange([min, max]);  
+  const handleCaratChange = ({ min, max }) => {
+    setCaratRange([min, max]);
     // setPriceRange(newRange);
-    handleCaratDebounce({min,max});
-   // setCaratRange(newRange);
+    handleCaratDebounce({ min, max });
+    // setCaratRange(newRange);
     // You can add logic here to update filters or trigger a search
   };
   const handleSortChange = (newSort) => {
@@ -81,11 +81,11 @@ const DiamondFilter = ({ className = "" ,
   };
   // memoize the callback with useCallback
   // we need it since it's a dependency in useMemo below
-  const handleSetTimeRange = (value) => { 
-    applyFilters({ ...selectedFilters, price: [value.min,value.max] });
+  const handleSetTimeRange = (value) => {
+    applyFilters({ ...selectedFilters, price: [value.min, value.max] });
   };
-  const handleSetCaratRange = (value) => { 
-    applyFilters({ ...selectedFilters, carat: [value.min,value.max] });
+  const handleSetCaratRange = (value) => {
+    applyFilters({ ...selectedFilters, carat: [value.min, value.max] });
   };
   const handleDebounce = useCallback(
     debounce(handleSetTimeRange, 500),
@@ -95,7 +95,7 @@ const DiamondFilter = ({ className = "" ,
     debounce(handleSetCaratRange, 500),
     [selectedFilters],
   );
- 
+
 
   const handleFilterChange = (filterType, value) => {
     setSelectedFilters(prev => ({
@@ -158,32 +158,34 @@ const DiamondFilter = ({ className = "" ,
       <div className="frame-parent9">
         <div className="top-group">
           <div className="top14">
-            <b className="diamonds-founded2"> {/* set diamond found here */} {utils.numberWithCommas(totalProducts)} Diamonds Founded</b>
-            <div className="comp2" onClick={onCompContainerClick}>
-              <div className="compare-diamonds3">Compare Diamonds</div>
-              <div className="empty-button">
-                <b className="placeholder totoal--settings">0</b>
+            <div className="compare--diamond-header">
+              <b className="diamonds-founded2"> {/* set diamond found here */} {utils.numberWithCommas(totalProducts)} Diamonds Founded</b>
+              <div className="comp2" onClick={onCompContainerClick}>
+                <div className="compare-diamonds3">Compare Diamonds</div>
+                <div className="empty-button">
+                  <b className="placeholder totoal--settings">0</b>
+                </div>
               </div>
             </div>
             <div className="settings-sort">
-            <div className="settings-sort-page">
-              <div className="sort-by4">Sort by:</div>
-              <select className='no-appearance' value={sortOrder} onChange={(e) => onSortOrderChange(e.target.value)}>
-                <option value="Low to High">Low to High</option>
-                <option value="High to Low">High to Low</option>
-                <option value="Newest">Newest</option>
-              </select>
+              <div className="settings-sort-page">
+                <div className="sort-by4">Sort by:</div>
+                <select className='no-appearance' value={sortOrder} onChange={(e) => onSortOrderChange(e.target.value)}>
+                  <option value="Low to High">Low to High</option>
+                  <option value="High to Low">High to Low</option>
+                  <option value="Newest">Newest</option>
+                </select>
+              </div>
+              <div className="settings-sort-page">
+                <div className="show7">Show:</div>
+                <select className='no-appearance' value={itemsPerPage} onChange={(e) => onItemsPerPageChange(Number(e.target.value))}>
+                  <option value={8}>8 per Page</option>
+                  <option value={12}>12 per Page</option>
+                  <option value={24}>24 per Page</option>
+                  <option value={48}>48 per Page</option>
+                </select>
+              </div>
             </div>
-            <div className="settings-sort-page">
-              <div className="show7">Show:</div>
-              <select className='no-appearance' value={itemsPerPage} onChange={(e) => onItemsPerPageChange(Number(e.target.value))}>
-                <option value={8}>8 per Page</option>
-                <option value={12}>12 per Page</option>
-                <option value={24}>24 per Page</option>
-                <option value={48}>48 per Page</option>
-              </select>
-            </div>
-          </div>
           </div>
           <div className="filters-wrapper">
             <div className="mid1">
@@ -216,7 +218,7 @@ const DiamondFilter = ({ className = "" ,
                           <b className="placeholder1">{selectedFilters.colour.length}</b>
                         </div>
                       )}
-                       {filter === 'clarity' && (
+                      {filter === 'clarity' && (
                         <div className="shape-placeholder">
                           <b className="placeholder1">{selectedFilters.clarity.length}</b>
                         </div>
@@ -262,16 +264,16 @@ const DiamondFilter = ({ className = "" ,
                       className="search5"
                       onChange={(e) => {
                         setSearchQuery(e.target.value);
-                       // applyFilters({ ...activeFilters, search: e.target.value });
+                        // applyFilters({ ...activeFilters, search: e.target.value });
                       }}
                     />
                   </div>
                   <div className="view3 product--view">
-                    <div className={isGridView ? 'grid3':'table7'} onClick={onGridContainerClick}>
+                    <div className={isGridView ? 'grid3' : 'table7'} onClick={onGridContainerClick}>
                       <img className="fi-11034222-icon2" alt="" src="/fi-110342221.svg" />
                       <b className="grid-view2">Grid View</b>
                     </div>
-                    <div className={!isGridView ? 'grid3':'table7'} onClick={onTableContainerClick}>
+                    <div className={!isGridView ? 'grid3' : 'table7'} onClick={onTableContainerClick}>
                       <img className="fi-11034222-icon2" alt="" src="/fi-142371531.svg" />
                       <b className="table-view2">Table View</b>
                     </div>
@@ -280,70 +282,71 @@ const DiamondFilter = ({ className = "" ,
               </div>
             </div>
             {activeDropdown && (
-            <div className="filter-options-container">
-              <div className="dropdown-content">
-                {activeDropdown === 'sort' && (
-                  ['Price', 'Carat', 'Cut', 'Clarity'].map(option => (
-                    <div className="dropdown-btns" key={option}>
-                      <button className={`option--btn ${sortBy === option ? 'active--item' : ''}`} onClick={() => handleSortChange(option)}>{option}</button>
+              <div className="filter-options-container">
+                <div className="dropdown-content">
+                  {activeDropdown === 'sort' && (
+                    ['Price', 'Carat', 'Cut', 'Clarity'].map(option => (
+                      <div className="dropdown-btns" key={option}>
+                        <button className={`option--btn ${sortBy === option ? 'active--item' : ''}`} onClick={() => handleSortChange(option)}>{option}</button>
+                      </div>
+                    ))
+                  )}
+
+                  {activeDropdown === 'shape' && (
+                    filterData.shapes.map(shape => (
+                      <div className="dropdown-btns" key={shape.shapeName}>
+                        <button className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('shape', shape.shapeName)}>{shape.shapeName}</button>
+                      </div>
+                    ))
+                  )}
+                  {activeDropdown === 'price' && (
+                    <div className="filter-options">
+                      <MultiRangeSlider
+                        min={parseFloat(filterData.priceRange[0].minPrice)}
+                        max={parseFloat(filterData.priceRange[0].maxPrice)}
+                        onChange={handlePriceChange}
+                        value={priceRange}
+                      />
                     </div>
-                  ))
-                )}
-                
-                {activeDropdown === 'shape' && (
-                 filterData.shapes.map(shape => (
-                    <div className="dropdown-btns" key={shape.shapeName}>
-                      <button className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('shape', shape.shapeName)}>{shape.shapeName}</button>
+                  )}
+                  {activeDropdown === 'carat' && (
+                    <div className="filter-options">
+                      <MultiRangeSlider
+                        min={parseFloat(filterData.caratRange[0].minCarat)}
+                        max={parseFloat(filterData.caratRange[0].maxCarat)}
+                        onChange={handleCaratChange}
+                        value={caratRange}
+                        isPrice={false}
+                      />
                     </div>
-                  ))
-                )}
-                {activeDropdown === 'price' && (                 
-                 <div className="filter-options">
-                 <MultiRangeSlider
-                    min={parseFloat(filterData.priceRange[0].minPrice)}
-                    max={parseFloat(filterData.priceRange[0].maxPrice)}
-                    onChange={handlePriceChange}
-                    value={priceRange}
-                  />
-                  </div>
-                )}
-                {activeDropdown === 'carat' && (
-                  <div className="filter-options">
-                  <MultiRangeSlider
-                   min={parseFloat(filterData.caratRange[0].minCarat)}
-                   max={parseFloat(filterData.caratRange[0].maxCarat)}
-                   onChange={handleCaratChange}
-                   value={caratRange}
-                   isPrice={false}
-                 />
-                 </div>
-                )}
-                {activeDropdown === 'cut' && (
-                  filterData.cutRange.map(cut => (
-                    <div className="dropdown-btns" key={cut.cutId}>
-                      <button className={`option--btn ${selectedFilters.cut.includes(cut.cutId) ? 'active--item' : ''}`} onClick={() => handleFilterChange('cut', cut.cutId)}>{cut.cutName}</button>
-                    </div>
-                  ))
-                )}
-                {activeDropdown === 'colour' && (
-                  filterData.colorRange.map(colour => (
-                    <div className="dropdown-btns" key={colour.colorId}>
-                      <button className={`option--btn ${selectedFilters.colour.includes(colour.colorId) ? 'active--item' : ''}`} onClick={() => handleFilterChange('colour', colour.colorId)}>{colour.colorName}</button>
-                    </div>
-                  ))
-                )}
-                {activeDropdown === 'clarity' && (
-                   filterData.clarityRange.map(clarity => (
-                    <div className="dropdown-btns" key={clarity.clarityId}>
-                      <button className={`option--btn ${selectedFilters.clarity.includes(clarity.clarityName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('clarity', clarity.clarityName)}>{clarity.clarityName}</button>
-                    </div>
-                  ))
-                )}
-              </div>
+                  )}
+                  {activeDropdown === 'cut' && (
+                    filterData.cutRange.map(cut => (
+                      <div className="dropdown-btns" key={cut.cutId}>
+                        <button className={`option--btn ${selectedFilters.cut.includes(cut.cutId) ? 'active--item' : ''}`} onClick={() => handleFilterChange('cut', cut.cutId)}>{cut.cutName}</button>
+                      </div>
+                    ))
+                  )}
+                  {activeDropdown === 'colour' && (
+                    filterData.colorRange.map(colour => (
+                      <div className="dropdown-btns" key={colour.colorId}>
+                        <button className={`option--btn ${selectedFilters.colour.includes(colour.colorId) ? 'active--item' : ''}`} onClick={() => handleFilterChange('colour', colour.colorId)}>{colour.colorName}</button>
+                      </div>
+                    ))
+                  )}
+                  {activeDropdown === 'clarity' && (
+                    filterData.clarityRange.map(clarity => (
+                      <div className="dropdown-btns" key={clarity.clarityId}>
+                        <button className={`option--btn ${selectedFilters.clarity.includes(clarity.clarityName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('clarity', clarity.clarityName)}>{clarity.clarityName}</button>
+                      </div>
+                    ))
+                  )}
+                </div>
               </div>
             )}
           </div>
         </div>
+        {/* Advanced filters for diamond */}
         <div className="advances1">
           <div className="adv2" onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}>
             <b className="advanced-filters2">Advanced Filters</b>
@@ -355,84 +358,96 @@ const DiamondFilter = ({ className = "" ,
         {showAdvancedFilters && (
           <div className="advanced-filters-content">
             <div className="filter--content_dropdown">
-              <div className="advanced-filter-group">
-                <h4>Polish</h4>
-                {['Excellent', 'Very Good', 'Good', 'Fair'].map(polish => (
-                  <div className="dropdown-btns" key={polish}>
-                    <button
-                      className={`option--btn ${advancedFilters.polish.includes(polish) ? 'active--item' : ''}`}
-                      onClick={() => handleAdvancedFilterChange('polish', polish)}
-                    >
-                      {polish}
-                    </button>
+              <div className="flex-advanced-filter">
+                <div className="advanced-filter-group">
+                  <h4>Polish</h4>
+                  <div className="group-inner">
+                    {['Excellent', 'Very Good', 'Good', 'Fair'].map(polish => (
+                      <div className="dropdown-btns" key={polish}>
+                        <button
+                          className={`option--btn ${advancedFilters.polish.includes(polish) ? 'active--item' : ''}`}
+                          onClick={() => handleAdvancedFilterChange('polish', polish)}
+                        >
+                          {polish}
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-
-              <div className="advanced-filter-group">
-                <h4>Fluorescence</h4>
-                {['None', 'Faint', 'Medium', 'Strong', 'Very Strong'].map(fluorescence => (
-                  <div className="dropdown-btns" key={fluorescence}>
-                    <button
-                      className={`option--btn ${advancedFilters.fluorescence.includes(fluorescence) ? 'active--item' : ''}`}
-                      onClick={() => handleAdvancedFilterChange('fluorescence', fluorescence)}
-                    >
-                      {fluorescence}
-                    </button>
+                </div>
+                <div className="advanced--price-sliders">
+                  <div className="advanced-filter-group">
+                    <h4>Depth</h4>
+                    <MultiRangeSlider
+                      min={0}
+                      max={100}
+                      onChange={(value) => handleAdvancedFilterChange('depth', value)}
+                      value={advancedFilters.depth}
+                    />
                   </div>
-                ))}
-              </div>
 
-              <div className="advanced-filter-group">
-                <h4>Symmetry</h4>
-                {['Excellent', 'Very Good', 'Good', 'Fair'].map(symmetry => (
-                  <div className="dropdown-btns" key={symmetry}>
-                    <button
-                      className={`option--btn ${advancedFilters.symmetry.includes(symmetry) ? 'active--item' : ''}`}
-                      onClick={() => handleAdvancedFilterChange('symmetry', symmetry)}
-                    >
-                      {symmetry}
-                    </button>
+                  <div className="advanced-filter-group">
+                    <h4>Table</h4>
+                    <MultiRangeSlider
+                      min={0}
+                      max={100}
+                      onChange={(value) => handleAdvancedFilterChange('table', value)}
+                      value={advancedFilters.table}
+                    />
                   </div>
-                ))}
+                </div>
               </div>
-
-              <div className="advanced-filter-group">
-                <h4>Certificates</h4>
-                {['AGS', 'EGL', 'GIA', 'IGI'].map(certificate => (
-                  <div className="dropdown-btns" key={certificate}>
-                    <button
-                      className={`option--btn ${advancedFilters.certificates.includes(certificate) ? 'active--item' : ''}`}
-                      onClick={() => handleAdvancedFilterChange('certificates', certificate)}
-                    >
-                      {certificate}
-                    </button>
+              <div className="flex-advanced-filter">
+                <div className="advanced-filter-group">
+                  <h4>Fluorescence</h4>
+                  <div className="group-inner">
+                    {['None', 'Faint', 'Medium', 'Strong', 'Very Strong'].map(fluorescence => (
+                      <div className="dropdown-btns" key={fluorescence}>
+                        <button
+                          className={`option--btn ${advancedFilters.fluorescence.includes(fluorescence) ? 'active--item' : ''}`}
+                          onClick={() => handleAdvancedFilterChange('fluorescence', fluorescence)}
+                        >
+                          {fluorescence}
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+                <div className="advanced-filter-group">
+                  <h4>Symmetry</h4>
+                  <div className="group-inner">
+                    {['Excellent', 'Very Good', 'Good', 'Fair'].map(symmetry => (
+                      <div className="dropdown-btns" key={symmetry}>
+                        <button
+                          className={`option--btn ${advancedFilters.symmetry.includes(symmetry) ? 'active--item' : ''}`}
+                          onClick={() => handleAdvancedFilterChange('symmetry', symmetry)}
+                        >
+                          {symmetry}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-
-              <div className="advanced-filter-group">
-                <h4>Depth</h4>
-                <MultiRangeSlider
-                  min={0}
-                  max={100}
-                  onChange={(value) => handleAdvancedFilterChange('depth', value)}
-                  value={advancedFilters.depth}
-                />
-              </div>
-
-              <div className="advanced-filter-group">
-                <h4>Table</h4>
-                <MultiRangeSlider
-                  min={0}
-                  max={100}
-                  onChange={(value) => handleAdvancedFilterChange('table', value)}
-                  value={advancedFilters.table}
-                />
+              <div className="flex-advanced-filter">
+                <div className="advanced-filter-group">
+                  <h4>Certificates</h4>
+                  <div className="group-inner">
+                    {['AGS', 'EGL', 'GIA', 'IGI'].map(certificate => (
+                      <div className="dropdown-btns" key={certificate}>
+                        <button
+                          className={`option--btn ${advancedFilters.certificates.includes(certificate) ? 'active--item' : ''}`}
+                          onClick={() => handleAdvancedFilterChange('certificates', certificate)}
+                        >
+                          {certificate}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
             <button className="apply-advanced-filters" onClick={applyAdvancedFilters}>
-              APPLY ADVANCED FILTERS ({Object.values(advancedFilters).flat().length})
+              Apply Advanced Filters ({Object.values(advancedFilters).flat().length})
             </button>
           </div>
         )}

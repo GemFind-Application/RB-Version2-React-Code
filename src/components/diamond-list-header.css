@@ -161,7 +161,7 @@
   gap: var(--gap-xl);
 }
 .diamond-list-header1 {
-  width: 1680px;
+  max-width: 1680px;
   border-radius: var(--br-xl);
   background-color: var(--beige-00);
   display: flex;
@@ -170,11 +170,17 @@
   justify-content: flex-start;
   padding: var(--padding-5xl);
   box-sizing: border-box;
-  max-width: 100%;
+  width: 100%;
   text-align: left;
   font-size: var(--body-14-reg-size);
   color: var(--black);
   font-family: var(--body-14-reg);
+}
+
+.diamond-list-header .diamond-card-details,
+.diamond-list-header .diamond-expand-detail-wrapper {
+  flex: 1 1 100%;
+  width: 100%;
 }
 
 @media screen and (max-width: 1575px) {

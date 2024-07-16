@@ -31,11 +31,11 @@
   color: var(--white);
 }
 .comp2 {
-  height: 20px;
+  /* height: 20px; */
   margin: 0 !important;
-  position: absolute;
+  /* position: absolute;
   top: 10.7px;
-  left: 422px;
+  left: 422px; */
   border-left: 1px solid var(--stroke);
   box-sizing: border-box;
   display: flex;
@@ -648,6 +648,12 @@
   background-color: #F4EEEB;
 }
 
+.compare--diamond-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
 /* popup filter css */
 .filter--val {
   position: relative;
@@ -658,7 +664,8 @@
   top: calc(100% + 10px);
   left: 50%;
   transform: translateX(-50%);
-  width: 300px;
+  max-width: 300px;
+  width: max-content;
   background-color: #f9f9f9;
   border-radius: 8px;
   padding: 15px;
@@ -706,7 +713,7 @@
 /* ADVANCED FILTER */
 .filter--content_dropdown {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 .filter--content_dropdown .advanced-filter--values {
   flex: 1 1 50%;
@@ -722,6 +729,42 @@
 
 .advanced-filter-group h4 {
   margin-bottom: 10px;
+  text-align: left;
+}
+.flex-advanced-filter {
+  display: flex;
+}
+.flex-advanced-filter > * {
+  flex: 1 0 auto;
+}
+.flex-advanced-filter .group-inner {
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+  border: 1px solid #F4EEEB;
+  border-radius: 50px;
+  width: max-content;
+}
+.flex-advanced-filter .group-inner .dropdown-btns:first-child .option--btn {
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+.flex-advanced-filter .group-inner .dropdown-btns:first-child .option--btn {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+.flex-advanced-filter .group-inner .option--btn {
+  padding: 15px 20px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.flex-advanced-filter .group-inner .option--btn.active--item {
+  background-color: #F4EEEB;
+}
+.advanced--price-sliders {
+  display: flex;
 }
 /* END desktop styles */
 

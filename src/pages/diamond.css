@@ -1,16 +1,17 @@
 .list2 {
   align-self: stretch;
-  margin: 30px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: var(--padding-5xl) 0px 0px;
+  padding: 30px;;
   box-sizing: border-box;
   position: relative;
   gap: 24px 22.7px;
-  max-width: 100%;
+  max-width: 1680px;
+  width: 100%;
+  margin: 0 auto;
 }
 .diamond {
   width: 100%;

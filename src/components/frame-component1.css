@@ -217,14 +217,14 @@
   font-size: var(--sub-size);
   color: var(--accent);
 }
-.div97 {
+.diamond-nav-container {
   flex: 1;
   background-color: var(--beige-00);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: var(--padding-2xl) var(--padding-101xl) var(--padding-5xl);
+  padding: var(--padding-2xl) var(--padding-21xl) var(--padding-5xl);
   box-sizing: border-box;
   gap: var(--gap-53xl);
   max-width: 100%;
@@ -242,6 +242,9 @@
   font-size: var(--body-14-reg-size);
   color: var(--l-grey);
   font-family: var(--body-14-reg);
+  max-width: 1680px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 1275px) {
@@ -262,7 +265,7 @@
     flex-wrap: wrap;
   }
 
-  .div97 {
+  .diamond-nav-container {
     gap: var(--gap-lg);
     padding-left: var(--padding-11xl);
     padding-right: var(--padding-11xl);
@@ -306,7 +309,7 @@
     min-width: 100%;
   }
 
-  .div97 {
+  .diamond-nav-container {
     gap: var(--gap-17xl);
     padding-left: var(--padding-41xl);
     padding-right: var(--padding-41xl);

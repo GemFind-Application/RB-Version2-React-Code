@@ -15,7 +15,7 @@ const FrameComponent1 = ({ className = "" }) => {
 
   return (
     <div className={`wrapper3 ${className}`}>
-      <div className="div97">
+      <div className="diamond-nav-container">
         <div className="home-group">
           <div className="home2">Home</div>
           <div className="home-buttons1">
