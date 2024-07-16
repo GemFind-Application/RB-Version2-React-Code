@@ -444,11 +444,14 @@ const DiamondFilter = ({ className = "",
                     ))}
                   </div>
                 </div>
+                <div className="advanced-filter-btn">
+                  <button className="apply-advanced-filters" onClick={applyAdvancedFilters}>
+                    Apply Advanced Filters ({Object.values(advancedFilters).flat().length})
+                  </button>
+                </div>
               </div>
             </div>
-            <button className="apply-advanced-filters" onClick={applyAdvancedFilters}>
-              Apply Advanced Filters ({Object.values(advancedFilters).flat().length})
-            </button>
+            
           </div>
         )}
       </div>

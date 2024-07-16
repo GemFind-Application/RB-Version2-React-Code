@@ -733,17 +733,36 @@
 }
 .flex-advanced-filter {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+.flex-advanced-filter .apply-advanced-filters {
+  align-self: stretch;
+  border: none;
+  border-radius: var(--br-37xl);
+  background-color: var(--accent);
+  box-sizing: border-box;
+  white-space: nowrap;
+  color: var(--white);
+  padding: 20px 15px;
+  cursor: pointer;
+
 }
 .flex-advanced-filter > * {
+  flex: 1 1 50%;
+  width: 50%;
+}
+.dropdown-btns {
   flex: 1 0 auto;
 }
 .flex-advanced-filter .group-inner {
   display: flex;
+  width: 100%;
   gap: 0;
   margin-bottom: 20px;
   border: 1px solid #F4EEEB;
   border-radius: 50px;
-  width: max-content;
 }
 .flex-advanced-filter .group-inner .dropdown-btns:first-child .option--btn {
   border-top-left-radius: 50px;
