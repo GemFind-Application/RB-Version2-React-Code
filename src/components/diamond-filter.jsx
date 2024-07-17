@@ -23,7 +23,9 @@ const DiamondFilter = ({ className = "",
   sortOrder,
   searchSetting,
   itemsPerPage,
-  applyAdvanceFilters
+  applyAdvanceFilters,
+  onCompareContainerClick,
+  compareDiamondsId
 }) => {
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -51,9 +53,7 @@ const DiamondFilter = ({ className = "",
     setTableRange(advancedFilters.table.length === 0 ? [filterData.tableRange[0].minTable, filterData.tableRange[0].maxTable] : [advancedFilters.table[0], advancedFilters.table[1]]);
   }, [selectedFilters]);
 
-  const onCompContainerClick = useCallback(() => {
-    navigate("/compare");
-  }, [navigate]);
+ 
 
   const onTableContainerClick = useCallback(() => {
     setIsGridView(false)
@@ -183,10 +183,10 @@ const DiamondFilter = ({ className = "",
           <div className="top14">
             <div className="compare--diamond-header">
               <b className="diamonds-founded2"> {/* set diamond found here */} {utils.numberWithCommas(totalProducts)} Diamonds Founded</b>
-              <div className="comp2" onClick={onCompContainerClick}>
+              <div className="comp2" onClick={onCompareContainerClick}>
                 <div className="compare-diamonds3">Compare Diamonds</div>
                 <div className="empty-button">
-                  <b className="placeholder totoal--settings">0</b>
+                  <b className="placeholder totoal--settings">{compareDiamondsId.length}</b>
                 </div>
               </div>
             </div>

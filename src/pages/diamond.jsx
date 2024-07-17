@@ -16,7 +16,7 @@ const SkeletonProductItem = () => (
     <div className="skeleton-price"></div>
   </div>
 );
-const Diamond = ({isLabGrown,setIsLabGrown}) => {
+const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamondsId,addCompareDiamondIds}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -31,6 +31,7 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
   const [isDiamondLoaded, setIsDiamondLoaded] = useState(false);  
   const [isserachIsClicked, setIsSerachIsClicked] = useState(false) ;
   const [sortOrder, setSortOrder] = useState('ASC');
+  
   let storedData = JSON.parse(localStorage.getItem('saveDiamondFilters')); 
   let advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFilters'));  
   //console.log(storedData.carat)
@@ -154,6 +155,7 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
   const handleItemsPerPageChange = (number) => {
     setItemsPerPage(number);
     setCurrentPage(1);
@@ -170,6 +172,7 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
     setSortOrder(order);
     setCurrentPage(1);
   };
+ 
   const searchSetting = event => { 
     if(event.target.value === ""){
       setIsSerachIsClicked(!isserachIsClicked);
@@ -233,7 +236,9 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
        advancedFilters={advancedFilters}
        setAdvancedFilters={setAdvancedFilters} 
        setSelectedFilters={setSelectedFilters}
-       itemsPerPage={itemsPerPage}/>
+       itemsPerPage={itemsPerPage}
+       compareDiamondsId={compareDiamondsId}
+       onCompareContainerClick={onCompareContainerClick}/>
        : (
         <SkeletonFilterPanel />
       )}
@@ -246,6 +251,7 @@ const Diamond = ({isLabGrown,setIsLabGrown}) => {
         diamond.map(product => (
           <Items   
             key={product.diamondId}
+            addCompareDiamondIds={addCompareDiamondIds}
             diamond={{
               ...product,
               videoURL: product.videoURL || null,

@@ -39,8 +39,8 @@ function getDiamondVideoUrl(diamondId){
 function getFancyDiamondFilter(option,settingId) {
   return fetchWrapper.get(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}`);
 }
-function getDiamondDetail(settingId) {
-  return fetchWrapper.get(`${baseUrl}/GetDiamondDetail?DealerId=${dealerId}&DID=${settingId}`);
+function getDiamondDetail(diamondId) {
+  return fetchWrapper.get(`${baseUrl}/GetDiamondDetail?DealerId=${dealerId}&DID=${diamondId}`);
 }
 
 function getAllDiamond(option) {

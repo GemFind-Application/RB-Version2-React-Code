@@ -5,7 +5,7 @@ import "./items.css";
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
 import VideoPopup from "./VideoPopup";
 import { diamondService } from "../Services";
-const Items = ({ className = "",diamond }) => {
+const Items = ({ className = "",diamond ,addCompareDiamondIds}) => {
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
  
@@ -45,7 +45,7 @@ const Items = ({ className = "",diamond }) => {
               <img className="video-icon2" alt="" src="/video.svg" />
             </div>
             }
-            <img className="compare-icon2" alt="" src="/compare.svg" />
+            <img className="compare-icon2" alt="" src="/compare.svg" onClick={()=>addCompareDiamondIds(diamond.diamondId)}/>
             <div className="actions11">
               <img className="vector-icon27" alt="" src="/vector3.svg" />
             </div>

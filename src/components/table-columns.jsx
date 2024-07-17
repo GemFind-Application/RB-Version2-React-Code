@@ -1,7 +1,25 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import "./table-columns.css";
-
+import {utils} from "../Helpers/utils"
+const ShowValue = ({value,keyOfObject})=>{
+  console.log(value);
+  console.log(keyOfObject);
+  console.log(value[keyOfObject])
+  if(keyOfObject==='table' || keyOfObject==='depth'){
+    return value[keyOfObject]+"%";
+  }
+  if(keyOfObject==='price'){
+    let  showP = value.fltPrice ?      
+      (value.price && value.currencyFrom =='USD' )
+          ? "$"+(utils.numberWithCommas(value.fltPrice))
+          :  utils.numberWithCommas(value.fltPrice)+' '.value.currencySymbol
+        : "Call for Price"  
+        return showP
+      
+  }
+  return value[keyOfObject];
+}
 const TableColumns = ({
   className = "",
   shape,
@@ -12,38 +30,48 @@ const TableColumns = ({
   round4,
   round5,
   propBorderBottom,
+  diamond
 }) => {
-  const tableColumnsStyle = useMemo(() => {
-    return {
-      borderBottom: propBorderBottom,
-    };
-  }, [propBorderBottom]);
-
-  return (
+  const [ parametersToShow,setParametersToShow] = useState([
+    { key: 'shape', value: 'Shape' },
+    { key: 'skun', value: '#sku' },
+    { key: 'caratWeight', value: 'Carat' },
+    { key: 'table', value: 'Table' },
+    { key: 'color', value: 'Color' },
+    { key: 'polish', value: 'Polish' },
+    { key: 'symmetry', value: 'Symmetry' },
+    { key: 'clarity', value: 'Clarity' },,
+    { key: 'fluorescence', value: 'fluorescence' },
+    { key: 'depth', value: 'Depth' },
+    { key: 'measurement', value: 'Measurement' },
+    { key: 'certificate', value: 'Certificate' },
+    { key: 'cut', value: 'Cut' },
+    { key: 'price', value: 'Price' }])
+    
+    //'shape':'Shape','skun':'#sku','carat':'Carat','table':'Table', 'color':'Color','polish':'Polish','symmetry':'Symmetry','clarity':'Clarity']);
+const [item ,setItem] = useState(diamond);
+console.log(diamond)
+const tableColumnsStyle = useMemo(() => {
+  return {
+    borderBottom: propBorderBottom,
+  };
+}, [propBorderBottom]); 
+return (
     <div className={`table-columns ${className}`} style={tableColumnsStyle}>
-      <div className="name">
-        <div className="shape3">{shape}</div>
-      </div>
-      <div className="all">
-        <div className="v11">
-          <b className="round4">{round}</b>
-        </div>
-        <div className="v11">
-          <b className="round4">{round1}</b>
-        </div>
-        <div className="v11">
-          <b className="round4">{round2}</b>
-        </div>
-        <div className="v11">
-          <b className="round4">{round3}</b>
-        </div>
-        <div className="v11">
-          <b className="round4">{round4}</b>
-        </div>
-        <div className="v11">
-          <b className="round4">{round5}</b>
-        </div>
-      </div>
+        {parametersToShow.map((parameter,index)=> {
+              return  <> 
+              <div className="name" key={parameter.value}>
+              <div className="shape3">{parameter.value}</div>
+              </div> <div className="all">
+              {item.map(it=>{
+                  return   <div className="v11" >
+                    <b className="round4">   <ShowValue value={it} keyOfObject={parameter.key}></ShowValue></b>
+                  </div>
+              })} 
+              </div>   
+              </>
+        })}
+      
     </div>
   );
 };
