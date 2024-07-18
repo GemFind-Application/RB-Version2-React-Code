@@ -5,7 +5,7 @@ import ImageGallery from 'react-image-gallery';
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
 import ShowFltCostInCardDiamond from "./ShowFltCostInCardDiamond";
 ShowFltCostInCardDiamond
-const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
+const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppData }) => {
   const images = [];
   // if (diamond.diamondImage) {
   //   images.push({
@@ -21,13 +21,13 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
   }
 
   return (
-    <div className={`diamond-details ${className}`}>
-      <section className="dd-gallery">
-        <ImageGallery items={images} />
-      </section>
+    <div className="popup-overlay ring-specs-popup">
+      <div className="popup-content">
+        <h2>Diamond Details</h2>
+        <button className="close-button" onClick={onClose}>×</button>
       <section className="content2">
         <div className="top2">
-          <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.carat} CARATH</h3>
+          <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.caratWeight} CARATH</h3>
           <div className="stats">
             <div className="spec-labels">
               <div className="stock-number">Stock Number:</div>
@@ -119,12 +119,13 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
         </div>
       </section>
     </div>
+    </div>
   );
 };
 
-DiamondExpandDetail.propTypes = {
+DiamondSpecificationDetail.propTypes = {
   className: PropTypes.string,
   diamond: PropTypes.object.isRequired,
 };
 
-export default DiamondExpandDetail;
+export default DiamondSpecificationDetail;

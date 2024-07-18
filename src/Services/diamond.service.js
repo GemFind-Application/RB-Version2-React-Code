@@ -15,14 +15,18 @@ export const diamondService = {
   getDiamondVideoUrl
 };
 
-function getDiamondFilter(option,settingId) {
+function getDiamondFilter(option,initialFilter) {
   //let queryParam = getQueryFilterParam(option);
   console.log(option)
  if(option==='fancy'){
   return fetchWrapper.get(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}`);
  }else{
-  if(settingId!="" &&  settingId!=undefined){
-    return fetchWrapper.get(`${baseUrl}/GetInitialFilter?DealerId=${dealerId}&IsLabGrown=true`);
+  if(initialFilter!="" &&  initialFilter!=undefined){
+    if(option.isLabGrown===0){
+    return fetchWrapper.get(`${baseUrl}/GetInitialFilter?DealerId=${dealerId}&IsLabGrown=false`);
+    }else{
+      return fetchWrapper.get(`${baseUrl}/GetInitialFilter?DealerId=${dealerId}&IsLabGrown=true`);
+    }    
   }else{
     if(option.isLabGrown===0){
       return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}&IsLabGrown=false`);
@@ -98,7 +102,7 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'PolishId='+option.polish;    
   }
-  if(option.certificates && option.certificates!==undefined &&  option.certificates!=""){
+  if(option.certificates && option.certificates!==undefined &&  option.certificates!=""&&option.isLabGrown===true){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'Certificate='+option.certificates;    
   }

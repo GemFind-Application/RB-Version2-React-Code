@@ -1,10 +1,10 @@
 import { fetchWrapper } from '../Helpers';
 
 const baseUrl = `${import.meta.env.VITE_APP_API_URL}`;
-const dealerId = 1089
+//const dealerId = 3943
 
 //const dealerId = 4141
-//const dealerId = 1089
+const dealerId = 1089
 //const tamayouInfluencerbaseUrl = `${process.env.REACT_APP_API_URL}/tamayou_influencers`;
 
 export const settingService = {

@@ -1,11 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState,useEffect } from "react";
 import PropTypes from "prop-types";
 import "./table-columns.css";
 import {utils} from "../Helpers/utils"
 const ShowValue = ({value,keyOfObject})=>{
-  console.log(value);
-  console.log(keyOfObject);
-  console.log(value[keyOfObject])
+
   if(keyOfObject==='table' || keyOfObject==='depth'){
     return value[keyOfObject]+"%";
   }
@@ -15,20 +13,12 @@ const ShowValue = ({value,keyOfObject})=>{
           ? "$"+(utils.numberWithCommas(value.fltPrice))
           :  utils.numberWithCommas(value.fltPrice)+' '.value.currencySymbol
         : "Call for Price"  
-        return showP
-      
+        return showP;      
   }
   return value[keyOfObject];
 }
 const TableColumns = ({
-  className = "",
-  shape,
-  round,
-  round1,
-  round2,
-  round3,
-  round4,
-  round5,
+  className = "", 
   propBorderBottom,
   diamond
 }) => {
@@ -51,6 +41,9 @@ const TableColumns = ({
     //'shape':'Shape','skun':'#sku','carat':'Carat','table':'Table', 'color':'Color','polish':'Polish','symmetry':'Symmetry','clarity':'Clarity']);
 const [item ,setItem] = useState(diamond);
 console.log(diamond)
+useEffect(() => {
+  setItem(diamond)
+}, [diamond]);
 const tableColumnsStyle = useMemo(() => {
   return {
     borderBottom: propBorderBottom,
@@ -64,7 +57,7 @@ return (
               <div className="shape3">{parameter.value}</div>
               </div> <div className="all">
               {item.map(it=>{
-                  return   <div className="v11" >
+                  return   <div className="v11" key={parameter.it}>
                     <b className="round4">   <ShowValue value={it} keyOfObject={parameter.key}></ShowValue></b>
                   </div>
               })} 

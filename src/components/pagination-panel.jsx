@@ -121,7 +121,7 @@ const PaginationPanel = ({
         </div>
         }
       </div>
-      <Footer/>
+    
     </div>
   );
 };

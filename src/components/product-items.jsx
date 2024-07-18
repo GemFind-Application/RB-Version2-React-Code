@@ -30,7 +30,7 @@ const SkeletonProductItem = () => (
   </div>
 );
 
-const ProductItems = ({ product, className = "", isLoading = false, onClick ,showVirtualTryOnIframe,filterMetalType}) => {
+const ProductItems = ({ product, className = "", isLoading = false, onClick ,showVirtualTryOnIframe,filterMetalType,configAppData}) => {
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const videoRef = useRef(null);
   const [viewUrlSetting, setViewUrlSetting] = useState('');
@@ -41,15 +41,17 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
   }
 
   const handleVideoIconClick = () => {
-    if (product.videoURL) {
+    if (product.videoURL && product.videoURL!="") {
       setShowVideoPopup(true);
     }
   };
   useEffect(() => {    
-    let metalTypeForUrl = filterMetalType.length >0? filterMetalType[0] : product.metalTypes[0].metalType;  
+    if(product.metalTypes.length > 0){
+      let metalTypeForUrl = filterMetalType.length >0? filterMetalType[0] : product.metalTypes[0].metalType;    
+      let url = utils.getUrl(metalTypeForUrl,product.name,product.priceSettingId)
+      setViewUrlSetting(url)
+    }
   
-    let url = utils.getUrl(metalTypeForUrl,product.name,product.priceSettingId)
-    setViewUrlSetting(url)
   }, []);
 
   const handleImageHover = () => {
@@ -68,7 +70,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
   return (
     <div className={`ring__items product-items ${className}`} >
       <div className="ring-items__header">
-        <h2 className="product-title">{product.name}</h2>
+        <h2 className="product-title">{utils.truncateString(product.name)}</h2>
         <div className="ring-items__wrapper">
           <div 
             className="ring-items__item-video" 
@@ -108,10 +110,11 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
           </div>
           <div className="product-footer">
             {product.showPrice && (
-              <b className="b38"> <ShowCostInCard settingDetailForCost={product}></ShowCostInCard> </b>
+              <b className="b38"> <ShowCostInCard settingDetailForCost={product} configAppData={configAppData}></ShowCostInCard> </b>
             )}
-            {product.try}
-           <button className="virtual-try-on1" onClick={()=>showVirtualTryOnIframe(product.stockNumber)}>Virtual Try On</button>
+            {configAppData.display_tryon &&            
+           <button className="virtual-try-on1" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.stockNumber))}>Virtual Try On</button>
+            }
           </div>
           <div className="btn__outer">
             <Link to={`/setting-details/${viewUrlSetting}`}>View Details</Link>

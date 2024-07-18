@@ -1,8 +1,8 @@
 export default function  VideoModal  ({onClose,src})  {
 
   return (
-      <div className="popup-overlay" style={{width:'100%' ,height:'100%'}}>
-      <div className="popup-content">
+      <div className="video-popup-overlay"  >
+      <div className="video-popup-content">
         <button className="close-button" onClick={onClose}>×</button>
         <iframe
             title={src}       

@@ -1,19 +1,40 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback ,useEffect} from "react";
+import { Link, useNavigate, useParams,useLocation } from "react-router-dom";
 import DealerInfo from "../components/dealer-info";
 import PortalPopup from "../components/portal-popup";
-import DiamondExpandDetail from "../components/diamond-expand-details";
-import { useNavigate } from "react-router-dom";
+import DiamondSpecificationDetail from "../components/diamond-specification-details";
+import ImageGallery from 'react-image-gallery';
 import MeasurementItems from "../components/measurement-items";
 import Stats from "../components/stats";
 import "./diamond-page.css";
-
-const DiamondPage = () => {
+import { diamondService } from "../Services";
+import Header from "../components/Header";
+import ShowCostInCardDiamond from "../components/showCostInCardDiamond";
+import SocialIcon from "../components/SocialIcon";
+import Footer from "../components/Footer";
+const DiamondPage = ({formSetting,configAppData}) => {
+  const { diamondId } = useParams();
+  const [diamondDetail, setDiamondDetail] = useState({});
+  const [isDiamondDetailLoaded, setIsAllDiamondDetailsLoaded] = useState(false);
   const [isDealerInfoOpen, setDealerInfoOpen] = useState(false);
   const [isDiamondDetailsOpen, setDiamondDetailsOpen] = useState(false);
   const navigate = useNavigate();
-
+  const fetchProductDetails = async (diamondId) => {
+    try {
+      const res = await diamondService.getDiamondDetail(diamondId); 
+      if(res) {
+        setDiamondDetail(res);  
+        setIsAllDiamondDetailsLoaded(true)
+      }     
+    } catch (error) {
+      console.error("Error fetching product details:", error);
+    }
+  };
+  useEffect(() => {
+    fetchProductDetails(diamondId);
+  }, [diamondId]);
   const onBreadContainerClick = useCallback(() => {
-    navigate("/diamond");
+    navigate("/diamondtools");
   }, [navigate]);
 
   const openDealerInfo = useCallback(() => {
@@ -35,73 +56,28 @@ const DiamondPage = () => {
   const onButtonContainerClick = useCallback(() => {
     navigate("/complete");
   }, [navigate]);
-
+  const images = [];
+  if (diamondDetail.image2 && diamondDetail.image2 !='') {
+    images.push({
+      original: diamondDetail.image2,
+      thumbnail: diamondDetail.image2,
+    });
+    images.push({
+      original: diamondDetail.image1,
+      thumbnail:diamondDetail.image1}
+    );
+  } else if (diamondDetail.image1) {
+    images.push({
+      original: diamondDetail.image1,
+      thumbnail: diamondDetail.image1,
+    });
+  }
+console.log(images)
   return (
     <>
       <div className="diamond-page">
         <main className="main">
-          <header className="head">
-            <img
-              className="jewellery-icon"
-              loading="lazy"
-              alt=""
-              src="/jewellery.svg"
-            />
-            <nav className="navigation">
-              <nav className="menu1">
-                <a className="menu-element5">Menu Element</a>
-                <a className="menu-element5">Menu Element</a>
-                <a className="menu-element5">Menu Element</a>
-                <a className="menu-element5">Menu Element</a>
-                <a className="menu-element5">Menu Element</a>
-              </nav>
-            </nav>
-            <div className="content9">
-              <div className="hero">
-                <div className="hero-action">
-                  <img
-                    className="acc-icon"
-                    loading="lazy"
-                    alt=""
-                    src="/acc.svg"
-                  />
-                </div>
-                <div className="hero-images">
-                  <img
-                    className="vector-icon3"
-                    loading="lazy"
-                    alt=""
-                    src="/vector.svg"
-                  />
-                  <div className="hero-shapes">
-                    <a className="hero-icons">2</a>
-                  </div>
-                </div>
-                <div className="hero-images">
-                  <img
-                    className="vector-icon4"
-                    loading="lazy"
-                    alt=""
-                    src="/vector-1.svg"
-                  />
-                  <div className="hero-shapes">
-                    <a className="hero-icons">5</a>
-                  </div>
-                </div>
-                <div className="hero-images">
-                  <img
-                    className="vector-icon5"
-                    loading="lazy"
-                    alt=""
-                    src="/vector-2.svg"
-                  />
-                  <div className="hero-shapes">
-                    <a className="hero-icons">3</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </header>
+          <Header/>
           <section className="product">
             <div className="product-details">
               <div className="product-info">
@@ -118,74 +94,7 @@ const DiamondPage = () => {
                     <b className="back-to-all">Back to All Diamonds</b>
                   </div>
                   <div className="product-gallery">
-                    <div className="image">
-                      <img
-                        className="image-9-icon"
-                        loading="lazy"
-                        alt=""
-                        src="/image-91@2x.png"
-                      />
-                    </div>
-                    <div className="thumbnails">
-                      <div className="product-actions">
-                        <div className="product-action-primary">
-                          <div className="product-action-secondary">
-                            <img
-                              className="action-icon"
-                              alt=""
-                              src="/action-icon.svg"
-                            />
-                          </div>
-                          <div className="image1">
-                            <img
-                              className="image-9-icon1"
-                              alt=""
-                              src="/image-9-1@2x.png"
-                            />
-                          </div>
-                        </div>
-                        <div className="link" onClick={openDealerInfo}>
-                          <div className="back-to-all">
-                            <span>{`Internal Use Only: `}</span>
-                            <b className="dealer-info2">Dealer Info</b>
-                          </div>
-                          <input className="fi-16159386" type="checkbox" />
-                        </div>
-                      </div>
-                      <div className="thumbnail-images">
-                        <div className="image2">
-                          <img
-                            className="image-9-icon1"
-                            loading="lazy"
-                            alt=""
-                            src="/image-9-2@2x.png"
-                          />
-                        </div>
-                      </div>
-                      <div className="thumbnail-images1">
-                        <div className="image2">
-                          <img
-                            className="image-9-icon1"
-                            loading="lazy"
-                            alt=""
-                            src="/image-9-3@2x.png"
-                          />
-                        </div>
-                      </div>
-                      <img
-                        className="gallery-separator-icon"
-                        alt=""
-                        src="/gallery-separator.svg"
-                      />
-                      <div className="image4">
-                        <img
-                          className="image-9-icon1"
-                          loading="lazy"
-                          alt=""
-                          src="/image-9-4@2x.png"
-                        />
-                      </div>
-                    </div>
+                    <ImageGallery items={images} />
                   </div>
                 </div>
               </div>
@@ -193,9 +102,9 @@ const DiamondPage = () => {
                 <div className="specs-container">
                   <div className="specs-content">
                     <div className="specs-details">
-                      <div className="id-383212322">Id: 383212322</div>
+                      <div className="id-383212322">Id: {diamondDetail.diamondId}</div>
                       <h1 className="princess-1001-carath">
-                        Princess 10.01 CARATH
+                      {diamondDetail.shape} {' '}{diamondDetail.caratWeight} CARATH
                       </h1>
                       <div className="specs-header">
                         <div className="header-items">
@@ -243,31 +152,31 @@ const DiamondPage = () => {
                   <div className="stats5">
                     <div className="summary-items">
                       <div className="shape1">Shape:</div>
-                      <b className="princess">Princess</b>
+                      <b className="princess">{diamondDetail.shape}</b>
                     </div>
                     <div className="summary-items1">
                       <div className="carat">Carat:</div>
-                      <b className="b11">10.01</b>
+                      <b className="b11">{diamondDetail.caratWeight!="" ? diamondDetail.caratWeight:'-'}</b>
                     </div>
                     <div className="summary-items2">
                       <div className="colour">Colour:</div>
-                      <b className="d">D</b>
+                      <b className="d">{diamondDetail.color!="" ? diamondDetail.color:'-'}</b>
                     </div>
                     <div className="summary-items3">
                       <div className="clarity2">Clarity:</div>
-                      <b className="vvs1">VVS1</b>
+                      <b className="vvs1">{diamondDetail.clarity!="" ? diamondDetail.clarity:'-'}</b>
                     </div>
                     <div className="summary-items4">
                       <div className="cut3">Cut:</div>
-                      <b className="very-good2">Very good</b>
+                      <b className="very-good2">{diamondDetail.cut!="" ? diamondDetail.cut:'-'}</b>
                     </div>
                     <div className="summary-items5">
                       <div className="clarity2">Polish :</div>
-                      <b className="very-good2">Very good</b>
+                      <b className="very-good2">{diamondDetail.polish!="" ? diamondDetail.polish:'-'}</b>
                     </div>
                     <div className="summary-items6">
                       <div className="symmetry2">Symmetry:</div>
-                      <b className="very-good2">Very good</b>
+                      <b className="very-good2">{diamondDetail.symmetry!="" ? diamondDetail.symmetry:'-'}</b>
                     </div>
                     <div className="summary-items7">
                       <div className="intensity">Intensity:</div>
@@ -277,18 +186,18 @@ const DiamondPage = () => {
                   <div className="number2">
                     <MeasurementItems
                       fi8467779="/fi-8467779.svg"
-                      measurementSubValues="62.4%"
+                      measurementSubValues={diamondDetail.depth&&diamondDetail.depth!="" ? diamondDetail.depth+"%":'-'}
                       depth="Depth"
                     />
                     <MeasurementItems
                       fi8467779="/fi-12791189.svg"
-                      measurementSubValues="57%"
+                      measurementSubValues={diamondDetail.table&&diamondDetail.table!="" ? diamondDetail.table+"%":'-'}
                       depth="Table"
                       propFlex="0.2357"
                     />
                     <MeasurementItems
                       fi8467779="/fi-8052211.svg"
-                      measurementSubValues="3.74X3.71X2.32"
+                      measurementSubValues={diamondDetail.measurement && diamondDetail.measurement!=""?diamondDetail.measurement:'-'}
                       depth="Measurement"
                       propFlex="1"
                     />
@@ -298,59 +207,26 @@ const DiamondPage = () => {
                   <div className="buttons">
                     <div className="primary-buttons">
                       <div className="button9" onClick={onButtonContainerClick}>
-                        <b className="select-363440">Select - $363,440</b>
+                        <b className="select-363440">Select - <ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamondDetail}></ShowCostInCardDiamond></b>
                       </div>
-                      <button className="button-fav">
+                      {/*<button className="button-fav">
                         <img className="heart-icon" alt="" src="/heart.svg" />
                         <b className="add-to-favorites">Add to Favorites</b>
-                      </button>
+                      </button>*/}
                     </div>
                   </div>
-                  <div className="share">
-                    <button className="button10">
-                      <img
-                        className="social-icons"
-                        alt=""
-                        src="/vector-32.svg"
-                      />
-                      <b className="save1">Save</b>
-                    </button>
-                    <button className="button11">
-                      <img
-                        className="vector-icon6"
-                        alt=""
-                        src="/vector-41.svg"
-                      />
-                      <b className="post">Post</b>
-                    </button>
-                    <button className="button10">
-                      <img
-                        className="vector-icon7"
-                        alt=""
-                        src="/vector-51.svg"
-                      />
-                      <b className="share1">Share</b>
-                    </button>
-                    <button className="button11">
-                      <img
-                        className="vector-icon8"
-                        alt=""
-                        src="/vector-6.svg"
-                      />
-                      <b className="like">Like</b>
-                    </button>
-                  </div>
+                  <SocialIcon socialIconSetting={formSetting}></SocialIcon>
                 </div>
-                <Stats />
+                <Stats 
+                formSetting={formSetting}
+                emailAFriend={() => setIsEmailAFriendOpen(true)}
+                openDropHint={() => setIsDropHintOpen(true)}
+                openScheduleViewing={() => setIsScheduleViewingOpen(true)}
+                openRequestInfo={() => setIsRequestInfoOpen(true)}/>
               </div>
             </div>
           </section>
         </main>
-        <footer className="pagination3">
-          <div className="back-to-all">
-            © 2024 GemFind App Store Powered by GemFind.
-          </div>
-        </footer>
       </div>
       {isDealerInfoOpen && (
         <PortalPopup
@@ -367,7 +243,10 @@ const DiamondPage = () => {
           placement="Centered"
           onOutsideClick={closeDiamondDetails}
         >
-          <DiamondExpandDetail onClose={closeDiamondDetails} />
+          <DiamondSpecificationDetail 
+          diamond={diamondDetail}
+          configAppData={configAppData}
+          onClose={closeDiamondDetails} />
         </PortalPopup>
       )}
     </>

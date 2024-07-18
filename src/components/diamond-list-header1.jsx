@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import DiamondExpandDetail from "./diamond-expand-details";
 import "./diamond-list-header1.css";
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
-import VideoPopup from "./VideoPopup";
+import VideoModal from "./VideoModal";
 import { diamondService } from "../Services";
-const DiamondListHeader1 = ({ className = "", diamond }) => {
+const DiamondListHeader1 = ({ className = "", diamond ,configAppData}) => {
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
@@ -38,7 +38,7 @@ const DiamondListHeader1 = ({ className = "", diamond }) => {
           <img className="image-icon4" alt="" src={diamond.biggerDiamondimage} />
           <div className="name2">
             <b className="princess-1001-carath3">{diamond.shape} {' '}{diamond.carat} CARATH</b>
-            <b className="diamond-weight-type"><ShowCostInCardDiamond diamondDetail={diamond}></ShowCostInCardDiamond></b>
+            <b className="diamond-weight-type"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b>
           </div>
         </div>
         <div className="img">
@@ -120,11 +120,11 @@ const DiamondListHeader1 = ({ className = "", diamond }) => {
       {/* show the DiamondExpandDetail */}
       {isExpanded && (
         <div className="diamond-expand-detail-wrapper">
-          <DiamondExpandDetail diamond={diamond} />
+          <DiamondExpandDetail configAppData={configAppData} diamond={diamond} />
         </div>
       )}
        {(showVideoPopup && videoUrl!="")  && (
-        <VideoPopup videoURL={videoUrl} onClose={() => setShowVideoPopup(false)} />
+        <VideoModal src={videoUrl} onClose={() => setShowVideoPopup(false)} />
       )}
     </div>
   );

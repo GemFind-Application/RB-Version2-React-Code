@@ -1,10 +1,10 @@
 import React from 'react'
 
-function Footer() {
+function Footer({configAppData}) {
     return (
         <div className="pagination7">
             <div className="gemfind-app-store5">
-                © 2024 GemFind App Store Powered by GemFind.
+                © 2024 GemFind App Store {configAppData.show_powered_by && 'Powered by GemFind'}.
             </div>
         </div>
     )

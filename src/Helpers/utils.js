@@ -17,5 +17,25 @@ function getUrl(metalType,name,settingId,page=""){
   let sku = '-sku-'+(settingId); 
   return newUrl.toLowerCase()+'-'+ringName+sku;
 }
-const utils = { kFormatter,numberWithCommas,getUrl};
+function truncateString  (string)  {
+  let truncatedString=string;
+  if (string.length > 20) {
+    truncatedString = `${string.slice(0, 20)} ...`;
+    return truncatedString
+  } else {
+    
+    return truncatedString;
+  };
+}
+function getskuForVirtualTryOn  (styleNumber)  {
+  if (styleNumber.indexOf(':') > -1)
+  {
+    let colonarray =  styleNumber.split(":");
+
+    return colonarray[0].split('-')[0];
+  }else{
+    return styleNumber.split('-')[0];
+  }
+}
+const utils = { kFormatter,numberWithCommas,getUrl,truncateString,getskuForVirtualTryOn};
 export { utils };

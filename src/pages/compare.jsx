@@ -8,7 +8,7 @@ import TableColumns from "../components/table-columns";
 import "./compare.css";
 import { diamondService } from "../Services";
 
-const Compare = ({compareDiamondsId}) => {
+const Compare = ({compareDiamondsId,removeCompareDiamondIds}) => {
   console.log(compareDiamondsId)
   const [isAllDiamondDetailsLoaded, setIsAllDiamondDetailsLoaded] = useState(false);
   const [allDiamondDetailsToCompare, setAllDiamondDetailsToCompare] = useState([]);
@@ -30,16 +30,10 @@ const Compare = ({compareDiamondsId}) => {
         } catch (error) {
             console.error("Error fetching Pokémon:", error);
         }
-  
-
-  
-    
-    
-     
   };
   useEffect(() => {
     fetchDiamondDetails(compareDiamondsId);
-  }, []);
+  }, [compareDiamondsId]);
   const onBreadContainerClick = useCallback(() => {
     navigate("/diamondtools");
   }, [navigate]);
@@ -58,32 +52,32 @@ const Compare = ({compareDiamondsId}) => {
           </div>
         </div>
         <FrameComponent5 />
+        {allDiamondDetailsToCompare.length>0 ?
+        <>
         <section className="table-up">
           {allDiamondDetailsToCompare.map(item=>{
              return  <V
               key={item.diamondId}
               diamond={item}
-              
+              removeCompareDiamondIds={removeCompareDiamondIds}              
             />
           })
         }         
         </section>
-        <section className="results1">
-       
-              <TableColumns
-            diamond={allDiamondDetailsToCompare}
-            
-             shape="Shape"
-             round="Round"
-             round1="Round"
-             round2="Round"
-             round3="Round"
-             round4="Round"
-             round5="Round"
-           />
-         
-        
+        <section className="results1">       
+          <TableColumns
+            diamond={allDiamondDetailsToCompare}   
+          />    
         </section>
+        </>:(
+          <div className="bread-wrapper">
+          <div className="bread" >           
+            <b className="back-to-diamond">Please select Diamonds To compare</b>
+          </div>
+        </div>
+         
+        )
+        }
       </main>
       }
      <Footer></Footer>

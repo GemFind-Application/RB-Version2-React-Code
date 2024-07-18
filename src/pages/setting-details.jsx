@@ -25,14 +25,11 @@ import Footer from "../components/Footer"
 import { settingService } from '../Services';
 import VideoModal from "../components/VideoModal";
 import { utils } from "../Helpers";
-const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => {
+const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData}) => {
  
   const { settingId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(settingId.substring(settingId.lastIndexOf("-")+1))
-  //const history = useHistory();
-  console.log(location.pathname)
   const [showVirtualTryOn, setShowVirtualTryOn] = useState(false);
   const [showVirtualTryOnUrl, setShowVirtualTryOnUrl] = useState('');
   const [product, setProduct] = useState(null);
@@ -64,23 +61,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
   //const [selectedRingSize,setSelectedRingSize]= useState('');
   useEffect(() => {
     fetchProductDetails(settingIdToShow);
-  }, [settingIdToShow]);
-
-  /*const fetchProductDetails = async (id) => {
-    try {
-      const response = await fetch(`${BASE_URL}/GetMountingDetail?DealerId=${DEALER_ID}&SID=${id}`);
-      if (!response.ok) throw new Error('Failed to fetch product details');
-      const data = await response.json();
-      setProduct(data);
-      setSelectedMetalType(data.metalType || "");
-      setSelectedCenterStoneSize(data.centerStoneMinCarat || "");
-      setSelectedRingSize(data.ringSize && data.ringSize.length > 0 ? data.ringSize[0] : "");
-      setSelectedDiamondType(data.isLabSetting ? 'Lab Grown' : 'Mined');
-      setReviews(data.reviews || []);
-    } catch (error) {
-      console.error("Error fetching product details:", error);
-    }
-  };*/
+  }, [settingIdToShow]);  
   const fetchProductDetails = async (settingId) => {
     try {
       const res = await settingService.getSettingDetail(settingId); 
@@ -91,13 +72,20 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
          navigate("/setting-details/"+url);
         }       
         setProduct(res);
-        setConfigurableProduct(res.configurableProduct);
-        let selectedSetting= res.configurableProduct.filter(item=>item.gfInventoryId === settingId );   
+        setConfigurableProduct(res.configurableProduct);       
+        let selectedSetting= res.configurableProduct.filter(item=>item.gfInventoryId === settingId );  
+        console.log(selectedSetting)
+        /*if(selectedSetting.length === 0){
+          selectedSetting.diamondShape = res.centerStoneFit;
+          selectedSetting.sideStoneQuality = res.sideStoneQuality[0];
+          selectedSetting.centerStoneSize = res.centerStoneMinCarat;
+          selectedSetting.metalType = res.metalType;
+          selectedSetting.gfInventoryId = settingId;         
+        }*/ 
         //get all settings for seelcted metal type
         let filterByMetalType = res.configurableProduct.filter(item=>item.metalType == res.metalType); 
         //sort all settings according to stone size
         let sortedarray = filterByMetalType.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
-
         let  filterBySideStoneType = [];
         //selected setting-assign centerstone, side stone,diamond shape of selected setting.
         if( selectedSetting.length > 0) {
@@ -261,13 +249,13 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
                     <div className="image-wrapper">
                       <ImageGallery items={images} />
                     </div>
-                    <div className="ships1">
+                   {/* <div className="ships1">
                       <span className="view-with">View with:</span>
                       <Link>
                         <b className="round">{product.centerStoneFit ? product.centerStoneFit.split(',')[0] : ""}</b>
                         <img className="round-icon-caret" loading="lazy" alt="" src="/sort-show-icons.svg" />
                       </Link>
-                    </div>
+                    </div>*/}
                   </div>
                 </div>
                 <div className="note-container-parent">
@@ -301,11 +289,11 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
                   <div className="info-wrapper">
                     <div className="info-content">
                       <div className="id-383212322-parent">
-                        <div className="id-3832123221">Id: {product.settingId}</div>
-                        <h1 className="product--title">{product.settingName}</h1>
+                        <div className="id-3832123221">Id: {product.settingId?product.settingId:''}</div>
+                        <h1 className="product--title">{product.settingName?product.settingName:''}</h1>
                         <div className="product-specs">
                           <div className="spec-items">
-                            <b className="spec-labels12"><ShowCostInCard settingDetailForCost={product}></ShowCostInCard></b>
+                            <b className="spec-labels12"><ShowCostInCard settingDetailForCost={product} configAppData={configAppData}></ShowCostInCard></b>
                           </div>
                           <div className="spec-items1">
                             <div className="spec-items-child" />
@@ -329,7 +317,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
                         </div>
                       </div>                      
                     </div>
-                    <div className="enim-at-fames">{product.description}</div>
+                    <div className="enim-at-fames">{product.description?product.description:''}</div>
                     {/* FORM DETAILS */}
                     <form action="" name="setting-details-form" className="setting-details-form"
                       onSubmit={(e) => {
@@ -529,12 +517,12 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
                           <b className="select-485">Select - {product.currencySymbol}{product.cost}</b>
                         </button> */}
                         <button type="button" className="submitring_product" onClick={selectRingSetting} >
-                          <b className="select-485">Select - <ShowCostInCard settingDetailForCost={product}></ShowCostInCard></b>
+                          <b className="select-485">Select - <ShowCostInCard settingDetailForCost={product} configAppData={{configAppData}}></ShowCostInCard></b>
                         </button>
-                        <button className="button-fav1" onClick={()=>showVirtualTryOnIframe(82950)}>
-                        
+                        {configAppData.display_tryon &&
+                        <button className="button-fav1" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.styleNumber))}>                        
                            <b>Virtual Try On</b>
-                        </button>
+                        </button>}
                       </div>
 
                       <SocialIcon socialIconSetting={formSetting}></SocialIcon>
@@ -560,7 +548,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
             </div>
           </section>*/}
         </main>
-        <Footer></Footer>
+       
       </div>
       {isDealerInfoOpen && (
         <PortalPopup
@@ -588,7 +576,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl}) => 
           overlayColor="rgba(0, 0, 0, 0.3)"
           onOutsideClick={() => setIsRingSpecsOpen(false)}
         >
-          <RingSpecificationsPopup onClose={() => setIsRingSpecsOpen(false)} product={product} />
+          <RingSpecificationsPopup   configAppData={configAppData}  onClose={() => setIsRingSpecsOpen(false)} product={product} />
         </PortalPopup>
       )}
       {isDropHintOpen && (

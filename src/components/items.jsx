@@ -5,12 +5,12 @@ import "./items.css";
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
 import VideoPopup from "./VideoPopup";
 import { diamondService } from "../Services";
-const Items = ({ className = "",diamond ,addCompareDiamondIds}) => {
+const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData}) => {
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
- 
+ const [isDiamondPresentInCompare,setIsDiamondPresentInCompare] =useState()
 
-
+console.log(isDiamondPresentInCompare)
   const handleVideoIconClick = async() => {
     setShowVideoPopup(false)
     try {     
@@ -45,7 +45,11 @@ const Items = ({ className = "",diamond ,addCompareDiamondIds}) => {
               <img className="video-icon2" alt="" src="/video.svg" />
             </div>
             }
-            <img className="compare-icon2" alt="" src="/compare.svg" onClick={()=>addCompareDiamondIds(diamond.diamondId)}/>
+            <img className="compare-icon2" 
+
+            alt="compare" src="/compare.svg" 
+
+            onClick={()=>addCompareDiamondIds(diamond.diamondId)}/>
             <div className="actions11">
               <img className="vector-icon27" alt="" src="/vector3.svg" />
             </div>
@@ -56,14 +60,14 @@ const Items = ({ className = "",diamond ,addCompareDiamondIds}) => {
           <div className="info-overlay">
             <img className="image-9-icon13" alt="" src={diamond.biggerDiamondimage} />
             <div className="down">
-              <b className="empty3"><ShowCostInCardDiamond diamondDetail={diamond}></ShowCostInCardDiamond></b>
+              <b className="empty3"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b>
               <b className="vs2-excellent">{diamond.clarity} {diamond.polish && diamond.polish != '' && ',' + diamond.polish}</b>
             </div>
           </div>
         </div>
       </div>
       <div className="button29 btn__group">
-        <Link to="/diamond/" className="diamond_item--link">Select - <ShowCostInCardDiamond diamondDetail={diamond}></ShowCostInCardDiamond></Link>
+        <Link to={`/diamond-details/${diamond.diamondId}`} className="diamond_item--link">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>
       </div>
       {(showVideoPopup && videoUrl!="")  && (
         <VideoPopup videoURL={videoUrl} onClose={() => setShowVideoPopup(false)} />

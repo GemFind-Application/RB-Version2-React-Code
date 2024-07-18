@@ -25,7 +25,8 @@ const DiamondFilter = ({ className = "",
   itemsPerPage,
   applyAdvanceFilters,
   onCompareContainerClick,
-  compareDiamondsId
+  compareDiamondsId,
+  selectedSettingShape
 }) => {
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -318,8 +319,13 @@ const DiamondFilter = ({ className = "",
                   {activeDropdown === 'shape' && (
                     filterData.shapes.map(shape => (
                       <div className="dropdown-btns" key={shape.shapeName}>
+                        {selectedSettingShape!="" ?
+                          
+                          <button className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} >{shape.shapeName}</button>
+                        :
                         <button className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('shape', shape.shapeName)}>{shape.shapeName}</button>
-                      </div>
+                        }
+                        </div>
                     ))
                   )}
                   {activeDropdown === 'price' && (

@@ -9,7 +9,8 @@ const V = ({
   propBorderTop,
   propBorderRight,
   propBorderBottom,
-  diamond
+  diamond,
+  removeCompareDiamondIds
 }) => {
   const v1Style = useMemo(() => {
     return {
@@ -34,7 +35,7 @@ console.log(diamond)
           <div className="id-383212322-wrapper">
             <div className="id-3832123222">Id: {diamond.diamondId}</div>
           </div>
-          <img
+          <img onClick={()=>removeCompareDiamondIds(diamond.diamondId)}
             className="vector-icon15"
             loading="lazy"
             alt=""
