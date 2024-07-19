@@ -97,6 +97,10 @@
   gap: var(--gap-5xs);
   z-index: 1;
 }
+.actions10 {
+  display: flex;
+  gap: 4px;
+}
 .info-overlay {
   flex: 1;
   display: flex;
