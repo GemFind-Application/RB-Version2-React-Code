@@ -37,5 +37,21 @@ function getskuForVirtualTryOn  (styleNumber)  {
     return styleNumber.split('-')[0];
   }
 }
-const utils = { kFormatter,numberWithCommas,getUrl,truncateString,getskuForVirtualTryOn};
+function getDiamondViewUrl(diamondDetail){
+ 
+  let diamondviewurl = '';   
+  let type= diamondDetail.isLabCreated? 'labcreated':'';
+  let urlshape = diamondDetail.shape?diamondDetail.shape.split(" ").join("-")+'-shape-':'-shape-';
+  let urlcarat = diamondDetail.carat?diamondDetail.carat.split(" ").join("-")+'-carat-':'-carat-';
+  let urlcolor = diamondDetail.color?diamondDetail.color.split(" ").join("-")+'-color-':'-color-';            
+  let urlclarity = diamondDetail.clarity?diamondDetail.clarity.split(" ").join("-")+'-clarity-':'-clarity-';           
+  let urlcut = diamondDetail.cut ? diamondDetail.cut!==""? diamondDetail.cut.split(" ").join("-")+'-cut-':'-cut-':'-cut-';            
+  let urlcert = diamondDetail.cert?diamondDetail.cert.split(" ").join("-")+'-certificate-':'-certificate-';  
+  
+  let urlstring = (urlshape+urlcarat+urlcolor+urlclarity+urlcut+urlcert+'sku-'+diamondDetail.diamondId).toLowerCase();
+ 
+      return  urlstring;          
+//$diamondviewurl = $this->diamond_lib->getDiamondViewUrl($urlstring,$type,$base_shop_domain,$pathprefixshop); 
+}
+const utils = { kFormatter,numberWithCommas,getUrl,truncateString,getskuForVirtualTryOn,getDiamondViewUrl};
 export { utils };

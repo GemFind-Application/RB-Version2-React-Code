@@ -10,7 +10,8 @@ const V = ({
   propBorderRight,
   propBorderBottom,
   diamond,
-  removeCompareDiamondIds
+  removeCompareDiamondIds,
+  configAppData
 }) => {
   const v1Style = useMemo(() => {
     return {
@@ -27,7 +28,6 @@ const V = ({
     propBorderRight,
     propBorderBottom,
   ]);
-console.log(diamond)
   return (
     <div className={`v1 ${className}`} style={v1Style}>
       <div className="image10">
@@ -54,7 +54,7 @@ console.log(diamond)
       <div className="frame-container">
         <div className="princess-1001-carath-parent">
           <h3 className="princess-1001-carath1">{diamond.mainHeader}</h3>
-          <b className="empty1"><ShowCostInCardDiamond diamondDetail={diamond}></ShowCostInCardDiamond></b>
+          <b className="empty1"><ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></b>
         </div>
         <div className="button20">
           <img

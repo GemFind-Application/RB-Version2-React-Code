@@ -5,6 +5,7 @@ import "./items.css";
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
 import VideoPopup from "./VideoPopup";
 import { diamondService } from "../Services";
+import { utils } from "../Helpers";
 const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData}) => {
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
@@ -67,7 +68,7 @@ console.log(isDiamondPresentInCompare)
         </div>
       </div>
       <div className="button29 btn__group">
-        <Link to={`/diamond-details/${diamond.diamondId}`} className="diamond_item--link">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>
+        <Link to={`/diamond-details/${utils.getDiamondViewUrl(diamond)}`} className="diamond_item--link">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>
       </div>
       {(showVideoPopup && videoUrl!="")  && (
         <VideoPopup videoURL={videoUrl} onClose={() => setShowVideoPopup(false)} />

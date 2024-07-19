@@ -45,7 +45,7 @@ function dropAHint(data){
 function friendsEmail(data){
   console.log(data);
  return fetchWrapper.put(
-    'https://gemfind.org/ringbuilder/settings/resultemailfriend',
+    '/ringbuilsder/settings/resultemailfriend',
    data
   )
 

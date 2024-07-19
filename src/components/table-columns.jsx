@@ -5,13 +5,13 @@ import {utils} from "../Helpers/utils"
 const ShowValue = ({value,keyOfObject})=>{
 
   if(keyOfObject==='table' || keyOfObject==='depth'){
-    return value[keyOfObject]+"%";
+    return value[keyOfObject]!==""?value[keyOfObject]+"%":"-";
   }
   if(keyOfObject==='price'){
     let  showP = value.fltPrice ?      
-      (value.price && value.currencyFrom =='USD' )
+      (value.currencyFrom =='USD' )
           ? "$"+(utils.numberWithCommas(value.fltPrice))
-          :  utils.numberWithCommas(value.fltPrice)+' '.value.currencySymbol
+          :  utils.numberWithCommas(value.fltPrice)+' '+value.currencySymbol
         : "Call for Price"  
         return showP;      
   }
@@ -20,9 +20,10 @@ const ShowValue = ({value,keyOfObject})=>{
 const TableColumns = ({
   className = "", 
   propBorderBottom,
-  diamond
+  diamond,
+  showAllParam
 }) => {
-  const [ parametersToShow,setParametersToShow] = useState([
+  let allParams = [
     { key: 'shape', value: 'Shape' },
     { key: 'skun', value: '#sku' },
     { key: 'caratWeight', value: 'Carat' },
@@ -36,14 +37,48 @@ const TableColumns = ({
     { key: 'measurement', value: 'Measurement' },
     { key: 'certificate', value: 'Certificate' },
     { key: 'cut', value: 'Cut' },
-    { key: 'price', value: 'Price' }])
+    { key: 'price', value: 'Price' }]
+  const [ parametersToShow,setParametersToShow] = useState(allParams)
     
     //'shape':'Shape','skun':'#sku','carat':'Carat','table':'Table', 'color':'Color','polish':'Polish','symmetry':'Symmetry','clarity':'Clarity']);
 const [item ,setItem] = useState(diamond);
-console.log(diamond)
+console.log(showAllParam)
 useEffect(() => {
-  setItem(diamond)
-}, [diamond]);
+  const getData = async()=>{
+    if(showAllParam == false) {
+      console.log('in');
+     // let newKeysArray=[] ;
+      const promises =await Promise.all(  parametersToShow.map((item,index)=>{
+        let allDetails = [];  
+        diamond.map(diamondDetail=>{
+        allDetails.push(diamondDetail[item.key]);
+        })
+        let isAllValuesAreSame = allDetails.every( (val, i, arr) => val === arr[0] ) ;
+       
+         
+         if(isAllValuesAreSame==false) {
+          return (item);
+         }
+         else {
+          return 0;
+         }
+      }))
+      
+       console.log(promises)
+       let data = promises.filter(function( element ) {
+        return element !== 0 && element !==undefined;
+     });
+     console.log(data)
+  setParametersToShow(data)
+      
+    }else{
+      setParametersToShow(allParams)
+    }
+  }
+  
+  setItem(diamond);
+  getData(); 
+}, [diamond,showAllParam]);
 const tableColumnsStyle = useMemo(() => {
   return {
     borderBottom: propBorderBottom,

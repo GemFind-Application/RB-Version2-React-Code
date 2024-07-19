@@ -82,7 +82,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
             selectedRingShape = resSetting.centerStoneFit;
             setSelectedSettingShape(selectedRingShape);
             selectedCaratRange = [resSetting.centerStoneMinCarat,resSetting.centerStoneMaxCarat];
-          }     }
+          }}
           let option = {                  
             isLabGrown:isLabGrown ? 1 : 0       
           }
@@ -102,10 +102,10 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
               setFilterData(res[1][0]);
               applyFilters({...selectedFilters,
                 shape: selectedRingShape!="" ? [selectedRingShape]:[],
-                colour: selectedFilters.colour.length===0 ? res[1][0].colorRange.map(item=> {return item.colorId}):selectedFilters.colour,
-                clarity: selectedFilters.clarity.length===0 ? res[1][0].clarityRange.map(item=> {return item.clarityName}):selectedFilters.clarity,
-                price:selectedFilters.price.length===0 ? [res[1][0].priceRange[0].minPrice,res[1][0].priceRange[0].maxPrice]:selectedFilters.price,
-                carat:selectedCaratRange.length > 0 ?selectedCaratRange:selectedFilters.carat.length===0 ?[res[1][0].caratRange[0].minCarat,res[1][0].caratRange[0].maxCarat]:selectedFilters.carat,
+                colour: (selectedRingShape!="" || selectedFilters.colour.length===0) ? res[1][0].colorRange.map(item=> {return item.colorId}):selectedFilters.colour,
+                clarity:(selectedRingShape!="" || selectedFilters.clarity.length===0) ? res[1][0].clarityRange.map(item=> {return item.clarityName}):selectedFilters.clarity,
+                price: (selectedRingShape!="" ||selectedFilters.price.length===0 )? [res[1][0].priceRange[0].minPrice,res[1][0].priceRange[0].maxPrice]:selectedFilters.price,
+                carat: selectedCaratRange.length > 0 ?selectedCaratRange:selectedFilters.carat.length===0 ?[res[1][0].caratRange[0].minCarat,res[1][0].caratRange[0].maxCarat]:selectedFilters.carat,
               });
               //console.log(selectedFilters)
               setIsDiamondFilterLoaded(true);            
@@ -312,9 +312,11 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
         ))}
         </>
       ) : (
-        Array(itemsPerPage).fill().map((_, index) => (
+        <div className="list2">
+        {Array(itemsPerPage).fill().map((_, index) => (
           <SkeletonProductItem key={index} />
-        ))
+        ))}
+        </div>
       )}
       
       <PaginationPanel 

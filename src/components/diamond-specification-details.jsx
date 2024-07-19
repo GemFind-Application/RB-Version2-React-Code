@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import "./diamond-details1.css";
 import ImageGallery from 'react-image-gallery';
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
-import ShowFltCostInCardDiamond from "./ShowFltCostInCardDiamond";
-ShowFltCostInCardDiamond
+import ShowPerCaratPrice from "./ShowPerCaratPrice";
+
 const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppData }) => {
   const images = [];
   // if (diamond.diamondImage) {
@@ -31,7 +31,7 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
           <div className="stats">
             <div className="spec-labels">
               <div className="stock-number">Stock Number:</div>
-              <a className="spec-values">{diamond.sku || '-'}</a>
+              <a className="spec-values">{diamond.diamondId || '-'}</a>
             </div>
             <div className="spec-labels1">
               <div className="price4">Price:</div>
@@ -39,11 +39,11 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
             </div>
             <div className="spec-labels1">
               <a className="price-per-carat">Price Per Carat:</a>
-              <a className="a">{diamond.fltCaratPrice ? <ShowFltCostInCardDiamond diamondDetail={diamond}></ShowFltCostInCardDiamond> : '-'}</a>
+              <a className="a">{diamond.fltPrice ? <ShowPerCaratPrice diamondDetail={diamond}></ShowPerCaratPrice> : '-'}</a>
             </div>
             <div className="spec-labels1">
               <div className="carat-weight">Carat Weight:</div>
-              <b className="b2">{diamond.carat || '-'}</b>
+              <b className="b2">{diamond.caratWeight || '-'}</b>
             </div>
             <div className="spec-labels1">
               <div className="cut1">Cut:</div>

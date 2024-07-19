@@ -31,6 +31,18 @@
   justify-content: center;
   white-space: nowrap;
 }
+.grid1Unselected{
+  cursor: pointer;
+  border: none;
+  padding: var(--padding-3xs-5) var(--padding-xl);
+ 
+  border-radius: var(--br-21xl) 0px 0px var(--br-21xl);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
 .grid1:hover {
   background-color: var(--color-lightgray-100);
 }

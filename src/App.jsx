@@ -20,8 +20,8 @@ import { appService } from './Services';
 import { settingService } from './Services';
 import Footer from "./components/Footer"
 function App() {
-  const [ socialIconSetting,setSocialIconSetting] = useState([]);
-  const [ isSocialIconSetting,setIsSocialIconSetting] = useState(false);
+  const [ additionOptionSetting,setAdditionOptionSetting] = useState([]);
+  const [ isAdditionOptionSettingLoaded,setIsAdditionOptionSettingLoaded] = useState(false);
   const [settingNavigation,setSettingNavigation] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isSettingNavLoaded, setIsSettingNavLoaded] = useState(false);
@@ -58,8 +58,8 @@ function App() {
 
         if(res[0]) {
                 
-          setSocialIconSetting(res[0][0]);
-          setIsSocialIconSetting(true);
+          setAdditionOptionSetting(res[0][0]);
+          setIsAdditionOptionSettingLoaded(true);
         }       
       } catch (err) {        
       }
@@ -146,10 +146,16 @@ function App() {
     }
   }, [pathname]);
   const onCompareContainerClick = () => {
+
     if(compareDiamondsId.length <2){
       alert('Please select minimum 2 diamonds to compare.')
     }else{
-      navigate("/compare");
+      if(compareDiamondsId.length >6 ){
+        alert('You can select a maximum of 6 diamonds to compare! Please check your compare item page you have some items in your compare list.')
+      }else{
+        navigate("/compare");
+      }
+      
     }   
   };
   const addCompareDiamondIds = (diamondId) => {
@@ -167,18 +173,24 @@ function App() {
    let newcompareDiamonds = compareDiamondsId.filter(item => item !== diamondId);
    setCompareDiamondsId(newcompareDiamonds);
   };
-  console.log(compareDiamondsId)
+  console.log(settingNavigation)
   return (
     <div>
     {loading &&
     <Routes>
       <Route path="/" element={<Settings  configAppData={configAppData} shopUrl={shopUrl} settingNavigationData={settingNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown} />} />
       <Route path="/settings" element={<Settings configAppData={configAppData}  shopUrl={shopUrl} settingNavigationData={settingNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown}/>} />      
-      <Route path="/setting-details/:settingId"  element={<SettingDetails configAppData={configAppData} shopUrl={shopUrl} formSetting={socialIconSetting} isLabGrown={isLabGrown} settingNavigationData={settingNavigation}/>} />
-      <Route path="/compare" element={<Compare  removeCompareDiamondIds={removeCompareDiamondIds} compareDiamondsId={compareDiamondsId} />} />
+      <Route path="/setting-details/:settingId"  element={<SettingDetails 
+      configAppData={configAppData} shopUrl={shopUrl} 
+      formSetting={additionOptionSetting}
+      isLabGrown={isLabGrown} 
+      settingNavigationData={settingNavigation}/>} />
+      <Route path="/compare" element={<Compare  configAppData={configAppData} removeCompareDiamondIds={removeCompareDiamondIds} compareDiamondsId={compareDiamondsId} />} />
       <Route path="/diamondtools" element={<Diamond  configAppData={configAppData} addCompareDiamondIds={addCompareDiamondIds} compareDiamondsId={compareDiamondsId} onCompareContainerClick={onCompareContainerClick}   isLabGrown={isLabGrown} setIsLabGrown={setIsLabGrown}/>} />
-      <Route path="/diamond-details/:diamondId" element={<DiamondPage configAppData={configAppData} formSetting={socialIconSetting} />} />   
-      <Route path="/complete" element={<Complete />} />
+      <Route path="/diamond-details/:diamondId" element={<DiamondPage additionOptionSetting={additionOptionSetting} configAppData={configAppData} formSetting={additionOptionSetting} />} />   
+      <Route path="/complete" element={<Complete
+       formSetting={additionOptionSetting} 
+       configAppData={configAppData}/>} />
       {/* <Route path="/diamond-table-scroll" element={<DiamondTableScroll />} /> */}
       {/* <Route path="/request-sent" element={<RequestSent />} /> */}
       {/* <Route path="/hint-sent" element={<HintSent />} /> */}

@@ -2,20 +2,28 @@ import { useState, useCallback } from "react";
 import SettingDetails from "./setting-details";
 import PortalPopup from "./portal-popup";
 import DiamondDetails from "./diamond-details";
-import Hint from "./hint";
-import Schedule from "./schedule";
-import RequestInfo from "./request-info";
-import PropTypes from "prop-types";
-import "./product-details.css";
 
-const ProductDetails = ({ className = "" }) => {
+import PropTypes from "prop-types";
+import Stats from "../components/stats";
+import "./product-details.css";
+import ShowCostInCard from "./showCostInCard";
+import ShowCostInCardDiamond from "./showCostInCardDiamond";
+import DropHintPopup from "../components/DropHintPopup";
+import ScheduleViewingPopup from "../components/ScheduleViewingPopup";
+import RequestInfoPopup from "../components/RequestInfoPopup";
+import EmailFriendPopup from "../components/EmailFriendPopup";
+import ShowTotalPrice from "./ShowTotalPrice";
+const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,configAppData,formSetting}) => {
+  console.log(formSetting)
   const [isSettingDetailsOpen, setSettingDetailsOpen] = useState(false);
   const [isDiamondDetailsOpen, setDiamondDetailsOpen] = useState(false);
   const [isHintOpen, setHintOpen] = useState(false);
   const [isScheduleOpen, setScheduleOpen] = useState(false);
-  const [isRequestInfoOpen, setRequestInfoOpen] = useState(false);
-  const [isemailAFriendOpen, setemailAFriendOpen] = useState(false);
 
+  const [isDropHintOpen, setIsDropHintOpen] = useState(false);
+  const [isScheduleViewingOpen, setIsScheduleViewingOpen] = useState(false);
+  const [isEmailAFriendOpen, setIsEmailAFriendOpen] = useState(false);
+  const [isRequestInfoOpen, setIsRequestInfoOpen] = useState(false);
   const openSettingDetails = useCallback(() => {
     setSettingDetailsOpen(true);
   }, []);
@@ -73,9 +81,9 @@ const ProductDetails = ({ className = "" }) => {
               <b className="completed">Completed</b>
             </div>
             <div className="engagement-ring-parent">
-              <b className="engagement-ring">Engagement Ring</b>
+              <b className="engagement-ring">{settingDetail.settingName?settingDetail.settingName:''}</b>
               <div className="wrapper2">
-                <b className="b20">$364,000</b>
+                <b className="b20"><ShowCostInCard settingDetailForCost={settingDetail} configAppData={configAppData}> </ShowCostInCard></b>
               </div>
               <div className="line-wrapper">
                 <div className="line-div" />
@@ -93,19 +101,19 @@ const ProductDetails = ({ className = "" }) => {
           <div className="stats10">
             <div className="stats-elements">
               <div className="ring-size">Ring Size:</div>
-              <b className="stats-values">9</b>
+              <b className="stats-values">{ringSize}</b>
             </div>
             <div className="stats-elements">
               <div className="metal-type2">Metal Type:</div>
-              <b className="k-rose-gold">14k Rose Gold</b>
+              <b className="k-rose-gold">{settingDetail.metalType!=""?settingDetail.metalType:''}</b>
             </div>
             <div className="stats-elements2">
               <div className="side-stone-quality">Side Stone Quality:</div>
-              <b className="i1h1">I1/H1</b>
+              <b className="i1h1">{settingDetail.sideStoneQuality!=""?settingDetail.sideStoneQuality[0]:''}</b>
             </div>
             <div className="stats-elements">
               <div className="center-stone-sizect">Center Stone Size(Ct.):</div>
-              <b className="b21">0.86-1.14</b>
+              <b className="b21">{settingDetail.centerStoneMinCarat!=""?settingDetail.centerStoneMinCarat+'-'+settingDetail.centerStoneMaxCarat:''}</b>
             </div>
           </div>
           <div className="number3">
@@ -116,17 +124,14 @@ const ProductDetails = ({ className = "" }) => {
                   <div className="div65">
                     <div className="payment-info">
                       <b className="prong-round-solitaire2">
-                        4 prong Round Solitaire
+                      {settingDetail.settingName?settingDetail.settingName:''}
                       </b>
-                      <div className="id-3832123223">Id: 383212322</div>
+                      <div className="id-3832123223">Id: {settingDetail.settingId?settingDetail.settingId:''}</div>
                     </div>
-                    <b className="b22">$485</b>
+                    <b className="b22"><ShowCostInCard settingDetailForCost={settingDetail} configAppData={configAppData}> </ShowCostInCard></b>
                   </div>
                   <div className="this-14k-white">
-                    This 14K white gold product can accommodate a round diamond
-                    shape. Available in 14K, 18K white, yellow and rose gold, as
-                    well as Platinum. Center diamond not included. Matching
-                    wedding band sold separately.
+                  {settingDetail.description?settingDetail.description:''}
                   </div>
                 </div>
                 <div className="edit">
@@ -156,32 +161,31 @@ const ProductDetails = ({ className = "" }) => {
                   <div className="div69">
                     <div className="payment-info">
                       <b className="prong-round-solitaire2">
-                        Princess 10.01 CARATH
+                      {diamondDetail.shape!=""?diamondDetail.shape:''} { ' '} {diamondDetail.caratWeight!=""?diamondDetail.caratWeight:''} {'CARATH'}
                       </b>
-                      <div className="id-3832123223">Id: 383212322</div>
+                      <div className="id-3832123223">Id: {diamondDetail.diamondId!=""?diamondDetail.diamondId:''}</div>
                     </div>
-                    <b className="b23">$363,440</b>
+                    <b className="b23"><ShowCostInCardDiamond diamondDetail={diamondDetail} configAppData={configAppData}></ShowCostInCardDiamond></b>
                   </div>
                   <div className="this-excellent-cut">
-                    This Excellent cut, E color, I1 clarity diamond comes
-                    accompanied by a diamond grading report from GIA
+                  {diamondDetail.subHeader!=""?diamondDetail.subHeader:''}
                   </div>
                   <div className="stats11">
                     <div className="stats-elements">
                       <div className="report">Report:</div>
-                      <b className="gia1">GIA</b>
+                      <b className="gia1">{diamondDetail.certificate!=""?diamondDetail.certificate:'-'}</b>
                     </div>
                     <div className="stats-elements">
                       <div className="cut6">Cut:</div>
-                      <b className="excellent4">Excellent</b>
+                      <b className="excellent4">{diamondDetail.cut!=""?diamondDetail.cut:'-'}</b>
                     </div>
                     <div className="stats-elements">
                       <div className="color2">Color:</div>
-                      <b className="stats-values">E</b>
+                      <b className="stats-values">{diamondDetail.color!=""?diamondDetail.color:'-'}</b>
                     </div>
                     <div className="stats-elements">
                       <div className="clarity4">Clarity:</div>
-                      <b className="i13">I1</b>
+                      <b className="i13">{diamondDetail.clarity!=""?diamondDetail.clarity:'-'}</b>
                     </div>
                   </div>
                 </div>
@@ -219,38 +223,18 @@ const ProductDetails = ({ className = "" }) => {
         <div className="payment-options">
           <div className="cart-buttons">
             <div className="button21">
-              <b className="add-to-cart">Add to cart - $364,000</b>
+              <b className="add-to-cart">Add to cart - <ShowTotalPrice configAppData={configAppData} settingDetailForCost={settingDetail} diamondDetail={diamondDetail}></ShowTotalPrice></b>
             </div>
             <div className="button22">
               <b className="virtual-try-on">Virtual try-on</b>
             </div>
           </div>
-          <div className="stats12">
-            <div className="engagement-action-icons" onClick={openHint}>
-              <img className="fi-8429504-icon1" alt="" src="/fi-8429504.svg" />
-              <div className="engagement-actions">
-                <b className="drop-a-hint2">Drop A Hint</b>
-              </div>
-            </div>
-            <div className="engagement-action-icons1" onClick={openSchedule}>
-              <img className="fi-8429504-icon1" alt="" src="/fi-956926.svg" />
-              <div className="engagement-actions">
-                <b className="schedule-viewing2">Schedule Viewing</b>
-              </div>
-            </div>
-            <div className="engagement-action-icons2">
-              <img className="fi-8429504-icon1" alt="" src="/fi-2989993.svg" />
-              <div className="engagement-actions">
-                <b className="email-a-friend1">Email A Friend</b>
-              </div>
-            </div>
-            <div className="engagement-action-icons3" onClick={openRequestInfo}>
-              <img className="fi-8429504-icon1" alt="" src="/fi-151912.svg" />
-              <div className="engagement-actions">
-                <b className="request-more-info1">Request More Info</b>
-              </div>
-            </div>
-          </div>
+          <Stats 
+                formSetting={formSetting}
+                emailAFriend={() => setIsEmailAFriendOpen(true)}
+                openDropHint={() => setIsDropHintOpen(true)}
+                openScheduleViewing={() => setIsScheduleViewingOpen(true)}
+                openRequestInfo={() => setIsRequestInfoOpen(true)}/>
         </div>
       </div>
       {isSettingDetailsOpen && (
@@ -271,22 +255,34 @@ const ProductDetails = ({ className = "" }) => {
           <DiamondDetails onClose={closeDiamondDetails} />
         </PortalPopup>
       )}
-      {isHintOpen && (
+      {isDropHintOpen && (
         <PortalPopup
           overlayColor="rgba(113, 113, 113, 0.3)"
           placement="Centered"
           onOutsideClick={closeHint}
         >
-          <Hint onClose={closeHint} />
+        <DropHintPopup
+            settingId={settingDetail.settingId}
+            ringurl={window.location.hostname + "/setting-details/" + settingDetail.settingId}
+            shopurl={''}
+            isLabSetting={settingDetail.isLabSetting}
+            onClose={() => setIsDropHintOpen(false)} />
         </PortalPopup>
       )}
-      {isScheduleOpen && (
+      {isScheduleViewingOpen && (
         <PortalPopup
           overlayColor="rgba(113, 113, 113, 0.3)"
           placement="Centered"
           onOutsideClick={closeSchedule}
         >
-          <Schedule onClose={closeSchedule} />
+         <ScheduleViewingPopup
+            settingId={settingDetail.settingId}
+            ringurl={window.location.hostname + "/setting-details/" + settingDetail.settingId}
+            shopurl={''}
+            isLabSetting={settingDetail.isLabSetting}
+            onClose={() => setIsScheduleViewingOpen(false)}
+            locations={settingDetail.addressList ? settingDetail.addressList.map(address => settingDetail.locationName) : []}
+          />
         </PortalPopup>
       )}
       {isRequestInfoOpen && (
@@ -295,16 +291,28 @@ const ProductDetails = ({ className = "" }) => {
           placement="Centered"
           onOutsideClick={closeRequestInfo}
         >
-          <RequestInfo onClose={closeRequestInfo} />
+           <RequestInfoPopup 
+          onClose={() => setIsRequestInfoOpen(false)}
+          settingId={settingDetail.settingId}
+          ringurl={window.location.hostname+"/setting-details/"+settingDetail.settingId}
+          shopurl={''}
+          isLabSetting={settingDetail.isLabSetting}
+          />
         </PortalPopup>
+       
       )}
-      {isemailAFriendOpen && (
+      {isEmailAFriendOpen && (
         <PortalPopup
           overlayColor="rgba(113, 113, 113, 0.3)"
           placement="Centered"
           onOutsideClick={closeemailAFriend}
         >
-          <RequestInfo onClose={closeemailAFriend} />
+         <EmailFriendPopup 
+          settingId={settingDetail.settingId}
+          ringurl={window.location.hostname+"/setting-details/"+settingDetail.settingId}
+          shopurl={''}
+          isLabSetting={settingDetail.isLabSetting}
+          onClose={() => setIsEmailAFriendOpen(false)} />
         </PortalPopup>
       )}
     </>

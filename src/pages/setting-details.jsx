@@ -46,7 +46,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   const [selectedRingSize, setSelectedRingSize] = useState("");
   const [selectedDiamondType, setSelectedDiamondType] = useState(isLabGrown ?'Mined':'Lab Grown');
   const [reviews, setReviews] = useState([]);
-  const [settingNavigation, setSettingNavigation] = useState(settingNavigationData);
+  //const [settingNavigation, setSettingNavigation] = useState(settingNavigationData);
   const [navigation, setNavigation] = useState("");
   const [loading, setLoading] = useState(true);
   const [uniqueCenterStoneSizes, setUniqueCenterStoneSizes] = useState([]);
@@ -57,7 +57,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   const [selectedParam,setSelectedParam]= useState('');
   const [uniqueSideStoneQualities, setUniqueSideStoneQualities] = useState([]);
   const [uniqueDiamondShape, setUniqueDiamondShape] = useState([]);
-  
+ // console.log(settingNavigationData)
   //const [selectedRingSize,setSelectedRingSize]= useState('');
   useEffect(() => {
     fetchProductDetails(settingIdToShow);
@@ -75,13 +75,14 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         setConfigurableProduct(res.configurableProduct);       
         let selectedSetting= res.configurableProduct.filter(item=>item.gfInventoryId === settingId );  
         console.log(selectedSetting)
-        /*if(selectedSetting.length === 0){
-          selectedSetting.diamondShape = res.centerStoneFit;
-          selectedSetting.sideStoneQuality = res.sideStoneQuality[0];
-          selectedSetting.centerStoneSize = res.centerStoneMinCarat;
-          selectedSetting.metalType = res.metalType;
-          selectedSetting.gfInventoryId = settingId;         
-        }*/ 
+       // if(selectedSetting.length === 0){
+          
+         // selectedSetting[0].diamondShape = res.centerStoneFit;
+         // selectedSetting.sideStoneQuality = res.sideStoneQuality[0];
+          //selectedSetting.centerStoneSize = res.centerStoneMinCarat;
+          //selectedSetting.metalType = res.metalType;
+         // selectedSetting[0].gfInventoryId = settingId;         
+        //}
         //get all settings for seelcted metal type
         let filterByMetalType = res.configurableProduct.filter(item=>item.metalType == res.metalType); 
         //sort all settings according to stone size
@@ -95,16 +96,23 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
           setSelectedDiamondShape(selectedSetting[0]['diamondShape']); 
           setSelectedRingSize('');       
           setSelectedDiamondType(res.isLabSetting ? 'Lab Grown' : 'Mined');
+        }else{
+          setSelectedDiamondShape(res.centerStoneFit); 
+          setSelectedDiamondType(res.isLabSetting ? 'Lab Grown' : 'Mined');
+       
         }
         console.log(selectedSetting)
-        if(selectedSetting[0]['sideStoneQuality']!=null) {
-          filterBySideStoneType = filterByMetalType.filter(item=>item.sideStoneQuality == selectedSetting[0]['sideStoneQuality']);
+        if(selectedSetting.length > 0){
+          if(selectedSetting[0]['sideStoneQuality']!=null) {
+            filterBySideStoneType = filterByMetalType.filter(item=>item.sideStoneQuality == selectedSetting[0]['sideStoneQuality']);
+          }
         }
        
+       
         let sortedarrayforSideStoneQuality = filterBySideStoneType.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
-        console.log(sortedarrayforSideStoneQuality)
+        
         //available diamond shape for selected metal and center stone size 
-        let dimondShapeAvailable = res.configurableProduct.filter(item=>item.metalType === res.metalType  && item.centerStoneSize === selectedSetting[0].centerStoneSize);
+        let dimondShapeAvailable = selectedSetting.length > 0 ?res.configurableProduct.filter(item=>item.metalType === res.metalType  && item.centerStoneSize === selectedSetting[0].centerStoneSize):res.configurableProduct.filter(item=>item.metalType === res.metalType);
         const allDiamondShape = dimondShapeAvailable?[...new Set(dimondShapeAvailable.map(item => item.diamondShape))].filter(function(e){return e})  : [];  
         if(sortedarray.length>0) {          
           const uniqueSideStoneQualityArray = [...new Set(sortedarray.map(item => item.sideStoneQuality))].filter(function(e){return e}) ;
@@ -248,14 +256,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
                       <ImageGallery items={images} />
-                    </div>
-                   {/* <div className="ships1">
-                      <span className="view-with">View with:</span>
-                      <Link>
-                        <b className="round">{product.centerStoneFit ? product.centerStoneFit.split(',')[0] : ""}</b>
-                        <img className="round-icon-caret" loading="lazy" alt="" src="/sort-show-icons.svg" />
-                      </Link>
-                    </div>*/}
+                    </div>               
                   </div>
                 </div>
                 <div className="note-container-parent">
@@ -461,45 +462,45 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                             ))}
                           </select>
                         </div>
-                        {(settingNavigation && (settingNavigation.navStandard || settingNavigation.navLabGrown)) && (
+                        {(settingNavigationData && (settingNavigationData.navStandard || settingNavigationData.navLabGrown)) && (
                           <div className="filter-opened7">
                             <div className="select-side-stone">Select Diamond Type</div>
                             <div className="diamond-type-filter">
                               {product.isLabSetting == 1 ? (
                                 <>
-                                  {settingNavigation.navLabGrown &&
+                                  {settingNavigationData.navLabGrown &&
                                     <button
                                       className={`range66 ${selectedDiamondType === 'Lab Grown' ? 'active' : ''}`}
                                       onClick={() => setSelectedDiamondType('Lab Grown')}
                                     >
-                                      <div className="txt66">{settingNavigation.navLabGrown}</div>
+                                      <div className="txt66">{settingNavigationData.navLabGrown}</div>
                                     </button>
                                   }
-                                  {settingNavigation.navStandard &&
+                                  {settingNavigationData.navStandard &&
                                     <button
                                       className={`range67 ${selectedDiamondType === 'Mined' ? 'active' : ''}`}
                                       onClick={() => setSelectedDiamondType('Mined')}
                                     >
-                                      <div className="txt67">{settingNavigation.navStandard}</div>
+                                      <div className="txt67">{settingNavigationData.navStandard}</div>
                                     </button>
                                   }
                                 </>
                               ) : (
                                 <>
-                                  {settingNavigation.navStandard &&
+                                  {settingNavigationData.navStandard &&
                                     <button
                                       className={`range66 ${selectedDiamondType === 'Mined' ? 'active' : ''}`}
                                       onClick={() => setSelectedDiamondType('Mined')}
                                     >
-                                      <div className="txt66">{settingNavigation.navStandard}</div>
+                                      <div className="txt66">{settingNavigationData.navStandard}</div>
                                     </button>
                                   }
-                                  {settingNavigation.navLabGrown &&
+                                  {settingNavigationData.navLabGrown &&
                                     <button
                                       className={`range67 ${selectedDiamondType === 'Lab Grown' ? 'active' : ''}`}
                                       onClick={() => setSelectedDiamondType('Lab Grown')}
                                     >
-                                      <div className="txt67">{settingNavigation.navLabGrown}</div>
+                                      <div className="txt67">{settingNavigationData.navLabGrown}</div>
                                     </button>
                                   }
                                 </>

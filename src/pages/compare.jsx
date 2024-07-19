@@ -8,10 +8,11 @@ import TableColumns from "../components/table-columns";
 import "./compare.css";
 import { diamondService } from "../Services";
 
-const Compare = ({compareDiamondsId,removeCompareDiamondIds}) => {
+const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData}) => {
   console.log(compareDiamondsId)
   const [isAllDiamondDetailsLoaded, setIsAllDiamondDetailsLoaded] = useState(false);
   const [allDiamondDetailsToCompare, setAllDiamondDetailsToCompare] = useState([]);
+  const [showAllParam, setShowAllParam] = useState(true);
   const navigate = useNavigate();
   const fetchDiamondDetails = async (compareDiamondsId) => {
    
@@ -51,12 +52,16 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds}) => {
             <b className="back-to-diamond">Back to Diamond List</b>
           </div>
         </div>
-        <FrameComponent5 />
+        <FrameComponent5 
+            setShowAllParam={setShowAllParam} 
+            showAllParam={showAllParam}
+            />
         {allDiamondDetailsToCompare.length>0 ?
         <>
         <section className="table-up">
           {allDiamondDetailsToCompare.map(item=>{
              return  <V
+              configAppData={configAppData}
               key={item.diamondId}
               diamond={item}
               removeCompareDiamondIds={removeCompareDiamondIds}              
@@ -66,6 +71,8 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds}) => {
         </section>
         <section className="results1">       
           <TableColumns
+          showAllParam={showAllParam}
+           configAppData={configAppData}
             diamond={allDiamondDetailsToCompare}   
           />    
         </section>
@@ -80,7 +87,7 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds}) => {
         }
       </main>
       }
-     <Footer></Footer>
+    
     </div>
   );
 };

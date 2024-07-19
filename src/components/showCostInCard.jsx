@@ -2,6 +2,7 @@ import React from 'react';
 import { utils } from '../Helpers';
 //import { chevronLeft, chevronRight } from './SVG';
 export default function ShowCostInCard({settingDetailForCost,configAppData}) {
+  
   return (    
      <>
       {settingDetailForCost.showPrice ? 

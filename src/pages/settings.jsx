@@ -193,8 +193,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}
             resetFilters={resetFilters}
             saveFilters={saveFilters}
             settingNavigation={settingNavigationData}
-            searchSetting={searchSetting} 
-           
+            searchSetting={searchSetting}            
           />
         ) : (
           <SkeletonFilterPanel />

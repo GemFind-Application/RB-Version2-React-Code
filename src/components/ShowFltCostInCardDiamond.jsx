@@ -2,8 +2,7 @@ import React from 'react';
 import { utils } from '../Helpers';
 //import { chevronLeft, chevronRight } from './SVG';
 export default function ShowFltCostInCardDiamond({diamondDetail}) {
-
-  
+ 
   return (  
   
      <>
