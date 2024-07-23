@@ -4,7 +4,7 @@ import "./diamond-details1.css";
 import ImageGallery from 'react-image-gallery';
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
 import ShowFltCostInCardDiamond from "./ShowFltCostInCardDiamond";
-ShowFltCostInCardDiamond
+
 const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
   const images = [];
   // if (diamond.diamondImage) {
@@ -39,7 +39,7 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
             </div>
             <div className="spec-labels1">
               <a className="price-per-carat">Price Per Carat:</a>
-              <a className="a">{diamond.fltCaratPrice ? <ShowFltCostInCardDiamond diamondDetail={diamond}></ShowFltCostInCardDiamond> : '-'}</a>
+              <a className="a">{diamond.fltCaratPrice ? <ShowFltCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowFltCostInCardDiamond> : '-'}</a>
             </div>
             <div className="spec-labels1">
               <div className="carat-weight">Carat Weight:</div>

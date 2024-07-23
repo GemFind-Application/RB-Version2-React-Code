@@ -5,7 +5,7 @@ import ImageGallery from 'react-image-gallery';
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
 import ShowPerCaratPrice from "./ShowPerCaratPrice";
 
-const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppData }) => {
+const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppData,additionOptionSetting }) => {
   const images = [];
   // if (diamond.diamondImage) {
   //   images.push({
@@ -30,13 +30,23 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
           <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.caratWeight} CARATH</h3>
           <div className="stats">
             <div className="spec-labels">
-              <div className="stock-number">Stock Number:</div>
-              <a className="spec-values">{diamond.diamondId || '-'}</a>
+              <div className="stock-number">{"Stock Number"}:</div>
+              <a className="spec-values">{ additionOptionSetting.show_In_House_Diamonds_First ?
+                       diamond.stockNumber:
+                       diamond.diamondId}</a>
             </div>
             <div className="spec-labels1">
               <div className="price4">Price:</div>
               <b className="b1"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b>
             </div>
+            { additionOptionSetting.show_In_House_Diamonds_Column_with_SKU && diamond.inhouse  &&
+            <div className="spec-labels1">
+              <div className="price4">In House:</div>
+              <b className="b1">{diamond.inhouse}</b>
+            </div>
+            }
+
+
             <div className="spec-labels1">
               <a className="price-per-carat">Price Per Carat:</a>
               <a className="a">{diamond.fltPrice ? <ShowPerCaratPrice diamondDetail={diamond}></ShowPerCaratPrice> : '-'}</a>

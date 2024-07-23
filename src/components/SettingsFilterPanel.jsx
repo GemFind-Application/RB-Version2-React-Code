@@ -4,10 +4,10 @@ import { Search, ChevronDown, BookmarkMinus, RotateCcw, X } from 'lucide-react';
 import './SettingsFilterPanel.css';
 import MultiRangeSlider from './MultiRangeSlider';
 import { debounce } from "lodash";
-const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive}) => (
+const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive,selectedDiamondShape,filterType}) => (
   <>
- {!isActive&&isCollectionisActive && isCollectionisActive==0 ?
-  <div className={`filter-option`}>
+ {((!isActive&&isCollectionisActive && isCollectionisActive==0)|| (selectedDiamondShape!=""&&filterType==='shapes')) ?
+  <div className={`filter-option noCursor`} >
     {isActive && <X size={10} />}
     {icon && <img src={icon} alt={label} className="filter-option-icon" />}
     <span>{label}</span>
@@ -37,8 +37,9 @@ const SettingsFilterPanel = ({
   resetFilters,
   saveFilters,
   settingNavigation,
-  searchSetting  
-
+  searchSetting  ,
+  confirmReset,
+  selectedDiamondShape
 }) => {
   const [openFilter, setOpenFilter] = useState(null);
   const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
@@ -52,12 +53,12 @@ const SettingsFilterPanel = ({
     filterData.shapes.length>0 && filterAvailable.push('shapes');
     setSearchQuery(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
     setAvailableFilter(filterAvailable)
-   
+    
   }, []);
   const toggleFilter = (filter) => {
     setOpenFilter(openFilter === filter ? null : filter);
   };
- 
+ console.log(activeFilters)
   const toggleFilterOption = (filter, option) => {
     applyFilters({
       ...activeFilters,
@@ -161,7 +162,7 @@ const SettingsFilterPanel = ({
                     >
                       <div className="filter-label">{filter.charAt(0).toUpperCase() + filter.slice(1)}</div>
                       <ChevronDown size={16} />
-                      {activeFilters[filter].length > 0 && (
+                      {activeFilters[filter].length  > 0  && (
                         <div className="filter-count">{activeFilters[filter].length}</div>
                       )}
                     </button>
@@ -182,7 +183,7 @@ const SettingsFilterPanel = ({
                   <BookmarkMinus size={16} />
                 </button>
                 <button className="button31" onClick={() => {
-                  resetFilters();
+                  confirmReset();
                   setPriceRange([filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]);
                 }}>
                   <RotateCcw size={16} />
@@ -235,6 +236,8 @@ const SettingsFilterPanel = ({
               icon={shape.shapeImage}
               isActive={activeFilters.shapes.includes(shape.shapeName)}
               onClick={() => toggleFilterOption('shapes', shape.shapeName)}
+              selectedDiamondShape={selectedDiamondShape}
+              filterType={'shapes'}
             />
           ))}
           {openFilter === 'price' && (

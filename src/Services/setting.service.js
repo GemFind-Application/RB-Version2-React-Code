@@ -45,7 +45,7 @@ function dropAHint(data){
 function friendsEmail(data){
   console.log(data);
  return fetchWrapper.put(
-    '/ringbuilsder/settings/resultemailfriend',
+    'https://gemfind.us/ringbuilder/ringbuilder/settings/resultemailfriend',
    data
   )
 
@@ -72,7 +72,7 @@ function requestMoreInfo(data){
   //);
 }
 function getQueryParam(option){
-  //console.log(option)
+  console.log(option)
   let filterString = "";
   if(option.pageSize && option.pageSize!==undefined){   
     filterString = 'pageSize='+option.pageSize;    
@@ -109,11 +109,25 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'Collection='+option.style;    
   }
-  if(option.IsLabSettingsAvailable ){
+  if(option.isLabSettingsAvailable == false){
+    
     filterString += filterString.length > 0 ? `&` : '';
-    filterString += 'IsLabSettingsAvailable='+option.IsLabSettingsAvailable;    
+    filterString += 'IsLabSettingsAvailable=0';    
   }
-  //console.log(filterString)
+  if(option.isLabSettingsAvailable == true){
+    
+    filterString += filterString.length > 0 ? `&` : '';
+    filterString += 'IsLabSettingsAvailable=1';    
+  }
+
+  if(option.CenterStoneMinCarat !=="" && option.CenterStoneMaxCarat !=="" ){
+    
+    filterString += filterString.length > 0 ? `&` : '';
+    filterString += 'CenterStoneMinCarat='+option.CenterStoneMinCarat+"&CenterStoneMaxCarat="+option.CenterStoneMaxCarat;    
+  }
+
+  
+  console.log(filterString)
   if(filterString!=""){
     return "&"+filterString;
   }else{
@@ -125,7 +139,7 @@ function getQueryFilterParam(option){
  
   let filterString = "";
  
-  console.log(filterString)
+  console.log(option)
  
  
  
@@ -142,9 +156,13 @@ function getQueryFilterParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'Collection='+option.style;    
   }
-  if(option.IsLabSettingsAvailable ){
+  if(option.isLabSettingsAvailable ===true ){
     filterString += filterString.length > 0 ? `&` : '';
-    filterString += 'IsLabSettingsAvailable='+option.IsLabSettingsAvailable;    
+    filterString += 'IsLabSettingsAvailable=1';    
+  }
+  if(option.isLabSettingsAvailable ===false ){
+    filterString += filterString.length > 0 ? `&` : '';
+    filterString += 'IsLabSettingsAvailable=0';    
   }
   console.log(filterString)
   if(filterString!=""){

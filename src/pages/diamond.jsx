@@ -19,6 +19,7 @@ const SkeletonProductItem = () => (
   </div>
 );
 const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamondsId,addCompareDiamondIds,configAppData}) => {
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -32,14 +33,36 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
   const [error, setError] = useState(null);
   const [isDiamondLoaded, setIsDiamondLoaded] = useState(false);  
   const [isserachIsClicked, setIsSerachIsClicked] = useState(false) ;
-  const [sortOrder, setSortOrder] = useState('ASC');
-  const [selectedSettingShape, setSelectedSettingShape] = useState();
+  const [sortOrder, setSortOrder] = useState('Size');
+  const [selectedSettingShape, setSelectedSettingShape] = useState('');
   const [showAlertPopUp,setshowAlertPopUp] =useState(false);
   const [message,setMessage] =useState('');
-  let storedData = JSON.parse(localStorage.getItem('saveDiamondFilters')); 
-  let advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFilters'));  
+  const [showInitialFilter,setShowInitialFilter] = useState('');
+  const [isResetClicked,setIsResetClicked] = useState(false);
+  const [doReset,setDoReset] = useState(false);
+  const [orderDirection,setOrderDirection] = useState('ASC');
+  const [selectedCaratRange,setSelectedCaratRange] = useState([]);
+  /*if(isLabGrown===true){
+     storedData = JSON.parse(localStorage.getItem('saveDiamondFiltersLab')); 
+     advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFiltersLab')); 
+  }else if(isLabGrown==='fancy'){
+    storedData = JSON.parse(localStorage.getItem('saveDiamondFiltersFancy')); 
+    advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFiltersFancy')); 
+  }else{
+     storedData = JSON.parse(localStorage.getItem('saveDiamondFiltersMined')); 
+     advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFiltersMined')); 
+  }*/
+  const [selectedFilters, setSelectedFilters] = useState({ shape:  [],
+    carat:  [],
+    cut: [],
+    colour:  [],
+    clarity: [],  
+    price:  [],
+    intensity:[],
+    search: ''});
+  const [advancedFilters, setAdvancedFilters] = useState([])
   //console.log(storedData.carat)
-  const [selectedFilters, setSelectedFilters] = useState({
+  /*const [selectedFilters, setSelectedFilters] = useState({
     shape:  storedData ? storedData.shape.length > 0 ?storedData.shape:[]:[],
     carat:  storedData ? storedData.carat.length > 0 ?storedData.carat:[]:[],
     cut:  storedData ? storedData.cut.length > 0 ?storedData.cut:[]:[],
@@ -55,7 +78,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
     fluorescence: advanceFilterStoredData ? advanceFilterStoredData.fluorescence.length > 0 ?advanceFilterStoredData.fluorescence:[]:[],
     symmetry: advanceFilterStoredData ? advanceFilterStoredData.symmetry.length > 0 ?advanceFilterStoredData.symmetry:[]:[],
     certificates:advanceFilterStoredData ? advanceFilterStoredData.certificates.length > 0 ?advanceFilterStoredData.certificates:[]:[],
-  });
+  });*/
   useEffect(() => {   
     async function fetchDiamondNavigation(){
       try {      
@@ -67,61 +90,160 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
       } catch (err) {        
       }
     }
+    localStorage.removeItem('selectedDiamond');
     fetchDiamondNavigation();
   },[])
  
-    const fetchDiamondFilter=async() => {
-      try {     
-        let selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));
+
+
+  useEffect(() => {   
+
+  },[isLabGrown])
+
+
+
+
+
+ 
+
+
+
+    const fetchDiamondFilter=async(isLab) => {
+      try {    
+          let storedData=[];
+  let advanceFilterStoredData=[]; 
+
+  setIsDiamondLoaded(false)
+        if(isLabGrown===true){
+          storedData = JSON.parse(localStorage.getItem('saveDiamondFiltersLab')); 
+          advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFiltersLab')); 
+       }else if(isLabGrown==='fancy'){
+         storedData = JSON.parse(localStorage.getItem('saveDiamondFiltersfancy')); 
+         advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFiltersFancy')); 
+       }else{
+          storedData = JSON.parse(localStorage.getItem('saveDiamondFiltersMined')); 
+          advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFiltersMined')); 
+       }
+        console.log(storedData)
+     
+        setIsDiamondFilterLoaded(false)
+        let selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));        
         //console.log(selectedRingSetting)
         let selectedRingShape = '';
-        let selectedCaratRange = [];
+        let selectedCaratRangeForSetting = [];
         if(selectedRingSetting){
           const resSetting = await settingService.getSettingDetail(selectedRingSetting.settingId);          
           if(resSetting) {
+           // resetFilters()
             selectedRingShape = resSetting.centerStoneFit;
             setSelectedSettingShape(selectedRingShape);
-            selectedCaratRange = [resSetting.centerStoneMinCarat,resSetting.centerStoneMaxCarat];
+            selectedCaratRangeForSetting = [resSetting.centerStoneMinCarat,resSetting.centerStoneMaxCarat];
+            setSelectedCaratRange([resSetting.centerStoneMinCarat,resSetting.centerStoneMaxCarat]);
           }}
-          let option = {                  
-            isLabGrown:isLabGrown ? 1 : 0       
-          }
-          console.log(JSON.parse(localStorage.getItem('startflow')))
-          let startflowPath = JSON.parse(localStorage.getItem('startflow'));
-          let initialFilter=false;
-          /*if(startflowPath && startflowPath.path=='/diamondtools' && startflowPath.isLoaded===false){           
-            localStorage.setItem('startflow',JSON.stringify({'path':startflowPath.path,'isLoaded':true}));
-            initialFilter=true;
-            // res = await diamondService.getDiamondInitialFilter(option);
-          }else{
-            // res = await diamondService.getDiamondFilter(option);
-          }*/
-          const res = await diamondService.getDiamondFilter(option,initialFilter);         
+         
+        
+        
+          const res = await diamondService.getDiamondFilter({ isLabGrown:isLab =='fancy'?isLab:isLab==true?true:false});  
+           console.log("in getting diamonds filter");
+          console.log(selectedFilters) 
+          
+        
           if(res){
-            if(res[0].message === 'Success'){
+
+            if(res[0].message === 'Success') {
+              setSelectedFilters({ shape:  [],
+                carat:  [],
+                cut: [],
+                colour:  [],
+                clarity: [],  
+                price:  [],
+                intensity:[],
+                search: ''});
+
+             
               setFilterData(res[1][0]);
-              applyFilters({...selectedFilters,
-                shape: selectedRingShape!="" ? [selectedRingShape]:[],
-                colour: (selectedRingShape!="" || selectedFilters.colour.length===0) ? res[1][0].colorRange.map(item=> {return item.colorId}):selectedFilters.colour,
-                clarity:(selectedRingShape!="" || selectedFilters.clarity.length===0) ? res[1][0].clarityRange.map(item=> {return item.clarityName}):selectedFilters.clarity,
-                price: (selectedRingShape!="" ||selectedFilters.price.length===0 )? [res[1][0].priceRange[0].minPrice,res[1][0].priceRange[0].maxPrice]:selectedFilters.price,
-                carat: selectedCaratRange.length > 0 ?selectedCaratRange:selectedFilters.carat.length===0 ?[res[1][0].caratRange[0].minCarat,res[1][0].caratRange[0].maxCarat]:selectedFilters.carat,
+             setSelectedFilters({
+                search: storedData ?storedData.search!="" ? (storedData.search) :'':'',
+                cut:((storedData==null || (storedData&&storedData.cut.length==0))) ? []:storedData?storedData.cut:[],
+                shape: selectedRingShape!="" ? [selectedRingShape]:storedData?storedData.shape:[],
+                colour: ((storedData==null || (storedData && storedData.colour.length==0)) ) ?   res[1][0].colorRange? res[1][0].colorRange.map(item=> {return item.colorId}):res[1][0].diamondColorRange?res[1][0].diamondColorRange.map(item=> {return (item.diamondColorName).toLowerCase()}):[]:storedData ? storedData.colour:[],
+               
+               
+                intensity:((storedData==null || (storedData && storedData.intensity.length===0))) ? 
+
+
+                res[1][0].intensity ? (res[1][0].intensity.map(item=> {return (item.intensityName)})): []:storedData.intensity?storedData.intensity:[],
+                
+                
+                clarity:((storedData==null || (storedData && storedData.clarity.length===0))) ? 
+                                   res[1][0].clarityRange.map(item=> {return item.clarityName}):storedData?storedData.clarity:[],
+                price: ((storedData==null || (storedData&&storedData.price.length===0)) )? [res[1][0].priceRange[0].minPrice,res[1][0].priceRange[0].maxPrice]:storedData?storedData.price:[],
+                carat: (selectedRingShape!="" && selectedCaratRangeForSetting.length >0) ?  selectedCaratRangeForSetting  :  ( (storedData==null || (storedData  &&storedData.carat.length=== 0)))?[res[1][0].caratRange[0].minCarat,res[1][0].caratRange[0].maxCarat]:storedData?storedData.carat:[],
               });
-              //console.log(selectedFilters)
+              //console.log(selectedFilters);
+/*let shape =  selectedRingShape !=""?selectedRingShape:'';
+let savedRingShape = storedData.shape;
+let  selectedShapeFilter = selectedFilters.shape;
+
+
+
+let carat =  selectedCaratRange.length >0 ? selectedCaratRange:[];
+let savedcarat= storedData.carat;
+let  selectedcarat = selectedFilters.carat;
+
+              setSelectedFilters({
+                shape: shape!="" ?shape:savedRingShape?savedRingShape:selectedShapeFilter?selectedShapeFilter:[],
+                carat:  carat.length>0 ? carat ? savedcarat.length>0:savedcarat?selectedcarat.length>0?selectedcarat:[res[1][0].caratRange[0].minCarat,res[1][0].caratRange[0].maxCarat]:
+                cut:  storedData ? storedData.cut.length > 0 ?storedData.cut:[]:[],
+                colour:  storedData ? storedData.colour.length > 0 ?storedData.colour:[]:[],
+                clarity:  storedData ? storedData.clarity.length > 0 ?storedData.clarity:[]:[],  
+                price:  storedData ?   storedData.price.length > 0 ? storedData.price :[]:[],
+                search: storedData ?storedData.search!="" ? storedData.search :'':''
+              });*/
+              setAdvancedFilters({
+                polish:  advanceFilterStoredData ? advanceFilterStoredData.polish.length > 0 ?advanceFilterStoredData.polish:[]:[],
+                depth:  advanceFilterStoredData ? advanceFilterStoredData.depth.length > 0 ?advanceFilterStoredData.depth:[]:[],
+                table:advanceFilterStoredData ? advanceFilterStoredData.table.length > 0 ?advanceFilterStoredData.table:[]:[],
+                fluorescence: advanceFilterStoredData ? advanceFilterStoredData.fluorescence.length > 0 ?advanceFilterStoredData.fluorescence:[]:[],
+                symmetry: advanceFilterStoredData ? advanceFilterStoredData.symmetry.length > 0 ?advanceFilterStoredData.symmetry:[]:[],
+                certificates:advanceFilterStoredData ? advanceFilterStoredData.certificates.length > 0 ?advanceFilterStoredData.certificates:[]:[],
+              });
               setIsDiamondFilterLoaded(true);            
           }
         }
                
       } catch (err) {
-        console.error("Error fetching diamond filter data:", error);
+        console.error("Error fetching diamond filter data:", err);
         setError("Failed to fetch diamond  filter data. Please try again later.");
       }
     }  
- 
- 
-    const fetchDiamond = async(page, pageSize, isLab, sort, selectedFilters,advancedFilters)=> {
-      if(isDiamondFilterLoaded){    
-        console.log(selectedFilters)     
+    useEffect(() => {
+      fetchDiamondFilter(isLabGrown);
+    }, [isLabGrown, doReset ]);
+
+
+    const fetchDiamond = async(page, pageSize, isLab, sort, selectedFilters,advancedFilters,orderDirection)=> {
+     
+      if(isDiamondFilterLoaded){   
+       /*let fancyClarityArray =[];
+       let dataC;
+      if(filterData.intensity){
+          dataC = selectedFilters.clarity.map(item=>{
+          console.log(item);
+              return (filterData.clarityRange.filter(itemC=> itemC.clarityId===item))[0]
+        })
+        console.log(dataC)
+        fancyClarityArray = dataC.map((item)=>{
+          console.log(item)
+          return item.clarityName;
+        })
+        
+      }
+
+      console.log(fancyClarityArray)
+        console.log("in getting diamonds");
+        console.log(selectedFilters) */
+        //setIsResetClicked(false)    
             try {       
               let option = {
                 pageNumber:page,    
@@ -130,12 +252,14 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
                 shape:selectedFilters.shape.length>0?selectedFilters.shape.join(','):'',
                 cut:selectedFilters.cut.length>0?selectedFilters.cut.join(','):'',
                 colour:selectedFilters.colour.length>0?selectedFilters.colour.join(','):'',
+                intensity:selectedFilters.intensity.length>0?selectedFilters.intensity.join(','):'',
                 clarity:selectedFilters.clarity.length>0?selectedFilters.clarity.join(','):'',
                 isLabGrown:isLab==='fancy'?isLab:isLab===true?true:false,
                 priceMin:selectedFilters.price[0],
                 priceMax:selectedFilters.price[1],
                 carat: selectedFilters.carat.length > 0 ? [selectedFilters.carat[0],selectedFilters.carat[1]]:[],
                 orderBy:sort ,
+                orderDirection:orderDirection,
                 fluorescence:advancedFilters.fluorescence.length>0 ?advancedFilters.fluorescence.join(','):'',
                 certificates:advancedFilters.certificates.length>0 ?advancedFilters.certificates.join(','):'',
                 symmetry:advancedFilters.symmetry.length>0 ?advancedFilters.symmetry.join(','):'',
@@ -143,12 +267,13 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
                 table:advancedFilters.table.length > 0 ? [advancedFilters.table[0],advancedFilters.table[1]]:[],
                 depth:advancedFilters.depth.length > 0?[advancedFilters.depth[0],advancedFilters.depth[1]]:[],
               }      
-              console.log(option)  
+             // console.log(option)  
               const res = await diamondService.getAllDiamond(option);
-              if(res.diamondList && res.diamondList.length > 0) {
+              if(res.diamondList ) {
+                
                 setDiamond(res.diamondList);  
                 setTotalProducts(res.count);        
-                setIsDiamondLoaded(true)
+                setIsDiamondLoaded(true);
               }
               
             } catch (err) {
@@ -161,10 +286,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
       }
      
     } 
-    useEffect(() => {
-      fetchDiamondFilter(selectedFilters);
-    }, [isLabGrown ]);
-
+   
  
   /*useEffect(() => {
     console.log(filterData)
@@ -183,8 +305,8 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
   }, [ isDiamondFilterLoaded]);*/
 
   useEffect(() => {
-    fetchDiamond(currentPage, itemsPerPage, isLabGrown,  sortOrder, selectedFilters,advancedFilters);
-  }, [ currentPage, itemsPerPage, isLabGrown,sortOrder, selectedFilters,advancedFilters]);
+    fetchDiamond(currentPage, itemsPerPage, isLabGrown,  sortOrder, selectedFilters,advancedFilters,orderDirection);
+  }, [ currentPage, itemsPerPage, sortOrder, selectedFilters,advancedFilters,orderDirection]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -217,16 +339,21 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
       applyFilters({ ...selectedFilters, search: event.target.value });
     }    
   }; 
+  const confirmReset=() =>{
+    setIsResetClicked(true)
+  }
   const resetFilters = () => {
     setSelectedFilters({
       shape: [],
       cut: [],
       colour: [],
       clarity: [],
+      intensity:[],
       carat:[filterData.caratRange[0].minCarat,filterData.caratRange[0].maxCarat],
       price: [filterData.priceRange[0].minPrice,filterData.priceRange[0].maxPrice],
       search: ''
     });
+
     setAdvancedFilters({
       polish: [],
       depth: [filterData.depthRange[0].minDepth,filterData.depthRange[0].maxDepth],
@@ -235,15 +362,35 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
       symmetry: [],
       certificates: [],
     });
-    localStorage.removeItem('saveDiamondFilters');
+    
+    localStorage.removeItem('saveDiamondFiltersMined');
+    localStorage.removeItem('saveAdvanceDiamondFiltersMined');
+    localStorage.removeItem('saveDiamondFiltersLab');
+    localStorage.removeItem('saveAdvanceDiamondFiltersLab');
+    localStorage.removeItem('saveDiamondFiltersfancy');
+    localStorage.removeItem('saveAdvanceDiamondFiltersFancy');
     localStorage.removeItem('selectedRing');
     setSelectedSettingShape('')
+    setSelectedCaratRange([])
     setCurrentPage(1);
+   // setIsResetClicked(false)
   };
   
   const saveFilters = () => {
-    localStorage.setItem('saveDiamondFilters', JSON.stringify(selectedFilters));
-    localStorage.setItem('saveAdvanceDiamondFilters', JSON.stringify(advancedFilters));
+    if(isLabGrown===false){
+      localStorage.setItem('saveDiamondFiltersMined', JSON.stringify(selectedFilters));
+      localStorage.setItem('saveAdvanceDiamondFiltersMined', JSON.stringify(advancedFilters));
+    }
+    if(isLabGrown===true){
+      localStorage.setItem('saveDiamondFiltersLab', JSON.stringify(selectedFilters));
+      localStorage.setItem('saveAdvanceDiamondFiltersLab', JSON.stringify(advancedFilters));
+    }
+    if(isLabGrown==='fancy'){
+      localStorage.setItem('saveDiamondFiltersfancy', JSON.stringify(selectedFilters));
+      localStorage.setItem('saveAdvanceDiamondFiltersFancy', JSON.stringify(advancedFilters));
+    }
+    //localStorage.setItem('saveDiamondFilters', JSON.stringify(selectedFilters));
+    //localStorage.setItem('saveAdvanceDiamondFilters', JSON.stringify(advancedFilters));
     //alert('Filters saved successfully');
     setMessage('Filters saved successfully');
     setshowAlertPopUp(true);
@@ -255,7 +402,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
     <div className="diamond">
       <Header />
       <DiamondNavigation diamondNavigation={diamondNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown}/>
-      {filterData ? 
+      {isDiamondFilterLoaded ? 
       isDiamondFilterLoaded &&
       <DiamondFilter 
        filterData={filterData}
@@ -265,6 +412,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
        applyFilters={applyFilters}
        applyAdvanceFilters={applyAdvanceFilters}
        resetFilters={resetFilters}
+       confirmReset={confirmReset}
        saveFilters={saveFilters}
        totalProducts={totalProducts}
        onSortOrderChange={handleSortOrderChange}
@@ -277,7 +425,13 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
        itemsPerPage={itemsPerPage}
        compareDiamondsId={compareDiamondsId}
        onCompareContainerClick={onCompareContainerClick}
-       selectedSettingShape={selectedSettingShape}/>
+       selectedSettingShape={selectedSettingShape}
+       isLabGrown:isLabGrown
+       setOrderDirection={setOrderDirection}
+       orderDirection={orderDirection}
+       configAppData={configAppData}
+       selectedCaratRange={selectedCaratRange}
+       />
        : (
         <SkeletonFilterPanel />
       )}
@@ -329,8 +483,18 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
      
      {showAlertPopUp && message!="" &&      
        <AlertPopUp       
+       title={'Filter Saved'}
        message={'Filter Saved Sucessfully'}
        onClose={() => {setshowAlertPopUp(false) ; setMessage('')}}> 
+       </AlertPopUp>
+      }
+      {isResetClicked==true &&      
+       <AlertPopUp       
+       title={'Reset'}
+       message={'Do you reallly want to reset?'}
+       onClick={() => {setIsResetClicked(false); resetFilters();setDoReset(!doReset) }}
+       onClose={() => {setIsResetClicked(false);setMessage('')}}> 
+       
        </AlertPopUp>
       }
     

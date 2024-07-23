@@ -14,6 +14,7 @@ const DiamondFilter = ({ className = "",
   selectedFilters,
   setIsGridView,
   saveFilters,
+  confirmReset,
   resetFilters,
   isGridView,
   totalProducts,
@@ -26,7 +27,12 @@ const DiamondFilter = ({ className = "",
   applyAdvanceFilters,
   onCompareContainerClick,
   compareDiamondsId,
-  selectedSettingShape
+  selectedSettingShape,
+  isLabGrown,
+  setOrderDirection,
+  orderDirection,
+  configAppData,
+  selectedCaratRange
 }) => {
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -37,6 +43,7 @@ const DiamondFilter = ({ className = "",
   const [tableRange, setTableRange] = useState(advancedFilters.table.length === 0 ? [filterData.tableRange[0].minTable, filterData.tableRange[0].maxTable] : [advancedFilters.table[0], advancedFilters.table[1]]);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [sortBy, setSortBy] = useState("Clarity");
+  const [availableFilter, setAvailableFilter] = useState(['shape', 'price', 'carat', 'cut', 'colour', 'clarity']);
   const [searchQuery, setSearchQuery] = useState(selectedFilters.search ? selectedFilters.search != "" ? selectedFilters.search : '' : '');
   /*const [selectedFilters, setSelectedFilters] = useState({
     shape: [],
@@ -45,16 +52,19 @@ const DiamondFilter = ({ className = "",
     colour: [],
     clarity: [],
   });*/
-  console.log(selectedFilters);
-  console.log(advancedFilters)
+  console.log(selectedCaratRange);
+ //console.log(filterData)
   useEffect(() => {
+    if(filterData.diamondColorRange){
+      setAvailableFilter(['shape', 'price', 'carat', 'diamondColorRange','intensity' ,'clarity'])
+    }
     setPriceRange(selectedFilters.price.length === 0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice] : [selectedFilters.price[0], selectedFilters.price[1]]);
     setCaratRange(selectedFilters.carat.length === 0 ? [filterData.caratRange[0].minCarat, filterData.caratRange[0].maxCarat] : [selectedFilters.carat[0], selectedFilters.carat[1]]);
     setDepthRange(advancedFilters.depth.length === 0 ? [filterData.depthRange[0].minDepth, filterData.depthRange[0].maxDepth] : [advancedFilters.depth[0], advancedFilters.depth[1]]);
     setTableRange(advancedFilters.table.length === 0 ? [filterData.tableRange[0].minTable, filterData.tableRange[0].maxTable] : [advancedFilters.table[0], advancedFilters.table[1]]);
-  }, [selectedFilters]);
+  }, [selectedFilters,filterData,selectedCaratRange]);
 
- 
+ console.log(caratRange)
 
   const onTableContainerClick = useCallback(() => {
     setIsGridView(false)
@@ -125,6 +135,7 @@ const DiamondFilter = ({ className = "",
   );
 
   const handleFilterChange = (filterType, value) => {
+   
     setSelectedFilters(prev => ({
       ...prev,
       [filterType]: prev[filterType].includes(value)
@@ -157,7 +168,7 @@ const DiamondFilter = ({ className = "",
     }
     return selectedFilters[filterType] && selectedFilters[filterType].length > 0;
   };
-
+console.log
   // POpup content of filters
   const getPopupContent = (filterType) => {
     const contents = {
@@ -195,11 +206,27 @@ const DiamondFilter = ({ className = "",
               <div className="settings-sort-page">
                 <div className="sort-by4">Sort by:</div>
                 <select className='no-appearance' value={sortOrder} onChange={(e) => onSortOrderChange(e.target.value)}>
-                  <option value="Low to High">Low to High</option>
-                  <option value="High to Low">High to Low</option>
-                  <option value="Newest">Newest</option>
-                </select>
+                  <option value="Cut">Shape</option>
+                  <option value="Size">Carat</option>
+                  <option value="Color">Color</option>
+                  {isLabGrown==='fancy' &&
+                  <option value="FancyColorIntensity">Intensity'</option> 
+                   }
+                  <option value="ClarityID">Clarity</option>
+                  <option value="CutGrade">Cut</option>
+                  <option value="Depth">Depth</option>
+                  <option value="TableMeasure">Table</option>
+                  <option value="Polish">Polish</option>
+                  <option value="Symmetry">Symmetry</option>
+                  <option value="Measurements">Measurement</option>
+                  <option value="Certificate">Certificate</option> 
+                  <option value="price1">Price</option>
+                   </select> 
+           
+                
               </div>
+              <div className="settings-sort-page"> {orderDirection==='ASC' && <a onClick={()=>setOrderDirection('DESC')} ><img title='DESC' className={'imgDescAsc'} src="./downarrow_dir.png"></img></a>}
+              {orderDirection==='DESC' &&<a onClick={()=>setOrderDirection('ASC')}><img className={'imgDescAsc'} title="ASC"  src="./uparrow_dir.png"/></a>}</div>
               <div className="settings-sort-page">
                 <div className="show7">Show:</div>
                 <select className='no-appearance' value={itemsPerPage} onChange={(e) => onItemsPerPageChange(Number(e.target.value))}>
@@ -218,12 +245,13 @@ const DiamondFilter = ({ className = "",
                   <div className="filters7">Filters:</div>
                 </div>
                 <div className="filters8">
-                  {['shape', 'price', 'carat', 'cut', 'colour', 'clarity'].map((filter) => (
+                  {availableFilter.map((filter) => (
                     <div key={filter} className="filter--val" onClick={() => toggleDropdown(filter)}>
                       <div className={filter === 'shape' ? "shape-option" : ""}>
                         {isFilterApplied(filter) && <img className="icon--close" alt="" src="/vector2.svg" />}
                         <div className={filter === 'shape' ? "shape5" : filter === 'price' ? "price23" : filter === 'carat' ? "carat4" : filter === 'cut' ? "cut10" : filter === 'colour' ? "filters7" : "clarity10"}>
-                          {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                          
+                          {filter!=='diamondColorRange'?filter.charAt(0).toUpperCase() + filter.slice(1):'color'.charAt(0).toUpperCase() + 'color'.slice(1)}
                         </div>
                       </div>
                       <img className="show-inner" alt="" src="/vector-21.svg" />
@@ -237,9 +265,19 @@ const DiamondFilter = ({ className = "",
                           <b className="placeholder1">{selectedFilters.cut.length}</b>
                         </div>
                       )}
-                      {filter === 'colour' && (
+                      {( filter === 'colour'  && filterData.colorRange) && (
                         <div className="shape-placeholder">
                           <b className="placeholder1">{selectedFilters.colour.length}</b>
+                        </div>
+                      )}
+                      {filter === 'diamondColorRange' && (
+                        <div className="shape-placeholder">
+                          <b className="placeholder1">{selectedFilters.colour.length}</b>
+                        </div>
+                      )}
+                       {(filter === 'intensity' && selectedFilters.intensity)&&(
+                        <div className="shape-placeholder">
+                          <b className="placeholder1">{selectedFilters.intensity.length}</b>
                         </div>
                       )}
                       {filter === 'clarity' && (
@@ -247,12 +285,13 @@ const DiamondFilter = ({ className = "",
                           <b className="placeholder1">{selectedFilters.clarity.length}</b>
                         </div>
                       )}
+                      {configAppData.show_filter_info ===true &&
                       <div className={filter === 'shape' ? "shape-info1" : filter === 'price' ? "empty-options" : "border--round"}>
                         <b className="filter--hover-icon" onClick={(e) => {
                           e.stopPropagation();
                           togglePopup(filter);
                         }}>i</b>
-                      </div>
+                      </div>}
                       {activePopup === filter && (
                         <div className="filter-popup">
                           {getPopupContent(filter)}
@@ -270,7 +309,7 @@ const DiamondFilter = ({ className = "",
                           <img className="icons3" alt="" src="/vector-4.svg" />
                         </button>
                       </div>
-                      <div className="reset--filter" onClick={resetFilters}>
+                      <div className="reset--filter" onClick={confirmReset}>
                         <button className="reset--diamond_filter">
                           <img className="vector-icon26" alt="" src="/vector-5.svg" />
                         </button>
@@ -341,35 +380,50 @@ const DiamondFilter = ({ className = "",
                   {activeDropdown === 'carat' && (
                     <div className="filter-options">
                       <MultiRangeSlider
-                        min={parseFloat(filterData.caratRange[0].minCarat)}
-                        max={parseFloat(filterData.caratRange[0].maxCarat)}
+                        min={parseFloat(selectedCaratRange.length>0 ? selectedCaratRange[0]:filterData.caratRange[0].minCarat)}
+                        max={parseFloat(selectedCaratRange.length>0 ? selectedCaratRange[1]:filterData.caratRange[0].maxCarat)}
                         onChange={handleCaratChange}
                         value={caratRange}
                         isPrice={false}
                       />
                     </div>
                   )}
-                  {activeDropdown === 'cut' && (
+                  {(activeDropdown === 'cut' && filterData.cutRange && filterData.cutRange.length > 0) && (
                     filterData.cutRange.map(cut => (
                       <div className="dropdown-btns" key={cut.cutId}>
                         <button className={`option--btn ${selectedFilters.cut.includes(cut.cutId) ? 'active--item' : ''}`} onClick={() => handleFilterChange('cut', cut.cutId)}>{cut.cutName}</button>
                       </div>
                     ))
                   )}
-                  {activeDropdown === 'colour' && (
+                  {(activeDropdown === 'colour' &&  filterData.colorRange && filterData.colorRange.length > 0)  && (
                     filterData.colorRange.map(colour => (
                       <div className="dropdown-btns" key={colour.colorId}>
                         <button className={`option--btn ${selectedFilters.colour.includes(colour.colorId) ? 'active--item' : ''}`} onClick={() => handleFilterChange('colour', colour.colorId)}>{colour.colorName}</button>
                       </div>
                     ))
                   )}
-                  {activeDropdown === 'clarity' && (
-                    filterData.clarityRange.map(clarity => (
-                      <div className="dropdown-btns" key={clarity.clarityId}>
-                        <button className={`option--btn ${selectedFilters.clarity.includes(clarity.clarityName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('clarity', clarity.clarityName)}>{clarity.clarityName}</button>
+                  {(activeDropdown === 'diamondColorRange' &&  filterData.diamondColorRange && filterData.diamondColorRange.length > 0)  && (
+                    filterData.diamondColorRange.map(colour => (
+                      <div className="dropdown-btns" key={colour.diamondColorName}>
+                        <button className={`option--btn ${selectedFilters.colour.includes((colour.diamondColorName).toLowerCase()) ? 'active--item' : ''}`} onClick={() => handleFilterChange('colour', (colour.diamondColorName).toLowerCase())}>{colour.diamondColorName}</button>
                       </div>
                     ))
                   )}
+                  {(activeDropdown === 'intensity' &&  filterData.intensity && filterData.intensity.length > 0)  && (
+                    filterData.intensity.map(intensity => (
+                      <div className="dropdown-btns" key={intensity.intensityName}>
+                        <button className={`option--btn ${selectedFilters.intensity.includes(intensity.intensityName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('intensity', intensity.intensityName)}>{intensity.intensityName}</button>
+                      </div>
+                    ))
+                  )}
+                  {(activeDropdown === 'clarity' &&filterData.clarityRange  && filterData.clarityRange.length>0) && (
+                    filterData.clarityRange.map(clarity => (
+                      <div className="dropdown-btns" key={clarity.clarityId}>
+                        <button className={`option--btn ${(selectedFilters.clarity.includes(clarity.clarityId)) ? 'active--item' : ''}`} onClick={() => handleFilterChange('clarity', clarity.clarityId)}>{clarity.clarityName}</button>
+                      </div>
+                    ))
+                  )}
+                  
                 </div>
               </div>
             )}

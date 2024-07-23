@@ -11,7 +11,7 @@ const FrameComponent4 = ({ className = "" }) => {
   }, [navigate]);
 
   const onStepsContentContainer1Click = useCallback(() => {
-    navigate("/diamond");
+    navigate("/diamondtools");
   }, [navigate]);
 
   return (

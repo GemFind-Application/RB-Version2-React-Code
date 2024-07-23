@@ -2,17 +2,18 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './MultiRangeSlider.css';
-
+import { utils } from "../Helpers";
 const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true}) => {
- 
-  const [minVal, setMinVal] = useState(value[0]);
-  const [maxVal, setMaxVal] = useState(value[1]);
+
+  const [minVal, setMinVal] = useState(parseFloat(value[0]));
+  const [maxVal, setMaxVal] = useState(parseFloat(value[1]));
   const [minD, setMinD] = useState(min);
   const [maxD, setMaxD] = useState(max);
   const minValRef = useRef(null);
   const maxValRef = useRef(null);
   const range = useRef(null);
-
+console.log(min);
+console.log(max);
   const getPercent = useCallback(
     (value) => Math.round(((value - minD) / (maxD - minD)) * 100),
     [minD, maxD]
@@ -31,10 +32,12 @@ const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true}) => {
   }, [minVal, maxVal, getPercent]);
 
   useEffect(() => {
-    setMinVal(value[0]);
-    setMaxVal(value[1]);
+    setMinVal(parseFloat(value[0]));
+    setMaxVal(parseFloat(value[1]));
+    setMinD(min);
+    setMaxD(max)
     //onChange({ min: minVal, max: maxVal });
-  }, [value]);
+  }, [value,min,max]);
 
   const handleMinChange = (event) => {
     const value = Math.min(Number(event.target.value), maxVal - 1);
@@ -77,8 +80,8 @@ const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true}) => {
       <div className="slider">
         <div className="slider__track"></div>
         <div ref={range} className="slider__range"></div>
-        <div className="slider__left-value">{isPrice ? '$'+minVal:minVal}</div>
-        <div className="slider__right-value">{isPrice ? '$'+maxVal:maxVal}</div>
+        <div className="slider__left-value">{isPrice ? '$'+  utils.numberWithCommas(minVal):minVal}</div>
+        <div className="slider__right-value">{isPrice ? '$'+  utils.numberWithCommas(maxVal):maxVal}</div>
       </div>
     </div>
   );

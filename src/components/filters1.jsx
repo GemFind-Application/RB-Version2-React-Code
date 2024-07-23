@@ -7,7 +7,7 @@ const Filters1 = ({ className = "" }) => {
   const navigate = useNavigate();
 
   const onGridContainerClick = useCallback(() => {
-    navigate("/diamond");
+    navigate("/diamondtools");
   }, [navigate]);
 
   return (

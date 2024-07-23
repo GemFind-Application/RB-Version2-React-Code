@@ -9,7 +9,7 @@ import Header from '../components/Header';
 import { BASE_URL, DEALER_ID } from '../components/api';
 import PortalPopup from "../components/portal-popup";
 import "./settings.css";
-import { settingService } from '../Services';
+import { diamondService, settingService } from '../Services';
 import VideoModal from "../components/VideoModal";
 import AlertPopUp from "../components/AlertPopUp";
 const SkeletonProductItem = () => (
@@ -38,6 +38,10 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}
   const [isserachIsClicked, setIsSerachIsClicked] = useState(false) ;
   const [showAlertPopUp,setshowAlertPopUp] =useState(false);
   const [message,setMessage] =useState('');
+  const [selectedDiamondShape,setSelectedDiamondShape] = useState('');
+  const [selectedDiamondCarat,setSelectedDiamondCarat] = useState([]);
+  const [isResetClicked,setIsResetClicked] = useState(false);
+  const [doReset,setDoReset] = useState(false);
   let storedData = JSON.parse(localStorage.getItem('activeFilters')); 
 
   const [activeFilters, setActiveFilters] = useState({
@@ -50,11 +54,12 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}
   //const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
   const navigate = useNavigate();
   useEffect(() => {
-    setIsLabGrown(false)
+    setIsLabGrown(false);
+    localStorage.removeItem('selectedRing');
   }, []);
   const fetchProducts = async (page, pageSize, isLab, sort, filters) => {
-    setLoading(true);
-    setError(null);
+    setLoading(true);    
+    setError(null);  
     try {    
       let option = {
         pageNumber:page,    
@@ -63,11 +68,14 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}
         orderBy:sort === 'Low to High' ? 'cost+asc' : sort === 'High to Low' ? 'cost+desc' : 'newest',       
         priceMin:filters.price[0],
         priceMax:filters.price[1],
-        shape:filters.shapes.join(','),
+        shape: selectedDiamondShape!='' ? selectedDiamondShape:filters.shapes.join(','),
         metalType:filters.metalType.join(','),
         style:filters.collections.join(','),
-        IsLabSettingsAvailable:isLab ? 1 : 0
-    }
+        isLabSettingsAvailable:isLab,
+        CenterStoneMinCarat:selectedDiamondShape!=""?selectedDiamondCarat[0] :'',
+        CenterStoneMaxCarat :selectedDiamondShape!=""? selectedDiamondCarat[1]:''
+      }
+
       const data = await settingService.getAllSettings(option); 
       if(data.mountingList) {
         setProducts(data.mountingList);
@@ -89,14 +97,17 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}
     setShowVirtualTryOn(true);
     setShowVirtualTryOnUrl(url)
   }
-
+  const confirmReset=() =>{
+    setIsResetClicked(true)
+  }
   const fetchFilterData = async (isLab,filters) => {
     try {
+      setIsSettingFilterLoaded(false);
+      setIsProductLoaded(false);
       let option = {         
         shape:filters.shapes.join(','),
-        metalType:filters.metalType.join(','),
         style:filters.collections.join(','),
-        IsLabSettingsAvailable:isLab ? 1 : 0
+        isLabSettingsAvailable:isLab 
       }
       const res = await settingService.getSettingFilters(option);  
       if(res && res.length>0)     {
@@ -105,15 +116,38 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}
        // setSettingNavigation(settingNavigationData)
       }   
     }
+    
     catch (error) {
       console.error("Error fetching filter data:", error);
       setError("Failed to fetch filter data. Please try again later.");
     }
   };
+
+useEffect(()=>{
+  const fetchSelectedDiamondDetail= async() =>{
+    let selectedDiamond = JSON.parse(localStorage.getItem('selectedDiamond'));    
+    if(selectedDiamond){
+      const resSelectedDiamond = await diamondService.getDiamondDetail(selectedDiamond.diamondId);  
+     let selectedCaratArray = (selectedDiamond.caratDetail.split("-")) 
+      setSelectedDiamondCarat(selectedCaratArray)
+      console.log(resSelectedDiamond)       
+      if(resSelectedDiamond) {
+       // resetFilters()
+       console.log()
+      
+       setSelectedDiamondShape(resSelectedDiamond.shape);
+       applyFilters({...activeFilters,shapes:[resSelectedDiamond.shape]})
+       
+      }}
+  }
  
+   fetchSelectedDiamondDetail()
+},[])
+
+ console.log(selectedDiamondCarat)
   useEffect(() => {
     fetchFilterData(isLabGrown,activeFilters).then(() => fetchProducts(currentPage, itemsPerPage, isLabGrown, sortOrder, activeFilters));
-  }, [isLabGrown, currentPage, itemsPerPage, sortOrder, activeFilters]);
+  }, [isLabGrown, currentPage, itemsPerPage, sortOrder, activeFilters,selectedDiamondShape]);
   //setIsLabGrown
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -159,6 +193,9 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}
       search: ''
     });
     localStorage.removeItem('activeFilters');
+    localStorage.removeItem('selectedDiamond');
+    setSelectedDiamondCarat([]);
+    setSelectedDiamondShape('');
     setCurrentPage(1);
   };
 
@@ -178,7 +215,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}
       <Header />
       <Settingsbreadcrumb />
       <div className="settingsfilter-wrapper">
-        {filterData ? (
+        {filterData && isSettingFilterLoaded ? (
           <SettingsFilterPanel 
             filterData={filterData}
             isLabGrown={isLabGrown}
@@ -193,7 +230,9 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}
             resetFilters={resetFilters}
             saveFilters={saveFilters}
             settingNavigation={settingNavigationData}
-            searchSetting={searchSetting}            
+            searchSetting={searchSetting}   
+            confirmReset={confirmReset}       
+            selectedDiamondShape={selectedDiamondShape}  
           />
         ) : (
           <SkeletonFilterPanel />
@@ -241,8 +280,18 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}
        }
       {showAlertPopUp && message!="" &&      
        <AlertPopUp       
+       title={'Filter Saved'}
        message={'Filter Saved Sucessfully'}
        onClose={() => {setshowAlertPopUp(false) ; setMessage('')}}> 
+       </AlertPopUp>
+      }
+      {isResetClicked==true &&      
+       <AlertPopUp       
+       title={'Reset'}
+       message={'Do you reallly want to reset?'}
+       onClick={() => {setIsResetClicked(false); resetFilters();setDoReset(!doReset) }}
+       onClose={() => {setIsResetClicked(false);setMessage('')}}> 
+       
        </AlertPopUp>
       }
 

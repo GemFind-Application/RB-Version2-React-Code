@@ -7,12 +7,12 @@ import PropTypes from "prop-types";
 import "./frame-component1.css";
 
 const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLabGrown}) => {
-  console.log(isLabGrown)
+ 
   const navigate = useNavigate();
 
   const onContainer2Click = useCallback(() => {
     navigate("/complete");
-  }, [navigate]);
+  }, []);
   const handleLabGrownToggle = (value) => {
     if(value === 'Lab Grown'){
       setIsLabGrown(true);

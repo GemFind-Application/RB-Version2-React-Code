@@ -276,6 +276,7 @@
   width: 100%;
 }
 
+
 @media screen and (max-width: 1275px) {
   .settings-founded {
     font-size: var(--font-size-7xl);
@@ -351,7 +352,9 @@
   width: 100%;
   padding: var(--padding-xs);
 }
-
+.noCursor{
+  cursor:default;
+}
 .price-slider input[type="range"] {
   width: 100%;
   margin-bottom: var(--padding-3xs);

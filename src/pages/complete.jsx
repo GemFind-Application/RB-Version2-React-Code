@@ -8,7 +8,7 @@ import "./complete.css";
 import { diamondService } from "../Services";
 import { settingService } from "../Services";
 import ImageGallery from 'react-image-gallery';
-const Complete = ({configAppData,formSetting}) => {
+const Complete = ({configAppData,formSetting,additionOptionSetting}) => {
   const [settingId, setSettingId] = useState();
   const [diamondId, setDiamondId] = useState();
   const [settingDetail, setSettingDetail] = useState();
@@ -90,14 +90,17 @@ const Complete = ({configAppData,formSetting}) => {
    
    
   }, []);
- console.log(images)
+ console.log(settingDetail)
+ console.log(diamondDetail)
   return (
     <div className="complete">
       <Header />
       <FrameComponent4 />
+
       <div className="complete-inner">
         <div className="frame-parent">
-        {issettingLoaded && isDiamondLoaded &&
+        {(settingId && diamondId) ?
+        (issettingLoaded && isDiamondLoaded) &&
         <>
         <div className="image-container">
           <div className="plp-image-gallery">
@@ -106,8 +109,21 @@ const Complete = ({configAppData,formSetting}) => {
             </div>               
           </div>
         </div>
-        <ProductDetails formSetting={formSetting} settingDetail={settingDetail} diamondDetail={diamondDetail} ringSize={selectedRingSize} configAppData={configAppData}/>
-        </>}
+        
+        <ProductDetails additionOptionSetting={additionOptionSetting} formSetting={formSetting} settingDetail={settingDetail} diamondDetail={diamondDetail} ringSize={selectedRingSize} configAppData={configAppData}/>
+        
+       </>
+       :<>
+        <div className="complete-inner">
+        <div className="frame-parent">
+            <div>Please select Ring and Diamond First</div>
+        </div>
+        </div>
+       </>
+        
+      
+        }
+       
         </div>
         
       </div>

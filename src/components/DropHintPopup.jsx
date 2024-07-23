@@ -2,20 +2,28 @@ import React, { useState } from 'react';
 import "./hint.css"
 import { settingService } from '../Services';
 
-const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl }) => {
-  const [formData, setFormData] = useState({
-    yourName: '',
-    yourEmail: '',
-    recipientName: '',
-    recipientEmail: '',
-    reason: '',
-    message: '',
-    giftDeadline: '',
-    settingId: settingId,
-    isLabSetting: isLabSetting,
-    ringurl: ringurl,
-    shopurl: shopurl
-  });
+const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diamondId,diamondtype,diamondurl }) => {
+  let formDataValue= {yourName: '',
+  yourEmail: '',
+  recipientName: '',
+  recipientEmail: '',
+  reason: '',
+  message: '',
+  giftDeadline: '',
+  isLabSetting: isLabSetting,
+ 
+  shopurl: shopurl}
+  if(settingId&&settingId!==""){
+    formDataValue.settingId = settingId;
+    formDataValue.ringurl=ringurl;
+  }else{
+    formDataValue.diamondid = diamondId;
+    formDataValue.diamondtype = diamondtype;
+    formDataValue.diamondurl = diamondurl;
+  }
+
+    const [formData, setFormData] = useState(formDataValue)
+ 
 
   const [errors, setErrors] = useState({});
   const [hintDropped, setHintDropped] = useState(false);
@@ -75,9 +83,9 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl }) =
         stringToPass += key + "=" + encodeURIComponent(formData[key]) + "&";
       });
       stringToPass = stringToPass.slice(0, -1); // Removed the last '&'
-      
+      console.log(stringToPass)
       try {
-        const res = await settingService.dropAHint(stringToPass);
+       //const res = await settingService.friendsEmail(stringToPass);
         setHintDropped(true);
       } catch (error) {
         console.error('Error dropping hint:', error);

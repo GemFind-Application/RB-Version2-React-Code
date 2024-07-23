@@ -13,6 +13,10 @@ import ShowCostInCardDiamond from "../components/showCostInCardDiamond";
 import SocialIcon from "../components/SocialIcon";
 import axios from "axios";
 import { utils } from "../Helpers";
+import DropHintPopup from "../components/DropHintPopup";
+import ScheduleViewingPopup from "../components/ScheduleViewingPopup";
+import RequestInfoPopup from "../components/RequestInfoPopup";
+import EmailFriendPopup from "../components/EmailFriendPopup";
 const DiamondPage = ({formSetting,configAppData,additionOptionSetting}) => {
   const { diamondId } = useParams();
   const [diamondDetail, setDiamondDetail] = useState({});
@@ -68,11 +72,23 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting}) => {
   const closeDiamondDetails = useCallback(() => {
     setDiamondDetailsOpen(false);
   }, []);
-
+  const closeHint = useCallback(() => {
+    setHintOpen(false);
+  }, []);
+  const closeSchedule = useCallback(() => {
+    setScheduleOpen(false);
+  }, []);
+  const closeemailAFriend = useCallback(() => {
+    setRequestInfoOpen(false);
+  }, []);
+  const closeRequestInfo = useCallback(() => {
+    setRequestInfoOpen(false);
+  }, []);
   const onButtonContainerClick = (diamondDetail) => {
     if(configAppData.settings_carat_ranges){
      let caratWeight = diamondDetail.caratWeight;
-     let appConfigWeight =  configAppData.settings_carat_ranges[caratWeight];
+     let convertStringToArray = JSON.parse(configAppData.settings_carat_ranges);
+     let appConfigWeight =  convertStringToArray[caratWeight];
      localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight}));
     }else{
      
@@ -81,12 +97,29 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting}) => {
       localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight}));
     }
    // localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow}));
-    navigate("/complete");
+    navigate("/diamondtools/completering");
   };
-  const selectSetting = useCallback(() => {
-    navigate("/settings");
-  }, [navigate]);
+  const selectSetting = (diamondDetail) => {
   
+    console.log("asd")
+    if(configAppData.settings_carat_ranges){
+      let caratWeight = diamondDetail.caratWeight;
+      let appConfigWeight =  configAppData.settings_carat_ranges[caratWeight];
+      localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,caratWeight:caratWeight}));
+     }else{
+      let caratWeight = diamondDetail.caratWeight;
+       let appConfigWeight =  (Number(diamondDetail.caratWeight) - 0.1).toFixed(2)+"-"+ (Number(diamondDetail.caratWeight)+0.1).toFixed(2);
+       console.log(appConfigWeight)
+       localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,caratWeight:caratWeight}));
+     }
+    navigate("/settings");
+  }
+  const addToCart = (diamondDetail) => {
+
+  }
+
+  
+
   const images = [];
   if (diamondDetail.image2 && diamondDetail.image2 !='') {
     images.push({
@@ -176,7 +209,9 @@ console.log(images)
                 <div className="specs-container">
                   <div className="specs-content">
                     <div className="specs-details">
-                      <div className="id-383212322">Id: {diamondDetail.diamondId}</div>
+                      <div className="id-383212322">{ additionOptionSetting.show_In_House_Diamonds_First ?
+                       "Stock Number"+diamondDetail.stockNumber:
+                        "SKU#:"+ diamondDetail.diamondId}</div>
                       <h1 className="princess-1001-carath">
                       {diamondDetail.shape} {' '}{diamondDetail.caratWeight} CARATH
                       </h1>
@@ -289,11 +324,14 @@ console.log(images)
                 <div className="actions">
                   <div className="buttons">
                     <div className="primary-buttons">
+                    <div className="button9" onClick={()=>addToCart(diamondDetail)}>
+                       <b className="select-363440">Add To Cart</b>
+                     </div>
                     {isSettingSelected ?
                       <div className="button9" onClick={()=>onButtonContainerClick(diamondDetail)}>
                         <b className="select-363440">Select - <ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamondDetail}></ShowCostInCardDiamond></b>
                       </div> :
-                       <div className="button9" onClick={selectSetting}>
+                       <div className="button9" onClick={()=>selectSetting(diamondDetail)}>
                        <b className="select-363440">Add Your Setting</b>
                      </div>}
 
@@ -332,11 +370,73 @@ console.log(images)
           onOutsideClick={closeDiamondDetails}
         >
           <DiamondSpecificationDetail 
+          additionOptionSetting={additionOptionSetting}
           diamond={diamondDetail}
           configAppData={configAppData}
           onClose={closeDiamondDetails} />
         </PortalPopup>
       )}
+       {isDropHintOpen && (
+        <PortalPopup
+          overlayColor="rgba(113, 113, 113, 0.3)"
+          placement="Centered"
+          onOutsideClick={closeHint}
+        >
+        <DropHintPopup
+            diamondId={diamondDetail.diamondId}
+            diamondurl={window.location.hostname + "/diamond-details/" + location.pathname}
+            shopurl={''}
+            diamondtype={diamondDetail.isLabCreated}
+            onClose={() => setIsDropHintOpen(false)} />
+        </PortalPopup>
+      )}
+      {isScheduleViewingOpen && (
+        <PortalPopup
+          overlayColor="rgba(113, 113, 113, 0.3)"
+          placement="Centered"
+          onOutsideClick={closeSchedule}
+        >
+         <ScheduleViewingPopup
+              diamondId={diamondDetail.diamondId}
+              diamondurl={window.location.hostname + "/diamond-details/" + location.pathname}
+            shopurl={''}
+            diamondtype={diamondDetail.isLabCreated}
+            onClose={() => setIsScheduleViewingOpen(false)}
+            locations={diamondDetail.addressList ? diamondDetail.addressList.map(address => diamondDetail.locationName) : []}
+          />
+        </PortalPopup>
+      )}
+      {isRequestInfoOpen && (
+        <PortalPopup
+          overlayColor="rgba(113, 113, 113, 0.3)"
+          placement="Centered"
+          onOutsideClick={closeRequestInfo}
+        >
+           <RequestInfoPopup 
+          onClose={() => setIsRequestInfoOpen(false)}
+          diamondId={diamondDetail.diamondId}
+          diamondurl={window.location.hostname + "/diamond-details/" + location.pathname}
+          shopurl={''}
+          diamondtype={diamondDetail.isLabCreated}
+          />
+        </PortalPopup>
+       
+      )}
+      {isEmailAFriendOpen && (
+        <PortalPopup
+          overlayColor="rgba(113, 113, 113, 0.3)"
+          placement="Centered"
+          onOutsideClick={closeemailAFriend}
+        >
+         <EmailFriendPopup 
+          diamondId={diamondDetail.diamondId}
+          diamondurl={window.location.hostname + "/diamond-details/" + location.pathname}
+          shopurl={''}
+          diamondtype={diamondDetail.isLabCreated}
+          onClose={() => setIsEmailAFriendOpen(false)} />
+        </PortalPopup>
+      )}
+      
     </>
   );
 };

@@ -4,19 +4,27 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./ScheduleViewingPopup.css";
 import { settingService } from '../Services';
 
-const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl }) => {
-  const [formData, setFormData] = useState({
+const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl ,diamondId,diamondtype,diamondurl}) => {
+  let formDataValue= {
     name: '',
     email: '',
     phoneNumber: '',
     message: '',
     preference: null,
     location: '',
-    settingId: settingId,
-    isLabSetting: isLabSetting,
-    ringurl: ringurl,
+    isLabSetting: isLabSetting,   
     shopurl: shopurl
-  });
+  }
+  if(settingId&&settingId!==""){
+    formDataValue.settingId = settingId;
+    formDataValue.ringurl=ringurl;
+  }else{
+    formDataValue.diamondid = diamondId;
+    formDataValue.diamondtype = diamondtype;
+    formDataValue.diamondurl = diamondurl;
+  }
+  const [formData, setFormData] = useState(formDataValue);
+
 
   const [errors, setErrors] = useState({});
   const [ScheduleViewing, setScheduleViewing] = useState(false);

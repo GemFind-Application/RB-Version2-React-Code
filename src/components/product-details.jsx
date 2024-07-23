@@ -13,7 +13,7 @@ import ScheduleViewingPopup from "../components/ScheduleViewingPopup";
 import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
 import ShowTotalPrice from "./ShowTotalPrice";
-const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,configAppData,formSetting}) => {
+const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,configAppData,formSetting,additionOptionSetting }) => {
   console.log(formSetting)
   const [isSettingDetailsOpen, setSettingDetailsOpen] = useState(false);
   const [isDiamondDetailsOpen, setDiamondDetailsOpen] = useState(false);
@@ -94,7 +94,7 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
             <div className="the-total-carat">The total carat weight:</div>
           </div>
           <div className="carat-weight-labels1">
-            <b className="ct1"> 0.55 Ct</b>
+            <b className="ct1"> {diamondDetail.caratWeight? diamondDetail.caratWeight+'ct':'-'}  </b>
           </div>
         </div>
         <div className="stats-parent">
@@ -163,7 +163,11 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
                       <b className="prong-round-solitaire2">
                       {diamondDetail.shape!=""?diamondDetail.shape:''} { ' '} {diamondDetail.caratWeight!=""?diamondDetail.caratWeight:''} {'CARATH'}
                       </b>
-                      <div className="id-3832123223">Id: {diamondDetail.diamondId!=""?diamondDetail.diamondId:''}</div>
+                      <div className="id-3832123223">
+                        
+                      {"SKU#:"} { ' '}{additionOptionSetting.show_In_House_Diamonds_First ?
+                       diamondDetail.stockNumber:
+                       diamondDetail.diamondId}</div>
                     </div>
                     <b className="b23"><ShowCostInCardDiamond diamondDetail={diamondDetail} configAppData={configAppData}></ShowCostInCardDiamond></b>
                   </div>
@@ -177,7 +181,7 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
                     </div>
                     <div className="stats-elements">
                       <div className="cut6">Cut:</div>
-                      <b className="excellent4">{diamondDetail.cut!=""?diamondDetail.cut:'-'}</b>
+                      <b className="excellent4">{diamondDetail.cut!=""?diamondDetail.cut:'NA'}</b>
                     </div>
                     <div className="stats-elements">
                       <div className="color2">Color:</div>
@@ -187,6 +191,11 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
                       <div className="clarity4">Clarity:</div>
                       <b className="i13">{diamondDetail.clarity!=""?diamondDetail.clarity:'-'}</b>
                     </div>
+                    {additionOptionSetting.show_In_House_Diamonds_Column_with_SKU &&
+                    <div className="stats-elements">
+                      <div className="clarity4">In House:</div>
+                      <b className="i13">{diamondDetail.inhouse!=""?diamondDetail.inhouse:'-'}</b>
+                    </div>}
                   </div>
                 </div>
                 <div className="edit1">
@@ -207,7 +216,7 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
             </div>
           </div>
         </div>
-        <div className="payment-content-wrapper">
+        {/*<div className="payment-content-wrapper">
           <div className="payment-content">
             <div className="div74">
               <div className="payment-info">
@@ -219,15 +228,16 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
               </div>
             </div>
           </div>
-        </div>
+        </div>*/}
         <div className="payment-options">
           <div className="cart-buttons">
             <div className="button21">
               <b className="add-to-cart">Add to cart - <ShowTotalPrice configAppData={configAppData} settingDetailForCost={settingDetail} diamondDetail={diamondDetail}></ShowTotalPrice></b>
             </div>
+            {configAppData.display_tryon &&
             <div className="button22">
               <b className="virtual-try-on">Virtual try-on</b>
-            </div>
+            </div>}
           </div>
           <Stats 
                 formSetting={formSetting}

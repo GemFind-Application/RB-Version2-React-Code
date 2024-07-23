@@ -15,20 +15,35 @@ export const diamondService = {
   getDiamondVideoUrl
 };
 
-function getDiamondFilter(option,initialFilter) {
+function getDiamondFilter(option) {
+ 
   //let queryParam = getQueryFilterParam(option);
-  console.log(option)
- if(option==='fancy'){
+  let initialFilter='';
+  let startflowPath = JSON.parse(localStorage.getItem('startflow'));
+         
+  if(startflowPath && startflowPath.path=='/diamondtools' && startflowPath.isLoaded===false){           
+    localStorage.setItem('startflow',JSON.stringify({'path':startflowPath.path,'isLoaded':true}));
+   
+   //setShowInitialFilter("initial");
+   initialFilter=true
+    // res = await diamondService.getDiamondInitialFilter(option);
+  }else{
+    initialFilter=false
+   // setShowInitialFilter("regular");
+    // res = await diamondService.getDiamondFilter(option);
+  }
+ if(option.isLabGrown==='fancy'){
+  console.log(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}`)
   return fetchWrapper.get(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}`);
  }else{
-  if(initialFilter!="" &&  initialFilter!=undefined){
+  if( initialFilter===true){
     if(option.isLabGrown===0){
     return fetchWrapper.get(`${baseUrl}/GetInitialFilter?DealerId=${dealerId}&IsLabGrown=false`);
     }else{
       return fetchWrapper.get(`${baseUrl}/GetInitialFilter?DealerId=${dealerId}&IsLabGrown=true`);
     }    
   }else{
-    if(option.isLabGrown===0){
+    if(option.isLabGrown===false){
       return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}&IsLabGrown=false`);
     }else{
       return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}&IsLabGrown=true`);
@@ -50,6 +65,7 @@ function getDiamondDetail(diamondId) {
 function getAllDiamond(option) {
   let queryParam = getQueryParam(option);
   if(option.isLabGrown==='fancy') {
+    console.log(`${baseUrl}/GetColorDiamond?DealerId=${dealerId}${encodeURIComponent(queryParam)}&IsLabGrown=false`)
     return fetchWrapper.get(`${baseUrl}/GetColorDiamond?DealerId=${dealerId}${queryParam}&IsLabGrown=false`);
   }else{
     return fetchWrapper.get(`${baseUrl}/GetDiamond?DealerId=${dealerId}${queryParam}`);
@@ -60,7 +76,7 @@ function getDiamondNavigation(){
   
 }
 function getQueryParam(option){
-  console.log(option)
+  //console.log(option)
   let filterString = "";
   if(option.pageSize && option.pageSize!==undefined){   
     filterString = 'pageSize='+option.pageSize;    
@@ -76,7 +92,7 @@ function getQueryParam(option){
   }
   if(option.orderBy && option.orderBy!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
-    filterString += 'OrderBy=Size'+"&OrderType="+option.orderBy  ; 
+    filterString += 'OrderBy='+option.orderBy+"&OrderType="+option.orderDirection  ; 
   }
   if(option.priceMin!==undefined&&option.priceMax!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
@@ -119,8 +135,14 @@ function getQueryParam(option){
     filterString += 'CutGradeId='+option.cut;    
   }
   if(option.colour && option.colour!==undefined){
-    filterString += filterString.length > 0 ? `&` : '';
-    filterString += 'ColorId='+option.colour;    
+    if(option.intensity && option.intensity){
+      filterString += filterString.length > 0 ? `&` : '';
+      filterString += 'FancyColor='+option.colour; 
+    }else{
+      filterString += filterString.length > 0 ? `&` : '';
+      filterString += 'ColorId='+option.colour; 
+    }
+      
   }
   if(option.clarity && option.clarity!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
@@ -138,11 +160,11 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'FancyColor='+option.FancyColor;    
   }
-  if(option.intIntensity && option.intIntensity!==undefined){
+  if(option.intensity && option.intensity!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
-    filterString += 'intIntensity='+option.intIntensity;    
+    filterString += 'intIntensity='+option.intensity;    
   }
-  console.log(filterString)
+  //console.log(filterString)
   if(filterString!=""){
     return "&"+filterString;
   }else{
@@ -151,7 +173,7 @@ function getQueryParam(option){
  
 }
 function getQueryFilterParam(option){
-  console.log(option)
+  //console.log(option)
   let filterString = "";
  
   

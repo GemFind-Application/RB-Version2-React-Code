@@ -18,6 +18,7 @@ import Settings from "./pages/settings";
 import SettingDetails from "./pages/setting-details"; 
 import { appService } from './Services';
 import { settingService } from './Services';
+import AlertPopUp from "./components/AlertPopUp";
 import Footer from "./components/Footer"
 function App() {
   const [ additionOptionSetting,setAdditionOptionSetting] = useState([]);
@@ -27,6 +28,10 @@ function App() {
   const [isSettingNavLoaded, setIsSettingNavLoaded] = useState(false);
   const [compareDiamondsId, setCompareDiamondsId] = useState([]);
   const [isLabGrown, setIsLabGrown] = useState(false); // Default to Mined
+  const [showAlertPopUp,setshowAlertPopUp] =useState(false);
+  const [message,setMessage] =useState('');
+  const [initialFilter,setInitialFilter] =useState(false);
+  const [title,setTitle] =useState('Compare Diamonds');
   const action = useNavigationType();
   const location = useLocation();
   const pathname = location.pathname;
@@ -36,9 +41,10 @@ function App() {
   let configAppData = {
     show_powered_by:false,
     sorting_order: 'cost-l-h',
-    price_row_format:'lefjt',
+    price_row_format:'left',
     default_viewmode:'grid',   
     display_tryon:true,
+    show_filter_info:true,
   }
   useEffect(() => {
     let storedFlowData = JSON.parse(localStorage.getItem('startflow'));
@@ -47,10 +53,11 @@ function App() {
        const pathname = location.pathname;
        localStorage.setItem('startflow',JSON.stringify({'path':pathname,'isLoaded':false}));
      } 
+    
     if (action !== "POP") {
       window.scrollTo(0, 0);
     }
-  }, [action, pathname]);
+  }, []);
   useEffect(() => {
     async function fetchAppSetting(){
       try {
@@ -85,6 +92,11 @@ function App() {
     }
     fetchSettingNavigation();
   },[])
+  useEffect(() => {   
+   
+    compareDiamondsId.splice(0, compareDiamondsId.length);
+
+  },[isLabGrown])
   useEffect(() => {
     let title = "";
     let metaDescription = "";
@@ -148,11 +160,15 @@ function App() {
   const onCompareContainerClick = () => {
 
     if(compareDiamondsId.length <2){
-      alert('Please select minimum 2 diamonds to compare.')
+      setshowAlertPopUp(true)
+      setMessage('Please select minimum 2 diamonds to compare.')
     }else{
       if(compareDiamondsId.length >6 ){
-        alert('You can select a maximum of 6 diamonds to compare! Please check your compare item page you have some items in your compare list.')
+        setshowAlertPopUp(true)
+       setMessage('You can select a maximum of 6 diamonds to compare! Please check your compare item page you have some items in your compare list.')
       }else{
+        setshowAlertPopUp(false)
+        setMessage('');
         navigate("/compare");
       }
       
@@ -173,7 +189,7 @@ function App() {
    let newcompareDiamonds = compareDiamondsId.filter(item => item !== diamondId);
    setCompareDiamondsId(newcompareDiamonds);
   };
-  console.log(settingNavigation)
+  //console.log(settingNavigation)
   return (
     <div>
     {loading &&
@@ -186,9 +202,10 @@ function App() {
       isLabGrown={isLabGrown} 
       settingNavigationData={settingNavigation}/>} />
       <Route path="/compare" element={<Compare  configAppData={configAppData} removeCompareDiamondIds={removeCompareDiamondIds} compareDiamondsId={compareDiamondsId} />} />
-      <Route path="/diamondtools" element={<Diamond  configAppData={configAppData} addCompareDiamondIds={addCompareDiamondIds} compareDiamondsId={compareDiamondsId} onCompareContainerClick={onCompareContainerClick}   isLabGrown={isLabGrown} setIsLabGrown={setIsLabGrown}/>} />
+      <Route path="/diamondtools" element={<Diamond   configAppData={configAppData} addCompareDiamondIds={addCompareDiamondIds} compareDiamondsId={compareDiamondsId} onCompareContainerClick={onCompareContainerClick}   isLabGrown={isLabGrown} setIsLabGrown={setIsLabGrown}/>} />
       <Route path="/diamond-details/:diamondId" element={<DiamondPage additionOptionSetting={additionOptionSetting} configAppData={configAppData} formSetting={additionOptionSetting} />} />   
-      <Route path="/complete" element={<Complete
+      <Route path="/diamondtools/completering" element={<Complete 
+      additionOptionSetting={additionOptionSetting}
        formSetting={additionOptionSetting} 
        configAppData={configAppData}/>} />
       {/* <Route path="/diamond-table-scroll" element={<DiamondTableScroll />} /> */}
@@ -197,6 +214,13 @@ function App() {
     </Routes>
     }
     <Footer configAppData={configAppData}></Footer>
+    {showAlertPopUp && message!="" &&      
+       <AlertPopUp       
+       title={title}
+       message={message}
+       onClose={() => {setshowAlertPopUp(false) ; setMessage('')}}> 
+       </AlertPopUp>
+      }
     </div>
     
   );

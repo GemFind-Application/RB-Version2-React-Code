@@ -1,22 +1,25 @@
 import React, { useState, useCallback, useEffect } from "react";
 import "../pages/settings.css";
-export default function  AlertPopUp  ({onClose,message})  {
-   
-
+import PortalPopup from "../components/portal-popup";
+export default function  AlertPopUp  ({onClose,message,title,onClick})  {  
     useEffect(() => {
         const timer = setTimeout(() => {
             onClose();
-        }, 1000);})
-
-
-        
+        }, 2000);})
     return (
-        <div className="video-popup-overlay "  >
-        <div className="video-popup-content">
-          <button className="close-button" onClick={onClose}>×</button>
-          {message}
-        </div>
-        </div>
+        <PortalPopup
+        overlayColor="rgba(113, 113, 113, 0.3)"
+        placement="Centered"       
+      >
+        <div className="popup-overlay drop-hint-popup">
+        <div className="popup-content">
+          <button  onClick={onClose} className="close-button" >×</button>   
+       <div className="success-message">
+       <h2>{title}</h2>
+       <p>{message}</p>
+       {title==='Reset'&& <button onClick={onClick}>Reset</button> }
+     </div></div></div>
+     </PortalPopup>
     )
   }
   <style>

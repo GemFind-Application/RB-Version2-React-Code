@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import "./email-friend.css";
 import { settingService } from '../Services';
-const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl }) => {
-  const [formData, setFormData] = useState({
+const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamondId,diamondtype,diamondurl }) => {
+  let formDataValue= {yourName: '',
     name: '',
     email: '',
     friendsname: '',
     friendsemail: '',
     message: '',
-    settingId:settingId,
-    isLabSetting:isLabSetting,
-    ringurl:ringurl,
-    shopurl:shopurl
-  });
-
+    isLabSetting: isLabSetting,   
+    shopurl: shopurl}
+    if(settingId && settingId!==""){
+      formDataValue.settingId = settingId;
+      formDataValue.ringurl=ringurl;
+    }else{
+      formDataValue.diamondid = diamondId;
+      formDataValue.diamondtype = diamondtype;
+      formDataValue.diamondurl = diamondurl;
+    }
+  const [formData, setFormData] = useState(formDataValue);  
   const [errors, setErrors] = useState({});
   const [SendEmail, setSendEmail] = useState(false);
 
@@ -70,7 +75,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl }) =>
         stringToPass += key+"="+(formData[key])+"&";
      });
 
-      console.log(formData);
+      console.log(stringToPass);
       const res = await settingService.friendsEmail(stringToPass); 
       setSendEmail(true);
       // onClose();

@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 import "./requestinfo.css";
 import { settingService } from '../Services';
-const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl}) => {
-  const [formData, setFormData] = useState({
+const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,diamondId,diamondtype,diamondurl}) => {
+  let formDataValue= {
+    yourName: '',
     name: '',
     email: '',
     phoneNumber: '',
     message: '',
-    preference: '',
-    settingId:settingId,
-    isLabSetting:isLabSetting,
-    ringurl:ringurl,
-    shopurl:shopurl
-  });
+    preference: '',   
+    isLabSetting:isLabSetting,   
+    shopurl:shopurl}
+    if(settingId&&settingId!==""){
+      formDataValue.settingId = settingId;
+      formDataValue.ringurl=ringurl;
+    }else{
+      formDataValue.diamondid = diamondId;
+      formDataValue.diamondtype = diamondtype;
+      formDataValue.diamondurl = diamondurl;
+  }
+    
+  const [formData, setFormData] = useState(formDataValue);
 
   const [errors, setErrors] = useState({});
   const [requestSend, setRequestSend] = useState(false)

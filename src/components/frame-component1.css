@@ -119,6 +119,7 @@
 }
 .price19 {
   flex: 1;
+  cursor: pointer;
   border-radius: var(--br-21xl);
   border: 1px solid var(--beige-04);
   box-sizing: border-box;

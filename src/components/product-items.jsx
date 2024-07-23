@@ -50,6 +50,11 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
       let metalTypeForUrl = filterMetalType.length >0? filterMetalType[0] : product.metalTypes[0].metalType;    
       let url = utils.getUrl(metalTypeForUrl,product.name,product.priceSettingId)
       setViewUrlSetting(url)
+    }else{
+      console.log(product)
+     let metalTypeForUrl ='n-a';    
+      let url = utils.getUrl(metalTypeForUrl,product.name,product.priceSettingId)
+      setViewUrlSetting(url)
     }
   
   }, []);

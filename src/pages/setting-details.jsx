@@ -14,6 +14,7 @@ import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
 import { BASE_URL, DEALER_ID } from '../components/api';
 import Skeleton from 'react-loading-skeleton';
+import AlertPopUp from "../components/AlertPopUp";
 // import "react-loading-skeleton/dist/skeleton.css";
 import PdpLoader from '../components/PdpLoader'
 import ImageGallery from 'react-image-gallery';
@@ -45,6 +46,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   const [selectedCenterStoneSize, setSelectedCenterStoneSize] = useState("");
   const [selectedRingSize, setSelectedRingSize] = useState("");
   const [selectedDiamondType, setSelectedDiamondType] = useState(isLabGrown ?'Mined':'Lab Grown');
+  const [showAlertPopUp,setshowAlertPopUp] =useState(false);
   const [reviews, setReviews] = useState([]);
   //const [settingNavigation, setSettingNavigation] = useState(settingNavigationData);
   const [navigation, setNavigation] = useState("");
@@ -57,9 +59,20 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   const [selectedParam,setSelectedParam]= useState('');
   const [uniqueSideStoneQualities, setUniqueSideStoneQualities] = useState([]);
   const [uniqueDiamondShape, setUniqueDiamondShape] = useState([]);
+  const [isDiamondSelectedFirst,setIsDiamondSelectedFirst] = useState(false);
+  const [notFitMessage, setNotFitMessage] = useState([]);
+  
  // console.log(settingNavigationData)
   //const [selectedRingSize,setSelectedRingSize]= useState('');
   useEffect(() => {
+    let selecteddiamond = JSON.parse(localStorage.getItem('selectedDiamond'));
+    console.log(selecteddiamond)
+    if(selecteddiamond) {
+
+    if(selecteddiamond.diamondId &&  selecteddiamond.diamondId!=""){
+      setIsDiamondSelectedFirst(true)
+    }}
+    
     fetchProductDetails(settingIdToShow);
   }, [settingIdToShow]);  
   const fetchProductDetails = async (settingId) => {
@@ -145,6 +158,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
     }    
   }
   const selectByCenterStoneSize = async (size) => {
+    setNotFitMessage('')
     setSelectedParam('centerStoneSize');
     let selectedCenterStoneSizeProduct=[]
     if(uniqueSideStoneQualities.length > 0) {
@@ -155,7 +169,24 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
     }    
     if(selectedCenterStoneSizeProduct.length>0){
       setSettingIdToShow(selectedCenterStoneSizeProduct[0].gfInventoryId);
-    }         
+    } 
+    let selecteddiamond = JSON.parse(localStorage.getItem('selectedDiamond'));
+    console.log(selecteddiamond)
+    if(selecteddiamond) {
+
+    if(selecteddiamond.diamondId &&  selecteddiamond.diamondId!=""){
+    if(configAppData.settings_carat_ranges){
+      let caratWeight = size;
+      let carat_rang =  configAppData.settings_carat_ranges[caratWeight];
+      
+      let min_range = ((carat_rang[0]) ? carat_rang[0] : (size - 0.1));
+      let max_range = (($carat_rang[1]) ? carat_rang[1] : (size + 0.1));
+      let caratWeightDiamond = selecteddiamond.caratWeight;
+
+      if(caratWeightDiamond<min_range || caratWeightDiamond >max_range){
+        setNotFitMessage("This ring will not properly fit with selected diamond.");
+      }
+     } }}    
   }
   const selectByDiamondShape = async (shape) => {
     const size= selectedCenterStoneSize;
@@ -175,11 +206,11 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   }
   const selectRingSetting = async ()=>{
     if(selectedRingSize===""){
-      alert("Please select ring size.")
+      setshowAlertPopUp(true)
     }else{
       localStorage.setItem('selectedRing', JSON.stringify({settingId:settingIdToShow,ringSize:selectedRingSize}));
-      const selectedDiamondId = JSON.parse(localStorage.getItem('selectedDiamondId'));
-      if(selectedDiamondId){
+      const selectedDiamond = JSON.parse(localStorage.getItem('selectedDiamond'));
+      if(selectedDiamond && selectedDiamond.diamondId){
         navigate("/diamondtools/completering/");
       }else{
         if(selectedDiamondType!='Mined'){
@@ -188,7 +219,6 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
           navigate('/diamondtools'); 
         }
       }
-
     }
   }
   const onBreadContainerClick = useCallback(() => {
@@ -342,7 +372,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                                   className={`metal-type ${selectedMetalType === metal ? 'active' : ''}`}
                                   onClick={() => selectByMetalType(metal)}
                                 >
-                                  <div className={`metal-icon ${metal.toLowerCase()} `}>
+                                  <div className={`metal-icon ${metal?metal.toLowerCase():''} `}>
                                     <div className="ring"></div>
                                   </div>
                                   <span className={`metal-name ${selectedMetalType === metal ? 'selected' : ''}`}>
@@ -510,6 +540,9 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                           </div>
                         )}
                       </div>
+                      <div className="filter-opened7">
+                            <div className="select-side-stone"></div>
+                            <div className="diamond-type-filter">{notFitMessage}</div></div>
                     </form>
                     <div className="actions1">
                       <div className="buttons1">
@@ -517,9 +550,14 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                         {/* <button type="submit" className="submitring_product" onClick={onButtonClick}>
                           <b className="select-485">Select - {product.currencySymbol}{product.cost}</b>
                         </button> */}
+                        {isDiamondSelectedFirst==false ?
                         <button type="button" className="submitring_product" onClick={selectRingSetting} >
                           <b className="select-485">Select - <ShowCostInCard settingDetailForCost={product} configAppData={{configAppData}}></ShowCostInCard></b>
-                        </button>
+                        </button>:
+                        <button type="button" className="submitring_product" onClick={selectRingSetting} >
+                        <b className="select-485">Complete Your Ring - Select - <ShowCostInCard settingDetailForCost={product} configAppData={{configAppData}}></ShowCostInCard></b>
+                      </button>
+                        }
                         {configAppData.display_tryon &&
                         <button className="button-fav1" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.styleNumber))}>                        
                            <b>Virtual Try On</b>
@@ -644,6 +682,13 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
       onClose={() => {setShowVirtualTryOnUrl('') ; setShowVirtualTryOn(false)}}>
 
       </VideoModal></PortalPopup>
+      }
+      {showAlertPopUp &&      
+       <AlertPopUp       
+       title={'Select Ring Size'}
+       message={'Please select Ring Size.'}
+       onClose={() => {setshowAlertPopUp(false)}}> 
+       </AlertPopUp>
       }
     </>
   );
