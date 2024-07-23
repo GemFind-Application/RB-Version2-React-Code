@@ -3,13 +3,17 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./items.css";
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
+import DiamondDetailsPopup from './DiamondItemPopup';
 import VideoPopup from "./VideoPopup";
 import { diamondService } from "../Services";
 import { utils } from "../Helpers";
+
+
 const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData}) => {
-  const [showVideoPopup, setShowVideoPopup] = useState(false);
-  const [videoUrl, setVideoUrl] = useState('');
- const [isDiamondPresentInCompare,setIsDiamondPresentInCompare] =useState()
+const [showVideoPopup, setShowVideoPopup] = useState(false);
+const [videoUrl, setVideoUrl] = useState('');
+const [isDiamondPresentInCompare,setIsDiamondPresentInCompare] =useState()
+const [showDetailsPopup, setShowDetailsPopup] = useState(false);
 
 console.log(isDiamondPresentInCompare)
   const handleVideoIconClick = async() => {
@@ -31,6 +35,11 @@ console.log(isDiamondPresentInCompare)
       setError("Failed to fetch filter data. Please try again later.");
     }  
   };
+
+  const toggleDetailsPopup = () => {
+    setShowDetailsPopup(!showDetailsPopup);
+  };
+
   return (
     <div className={`items ${className}`}>
       <div className="product-card">
@@ -46,12 +55,8 @@ console.log(isDiamondPresentInCompare)
               <img className="video-icon2" alt="" src="/video.svg" />
             </div>
             }
-            <img className="compare-icon2" 
-
-            alt="compare" src="/compare.svg" 
-
-            onClick={()=>addCompareDiamondIds(diamond.diamondId)}/>
-            <div className="actions11">
+            <img className="compare-icon2" alt="compare" src="/compare.svg" onClick={()=>addCompareDiamondIds(diamond.diamondId)}/>
+            <div className="actions11 3dots" onClick={toggleDetailsPopup}>
               <img className="vector-icon27" alt="" src="/vector3.svg" />
             </div>
           </div>
@@ -72,6 +77,13 @@ console.log(isDiamondPresentInCompare)
       </div>
       {(showVideoPopup && videoUrl!="")  && (
         <VideoPopup videoURL={videoUrl} onClose={() => setShowVideoPopup(false)} />
+      )}
+
+      {showDetailsPopup && (
+        <DiamondDetailsPopup 
+          diamond={diamond} 
+          onClose={() => setShowDetailsPopup(false)} 
+        />
       )}
     </div>
   );
