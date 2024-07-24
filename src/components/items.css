@@ -256,7 +256,7 @@
   padding: 30px 20px;
   overflow-y: auto;
   max-height: calc(100% - 60px); 
-  display: flex;
+  /* display: flex; */
   flex-wrap: wrap;
   gap: 15px;
 }
