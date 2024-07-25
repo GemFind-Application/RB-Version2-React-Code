@@ -35,7 +35,7 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl,dia
       let page="";
       console.log(diamondId);
       console.log(diamondtype)
-      if(diamondId!="" && diamondtype!=="" ){
+      if(diamondId!="" && diamondtype!=="" && diamondtype!==undefined&& diamondId!==undefined ){
         formData={
           password:password,
           diamondId:diamondId,
@@ -60,7 +60,7 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl,dia
         formDataVal.append(key,formData[key]);
       });
       //if(page==='setting') ? 
-      const res = await settingService.validateDealerPassword(formDataVal,page)
+      const res = await settingService.validateDealerPassword('auth_password='+password+'&settingId='+settingId+'&isLabSetting='+isLabSetting+'&shopurl='+shopurl,page)
       ;
       if(res.output.status===2){
         setErrorsFromRes(res.output.msg);

@@ -20,7 +20,7 @@ const SkeletonProductItem = () => (
   </div>
 );
 
-const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}) => {
+const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,className}) => {
   const [showVirtualTryOn, setShowVirtualTryOn] = useState(false);
   const [showVirtualTryOnUrl, setShowVirtualTryOnUrl] = useState('');
   const [filterData, setFilterData] = useState(null);
@@ -234,6 +234,7 @@ useEffect(()=>{
             confirmReset={confirmReset}       
             selectedDiamondShape={selectedDiamondShape}  
             configAppData={configAppData}
+            className={className}
           />
         ) : (
           <SkeletonFilterPanel />

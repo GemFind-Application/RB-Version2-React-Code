@@ -36,7 +36,8 @@ function App() {
   const [isStyleLoaded,setIsStyleLoaded] = useState(false);
   const [title,setTitle] =useState('Compare Diamonds');
   const action = useNavigationType();
- 
+  const [styleDataDynamic,setStyleDataDynamic] =useState({});
+  
   const pathname = location.pathname;
  
   const [shopUrl,setShopUrl]=useState(`${import.meta.env.VITE_SHOP_URL}`);
@@ -80,6 +81,20 @@ function App() {
         const res = await appService.getStyleData();  
         if(res[0]) {                
           setStyleData(res[0][0]);
+        
+          let styleDataObj = {
+            callToActionButton_color:res[0][0].callToActionButton[0].color2 && res[0][0].callToActionButton[0].color2!==""?res[0][0].callToActionButton[0].color2:res[0][0].callToActionButton[0].color1,
+            
+            link_color:res[0][0].linkColor[0].color2 && res[0][0].linkColor[0].color2!==""?res[0][0].linkColor[0].color2:res[0][0].linkColor[0].color1,
+         
+            
+            hoverEffect_color:res[0][0].hoverEffect[0].color2 && res[0][0].hoverEffect[0].color2!==""?res[0][0].hoverEffect[0].color2:res[0][0].hoverEffect[0].color1,
+            
+            columnHeaderAccent_color:res[0][0].columnHeaderAccent[0].color2 && res[0][0].columnHeaderAccent[0].color2!==""?res[0][0].columnHeaderAccent[0].color2:res[0][0].columnHeaderAccent[0].color1,
+            
+          }
+          console.log(styleDataObj)
+          setStyleDataDynamic(styleDataObj);
           setIsStyleLoaded(true);
         }       
       } catch (err) {        
@@ -115,7 +130,7 @@ function App() {
 
 
   //const MyContext = React.createContext(styleData);
-  console.log(isLabGrown)
+  
   useEffect(() => {
     let title = "";
     let metaDescription = "";
@@ -217,8 +232,8 @@ function App() {
     <div>
     {loading && isStyleLoaded &&
     <Routes>
-      <Route path="/" element={<Settings  configAppData={configAppData} shopUrl={shopUrl} settingNavigationData={settingNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown} />} />
-      <Route path="/settings" element={<Settings configAppData={configAppData}  shopUrl={shopUrl} settingNavigationData={settingNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown}/>} />      
+      <Route path="/" element={<Settings  className={styleDataDynamic} configAppData={configAppData} shopUrl={shopUrl} settingNavigationData={settingNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown} />} />
+      <Route path="/settings" element={<Settings className={styleDataDynamic} configAppData={configAppData}  shopUrl={shopUrl} settingNavigationData={settingNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown}/>} />      
       <Route path="/settings/view/path/:settingId"  element={<SettingDetails 
       setIsLabGrown={setIsLabGrown}
       configAppData={configAppData} shopUrl={shopUrl} 
@@ -227,7 +242,7 @@ function App() {
       settingNavigationData={settingNavigation}/>} />
       <Route path="/diamondtools/compare/" element={<Compare  isLabGrown={isLabGrown} configAppData={configAppData} removeCompareDiamondIds={removeCompareDiamondIds} compareDiamondsId={compareDiamondsId} />} />
       <Route path="/diamondtools" element={<Diamond additionOptionSetting={additionOptionSetting}  configAppData={configAppData} addCompareDiamondIds={addCompareDiamondIds} compareDiamondsId={compareDiamondsId} onCompareContainerClick={onCompareContainerClick}   isLabGrown={isLabGrown} setIsLabGrown={setIsLabGrown}/>} />
-      <Route path="/diamondtools/product/:diamondId" element={<DiamondPage isLabGrown={isLabGrown} shopUrl={shopUrl}  additionOptionSetting={additionOptionSetting} configAppData={configAppData} formSetting={additionOptionSetting} />} />   
+      <Route path="/diamondtools/product/:diamondId" element={<DiamondPage className={styleData} isLabGrown={isLabGrown} shopUrl={shopUrl}  additionOptionSetting={additionOptionSetting} configAppData={configAppData} formSetting={additionOptionSetting} />} />   
      
      
       <Route path="/diamondtools/diamondtype/navlabgrown" element={<Diamond additionOptionSetting={additionOptionSetting}  configAppData={configAppData} addCompareDiamondIds={addCompareDiamondIds} compareDiamondsId={compareDiamondsId} onCompareContainerClick={onCompareContainerClick}   isLabGrown={isLabGrown} setIsLabGrown={setIsLabGrown}/>} />   

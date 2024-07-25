@@ -1,9 +1,11 @@
 export default function  VideoModal  ({onClose,src})  {
 
   return (
-      <div className="video-popup-overlay"     >
-      <div className="video-popup-content">
-        <button className="close-button" onClick={onClose}>×</button>
+     
+
+
+<div className="video-popup-overlay" onClick={onClose}>
+        <div className="video-popup-content" onClick={(e) => e.stopPropagation()}>
         <iframe
             title={src}       
             height={'100%'}
@@ -11,7 +13,10 @@ export default function  VideoModal  ({onClose,src})  {
             allow={"autoplay"}       
             src={src}
         />
+          <button className="close--button" onClick={onClose}>Close</button>
+        </div>
       </div>
-      </div>
+
+
   )
 }

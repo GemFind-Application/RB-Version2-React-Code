@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback,useMemo } from 'react';
+import React, { useState, useEffect,useCallback,useMemo,useHover } from 'react';
 import PropTypes from 'prop-types';
 import { Search, ChevronDown, BookmarkMinus, RotateCcw, X } from 'lucide-react';
 import './SettingsFilterPanel.css';
@@ -23,7 +23,7 @@ const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive,sel
 );
 
 const SettingsFilterPanel = ({ 
-  className = "", 
+  className, 
   filterData, 
   isLabGrown, 
   setIsLabGrown, 
@@ -46,6 +46,10 @@ const SettingsFilterPanel = ({
   const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
   const [priceRange, setPriceRange] = useState(activeFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [activeFilters.price[0], activeFilters.price[1]]);
   const [availableFilter, setAvailableFilter] = useState([]); 
+  const hover11 = useHover({color: className.hoverEffect_color},{color:className.link_color},{background:className.columnHeaderAccent_color})
+  console.log(hover11)
+  const [hover, setHover] = useState(false);
+  const [hoverlab, setHoverLab] = useState(false);
   useEffect(() => {
    // setPriceRange(activeFilters.price || [0, 29678.00]);
     let filterAvailable = [];
@@ -76,6 +80,7 @@ const SettingsFilterPanel = ({
       price: [min, max]
     });
   };*/
+  console.log(className)
   const handlePriceChange = ({ min, max }) => {
     console.log(min)
     setPriceRange([min, max]);  
@@ -95,14 +100,35 @@ const SettingsFilterPanel = ({
     debounce(handleSetTimeRange, 500),
     [activeFilters],
   );
+  function useHover(styleOnHover, styleOnNotHover)
+{
+    const [style, setStyle] = React.useState(styleOnNotHover);
+console.log(styleOnHover)
+    const onMouseEnter = () => setStyle(styleOnHover)
+    const onMouseLeave = () => setStyle(styleOnNotHover)
+
+    return {style, onMouseEnter, onMouseLeave}
+}
+const myComponentStyle = {
+  background: className.columnHeaderAccent_color,
+  
+}
+const  style ={
+  normal:{
+    background: className.columnHeaderAccent_color,
+   
+  },
+  
+}
  // const debounced = React.useCallback(debounce(handlePriceChange, 1500), []);
   //console.log(settingNavigation)
+ 
   return (
     <div className={`SettingsFilterPanel ${className}`}>
       <div className="settingsfilter-wrapper">
         <div className="mined-lab-wrapper">
         {settingNavigation.navStandard && 
-          <div className={`mined-settings ${!isLabGrown ? 'active' : ''}`} 
+          <div  className={`mined-settings ${!isLabGrown ? 'active' : ''}` } 
               onClick={() => handleLabGrownToggle(false)}>
             <div 
               className={`mined2`}
@@ -115,8 +141,10 @@ const SettingsFilterPanel = ({
           </div>
            }
            {settingNavigation.navLabGrown && 
-          <div className={`lab-settings ${isLabGrown ? 'active' : ''}`} 
-              onClick={() => handleLabGrownToggle(true)}>
+          <div   className={`lab-settings ${isLabGrown ? 'active' : ''}`} 
+              onClick={() => handleLabGrownToggle(true)}  
+              
+              >
             <div 
               className={`lab-growned2`} 
             >
