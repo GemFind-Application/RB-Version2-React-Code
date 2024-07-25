@@ -4,17 +4,19 @@ import { Link } from "react-router-dom";
 import "./items.css";
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
 import DiamondDetailsPopup from './DiamondItemPopup';
-import VideoPopup from "./VideoPopup";
+import VideoModal from "./VideoModal";
 import { diamondService } from "../Services";
 import { utils } from "../Helpers";
 
 
-const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData}) => {
+const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData,additionOptionSetting}) => {
 const [showVideoPopup, setShowVideoPopup] = useState(false);
 const [videoUrl, setVideoUrl] = useState('');
 const [isDiamondPresentInCompare,setIsDiamondPresentInCompare] =useState()
 const [showDetailsPopup, setShowDetailsPopup] = useState(false);
 
+
+const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
 console.log(isDiamondPresentInCompare)
   const handleVideoIconClick = async() => {
     setShowVideoPopup(false)
@@ -73,15 +75,17 @@ console.log(isDiamondPresentInCompare)
         </div>
       </div>
       <div className="button29 btn__group">
-        <Link to={`/diamond-details/${utils.getDiamondViewUrl(diamond)}`} className="diamond_item--link">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>
+        <Link to={`/${diamondDetailUrl}/${utils.getDiamondViewUrl(diamond)}`} className="diamond_item--link">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>
       </div>
       {(showVideoPopup && videoUrl!="")  && (
-        <VideoPopup videoURL={videoUrl} onClose={() => setShowVideoPopup(false)} />
+        <VideoModal src={videoUrl} onClose={() => setShowVideoPopup(false)} />
       )}
 
       {showDetailsPopup && (
         <DiamondDetailsPopup 
           diamond={diamond} 
+          configAppData={configAppData}
+          additionOptionSetting={additionOptionSetting}
           onClose={() => setShowDetailsPopup(false)} 
         />
       )}

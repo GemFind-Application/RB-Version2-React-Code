@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback ,useEffect} from "react";
 import SettingDetails from "./setting-details";
 import PortalPopup from "./portal-popup";
 import DiamondDetails from "./diamond-details";
@@ -13,7 +13,7 @@ import ScheduleViewingPopup from "../components/ScheduleViewingPopup";
 import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
 import ShowTotalPrice from "./ShowTotalPrice";
-const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,configAppData,formSetting,additionOptionSetting }) => {
+const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ringSize,configAppData,formSetting,additionOptionSetting }) => {
   console.log(formSetting)
   const [isSettingDetailsOpen, setSettingDetailsOpen] = useState(false);
   const [isDiamondDetailsOpen, setDiamondDetailsOpen] = useState(false);
@@ -24,6 +24,8 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
   const [isScheduleViewingOpen, setIsScheduleViewingOpen] = useState(false);
   const [isEmailAFriendOpen, setIsEmailAFriendOpen] = useState(false);
   const [isRequestInfoOpen, setIsRequestInfoOpen] = useState(false);
+  const [ringUrl,setRingUrl]=useState('');
+  const [diamondUrl,setDiamondUrl] = useState('')
   const openSettingDetails = useCallback(() => {
     setSettingDetailsOpen(true);
   }, []);
@@ -71,7 +73,12 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
   const closeRequestInfo = useCallback(() => {
     setRequestInfoOpen(false);
   }, []);
-
+  useEffect(() => {
+    const selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));   
+    const selectedDiamond = JSON.parse(localStorage.getItem('selectedDiamond'));
+    setRingUrl(selectedRingSetting.ringUrl);
+    setDiamondUrl(selectedDiamond.diamondUrl)
+  }, []);
   return (
     <>
       <div className={`product-details1 ${className}`}>
@@ -273,8 +280,10 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
         >
         <DropHintPopup
             settingId={settingDetail.settingId}
-            ringurl={window.location.hostname + "/setting-details/" + settingDetail.settingId}
-            shopurl={''}
+            diamondId={diamondDetail.diamondId}
+            diamondurl={diamondUrl}
+            ringurl={ringUrl}
+            shopurl={shopUrl}
             isLabSetting={settingDetail.isLabSetting}
             onClose={() => setIsDropHintOpen(false)} />
         </PortalPopup>
@@ -287,8 +296,10 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
         >
          <ScheduleViewingPopup
             settingId={settingDetail.settingId}
-            ringurl={window.location.hostname + "/setting-details/" + settingDetail.settingId}
-            shopurl={''}
+            diamondId={diamondDetail.diamondId}
+            diamondurl={diamondUrl}
+            ringurl={ringUrl}
+            shopurl={shopUrl}
             isLabSetting={settingDetail.isLabSetting}
             onClose={() => setIsScheduleViewingOpen(false)}
             locations={settingDetail.addressList ? settingDetail.addressList.map(address => settingDetail.locationName) : []}
@@ -304,8 +315,10 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
            <RequestInfoPopup 
           onClose={() => setIsRequestInfoOpen(false)}
           settingId={settingDetail.settingId}
-          ringurl={window.location.hostname+"/setting-details/"+settingDetail.settingId}
-          shopurl={''}
+          diamondId={diamondDetail.diamondId}
+          diamondurl={diamondUrl}
+          ringurl={ringUrl}
+          shopurl={shopUrl}
           isLabSetting={settingDetail.isLabSetting}
           />
         </PortalPopup>
@@ -319,8 +332,10 @@ const ProductDetails = ({ className = "",settingDetail,diamondDetail ,ringSize,c
         >
          <EmailFriendPopup 
           settingId={settingDetail.settingId}
-          ringurl={window.location.hostname+"/setting-details/"+settingDetail.settingId}
-          shopurl={''}
+          diamondId={diamondDetail.diamondId}
+          diamondurl={diamondUrl}
+          ringurl={ringUrl}
+          shopurl={shopUrl}
           isLabSetting={settingDetail.isLabSetting}
           onClose={() => setIsEmailAFriendOpen(false)} />
         </PortalPopup>

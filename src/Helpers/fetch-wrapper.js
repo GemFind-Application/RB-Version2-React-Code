@@ -7,7 +7,8 @@ export const fetchWrapper = {
   post,
   put,
   postFile,
-  delete: _delete
+  delete: _delete,
+  postFormData
 };
 
 function get(url) {
@@ -58,7 +59,13 @@ function put(url, body) {
   };
   return fetch(url, requestOptions).then(handleResponse);
 }
-
+function postFormData(url, body) {
+  const requestOptions = {
+    method: 'POST',   
+    body: (body)
+  };
+  return fetch(url, requestOptions).then(handleResponse);
+}
 // prefixed with underscored because delete is a reserved word in javascript
 function _delete(url) {
   const requestOptions = {
@@ -79,7 +86,19 @@ function authHeader(url) {
 function handleResponse(response) {
   return response.text().then(text => {
     const data = text && JSON.parse(text);
-
+    if (!response.ok) {
+      let errorMessage = '';
+      if (data['error']) {
+        errorMessage = `Error: ${data['error']['message'] ||
+          data['error']['status'] ||
+          data['error']}`;
+      } else if (data['errors']) {
+        errorMessage = objToString(data['errors']);
+      } else {
+        errorMessage = (data && data.message) || response.statusText;
+      }
+      return Promise.reject(errorMessage);
+    }
    
 
     return data;

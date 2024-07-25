@@ -5,23 +5,28 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
   let formDataValue= {yourName: '',
     name: '',
     email: '',
-    friendsname: '',
-    friendsemail: '',
+    friend_name: '',
+    friend_email: '',
     message: '',
     isLabSetting: isLabSetting,   
     shopurl: shopurl}
     if(settingId && settingId!==""){
-      formDataValue.settingId = settingId;
+      formDataValue.settingid = settingId;
       formDataValue.ringurl=ringurl;
     }else{
       formDataValue.diamondid = diamondId;
       formDataValue.diamondtype = diamondtype;
       formDataValue.diamondurl = diamondurl;
     }
+    if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
+      formDataValue.diamondId=diamondId;
+      formDataValue.diamondurl = diamondurl;
+    }
   const [formData, setFormData] = useState(formDataValue);  
   const [errors, setErrors] = useState({});
   const [SendEmail, setSendEmail] = useState(false);
-
+  const [errorsFromRes, setErrorsFromRes] = useState('');
+  const [sendFriendMessage, setSendFriendMessage] = useState('');
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -45,14 +50,14 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
     }
 
     // Friends Name validation
-    if (!formData.friendsname.trim()) {
+    if (!formData.friend_name.trim()) {
       newErrors.friendsname = `Your Friend's Name is required`;
     }
 
     // Friends Email validation
-    if (!formData.friendsemail.trim()) {
+    if (!formData.friend_email.trim()) {
       newErrors.friendsemail = `Your Friend's Email is required`;
-    } else if (!/\S+@\S+\.\S+/.test(formData.friendsemail)) {
+    } else if (!/\S+@\S+\.\S+/.test(formData.friend_email)) {
       newErrors.friendsemail = 'Email is invalid';
     }
 
@@ -67,17 +72,29 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    //console.log(formData)
     if (validateForm()) {
       // Handle form submission here
-      let stringToPass = "";
+      let formDataVal = new FormData();
       Object.keys(formData).forEach(function (key) {
-        console.log(key)
-        stringToPass += key+"="+(formData[key])+"&";
-     });
-
-      console.log(stringToPass);
-      const res = await settingService.friendsEmail(stringToPass); 
-      setSendEmail(true);
+        formDataVal.append(key,formData[key]);
+      });
+      let sendRequest = 'settings';
+        if((!formData.settingid) && formData.diamondid && formData.diamondid!=""){
+          sendRequest='diamondtools'
+        }else{
+          sendRequest = 'settings'
+        }
+        let apiCall = (formData.settingid && formData.diamondId) ? "resultemailfriend_cr" : "resultemailfriend";
+        const res = await settingService.friendsEmail(formDataVal,sendRequest,apiCall); 
+      if(res.output.status===2){
+        setErrorsFromRes(res.output.msg);
+       }
+       if(res.output.status===1){
+        setSendFriendMessage(res.output.msg)
+        setSendEmail(true);
+       }
+      
       // onClose();
     }
   };
@@ -90,6 +107,11 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
       <>
         <h2>E-Mail A Friend</h2>
         <form onSubmit={handleSubmit}>
+        {errorsFromRes!="" &&
+          <div>
+            <p className='error'>{errorsFromRes}</p>
+          </div>
+          }
           <div className="flex basic_info">
             <input 
               type="text" 
@@ -111,16 +133,16 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
           <div className="flex basic_info">
             <input 
               type="text" 
-              name="friendsname" 
+              name="friend_name" 
               placeholder={errors.friendsname || "Your Friends Name"}
-              value={formData.friendsname}
+              value={formData.friend_name}
               onChange={handleInputChange} 
               className={errors.friendsname ? 'error' : ''}
             />
             <input 
               type="email" 
-              name="friendsemail" 
-              placeholder={errors.friendsemail || "Your Friends E-mail"}
+              name="friend_email" 
+              placeholder={errors.friend_email || "Your Friends E-mail"}
               value={formData.friendsemail}
               onChange={handleInputChange} 
               className={errors.friendsemail ? 'error' : ''}
@@ -146,7 +168,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
         ) : (
           <div className="success-message">
             <h2>Email sent!</h2>
-            <p>Blandit est volutpat sit sit purus sagittis risus in. Sed ut sagittis elementum at leo. In aliquet odio dui amet tincidunt suspendisse ut. Amet sed vitae pellentesque turpis egestas. Posuere molestie elementum neque quis posuere fusce diam augue.</p>
+            <p>{sendFriendMessage}</p>
           </div>
         )}
       </div>

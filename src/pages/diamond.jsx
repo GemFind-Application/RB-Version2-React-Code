@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../components/Header";
+import { Link, useNavigate, useParams,useLocation } from "react-router-dom";
 import DiamondNavigation from "../components/diamond-navigation";
 import DiamondFilter from "../components/diamond-filter";
 import Items from "../components/items";
@@ -18,7 +19,7 @@ const SkeletonProductItem = () => (
     <div className="skeleton-price"></div>
   </div>
 );
-const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamondsId,addCompareDiamondIds,configAppData}) => {
+const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamondsId,addCompareDiamondIds,configAppData,additionOptionSetting}) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
@@ -42,6 +43,9 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
   const [doReset,setDoReset] = useState(false);
   const [orderDirection,setOrderDirection] = useState('ASC');
   const [selectedCaratRange,setSelectedCaratRange] = useState([]);
+  const [currentLabGrown,setCurrentLabGrown] = useState(isLabGrown);
+  const location = useLocation();
+  console.log("====="+isLabGrown)
   /*if(isLabGrown===true){
      storedData = JSON.parse(localStorage.getItem('saveDiamondFiltersLab')); 
      advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFiltersLab')); 
@@ -97,8 +101,9 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
 
 
   useEffect(() => {   
-
-  },[isLabGrown])
+    
+   
+  },[])
 
 
 
@@ -267,7 +272,7 @@ let  selectedcarat = selectedFilters.carat;
                 table:advancedFilters.table.length > 0 ? [advancedFilters.table[0],advancedFilters.table[1]]:[],
                 depth:advancedFilters.depth.length > 0?[advancedFilters.depth[0],advancedFilters.depth[1]]:[],
               }      
-             // console.log(option)  
+              console.log(option)  
               const res = await diamondService.getAllDiamond(option);
               if(res.diamondList ) {
                 
@@ -443,7 +448,8 @@ let  selectedcarat = selectedFilters.carat;
       {
         diamond.map(product => (
           <Items   
-           configAppData={configAppData}
+            configAppData={configAppData}
+            additionOptionSetting={additionOptionSetting}
             key={product.diamondId}
             addCompareDiamondIds={addCompareDiamondIds}
             diamond={{

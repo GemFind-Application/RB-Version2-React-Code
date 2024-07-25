@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import "./dealer-info.css";
 import { settingService } from '../Services';
-const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl }) => {
+const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl,diamondId,diamondtype }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorsFromRes, setErrorsFromRes] = useState('');
+  const [dealerInfoAuthMessage, setDealerInfoAuthMessage] = useState('');
   //const [settingId, setSettingId] = useState(settingId);
   //const [isLabSetting, setIsLabSetting] = useState(isLabSetting);
   //const [shopurl, setShopurl] = useState(shopurl);
@@ -15,6 +17,7 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl }) 
   };
 
   const handleSubmit = async() => {
+   
     if (!password.trim()) {
       setError('Password is required');
       return;
@@ -28,11 +31,48 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl }) 
     // If password is valid, clear error and show details
     setError('');
     try {
-      const res = await settingService.validateDealerPassword('auth_password'+password+'&settingId='+settingId+'&isLabSetting='+isLabSetting+'&shopurl='+shopurl);
+      let formData={};
+      let page="";
+      console.log(diamondId);
+      console.log(diamondtype)
+      if(diamondId!="" && diamondtype!=="" ){
+        formData={
+          password:password,
+          diamondId:diamondId,
+          diamondtype:diamondtype,
+          shopurl:shopurl
+        }
+         
+        page="diamond";
+      }else{
+         
+        formData={
+          password:password,
+          settingId:settingId,
+          isLabSetting:isLabSetting,
+          shopurl:shopurl
+        }
+        page="setting";
+      }
+    
+      let formDataVal = new FormData();
+      Object.keys(formData).forEach(function (key) {
+        formDataVal.append(key,formData[key]);
+      });
+      //if(page==='setting') ? 
+      const res = await settingService.validateDealerPassword(formDataVal,page)
+      ;
+      if(res.output.status===2){
+        setErrorsFromRes(res.output.msg);
+       }
+       if(res.output.status===1){
+        setDealerInfoAuthMessage(res.output.msg)
+        setIsSuccess(true);
+       }
       //setHintDropped(true);
       //setIsSuccess(true);
     } catch (error) {
-      console.error('Error dropping hint:', error);
+      console.error('Error Dealer Info:', error);
       // show err msgs to user
     }
   
@@ -43,7 +83,11 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl }) 
     <div className={`dealer-info ${className}`}>
       <section className="content3">
         <div className="top3">
+       
           <div className="h11">
+          {errorsFromRes!="" &&              
+          <div className='enter-your-password errorText'>{errorsFromRes}</div>              
+        }
             <h3 className="dealer-info1">Dealer Info</h3>
             <div className="enter-your-password">
               Enter your password to continue

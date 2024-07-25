@@ -26,7 +26,7 @@ import Footer from "../components/Footer"
 import { settingService } from '../Services';
 import VideoModal from "../components/VideoModal";
 import { utils } from "../Helpers";
-const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData}) => {
+const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData,setIsLabGrown}) => {
  
   const { settingId } = useParams();
   const navigate = useNavigate();
@@ -61,8 +61,8 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   const [uniqueDiamondShape, setUniqueDiamondShape] = useState([]);
   const [isDiamondSelectedFirst,setIsDiamondSelectedFirst] = useState(false);
   const [notFitMessage, setNotFitMessage] = useState([]);
-  
- // console.log(settingNavigationData)
+  const settingUrl = `${import.meta.env.VITE_SETTINGS_DETAIL_PAGE}`;
+  // /console.log()
   //const [selectedRingSize,setSelectedRingSize]= useState('');
   useEffect(() => {
     let selecteddiamond = JSON.parse(localStorage.getItem('selectedDiamond'));
@@ -82,7 +82,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         if(selectedParam!=""){
         let url =  utils.getUrl(res.metalType,res.settingName,settingId,'details')
           //setViewUrlSetting(url)
-         navigate("/setting-details/"+url);
+         navigate('/'+settingUrl+'/'+url);
         }       
         setProduct(res);
         setConfigurableProduct(res.configurableProduct);       
@@ -208,14 +208,16 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
     if(selectedRingSize===""){
       setshowAlertPopUp(true)
     }else{
-      localStorage.setItem('selectedRing', JSON.stringify({settingId:settingIdToShow,ringSize:selectedRingSize}));
+      localStorage.setItem('selectedRing', JSON.stringify({settingId:settingIdToShow,ringSize:selectedRingSize,ringUrl:window.location.href}));
       const selectedDiamond = JSON.parse(localStorage.getItem('selectedDiamond'));
       if(selectedDiamond && selectedDiamond.diamondId){
         navigate("/diamondtools/completering/");
       }else{
         if(selectedDiamondType!='Mined'){
-         // $navigate = '/diamondtools/diamondtype/navlabgrown'; 
+          setIsLabGrown(true)
+          navigate('/diamondtools/diamondtype/navlabgrown'); 
         }else{
+          setIsLabGrown(false)
           navigate('/diamondtools'); 
         }
       }
@@ -569,6 +571,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                   </div>
                   <Stats
                     formSetting={formSetting}
+                    configAppData={configAppData}
                     emailAFriend={() => setIsEmailAFriendOpen(true)}
                     openDropHint={() => setIsDropHintOpen(true)}
                     openScheduleViewing={() => setIsScheduleViewingOpen(true)}
@@ -596,7 +599,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         >
           <DealerInfo 
             settingId={product.settingId}
-            ringurl={window.location.hostname+"/setting-details/"+settingId}
+            ringurl={window.location.hostname + location.pathname}
             shopurl={'gemfind-product-demo-10.myshopify.com'}
             isLabSetting={product.isLabSetting}
             onClose={() => setIsDealerInfoOpen(false)} />
@@ -625,7 +628,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         >
           <DropHintPopup
             settingId={product.settingId}
-            ringurl={window.location.hostname + "/setting-details/" + settingId}
+            ringurl={window.location.hostname + location.pathname}
             shopurl={shopUrl}
             isLabSetting={product.isLabSetting}
             onClose={() => setIsDropHintOpen(false)} />
@@ -638,7 +641,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         >
           <ScheduleViewingPopup
             settingId={product.settingId}
-            ringurl={window.location.hostname + "/setting-details/" + settingId}
+            ringurl={window.location.hostname + location.pathname}
             shopurl={shopUrl}
             isLabSetting={product.isLabSetting}
             onClose={() => setIsScheduleViewingOpen(false)}
@@ -654,7 +657,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         <RequestInfoPopup 
           onClose={() => setIsRequestInfoOpen(false)}
           settingId={product.settingId}
-          ringurl={window.location.hostname+"/setting-details/"+settingId}
+          ringurl={window.location.hostname + location.pathname}
           shopurl={shopUrl}
           isLabSetting={product.isLabSetting}
           />
@@ -667,7 +670,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         >
           <EmailFriendPopup 
           settingId={product.settingId}
-          ringurl={window.location.hostname+"/setting-details/"+settingId}
+          ringurl={window.location.hostname + location.pathname}
           shopurl={shopUrl}
           isLabSetting={product.isLabSetting}
           onClose={() => setIsEmailAFriendOpen(false)} />

@@ -466,6 +466,7 @@ console.log
                         onChange={handleDepthChange}
                         value={depthRange}
                         isPrice={false}
+                        showPercent={true}
                       />
                   </div>
 
@@ -477,6 +478,7 @@ console.log
                         onChange={handleTableChange}
                         value={tableRange}
                         isPrice={false}
+                        showPercent={true}
                       />
                   </div>
                 </div>
@@ -520,8 +522,8 @@ console.log
                     {filterData.certificateRange.map(certificate => (
                       <div className="dropdown-btns" key={certificate.certificateId}>
                         <button
-                          className={`option--btn ${advancedFilters.certificates.includes(certificate.certificateId) ? 'active--item' : ''}`}
-                          onClick={() => handleAdvancedFilterChange('certificates', certificate.certificateId)}
+                          className={`option--btn ${advancedFilters.certificates.includes(certificate.certificateName) ? 'active--item' : ''}`}
+                          onClick={() => handleAdvancedFilterChange('certificates', certificate.certificateName)}
                         >
                           {certificate.certificateName}
                         </button>

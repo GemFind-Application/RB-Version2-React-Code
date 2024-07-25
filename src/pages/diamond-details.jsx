@@ -17,7 +17,8 @@ import DropHintPopup from "../components/DropHintPopup";
 import ScheduleViewingPopup from "../components/ScheduleViewingPopup";
 import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
-const DiamondPage = ({formSetting,configAppData,additionOptionSetting}) => {
+const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,isLabGrown}) => {
+ // console.log(isLabGrown)
   const { diamondId } = useParams();
   const [diamondDetail, setDiamondDetail] = useState({});
   const [isDiamondDetailLoaded, setIsAllDiamondDetailsLoaded] = useState(false);
@@ -29,10 +30,11 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting}) => {
   const [isEmailAFriendOpen, setIsEmailAFriendOpen] = useState(false);
   const [isRequestInfoOpen, setIsRequestInfoOpen] = useState(false);
   const [diamondIdToShow, setDiamondIdToShow] = useState(diamondId.substring(diamondId.lastIndexOf("-")+1));
+  const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
   const navigate = useNavigate();
-  const fetchProductDetails = async (diamondId) => {
+  const fetchProductDetails = async (diamondId,isLabGrown) => {
     try {
-      const res = await diamondService.getDiamondDetail(diamondId); 
+      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown); 
       if(res) {
         setDiamondDetail(res);  
         //checkFileExists(res.videoFileName);
@@ -43,7 +45,7 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting}) => {
     }
   };
   useEffect(() => {
-    fetchProductDetails(diamondIdToShow);
+    fetchProductDetails(diamondIdToShow,isLabGrown);
   }, [diamondId]);
   useEffect(() => {
     let selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));
@@ -89,33 +91,31 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting}) => {
      let caratWeight = diamondDetail.caratWeight;
      let convertStringToArray = JSON.parse(configAppData.settings_carat_ranges);
      let appConfigWeight =  convertStringToArray[caratWeight];
-     localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight}));
+     localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,diamondUrl:window.location.href}));
     }else{
      
       let appConfigWeight =  (Number(diamondDetail.caratWeight) - 0.1).toFixed(2)+"-"+ (Number(diamondDetail.caratWeight)+0.1).toFixed(2);
       console.log(appConfigWeight)
-      localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight}));
+      localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,diamondUrl:window.location.href}));
     }
    // localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow}));
     navigate("/diamondtools/completering");
   };
-  const selectSetting = (diamondDetail) => {
-  
-    console.log("asd")
+  const selectSetting = (diamondDetail) => { 
     if(configAppData.settings_carat_ranges){
       let caratWeight = diamondDetail.caratWeight;
       let appConfigWeight =  configAppData.settings_carat_ranges[caratWeight];
-      localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,caratWeight:caratWeight}));
+      localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,caratWeight:caratWeight,diamondUrl:window.location.href}));
      }else{
       let caratWeight = diamondDetail.caratWeight;
        let appConfigWeight =  (Number(diamondDetail.caratWeight) - 0.1).toFixed(2)+"-"+ (Number(diamondDetail.caratWeight)+0.1).toFixed(2);
        console.log(appConfigWeight)
-       localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,caratWeight:caratWeight}));
+       localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,caratWeight:caratWeight,diamondUrl:window.location.href}));
      }
     navigate("/settings");
   }
-  const addToCart = (diamondDetail) => {
-
+  const addToCart = async(diamondDetail) => {
+      const res = await diamondService.addTocart(diamondDetail.diamondId);
   }
 
   
@@ -210,8 +210,8 @@ console.log(images)
                   <div className="specs-content">
                     <div className="specs-details">
                       <div className="id-383212322">{ additionOptionSetting.show_In_House_Diamonds_First ?
-                       "Stock Number"+diamondDetail.stockNumber:
-                        "SKU#:"+ diamondDetail.diamondId}</div>
+                       "Stock Number: "+diamondDetail.stockNumber:
+                        "SKU#: "+diamondDetail.diamondId}</div>
                       <h1 className="princess-1001-carath">
                       {diamondDetail.shape} {' '}{diamondDetail.caratWeight} CARATH
                       </h1>
@@ -360,7 +360,10 @@ console.log(images)
           placement="Centered"
           onOutsideClick={closeDealerInfo}
         >
-          <DealerInfo onClose={closeDealerInfo} />
+          <DealerInfo onClose={closeDealerInfo}          
+          shopurl={shopUrl}
+          diamondId={diamondDetail.diamondId}
+          diamondtype={diamondDetail.isLabCreated===true?'labcreated':''} />
         </PortalPopup>
       )}
       {isDiamondDetailsOpen && (
@@ -384,9 +387,9 @@ console.log(images)
         >
         <DropHintPopup
             diamondId={diamondDetail.diamondId}
-            diamondurl={window.location.hostname + "/diamond-details/" + location.pathname}
-            shopurl={''}
-            diamondtype={diamondDetail.isLabCreated}
+            diamondurl={window.location.hostname +location.pathname}
+            shopurl={shopUrl}
+            diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
             onClose={() => setIsDropHintOpen(false)} />
         </PortalPopup>
       )}
@@ -397,12 +400,12 @@ console.log(images)
           onOutsideClick={closeSchedule}
         >
          <ScheduleViewingPopup
-              diamondId={diamondDetail.diamondId}
-              diamondurl={window.location.hostname + "/diamond-details/" + location.pathname}
-            shopurl={''}
-            diamondtype={diamondDetail.isLabCreated}
+            diamondId={diamondDetail.diamondId}
+            diamondurl={window.location.hostname + "/"+diamondDetailUrl + ""+ location.pathname}
+            shopurl={shopUrl}
+            diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
             onClose={() => setIsScheduleViewingOpen(false)}
-            locations={diamondDetail.addressList ? diamondDetail.addressList.map(address => diamondDetail.locationName) : []}
+            locations={diamondDetail.retailerInfo ? diamondDetail.retailerInfo.addressList.map(address => address.locationName) : []}
           />
         </PortalPopup>
       )}
@@ -415,9 +418,9 @@ console.log(images)
            <RequestInfoPopup 
           onClose={() => setIsRequestInfoOpen(false)}
           diamondId={diamondDetail.diamondId}
-          diamondurl={window.location.hostname + "/diamond-details/" + location.pathname}
-          shopurl={''}
-          diamondtype={diamondDetail.isLabCreated}
+          diamondurl={window.location.hostname + "/"+ diamondDetailUrl + location.pathname}
+          shopurl={shopUrl}
+          diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
           />
         </PortalPopup>
        
@@ -430,9 +433,9 @@ console.log(images)
         >
          <EmailFriendPopup 
           diamondId={diamondDetail.diamondId}
-          diamondurl={window.location.hostname + "/diamond-details/" + location.pathname}
-          shopurl={''}
-          diamondtype={diamondDetail.isLabCreated}
+          diamondurl={window.location.hostname + "/"+diamondDetailUrl + location.pathname}
+          shopurl={shopUrl}
+          diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
           onClose={() => setIsEmailAFriendOpen(false)} />
         </PortalPopup>
       )}

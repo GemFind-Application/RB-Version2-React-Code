@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './MultiRangeSlider.css';
 import { utils } from "../Helpers";
-const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true}) => {
+const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent}) => {
 
   const [minVal, setMinVal] = useState(parseFloat(value[0]));
   const [maxVal, setMaxVal] = useState(parseFloat(value[1]));
@@ -12,8 +12,7 @@ const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true}) => {
   const minValRef = useRef(null);
   const maxValRef = useRef(null);
   const range = useRef(null);
-console.log(min);
-console.log(max);
+
   const getPercent = useCallback(
     (value) => Math.round(((value - minD) / (maxD - minD)) * 100),
     [minD, maxD]
@@ -23,8 +22,12 @@ console.log(max);
     if (minValRef.current) {
       const minPercent = getPercent(minVal);
       const maxPercent = getPercent(maxVal);
-
+console.log(minPercent)
+console.log(maxPercent)
+console.log(range.current.id)
       if (range.current) {
+        console.log(maxPercent)
+
         range.current.style.left = `${minPercent}%`;
         range.current.style.width = `${maxPercent - minPercent}%`;
       }
@@ -66,6 +69,7 @@ console.log(max);
         className={classnames('thumb thumb--zindex-3', {
           'thumb--zindex-5': minVal > max - 100,
         })}
+        id='rangestart'
       />
       <input
         type="range"
@@ -75,13 +79,14 @@ console.log(max);
         ref={maxValRef}
         onChange={handleMaxChange}
         className="thumb thumb--zindex-4"
+        id="rangeend"
       />
 
       <div className="slider">
         <div className="slider__track"></div>
         <div ref={range} className="slider__range"></div>
-        <div className="slider__left-value">{isPrice ? '$'+  utils.numberWithCommas(minVal):minVal}</div>
-        <div className="slider__right-value">{isPrice ? '$'+  utils.numberWithCommas(maxVal):maxVal}</div>
+        <div className="slider__left-value">{isPrice ? '$'+  utils.numberWithCommas(minVal):showPercent ?minVal+"%":minVal}</div>
+        <div className="slider__right-value">{isPrice ? '$'+  utils.numberWithCommas(maxVal):showPercent ?maxVal+"%":maxVal}</div>
       </div>
     </div>
   );

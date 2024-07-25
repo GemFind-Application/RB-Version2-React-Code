@@ -3,25 +3,31 @@ import "./requestinfo.css";
 import { settingService } from '../Services';
 const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,diamondId,diamondtype,diamondurl}) => {
   let formDataValue= {
-    yourName: '',
     name: '',
     email: '',
-    phoneNumber: '',
-    message: '',
-    preference: '',   
+    phone: '',
+    hint_message: '',
+    contact_pref: '',   
     isLabSetting:isLabSetting,   
     shopurl:shopurl}
     if(settingId&&settingId!==""){
-      formDataValue.settingId = settingId;
+      formDataValue.settingid = settingId;
       formDataValue.ringurl=ringurl;
     }else{
       formDataValue.diamondid = diamondId;
       formDataValue.diamondtype = diamondtype;
       formDataValue.diamondurl = diamondurl;
   }
-    
+  if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
+    formDataValue.completering='completering';
+  //  formDataValue.diamondid = diamondId;
+    formDataValue.diamondId=diamondId;
+   // formDataValue.diamondtype = diamondtype;
+    formDataValue.diamondurl = diamondurl;
+  }
   const [formData, setFormData] = useState(formDataValue);
-
+  const [errorsFromRes, setErrorsFromRes] = useState('');
+  const [requestInfoMessage, setRequestInfoMessage] = useState('');
   const [errors, setErrors] = useState({});
   const [requestSend, setRequestSend] = useState(false)
 
@@ -50,19 +56,19 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
     }
 
     // Phone number validation
-    if (!formData.phoneNumber.trim()) {
+    if (!formData.phone.trim()) {
       newErrors.phoneNumber = 'Phone number is required';
-    } else if (!/^\d{10}$/.test(formData.phoneNumber.replace(/\D/g, ''))) {
+    } else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
       newErrors.phoneNumber = 'Phone number is invalid';
     }
 
     // Message validation
-    if (!formData.message.trim()) {
+    if (!formData.hint_message.trim()) {
       newErrors.message = 'Message is required';
     }
 
     // Preference validation
-    if (!formData.preference) {
+    if (!formData.contact_pref) {
       newErrors.preference = 'Please select a contact preference';
     }
 
@@ -72,16 +78,28 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+   
     if (validateForm()) {
-      console.log(JSON.stringify(formData));
-      let stringToPass = "";
+      let formDataVal = new FormData();
       Object.keys(formData).forEach(function (key) {
-       console.log(key)
-       stringToPass += key+"="+(formData[key])+"&";
-    });
-      console.log(stringToPass)
-      const res = await settingService.requestMoreInfo(stringToPass);
-      setRequestSend(true); 
+        formDataVal.append(key,formData[key]);
+      });
+      let sendRequest = 'settings';
+      if((!formData.settingid) && formData.diamondid && formData.diamondid!=""){
+        sendRequest='diamondtools'
+      }else{
+        sendRequest = 'settings'
+      }
+     // let apiCall = (formData.settingid && formData.diamondId) ? "resultreqinfo_cr" : "resultreqinfo";
+      const res = await settingService.requestMoreInfo(formDataVal);
+      if(res.output.status===2){
+        setErrorsFromRes(res.output.msg);
+       }
+       if(res.output.status===1){
+        setRequestInfoMessage(res.output.msg)
+        setRequestSend(true);
+       }
+      //setRequestSend(true); 
       // onClose();
     }
   };
@@ -95,6 +113,9 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
         <>
         <h2>Request More Information</h2>
         <p>Our specialists will contact you.</p>
+        {errorsFromRes!="" &&              
+          <p className='error'>{errorsFromRes}</p>              
+        }
         <form onSubmit={handleSubmit}>
           <div className="flex basic_info">
             <input 
@@ -117,18 +138,18 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
           <div className="flex phone_info">
             <input 
               type="tel" 
-              name="phoneNumber" 
+              name="phone" 
               placeholder={errors.phoneNumber || "Your Phone Number"}
-              value={formData.phoneNumber}
+              value={formData.phone}
               onChange={handleInputChange} 
               className={errors.phoneNumber ? 'error' : ''}
             />
           </div>
           <div className="flex message_info">
             <textarea 
-              name="message" 
+              name="hint_message" 
               placeholder={errors.message || "Your Message"}
-              value={formData.message}
+              value={formData.hint_message}
               onChange={handleInputChange} 
               className={errors.message ? 'error' : ''}
             ></textarea>
@@ -143,8 +164,8 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
                       id="preference-phone" 
                       value="By Phone" 
                       type="radio" 
-                      name="preference" 
-                      checked={formData.preference === "By Phone"}
+                      name="contact_pref" 
+                      checked={formData.contact_pref === "By Phone"}
                       onChange={handleInputChange} 
                     />
                     <label htmlFor="preference-phone">By Phone</label>
@@ -154,8 +175,8 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
                       id="preference-email" 
                       value="By Email" 
                       type="radio" 
-                      name="preference" 
-                      checked={formData.preference === "By Email"}
+                      name="contact_pref" 
+                      checked={formData.contact_pref === "By Email"}
                       onChange={handleInputChange} 
                     />
                     <label htmlFor="preference-email">By Email</label>
@@ -171,7 +192,7 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
         ) : (
           <div className="success-message">
             <h2>Request Sent!!</h2>
-            <p>Blandit est volutpat sit sit purus sagittis risus in. Sed ut sagittis elementum at leo. In aliquet odio dui amet tincidunt suspendisse ut. Amet sed vitae pellentesque turpis egestas. Posuere molestie elementum neque quis posuere fusce diam augue.</p>
+            <p>{requestInfoMessage}</p>
           </div>
         )}
       </div>

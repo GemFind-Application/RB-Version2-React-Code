@@ -40,6 +40,7 @@ const SettingsFilterPanel = ({
   searchSetting  ,
   confirmReset,
   selectedDiamondShape
+  ,configAppData
 }) => {
   const [openFilter, setOpenFilter] = useState(null);
   const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
@@ -108,7 +109,9 @@ const SettingsFilterPanel = ({
             >
               {settingNavigation.navStandard}
             </div>
+            {configAppData.show_filter_info ===true &&
             <div className="separator"><b className="i22">i</b></div>
+            }
           </div>
            }
            {settingNavigation.navLabGrown && 
@@ -119,7 +122,8 @@ const SettingsFilterPanel = ({
             >
              {settingNavigation.navLabGrown}
             </div>
-            <div className="separator"><b className="i22">i</b></div>
+            {configAppData.show_filter_info ===true &&
+            <div className="separator"><b className="i22">i</b></div>}
           </div>
           }
         </div>

@@ -3,24 +3,38 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import "./ScheduleViewingPopup.css";
 import { settingService } from '../Services';
-
+const ExampleCustomTimeInput = ({ date, value, onChange }) => (
+  <input
+    value={value}
+    onChange={(e) => onChange(e.target.value)}
+    style={{ border: "solid 1px pink" }}
+  />
+);
 const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl ,diamondId,diamondtype,diamondurl}) => {
   let formDataValue= {
     name: '',
     email: '',
-    phoneNumber: '',
-    message: '',
-    preference: null,
+    phone: '',
+    hint_message: '',
+    avail_date: null,
     location: '',
+    appnt_time:null,
     isLabSetting: isLabSetting,   
     shopurl: shopurl
   }
   if(settingId&&settingId!==""){
-    formDataValue.settingId = settingId;
+    formDataValue.settingid = settingId;
     formDataValue.ringurl=ringurl;
   }else{
     formDataValue.diamondid = diamondId;
     formDataValue.diamondtype = diamondtype;
+    formDataValue.diamondurl = diamondurl;
+  }
+  if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
+    formDataValue.completering='completering';
+  //  formDataValue.diamondid = diamondId;
+    formDataValue.diamondId=diamondId;
+   // formDataValue.diamondtype = diamondtype;
     formDataValue.diamondurl = diamondurl;
   }
   const [formData, setFormData] = useState(formDataValue);
@@ -28,7 +42,8 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
 
   const [errors, setErrors] = useState({});
   const [ScheduleViewing, setScheduleViewing] = useState(false);
-
+  const [scheduleViewingMessage,setScheduleViewingMessage]= useState('');
+  const [errorsFromRes, setErrorsFromRes] = useState('');
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -38,7 +53,9 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
   };
 
   const handleDateChange = (date) => {
-    setFormData({ ...formData, preference: date });
+    console.log(date)
+    setFormData({ ...formData, avail_date: date ,appnt_time: date.toLocaleTimeString()});   
+   // setFormData({ ...formData, appnt_time: date.toLocaleTimeString() });
     if (errors.preference) {
       setErrors({ ...errors, preference: '' });
     }
@@ -50,10 +67,10 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
     if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
-    if (!formData.phoneNumber.trim()) newErrors.phoneNumber = 'Phone number is required';
-    else if (!/^\d{10}$/.test(formData.phoneNumber.replace(/\D/g, ''))) newErrors.phoneNumber = 'Phone number is invalid';
-    if (!formData.message.trim()) newErrors.message = 'Message is required';
-    if (!formData.preference) newErrors.preference = 'Please select a date';
+    if (!formData.phone.trim()) newErrors.phoneNumber = 'Phone number is required';
+    else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) newErrors.phoneNumber = 'Phone number is invalid';
+    if (!formData.hint_message.trim()) newErrors.message = 'Message is required';
+    if (!formData.avail_date) newErrors.preference = 'Please select a date';
     if (!formData.location) newErrors.location = 'Please select a location';
 
     setErrors(newErrors);
@@ -61,16 +78,32 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      let stringToPass = "";
-      Object.keys(formData).forEach(function (key) {
-        stringToPass += key + "=" + (formData[key] instanceof Date ? formData[key].toISOString() : formData[key]) + "&";
-      });
 
-      console.log(formData);
-      const res = await settingService.scheduleViewing(stringToPass); 
-      setScheduleViewing(true);
+    e.preventDefault();
+    
+    if (validateForm()) {
+      let formDataVal = new FormData();
+      Object.keys(formData).forEach(function (key) {
+        formDataVal.append(key,formData[key]);
+      });
+      
+      let sendRequest = 'settings';
+        if((!formData.settingid) && formData.diamondid && formData.diamondid!=""){
+          sendRequest='diamondtools'
+        }else{
+          sendRequest = 'settings'
+        }
+        console.log(formData)
+        let apiCall = (formData.settingid && formData.diamondId) ? "resultscheview_cr" : "resultscheview";
+        const res = await settingService.scheduleViewing(formDataVal,sendRequest,apiCall); 
+      if(res.output.status===2){
+        setErrorsFromRes(res.output.msg);
+       }
+       if(res.output.status===1){
+        setScheduleViewingMessage(res.output.msg)
+        setScheduleViewing(true);
+       }
+      //setScheduleViewing(true);
       // onClose();
     }
   };
@@ -83,6 +116,9 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
         <>
         <h2>Schedule Viewing</h2> 
         <p>See This Item & More In Our Store.</p>
+        {errorsFromRes!="" &&            
+          <p className='error'>{errorsFromRes}</p>            
+        }
         <form onSubmit={handleSubmit}>
           <div className="flex basic_info">
             <input 
@@ -105,18 +141,18 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
           <div className="flex phone_info">
             <input 
               type="tel" 
-              name="phoneNumber" 
+              name="phone" 
               placeholder={errors.phoneNumber || "Your Phone Number"}
-              value={formData.phoneNumber}
+              value={formData.phone}
               onChange={handleInputChange} 
-              className={errors.phoneNumber ? 'error' : ''}
+              className={errors.phone ? 'error' : ''}
             />
           </div>
           <div className="flex message_info">
             <textarea 
-              name="message" 
+              name="hint_message" 
               placeholder={errors.message || "Your Message"}
-              value={formData.message}
+              value={formData.hint_message}
               onChange={handleInputChange} 
               className={errors.message ? 'error' : ''}
             ></textarea>
@@ -147,12 +183,14 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
                 <div className="preferences">
                   <div className="preference_val">
                     <DatePicker 
-                      selected={formData.preference}
+                      selected={formData.avail_date}
                       onChange={handleDateChange}
-                      placeholderText="00.00.0000"
+                      placeholderText="00.00.0000 00:00"
                       className={errors.preference ? 'error' : ''}
-                      dateFormat="dd.MM.yyyy"
+                      dateFormat="MM/dd/yyyy h:mm aa"
                       minDate={new Date()}
+                      showTimeSelect
+                     
                     />
                   </div>
                 </div>
@@ -167,7 +205,7 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
         ) : (
           <div className="success-message">
             <h2>Scheduled View!</h2>
-            <p>Blandit est volutpat sit sit purus sagittis risus in. Sed ut sagittis elementum at leo. In aliquet odio dui amet tincidunt suspendisse ut. Amet sed vitae pellentesque turpis egestas. Posuere molestie elementum neque quis posuere fusce diam augue.</p>
+            <p> <p>{scheduleViewingMessage}</p></p>
           </div>
         )}
       </div>

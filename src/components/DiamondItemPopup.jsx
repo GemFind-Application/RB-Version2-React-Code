@@ -1,7 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import ShowCostInCardDiamond from './showCostInCardDiamond';
 
-const DiamondDetailsPopup = ({ diamond, onClose }) => {
+const DiamondDetailsPopup = ({ diamond, onClose,additionOptionSetting ,configAppData}) => {
   const popupRef = useRef(null);
 
   useEffect(() => {
@@ -21,18 +22,21 @@ const DiamondDetailsPopup = ({ diamond, onClose }) => {
       <div className="popup-content">
         <DetailRow label="Diamond ID:" value={diamond.diamondId} />
         <DetailRow label="Shape:" value={diamond.shape} />
-        <DetailRow label="Carat:" value={diamond.carat} />
-        <DetailRow label="Color:" value={diamond.color} />
+        {additionOptionSetting.show_In_House_Diamonds_Column_with_SKU && 
+          <DetailRow label="In House:" value={diamond.inhouse?diamond.inhouse:'-'} />
+        }      
+        <DetailRow label="Carat:" value={diamond.carat?diamond.carat:'-'} />
+        <DetailRow label="Color:" value={diamond.color?diamond.color:'-'} />
         <DetailRow label="Intensity:" value={diamond.intensity || '-'} />
-        <DetailRow label="Clarity:" value={diamond.clarity} />
-        <DetailRow label="Cut:" value={diamond.cut} />
-        <DetailRow label="Depth:" value={diamond.depth} />
-        <DetailRow label="Table:" value={`${diamond.table}%`} />
-        <DetailRow label="Polish:" value={diamond.polish} />
-        <DetailRow label="Symmetry:" value={diamond.symmetry} />
-        <DetailRow label="Measurement:" value={diamond.measurement} />
-        <DetailRow label="Certificate:" value={diamond.certificate} />
-        <DetailRow label="Price:" value={`$${diamond.price.toLocaleString()}`} />
+        <DetailRow label="Clarity:" value={diamond.clarity?diamond.clarity:'-'} />
+        <DetailRow label="Cut:" value={diamond.cut?diamond.cut:'-'} />
+        <DetailRow label="Depth:" value={diamond.depth?diamond.depth+'%':'-'} />
+        <DetailRow label="Table:" value={diamond.table? `${diamond.table}%`:'-'} />
+        <DetailRow label="Polish:" value={diamond.polish?diamond.polish:'-'} />
+        <DetailRow label="Symmetry:" value={diamond.symmetry?diamond.symmetry:'-'} />
+        <DetailRow label="Measurement:" value={diamond.measurement?diamond.measurement:'-'} />
+        <DetailRow label="Certificate:" value={diamond.certificate?diamond.certificate:'-'} />
+        <DetailRow label="Price:" value={<ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond>} />
       </div>
     </div>
   );

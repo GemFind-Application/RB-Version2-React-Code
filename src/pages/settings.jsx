@@ -124,10 +124,10 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData}
   };
 
 useEffect(()=>{
-  const fetchSelectedDiamondDetail= async() =>{
+  const fetchSelectedDiamondDetail= async(isLabGrown) =>{
     let selectedDiamond = JSON.parse(localStorage.getItem('selectedDiamond'));    
     if(selectedDiamond){
-      const resSelectedDiamond = await diamondService.getDiamondDetail(selectedDiamond.diamondId);  
+      const resSelectedDiamond = await diamondService.getDiamondDetail(selectedDiamond.diamondId,isLabGrown);  
      let selectedCaratArray = (selectedDiamond.caratDetail.split("-")) 
       setSelectedDiamondCarat(selectedCaratArray)
       console.log(resSelectedDiamond)       
@@ -141,7 +141,7 @@ useEffect(()=>{
       }}
   }
  
-   fetchSelectedDiamondDetail()
+   fetchSelectedDiamondDetail(isLabGrown)
 },[])
 
  console.log(selectedDiamondCarat)
@@ -233,6 +233,7 @@ useEffect(()=>{
             searchSetting={searchSetting}   
             confirmReset={confirmReset}       
             selectedDiamondShape={selectedDiamondShape}  
+            configAppData={configAppData}
           />
         ) : (
           <SkeletonFilterPanel />

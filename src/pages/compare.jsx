@@ -8,16 +8,16 @@ import TableColumns from "../components/table-columns";
 import "./compare.css";
 import { diamondService } from "../Services";
 
-const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData}) => {
+const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabGrown}) => {
   console.log(compareDiamondsId)
   const [isAllDiamondDetailsLoaded, setIsAllDiamondDetailsLoaded] = useState(false);
   const [allDiamondDetailsToCompare, setAllDiamondDetailsToCompare] = useState([]);
   const [showAllParam, setShowAllParam] = useState(true);
   const navigate = useNavigate();
-  const fetchDiamondDetails = async (compareDiamondsId) => {
+  const fetchDiamondDetails = async (compareDiamondsId,isLabGrown) => {
    
         try {
-            const promises = compareDiamondsId.map((item) => diamondService.getDiamondDetail(item));
+            const promises = compareDiamondsId.map((item) => diamondService.getDiamondDetail(item,isLabGrown));
             const diamondDataData = await Promise.all(promises);
             console.log(diamondDataData)
             if(diamondDataData){
@@ -33,7 +33,7 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData}) => {
         }
   };
   useEffect(() => {
-    fetchDiamondDetails(compareDiamondsId);
+    fetchDiamondDetails(compareDiamondsId,isLabGrown);
   }, [compareDiamondsId]);
   const onBreadContainerClick = useCallback(() => {
     navigate("/diamondtools");

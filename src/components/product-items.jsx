@@ -6,6 +6,7 @@ import ShowCostInCard from "./showCostInCard";
 import { utils } from "../Helpers";
 
 import VideoPopup from "./VideoPopup";
+import { settingService } from "../Services";
 const SkeletonProductItem = () => (
   <div className="skeleton">
     <div className="ring-items__header skeleton-header">
@@ -34,17 +35,31 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const videoRef = useRef(null);
   const [viewUrlSetting, setViewUrlSetting] = useState('');
-
-     
+  const [videoUrl, setVideoUrl] = useState('');
+  const settingUrl = `${import.meta.env.VITE_SETTINGS_DETAIL_PAGE}`;
   if (isLoading) {
     return <SkeletonProductItem />;
   }
-
-  const handleVideoIconClick = () => {
-    if (product.videoURL && product.videoURL!="") {
-      setShowVideoPopup(true);
+  const handleVideoIconClick = async(settingId) => {
+    setShowVideoPopup(false)
+    try {     
+      const res = await settingService.getSettingVideoUrl(settingId);  
+      if(res)     {
+        console.log(res);
+        if(res.showVideo !== false){
+          setVideoUrl(res.videoURL);         
+          setShowVideoPopup(true);          
+        }else{
+          setShowVideoPopup(false);
+        }        
+      }   
     }
+    catch (error) {
+      console.error("Error fetching video url:", error);
+      setError("Failed to fetch video data. Please try again later.");
+    }  
   };
+ 
   useEffect(() => {    
     if(product.metalTypes.length > 0){
       let metalTypeForUrl = filterMetalType.length >0? filterMetalType[0] : product.metalTypes[0].metalType;    
@@ -80,7 +95,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
           <div 
             className="ring-items__item-video" 
             productid={product.settingId}
-            onClick={handleVideoIconClick}
+            onClick={()=>handleVideoIconClick(product.settingId)}
           >
             {(product.videoURL&&product.videoURL!="") && <img className="video-icon3" alt="" src="/video.svg" />}
           </div>
@@ -122,7 +137,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
             }
           </div>
           <div className="btn__outer">
-            <Link to={`/setting-details/${viewUrlSetting}`}>View Details</Link>
+            <Link to={`/${settingUrl}/${viewUrlSetting}`}>View Details</Link>
           </div>
         </div>
       </div>

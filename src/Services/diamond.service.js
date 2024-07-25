@@ -2,8 +2,10 @@ import { fetchWrapper } from '../Helpers';
 
 const baseUrl = `${import.meta.env.VITE_APP_API_URL}`;
 //const dealerId = 3943
-const dealerId = 1089
-
+const  dealerId = `${import.meta.env.VITE_DEALER_ID}`;
+const addtocartPrefix = `${import.meta.env.VITE_ADD_TO_CART_PREFIX}`;
+const addtocartUrl = `${import.meta.env.VITE_ADD_TO_CART}`;
+const videoUrl= `${import.meta.env.VITE_APP_API_VIDEOURL}`;
 //const tamayouInfluencerbaseUrl = `${process.env.REACT_APP_API_URL}/tamayou_influencers`;
 
 export const diamondService = {
@@ -12,7 +14,8 @@ export const diamondService = {
   getDiamondNavigation,
   getDiamondDetail,
   getFancyDiamondFilter,
-  getDiamondVideoUrl
+  getDiamondVideoUrl,
+  addTocart
 };
 
 function getDiamondFilter(option) {
@@ -53,13 +56,19 @@ function getDiamondFilter(option) {
  }    
 }
 function getDiamondVideoUrl(diamondId){
- return fetchWrapper.get(`http://api.jewelcloud.com/api/jewelry/GetVideoUrl?InventoryID=${diamondId}&Type=Diamond`); 
+ return fetchWrapper.get(`${videoUrl}?InventoryID=${diamondId}&Type=Diamond`); 
 }
 function getFancyDiamondFilter(option,settingId) {
   return fetchWrapper.get(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}`);
 }
-function getDiamondDetail(diamondId) {
-  return fetchWrapper.get(`${baseUrl}/GetDiamondDetail?DealerId=${dealerId}&DID=${diamondId}`);
+function getDiamondDetail(diamondId,isLabGrown) {
+  console.log(isLabGrown)
+  if(isLabGrown===true){
+    return fetchWrapper.get(`${baseUrl}/GetDiamondDetail?DealerId=${dealerId}&DID=${diamondId}&IsLabGrown=True`);
+  }else{
+    return fetchWrapper.get(`${baseUrl}/GetDiamondDetail?DealerId=${dealerId}&DID=${diamondId}`);
+  }
+  
 }
 
 function getAllDiamond(option) {
@@ -72,8 +81,7 @@ function getAllDiamond(option) {
   }  
 }
 function getDiamondNavigation(){
-  return fetchWrapper.get(`${baseUrl}/GetNavigation?DealerId=${dealerId}`);
-  
+  return fetchWrapper.get(`${baseUrl}/GetNavigation?DealerId=${dealerId}`);  
 }
 function getQueryParam(option){
   //console.log(option)
@@ -169,23 +177,12 @@ function getQueryParam(option){
     return "&"+filterString;
   }else{
     return filterString;
-  }
- 
+  } 
 }
-function getQueryFilterParam(option){
-  //console.log(option)
-  let filterString = "";
- 
-  
-  if(option.navigation && option.navigation=='lab'){
-    filterString += filterString.length > 0 ? `&` : '';
-    filterString += 'IsLabSettingsAvailable=1';    
-  }
-  console.log(filterString)
-  if(filterString!=""){
-    return "&"+filterString;
-  }else{
-    return filterString;
-  }
- 
-}
+
+function addTocart(diamondId){
+let formData = new FormData();
+  fetchWrapper.postFormData(
+    `${addtocartUrl}/${addtocartPrefix}/${diamondId}`,
+    formData
+   );}

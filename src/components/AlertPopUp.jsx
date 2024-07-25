@@ -2,14 +2,14 @@ import React, { useState, useCallback, useEffect } from "react";
 import "../pages/settings.css";
 import PortalPopup from "../components/portal-popup";
 export default function  AlertPopUp  ({onClose,message,title,onClick})  {  
-    useEffect(() => {
+   /* useEffect(() => {
         const timer = setTimeout(() => {
             onClose();
-        }, 2000);})
+        }, 2000);})*/
     return (
         <PortalPopup
         overlayColor="rgba(113, 113, 113, 0.3)"
-        placement="Centered"       
+          
       >
         <div className="popup-overlay drop-hint-popup">
         <div className="popup-content">

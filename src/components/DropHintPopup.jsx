@@ -4,29 +4,42 @@ import { settingService } from '../Services';
 
 const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diamondId,diamondtype,diamondurl }) => {
   let formDataValue= {yourName: '',
-  yourEmail: '',
-  recipientName: '',
-  recipientEmail: '',
-  reason: '',
-  message: '',
-  giftDeadline: '',
-  isLabSetting: isLabSetting,
- 
-  shopurl: shopurl}
-  if(settingId&&settingId!==""){
-    formDataValue.settingId = settingId;
+  name: '',
+  email:'',
+  recipient_name: '',
+  recipient_email: '',
+  gift_reason: '',
+  hint_message: '',
+  gift_deadline: '',
+  islabsettings: isLabSetting, 
+  shopurl: shopurl
+}
+if(settingId&&settingId!==""){
+    formDataValue.settingid = settingId;
     formDataValue.ringurl=ringurl;
-  }else{
+}else{
     formDataValue.diamondid = diamondId;
+   // formDataValue.diamondId=diamondId;
     formDataValue.diamondtype = diamondtype;
     formDataValue.diamondurl = diamondurl;
-  }
+}
+if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
+  formDataValue.completering='completering';
+//  formDataValue.diamondid = diamondId;
+  formDataValue.diamondId=diamondId;
+ // formDataValue.diamondtype = diamondtype;
+  formDataValue.diamondurl = diamondurl;
+}
 
-    const [formData, setFormData] = useState(formDataValue)
+  const [formData, setFormData] = useState(formDataValue)
  
 
   const [errors, setErrors] = useState({});
+  const [errorsFromRes, setErrorsFromRes] = useState('');
   const [hintDropped, setHintDropped] = useState(false);
+  const [hintDroppedMessage, setHintDroppedMessage] = useState('');
+  
+ let today = new Date().toISOString().slice(0, 10)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,35 +52,35 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diam
   const validateForm = () => {
     let newErrors = {};
 
-    if (!formData.yourName.trim()) {
-      newErrors.yourName = 'Your name is required';
+    if (!formData.name.trim()) {
+      newErrors.name = 'Your name is required';
     }
 
-    if (!formData.yourEmail.trim()) {
-      newErrors.yourEmail = 'Your email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.yourEmail)) {
-      newErrors.yourEmail = 'Your email is invalid';
+    if (!formData.email.trim()) {
+      newErrors.email = 'Your email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Your email is invalid';
     }
 
-    if (!formData.recipientName.trim()) {
+    if (!formData.recipient_name.trim()) {
       newErrors.recipientName = 'Recipient name is required';
     }
 
-    if (!formData.recipientEmail.trim()) {
+    if (!formData.recipient_email.trim()) {
       newErrors.recipientEmail = 'Recipient email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.recipientEmail)) {
+    } else if (!/\S+@\S+\.\S+/.test(formData.recipient_email)) {
       newErrors.recipientEmail = 'Recipient email is invalid';
     }
 
-    if (!formData.reason.trim()) {
+    if (!formData.gift_reason.trim()) {
       newErrors.reason = 'Reason is required';
     }
 
-    if (!formData.message.trim()) {
+    if (!formData.hint_message.trim()) {
       newErrors.message = 'Message is required';
     }
 
-    if (!formData.giftDeadline) {
+    if (!formData.gift_deadline) {
       newErrors.giftDeadline = 'Gift deadline is required';
     }
 
@@ -77,16 +90,34 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diam
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData)
     if (validateForm()) {
-      let stringToPass = "";
+     
+      let formDataVal = new FormData();
       Object.keys(formData).forEach(function (key) {
-        stringToPass += key + "=" + encodeURIComponent(formData[key]) + "&";
+        formDataVal.append(key,formData[key]);
       });
-      stringToPass = stringToPass.slice(0, -1); // Removed the last '&'
-      console.log(stringToPass)
+     
+  
       try {
-       //const res = await settingService.friendsEmail(stringToPass);
+        let sendRequest = 'settings';
+        if((!formData.settingid) && formData.diamondid && formData.diamondid!=""){
+          sendRequest='diamondtools'
+        }else{
+          sendRequest = 'settings'
+        }
+        console.log(formData)
+        let apiCall = (formData.settingid && formData.diamondId) ? "resultdrophint_cr" : "resultdrophint";
+
+       const res = await settingService.dropAHint(formDataVal,sendRequest,apiCall);
+       if(res.output.status===2){
+        setErrorsFromRes(res.output.msg);
+       }
+       if(res.output.status===1){
+        setHintDroppedMessage(res.output.msg)
         setHintDropped(true);
+       }
+       
       } catch (error) {
         console.error('Error dropping hint:', error);
         // show err msgs to user
@@ -102,9 +133,14 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diam
         {!hintDropped ? (
           <>
             <h2>Drop A Hint</h2>
-            <p>Because you deserve this.</p>
+            <p>Because you deserve this.</p>            
             <hr className="hr" />
             <form onSubmit={handleSubmit}>
+              {errorsFromRes!="" &&
+              <div>
+                <p className='error'>{errorsFromRes}</p>
+              </div>
+              }
               <div>
                 <input name="ringurl" type="hidden" value={formData.ringurl} />
                 <input name="shopurl" type="hidden" value={formData.shopurl} />
@@ -112,35 +148,35 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diam
               <div className="input-group form-group">
                 <input 
                   type="text" 
-                  name="yourName" 
-                  placeholder={errors.yourName || "Your Name"}
-                  value={formData.yourName}
+                  name="name" 
+                  placeholder={errors.name || "Your Name"}
+                  value={formData.name}
                   onChange={handleInputChange} 
-                  className={errors.yourName ? 'error' : ''}
+                  className={errors.name ? 'error' : ''}
                 />
                 <input 
                   type="email" 
-                  name="yourEmail" 
-                  placeholder={errors.yourEmail || "Your Email"}
-                  value={formData.yourEmail}
+                  name="email" 
+                  placeholder={errors.email || "Your Email"}
+                  value={formData.email}
                   onChange={handleInputChange} 
-                  className={errors.yourEmail ? 'error' : ''}
+                  className={errors.email ? 'error' : ''}
                 />
               </div>
               <div className="input-group form-group">
                 <input 
                   type="text" 
-                  name="recipientName" 
+                  name="recipient_name" 
                   placeholder={errors.recipientName || "Hint Recipient Name"}
-                  value={formData.recipientName}
+                  value={formData.recipient_name}
                   onChange={handleInputChange} 
                   className={errors.recipientName ? 'error' : ''}
                 />
                 <input 
                   type="email" 
-                  name="recipientEmail" 
+                  name="recipient_email" 
                   placeholder={errors.recipientEmail || "Hint Recipient Email"}
-                  value={formData.recipientEmail}
+                  value={formData.recipient_email}
                   onChange={handleInputChange} 
                   className={errors.recipientEmail ? 'error' : ''}
                 />
@@ -148,16 +184,16 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diam
               <div className="form-group flex-col">
                 <input 
                   type="text" 
-                  name="reason" 
+                  name="gift_reason" 
                   placeholder={errors.reason || "Reason for this gift"}
-                  value={formData.reason}
+                  value={formData.gift_reason}
                   onChange={handleInputChange} 
                   className={errors.reason ? 'error' : ''}
                 />
                 <textarea 
-                  name="message" 
-                  placeholder={errors.message || "Your Message"}
-                  value={formData.message}
+                  name="hint_message" 
+                  placeholder={errors.hint_message || "Your Message"}
+                  value={formData.hint_message}
                   onChange={handleInputChange} 
                   rows={6} 
                   className={errors.message ? 'error' : ''}
@@ -169,9 +205,10 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diam
                   <input 
                     className={`gift-deadline ${errors.giftDeadline ? 'error' : ''}`}
                     type="date" 
-                    name="giftDeadline" 
-                    value={formData.giftDeadline}
+                    name="gift_deadline" 
+                    value={formData.gift_deadline}
                     onChange={handleInputChange} 
+                    min={today}
                   />
                   <button type="submit" className="submit-button">DROP HINT</button>
                 </div>
@@ -181,7 +218,7 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diam
         ) : (
           <div className="success-message">
             <h2>Hint Dropped!</h2>
-            <p>Blandit est volutpat sit sit purus sagittis risus in. Sed ut sagittis elementum at leo. In aliquet odio dui amet tincidunt suspendisse ut. Amet sed vitae pellentesque turpis egestas. Posuere molestie elementum neque quis posuere fusce diam augue.</p>
+            <p>{hintDroppedMessage}</p>
           </div>
         )}
       </div>

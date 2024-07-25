@@ -8,7 +8,7 @@ import "./complete.css";
 import { diamondService } from "../Services";
 import { settingService } from "../Services";
 import ImageGallery from 'react-image-gallery';
-const Complete = ({configAppData,formSetting,additionOptionSetting}) => {
+const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLabGrown}) => {
   const [settingId, setSettingId] = useState();
   const [diamondId, setDiamondId] = useState();
   const [settingDetail, setSettingDetail] = useState();
@@ -19,9 +19,9 @@ const Complete = ({configAppData,formSetting,additionOptionSetting}) => {
   const [isDiamondLoaded, setIsDiamondLoaded] = useState(false);
  
  // const [isSettingAnDiamondIdLoaded, setIsSettingAnDiamondIdLoaded] = useState(false);
-  const fetchDiamondDetails = async (diamondId) => {
+  const fetchDiamondDetails = async (diamondId,isLabGrown) => {
     try {
-      const res = await diamondService.getDiamondDetail(diamondId); 
+      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown); 
       console.log()
       if(res) {
         setDiamondDetail(res);  
@@ -82,7 +82,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting}) => {
     if(selecteddiamond.diamondId &&  selecteddiamond.diamondId!=""){
       console.log(selecteddiamond.diamondId)
       setDiamondId(selecteddiamond.diamondId);
-      fetchDiamondDetails(selecteddiamond.diamondId);
+      fetchDiamondDetails(selecteddiamond.diamondId,isLabGrown);
     }}
     //setIsSettingAnDiamondIdLoaded(true)
   }, []);
@@ -110,7 +110,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting}) => {
           </div>
         </div>
         
-        <ProductDetails additionOptionSetting={additionOptionSetting} formSetting={formSetting} settingDetail={settingDetail} diamondDetail={diamondDetail} ringSize={selectedRingSize} configAppData={configAppData}/>
+        <ProductDetails shopUrl={shopUrl} additionOptionSetting={additionOptionSetting} formSetting={formSetting} settingDetail={settingDetail} diamondDetail={diamondDetail} ringSize={selectedRingSize} configAppData={configAppData}/>
         
        </>
        :<>

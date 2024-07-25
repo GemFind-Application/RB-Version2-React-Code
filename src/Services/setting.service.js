@@ -1,10 +1,11 @@
 import { fetchWrapper } from '../Helpers';
 
 const baseUrl = `${import.meta.env.VITE_APP_API_URL}`;
+const apiurlForForms = `${import.meta.env.VITE_APP_FORM_API_URL}`;
 //const dealerId = 3943
-
+const videoUrl= `${import.meta.env.VITE_APP_API_VIDEOURL}`;
 //const dealerId = 4141
-const dealerId = 1089
+const dealerId = `${import.meta.env.VITE_DEALER_ID}`;
 //const tamayouInfluencerbaseUrl = `${process.env.REACT_APP_API_URL}/tamayou_influencers`;
 
 export const settingService = {
@@ -14,7 +15,10 @@ export const settingService = {
   getSettingDetail,
   dropAHint,
   friendsEmail,
-  validateDealerPassword
+  validateDealerPassword,
+  scheduleViewing,
+  requestMoreInfo,
+  getSettingVideoUrl
 };
 
 function getSettingFilters(option) {
@@ -35,41 +39,52 @@ function getSettingNavigation(){
   
 }
 
-function dropAHint(data){
-  console.log(data);
- // return fetchWrapper.put(
-  //  `${baseUrl}/ringbuilder/settings/resultdrophint}/`,
-  //  data
-  //);
+function dropAHint(formData,sendRequest,apiCall){
+  console.log(formData);
+  
+  return fetchWrapper.postFormData(
+    `${apiurlForForms}/${sendRequest}/${apiCall}`,
+    formData
+  )
 }
-function friendsEmail(data){
-  console.log(data);
- return fetchWrapper.put(
-    'https://gemfind.us/ringbuilder/ringbuilder/settings/resultemailfriend',
-   data
+function friendsEmail(formData,sendRequest,apiCall){
+ return fetchWrapper.postFormData(
+    `${apiurlForForms}/${sendRequest}/${apiCall}`,
+    formData
   )
 
 }
-function validateDealerPassword(data){
+function validateDealerPassword(data,page){
   console.log(data);
- return fetchWrapper.put(
-    'http://api.jewelcloud.com/api/RingBuilder/AccountAuthentication',
-   data
+  if(page==='setting') {
+    return fetchWrapper.postFormData(
+      `${apiurlForForms}/settings/authenticate`,
+       data
+      );
+  }else{
+    return fetchWrapper.postFormData(
+      `${apiurlForForms}/diamondtools/authenticate`,
+       data
+      );
+  }
+ 
+}
+function scheduleViewing(formData){
+  //console.log(formData);
+ return fetchWrapper.postFormData(
+   `${apiurlForForms}/${sendRequest}/${apiCall}`,
+   formData
   );
 }
-function scheduleViewing(data){
-  console.log(data);
- // return fetchWrapper.put(
-  //  `${baseUrl}/ringbuilder/settings/resultscheview}/`,
-  //  data
-  //);
-}
-function requestMoreInfo(data){
-  console.log(data);
- // return fetchWrapper.put(
-  //  `${baseUrl}/ringbuilder/settings/resultreqinfo}/`,
-  //  data
-  //);
+function getSettingVideoUrl(settingId){
+  return fetchWrapper.get(`${videoUrl}?InventoryID=${settingId}&Type=Jewelry`); 
+ }
+function requestMoreInfo(formData){
+  return fetchWrapper.postFormData(
+    `${apiurlForForms}/${sendRequest}/${apiCall}`,
+    formData
+   );
+ 
 }
 function getQueryParam(option){
   console.log(option)
