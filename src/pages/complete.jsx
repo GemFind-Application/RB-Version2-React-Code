@@ -105,7 +105,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
         <div className="image-container">
           <div className="plp-image-gallery">
             <div className="image-wrapper">
-              <ImageGallery items={images} />
+              <ImageGallery items={images} onErrorImageURL={'/no-image.jpg'}/>
             </div>               
           </div>
         </div>

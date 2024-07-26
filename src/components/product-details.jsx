@@ -1,8 +1,8 @@
 import { useState, useCallback ,useEffect} from "react";
-import SettingDetails from "./setting-details";
+import RingSpecificationsPopup from "../components/RingSpecificationsPopup";
 import PortalPopup from "./portal-popup";
-import DiamondDetails from "./diamond-details";
-
+import DiamondDetailsPopup from "./DiamondItemPopup";
+import DiamondSpecificationDetail from "../components/diamond-specification-details";
 import PropTypes from "prop-types";
 import Stats from "../components/stats";
 import "./product-details.css";
@@ -13,6 +13,7 @@ import ScheduleViewingPopup from "../components/ScheduleViewingPopup";
 import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
 import ShowTotalPrice from "./ShowTotalPrice";
+import { diamondService } from "../Services";
 const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ringSize,configAppData,formSetting,additionOptionSetting }) => {
   console.log(formSetting)
   const [isSettingDetailsOpen, setSettingDetailsOpen] = useState(false);
@@ -73,12 +74,39 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
   const closeRequestInfo = useCallback(() => {
     setRequestInfoOpen(false);
   }, []);
+  const addToCart = async(diamondDetail,settingDetail) => {
+    let formData={};
+   
+    formData={
+      metaltype : settingDetail.metalType,
+      ringId : settingDetail.settingId,
+      ringsizesettingonly : ringSize,
+      diamondId : diamondDetail.diamondId,
+      diamondtype : diamondDetail.isLabCreated===true?'labcreated':'',
+      diamondpath : diamondUrl.substring(diamondUrl.lastIndexOf("-")+1),
+      ringpath : ringUrl.substring(ringUrl.lastIndexOf("-")+1),
+      stylenumber : settingDetail.styleNumber,
+      sidestonequalityvalue : settingDetail.sideStoneQuality[0],
+      centerstonesizevalue : settingDetail.centerStoneMinCarat!=""?settingDetail.centerStoneMinCarat+'-'+settingDetail.centerStoneMaxCarat:'',
+      islabsettings :settingDetail.isLabSetting,
+    }
+    console.log(formData)
+    let formDataToSend = new FormData();
+    Object.keys(formDataToSend).forEach(function (key) {
+      formDataToSend.append(key,formData[key]);
+    });
+    console.log(formDataToSend)
+    const res = await diamondService.addTocartcompletePurchase(diamondDetail.diamondId,settingDetail.settingId,formDataToSend);
+  }
   useEffect(() => {
     const selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));   
     const selectedDiamond = JSON.parse(localStorage.getItem('selectedDiamond'));
     setRingUrl(selectedRingSetting.ringUrl);
     setDiamondUrl(selectedDiamond.diamondUrl)
   }, []);
+  
+
+
   return (
     <>
       <div className={`product-details1 ${className}`}>
@@ -239,7 +267,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
         <div className="payment-options">
           <div className="cart-buttons">
             <div className="button21">
-              <b className="add-to-cart">Add to cart - <ShowTotalPrice configAppData={configAppData} settingDetailForCost={settingDetail} diamondDetail={diamondDetail}></ShowTotalPrice></b>
+              <b className="add-to-cart" onClick={()=>addToCart(diamondDetail,settingDetail)}>Add to cart - <ShowTotalPrice configAppData={configAppData} settingDetailForCost={settingDetail} diamondDetail={diamondDetail}></ShowTotalPrice></b>
             </div>
             {configAppData.display_tryon &&
             <div className="button22">
@@ -248,6 +276,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
           </div>
           <Stats 
                 formSetting={formSetting}
+                configAppData={configAppData}
                 emailAFriend={() => setIsEmailAFriendOpen(true)}
                 openDropHint={() => setIsDropHintOpen(true)}
                 openScheduleViewing={() => setIsScheduleViewingOpen(true)}
@@ -258,9 +287,9 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
         <PortalPopup
           overlayColor="rgba(113, 113, 113, 0.3)"
           placement="Centered"
-          onOutsideClick={closeSettingDetails}
+          onOutsideClick={() => setSettingDetailsOpen(false)}
         >
-          <SettingDetails onClose={closeSettingDetails} />
+          <RingSpecificationsPopup   configAppData={configAppData}  onClose={() => setSettingDetailsOpen(false)} product={settingDetail} />
         </PortalPopup>
       )}
       {isDiamondDetailsOpen && (
@@ -269,7 +298,11 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
           placement="Centered"
           onOutsideClick={closeDiamondDetails}
         >
-          <DiamondDetails onClose={closeDiamondDetails} />
+          <DiamondSpecificationDetail 
+          additionOptionSetting={additionOptionSetting}
+          diamond={diamondDetail}
+          configAppData={configAppData}
+          onClose={closeDiamondDetails} />
         </PortalPopup>
       )}
       {isDropHintOpen && (

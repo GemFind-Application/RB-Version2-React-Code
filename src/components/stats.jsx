@@ -32,7 +32,7 @@ const Stats = ({
 
   return (
     <div className="stats9">
-      {!configAppData.enable_hint &&
+      {configAppData.enable_hint &&
       <div className="stat-items" onClick={openDropHint}>
         <img
           className="fi-8429504-icon"
@@ -46,7 +46,7 @@ const Stats = ({
         </div>
       </div>
       }
-      {!configAppData.enable_schedule_viewing &&
+      {configAppData.enable_schedule_viewing &&
       <div className="stat-items1" onClick={openScheduleViewing}>
         <img
           className="fi-8429504-icon"
@@ -59,7 +59,7 @@ const Stats = ({
         </div>
       </div>
       }
-      {!configAppData.enable_email_friend &&
+      {configAppData.enable_email_friend &&
       <div className="stat-items2" onClick={emailAFriend}>
         <img
           className="fi-8429504-icon"
@@ -85,7 +85,7 @@ const Stats = ({
         </div>
       </div>
       }
-       {!configAppData.enable_print &&
+       {configAppData.enable_print &&
       <div className="stat-items3" onClick={openPrintRequest}>
         <img
           className="fi-8429504-icon"
