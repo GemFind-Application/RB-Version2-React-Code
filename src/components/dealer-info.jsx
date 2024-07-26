@@ -8,6 +8,8 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl,dia
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorsFromRes, setErrorsFromRes] = useState('');
   const [dealerInfoAuthMessage, setDealerInfoAuthMessage] = useState('');
+  const [dealerInfo, setDealerInfo] = useState({});
+  
   //const [settingId, setSettingId] = useState(settingId);
   //const [isLabSetting, setIsLabSetting] = useState(isLabSetting);
   //const [shopurl, setShopurl] = useState(shopurl);
@@ -35,12 +37,12 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl,dia
       let page="";
       console.log(diamondId);
       console.log(diamondtype)
-      if(diamondId!="" && diamondtype!=="" && diamondtype!==undefined&& diamondId!==undefined ){
+      if(diamondId!=""  && diamondId!==undefined ){
         formData={
           password:password,
           diamondId:diamondId,
           diamondtype:diamondtype,
-          shopurl:shopurl
+          shopurl:'gemfind-app-store.myshopify.com'
         }
          
         page="diamond";
@@ -60,13 +62,16 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl,dia
         formDataVal.append(key,formData[key]);
       });
       //if(page==='setting') ? 
-      const res = await settingService.validateDealerPassword('auth_password='+password+'&settingId='+settingId+'&isLabSetting='+isLabSetting+'&shopurl='+shopurl,page)
+      //const res = await settingService.validateDealerPassword('auth_password='+password+'&settingId='+settingId+'&isLabSetting='+isLabSetting+'&shopurl='+shopurl,page)
+      //;
+      const res = await settingService.validateDealerPassword(formDataVal,page)
       ;
       if(res.output.status===2){
         setErrorsFromRes(res.output.msg);
        }
        if(res.output.status===1){
         setDealerInfoAuthMessage(res.output.msg)
+        setDealerInfo(res.output.dealerInfo)
         setIsSuccess(true);
        }
       //setHintDropped(true);
@@ -82,18 +87,20 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl,dia
   return (
     <div className={`dealer-info ${className}`}>
       <section className="content3">
-        <div className="top3">
-       
-          <div className="h11">
+        <div className="top3">       
+          
           {errorsFromRes!="" &&              
           <div className='enter-your-password errorText'>{errorsFromRes}</div>              
-        }
+          }
+          {!isSuccess ? (
+            <>
+          <div className="h11">
             <h3 className="dealer-info1">Dealer Info</h3>
             <div className="enter-your-password">
               Enter your password to continue
             </div>
           </div>
-          {!isSuccess ? (
+         
             <div className="inputs1">
               <div className="drop4">
                 <input
@@ -113,10 +120,10 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl,dia
                 <b className="submit dealer_info">Submit</b>
               </button>
             </div>
+            </>
           ) : (
             <div className="success-message">
               <h2>Vendor Info</h2>
-              <p>Show dealer info here....</p>
               <section className="content3">
               <div className="top3">              
                 <div className="h11 dealerinfores" >
@@ -124,7 +131,7 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl,dia
                     Dealer Name:
                   </div>             
                   <div className="enter-your-password">
-                    ss{dealerInfo.retailerName}
+                    {dealerInfo.retailerName}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -156,7 +163,7 @@ const DealerInfo = ({ className = "", onClose,settingId,isLabSetting,shopurl,dia
                   Dealer Email:
                   </div>             
                   <div className="enter-your-password">
-                    ss{dealerInfo.retailerEmail}
+                    {dealerInfo.retailerEmail}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >

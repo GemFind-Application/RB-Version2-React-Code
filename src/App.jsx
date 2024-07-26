@@ -19,7 +19,8 @@ import SettingDetails from "./pages/setting-details";
 import { appService } from './Services';
 import { settingService } from './Services';
 import AlertPopUp from "./components/AlertPopUp";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
+import ThemeSetup from './components/ThemeSetup';
 function App() {
   const location = useLocation();
   const [ additionOptionSetting,setAdditionOptionSetting] = useState([]);
@@ -49,6 +50,11 @@ function App() {
     default_viewmode:'grid',   
     display_tryon:true,
     show_filter_info:true,
+    enable_email_friend:true,
+    enable_more_info:true,
+    enable_print:true,
+    enable_schedule_viewing:true,
+    enable_hint:true,
   }
   useEffect(() => {
     let storedFlowData = JSON.parse(localStorage.getItem('startflow'));
@@ -229,7 +235,9 @@ function App() {
 
   //console.log(settingNavigation)
   return (
+   
     <div>
+       <ThemeSetup />
     {loading && isStyleLoaded &&
     <Routes>
       <Route path="/" element={<Settings  className={styleDataDynamic} configAppData={configAppData} shopUrl={shopUrl} settingNavigationData={settingNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown} />} />

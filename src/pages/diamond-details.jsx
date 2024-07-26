@@ -8,6 +8,7 @@ import MeasurementItems from "../components/measurement-items";
 import Stats from "../components/stats";
 import "./diamond-page.css";
 import { diamondService } from "../Services";
+//import PortalPopup from "./portal-popup";
 import Header from "../components/Header";
 import ShowCostInCardDiamond from "../components/showCostInCardDiamond";
 import SocialIcon from "../components/SocialIcon";
@@ -30,7 +31,31 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,is
   const [isEmailAFriendOpen, setIsEmailAFriendOpen] = useState(false);
   const [isRequestInfoOpen, setIsRequestInfoOpen] = useState(false);
   const [diamondIdToShow, setDiamondIdToShow] = useState(diamondId.substring(diamondId.lastIndexOf("-")+1));
-  const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
+  const [videoUrl,setVideoUrl]=useState('')
+  //const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
+  const [showVideoPopup,setShowVideoPopup]=useState(false)
+  
+const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
+//console.log(isDiamondPresentInCompare)
+  const handleVideoIconClick = async(diamondId) => {
+    //setShowVideoPopup(false)
+    try {     
+      const res = await diamondService.getDiamondVideoUrl(diamondId);  
+      if(res)     {
+        console.log(res);
+        if(res.showVideo !== false){
+          setVideoUrl(res.videoURL);         
+          //setShowVideoPopup(true);          
+        }else{
+          //setShowVideoPopup(false);
+        }        
+      }   
+    }
+    catch (error) {
+      console.error("Error fetching filter data:", error);
+      setError("Failed to fetch filter data. Please try again later.");
+    }  
+  };
   const navigate = useNavigate();
   const fetchProductDetails = async (diamondId,isLabGrown) => {
     try {
@@ -45,6 +70,7 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,is
     }
   };
   useEffect(() => {
+    handleVideoIconClick(diamondIdToShow)
     fetchProductDetails(diamondIdToShow,isLabGrown);
   }, [diamondId]);
   useEffect(() => {
@@ -58,7 +84,23 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,is
   const onBreadContainerClick = useCallback(() => {
     navigate("/diamondtools");
   }, [navigate]);
-
+  const renderVideo = (item) => {
+    console.log("in fwerwerwe");
+        
+    return (
+      <div className="video-popup-content" >
+      <iframe
+          title={item.embedUrl}       
+          height={'100%'}
+          width={'100%'}        
+          allow={"autoplay"}       
+          src={item.embedUrl+'?autoplay=1'}
+         
+      />
+        
+      </div>
+    )
+  };
   const openDealerInfo = useCallback(() => {
     setIsDealerInfoOpen(true);
   }, []);
@@ -101,6 +143,7 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,is
    // localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow}));
     navigate("/diamondtools/completering");
   };
+  //console.log(window.location.hostname + "/"+ diamondDetailUrl + location.pathname)
   const selectSetting = (diamondDetail) => { 
     if(configAppData.settings_carat_ranges){
       let caratWeight = diamondDetail.caratWeight;
@@ -130,6 +173,13 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,is
       original: diamondDetail.image1,
       thumbnail: diamondDetail.image1,}
     );  
+    videoUrl!=="" &&
+    images.push({
+      embedUrl:videoUrl,
+      original:'/360-view.png',
+      thumbnail:'/360-view.png',
+      renderItem: renderVideo.bind(this),
+    })
   } else if (diamondDetail.image1) {
     images.push({
       original: diamondDetail.image1,
@@ -139,29 +189,19 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,is
       original: diamondDetail.image1,
       thumbnail: diamondDetail.image1,}
     );
+    videoUrl!=="" &&
+    images.push({
+      embedUrl:videoUrl,
+      original:'/360-view.png',
+      thumbnail:'/360-view.png',
+      renderItem: renderVideo.bind(this),
+    })
   }
   const openUrl=() => {
   //  event.preventDefault();
     window.open(diamondDetail.certificateUrl,'CERTVIEW','scrollbars=yes,resizable=yes,width=860,height=550')
   }
-  const checkFileExists = async (videoFileName) => {
-    try {
-      const response = await axios.head(videoFileName); // Use HEAD request to check existence
-      console.log(response)
-      if (response.status === 200) {
-        setFileExists(true);
-        //setHeaders({
-          //'Content-Type': 'video/mp4',  // Adjust content type based on the video type
-        //});
-      } else {
-        setFileExists(false);
-        console.log('File not found');
-      }
-    } catch (error) {
-      setFileExists(false);
-      console.error('Error checking file existence:', error);
-    }
-  };
+ 
 console.log(images)
   return (
     <>
@@ -186,7 +226,7 @@ console.log(images)
                   <div className="product-gallery">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
-                      <ImageGallery items={images} />
+                      <ImageGallery items={images} autoPlay={false} onErrorImageURL={'/no-image.jpg'}/>
                     </div>               
                   </div>
                 </div>
@@ -345,6 +385,7 @@ console.log(images)
                 </div>
                 <Stats 
                 formSetting={formSetting}
+                configAppData={configAppData}
                 emailAFriend={() => setIsEmailAFriendOpen(true)}
                 openDropHint={() => setIsDropHintOpen(true)}
                 openScheduleViewing={() => setIsScheduleViewingOpen(true)}
@@ -401,7 +442,7 @@ console.log(images)
         >
          <ScheduleViewingPopup
             diamondId={diamondDetail.diamondId}
-            diamondurl={window.location.hostname + "/"+diamondDetailUrl + ""+ location.pathname}
+            diamondurl={window.location.hostname +location.pathname}
             shopurl={shopUrl}
             diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
             onClose={() => setIsScheduleViewingOpen(false)}
@@ -418,7 +459,7 @@ console.log(images)
            <RequestInfoPopup 
           onClose={() => setIsRequestInfoOpen(false)}
           diamondId={diamondDetail.diamondId}
-          diamondurl={window.location.hostname + "/"+ diamondDetailUrl + location.pathname}
+          diamondurl={window.location.hostname + location.pathname}
           shopurl={shopUrl}
           diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
           />
@@ -433,7 +474,7 @@ console.log(images)
         >
          <EmailFriendPopup 
           diamondId={diamondDetail.diamondId}
-          diamondurl={window.location.hostname + "/"+diamondDetailUrl + location.pathname}
+          diamondurl={window.location.hostname + location.pathname}
           shopurl={shopUrl}
           diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
           onClose={() => setIsEmailAFriendOpen(false)} />

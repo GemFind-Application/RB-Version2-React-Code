@@ -25,7 +25,9 @@ import SocialIcon from "../components/SocialIcon";
 import Footer from "../components/Footer"
 import { settingService } from '../Services';
 import VideoModal from "../components/VideoModal";
+
 import { utils } from "../Helpers";
+
 const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData,setIsLabGrown}) => {
  
   const { settingId } = useParams();
@@ -61,6 +63,9 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   const [uniqueDiamondShape, setUniqueDiamondShape] = useState([]);
   const [isDiamondSelectedFirst,setIsDiamondSelectedFirst] = useState(false);
   const [notFitMessage, setNotFitMessage] = useState([]);
+  const [isPrintInfoOpen, setIsPrintInfoOpen] = useState(false);
+
+  
   const settingUrl = `${import.meta.env.VITE_SETTINGS_DETAIL_PAGE}`;
   // /console.log()
   //const [selectedRingSize,setSelectedRingSize]= useState('');
@@ -157,6 +162,8 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
       setSettingIdToShow(sortedarray[0].gfInventoryId);
     }    
   }
+
+
   const selectByCenterStoneSize = async (size) => {
     setNotFitMessage('')
     setSelectedParam('centerStoneSize');
@@ -251,7 +258,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
  // const uniqueSideStoneQualities = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.sideStoneQuality).filter(Boolean))] : [];
   //const uniqueCenterStoneSizes = product.configurableProduct ? [...new Set(product.configurableProduct.map(item => item.centerStoneSize))] : [];
  // const uniqueDiamondShape = product.configurableProduct?[...new Set(product.configurableProduct.map(item => item.diamondShape))].filter(function(e){return e}) : [];
- 
+
   const images = [];
   if (product.extraImage && product.extraImage.length > 0) {
     images.push({
@@ -268,6 +275,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
       thumbnail: product.mainImageURL,
     });
   }
+ 
 //console.log(uniqueDiamondShape)
 
   return (
@@ -287,7 +295,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                 <div className="image-container">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
-                      <ImageGallery items={images} />
+                      <ImageGallery items={images}   onErrorImageURL={'/no-image.jpg'}/>
                     </div>               
                   </div>
                 </div>
@@ -576,6 +584,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                     openDropHint={() => setIsDropHintOpen(true)}
                     openScheduleViewing={() => setIsScheduleViewingOpen(true)}
                     openRequestInfo={() => setIsRequestInfoOpen(true)}
+                    openPrintRequest={() => setIsPrintInfoOpen(true)}
                   />
                 </div>
               </div>
@@ -685,6 +694,16 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
       onClose={() => {setShowVirtualTryOnUrl('') ; setShowVirtualTryOn(false)}}>
 
       </VideoModal></PortalPopup>
+      }
+      {isPrintInfoOpen &&
+       <PortalPopup
+       overlayColor="rgba(0, 0, 0, 0.3)"
+       onOutsideClick={() => {setShowVirtualTryOnUrl('') ; setShowVirtualTryOn(false)}}>
+      <VideoPrint
+      src={''}
+      onClose={() => {setIsPrintInfoOpen('') ; }}>
+
+      </VideoPrint></PortalPopup>
       }
       {showAlertPopUp &&      
        <AlertPopUp       

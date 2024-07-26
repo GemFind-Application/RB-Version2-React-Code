@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useState, useRef ,useEffect,forwardRef} from "react";
 import PropTypes from "prop-types";
 import "./stats.css";
-
+import { useReactToPrint } from 'react-to-print';
+//const  ComponentToPrint=()=>{
+ //class ComponentToPrint extends React.PureComponent {
+  const ComponentToPrint = forwardRef((props, ref) => {
+   
+      return (
+        <div ref={ref}>{'sss'} </div>
+      );
+    }
+  
+  )
 const Stats = ({ 
   formSetting,
+  configAppData,
   emailAFriend, 
   openDropHint, 
   openScheduleViewing, 
-  openRequestInfo 
+  openRequestInfo ,
+  openPrintRequest
 }) => {
+  const componentRef = React.useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+  useEffect(() => {
+    const input = componentRef.current;
+   //input.select();
+  }, []);
+
   return (
     <div className="stats9">
-      {!formSetting.drop_A_Hint &&
+      {!configAppData.enable_hint &&
       <div className="stat-items" onClick={openDropHint}>
         <img
           className="fi-8429504-icon"
@@ -25,7 +46,7 @@ const Stats = ({
         </div>
       </div>
       }
-      {!formSetting.scheduleViewing &&
+      {!configAppData.enable_schedule_viewing &&
       <div className="stat-items1" onClick={openScheduleViewing}>
         <img
           className="fi-8429504-icon"
@@ -38,7 +59,7 @@ const Stats = ({
         </div>
       </div>
       }
-      {!formSetting.emailAFriend &&
+      {!configAppData.enable_email_friend &&
       <div className="stat-items2" onClick={emailAFriend}>
         <img
           className="fi-8429504-icon"
@@ -51,7 +72,7 @@ const Stats = ({
         </div>
       </div>
       }
-      {!formSetting.markup_Your_Own_Inventory &&
+      {configAppData.enable_more_info &&
       <div className="stat-items3" onClick={openRequestInfo}>
         <img
           className="fi-8429504-icon"
@@ -62,6 +83,27 @@ const Stats = ({
         <div className="drop-a-hint-wrapper">
           <b className="request-more-info">Request More Info</b>
         </div>
+      </div>
+      }
+       {!configAppData.enable_print &&
+      <div className="stat-items3" onClick={openPrintRequest}>
+        <img
+          className="fi-8429504-icon"
+          loading="lazy"
+          alt=""
+          src="/fi-151912.svg"
+        />
+       <div>
+      <div
+      style={{ display: "none" }}// This make ComponentToPrint show   only while printing
+      > 
+       <ComponentToPrint ref={componentRef} />
+      </div>
+      <div className="drop-a-hint-wrapper" onClick={handlePrint}>
+          <b className="request-more-info">Print</b>
+        </div>
+      
+    </div>
       </div>
       }
     </div>

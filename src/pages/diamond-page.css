@@ -856,24 +856,24 @@
   color: var(--white);
 }
 .specifications {
-  width: 792px;
+  max-width: 792px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-21xl);
-  min-width: 792px;
-  max-width: 100%;
+ 
+  width: 100%;
   color: var(--grey);
 }
 .product-details {
-  width: 1680px;
+  max-width: 1680px;
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
   gap: var(--gap-45xl);
-  max-width: 100%;
+  width: 100%;
 }
 .product {
   align-self: stretch;
