@@ -66,6 +66,7 @@
   position: relative;
   display: inline-block;
   min-width: 124px;
+  text-align: left;
 }
 .stat-items3 {
   margin: 0 !important;

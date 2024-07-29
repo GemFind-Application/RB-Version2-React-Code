@@ -41,17 +41,19 @@ const RingSpecificationsPopup = ({ product, onClose,configAppData }) => {
         <hr className='hr' />
         <div className="can-be-set-with">
           <h3>Can be set with:</h3>
-          {product.centerStoneFit && 
-           product.centerStoneFit.split(",").map((item,index) => {
-            return (    
-            <>   
-              <div className="diamonds_info flex" key={'canbesetwith_'+index}>
-                <p>{item}  -  </p>
-                <p>&nbsp; </p>
-                <p> {product.centerStoneMinCarat?product.centerStoneMinCarat:'-'} - {product.centerStoneMaxCarat?product.centerStoneMaxCarat:'-'} </p>              
-              </div>
-            </>)
-          })}  
+          <div className="can-be-set-with">
+            {product.centerStoneFit && 
+            product.centerStoneFit.split(",").map((item,index) => {
+              return (    
+              <>   
+                <div className="diamonds_info flex" key={'canbesetwith_'+index}>
+                  <p>{item}  -  </p>
+                  <p>&nbsp; </p>
+                  <p> {product.centerStoneMinCarat?product.centerStoneMinCarat:'-'} - {product.centerStoneMaxCarat?product.centerStoneMaxCarat:'-'} </p>              
+                </div>
+              </>)
+            })}  
+          </div>
           {/* Diamond shape icons */}
         </div>
       </div>

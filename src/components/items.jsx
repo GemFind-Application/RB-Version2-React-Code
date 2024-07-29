@@ -12,7 +12,7 @@ import { utils } from "../Helpers";
 const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData,additionOptionSetting}) => {
 const [showVideoPopup, setShowVideoPopup] = useState(false);
 const [videoUrl, setVideoUrl] = useState('');
-const [isDiamondPresentInCompare,setIsDiamondPresentInCompare] =useState()
+const [isDiamondPresentInCompare, setIsDiamondPresentInCompare] = useState(false);
 const [showDetailsPopup, setShowDetailsPopup] = useState(false);
 
 
@@ -42,6 +42,12 @@ console.log(isDiamondPresentInCompare)
     setShowDetailsPopup(!showDetailsPopup);
   };
 
+  // handle when compare svg is clicked
+  const handleCompareClick = () => {
+    addCompareDiamondIds(diamond.diamondId);
+    setIsDiamondPresentInCompare(!isDiamondPresentInCompare);
+  };
+
   return (
     <div className={`items ${className}`}>
       <div className="product-card">
@@ -57,7 +63,24 @@ console.log(isDiamondPresentInCompare)
               <img className="video-icon2" alt="" src="/video.svg" />
             </div>
             }
-            <img className="compare-icon2" alt="compare" src="/compare.svg" onClick={()=>addCompareDiamondIds(diamond.diamondId)}/>
+            {/* Compare icons */}
+            <div className="compare">
+              {isDiamondPresentInCompare ? (
+                <img 
+                  className="compare-icon2 compared" 
+                  alt="compared" 
+                  src="/compared.svg"
+                  onClick={handleCompareClick}
+                />
+              ) : (
+                <img 
+                  className="compare-icon2 hide-when-filled" 
+                  alt="compare" 
+                  src="/compare.svg" 
+                  onClick={handleCompareClick}
+                />
+              )}
+            </div>
             <div className="actions11 3dots" onClick={toggleDetailsPopup}>
               <img className="vector-icon27" alt="" src="/vector3.svg" />
             </div>

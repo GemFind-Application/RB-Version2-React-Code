@@ -77,9 +77,9 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
           />    
         </section>
         </>:(
-          <div className="bread-wrapper">
-          <div className="bread" >           
-            <b className="back-to-diamond">Please select Diamonds To compare</b>
+        <div className="no--compare-container">
+          <div className="main-container" >           
+            <b className="back-to-diamond no--compare">Please select Diamonds To compare</b>
           </div>
         </div>
          

@@ -26,6 +26,15 @@
   width: 100%;
 }
 
+.diamonds_info.flex {
+  width: auto;
+}
+
+.can-be-set-with {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .settings_info.flex p {
   flex: 1 1 auto;
 }

@@ -35,8 +35,7 @@
   cursor: pointer;
   border: none;
   padding: var(--padding-3xs-5) var(--padding-xl);
- 
-  border-radius: var(--br-21xl) 0px 0px var(--br-21xl);
+  border-radius:  0px var(--br-21xl) var(--br-21xl) 0px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -86,6 +85,7 @@
   justify-content: center;
   padding: var(--padding-5xs-5) var(--padding-6xs);
   box-sizing: border-box;
+  cursor: pointer;
 }
 .type {
   display: flex;

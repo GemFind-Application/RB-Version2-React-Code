@@ -204,6 +204,7 @@ body {
   align-items: center;
 }
 
+
 .skeleton-image,
 .skeleton-title,
 .skeleton-price {
@@ -359,6 +360,10 @@ select.select--outline option {
 @media (max-width: 768px) {
   .md\:flex-col {
     flex-direction: column;
+  }
+  .portalPopupOverlay {
+    overflow-y: scroll;
+    margin: 20px 0;
   }
 }
 

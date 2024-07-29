@@ -351,9 +351,21 @@
 
   .home-content {
     gap: var(--gap-17xl);
-    padding-left: var(--padding-41xl);
-    padding-right: var(--padding-41xl);
+    /* padding-left: var(--padding-41xl);
+    padding-right: var(--padding-41xl); */
     box-sizing: border-box;
+  }
+  body .plp-image-gallery {
+    padding: 0;
+  }
+  .image-gallery-thumbnails-wrapper.thumbnails-swipe-horizontal {
+    max-width: 300px;
+    width: 100%;
+  }
+  body .ring-specs-popup {
+    margin: 30px;
+    padding: 0;
+    width: auto;
   }
 }
 

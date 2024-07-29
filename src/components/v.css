@@ -11,9 +11,12 @@
   padding: var(--padding-11xs) 0px 0px;
 }
 .vector-icon15 {
-  height: 14px;
-  width: 14px;
+  /* height: 14px; */
+  /* width: 14px; */
   position: relative;
+}
+.remove-compared {
+  cursor: pointer;
 }
 .frame-group {
   align-self: stretch;
@@ -50,7 +53,7 @@
   justify-content: flex-start;
   padding: var(--padding-sm) var(--padding-base) var(--padding-6xs);
 }
-.princess-1001-carath1 {
+.compared-title {
   margin: 0;
   align-self: stretch;
   position: relative;
@@ -58,6 +61,7 @@
   line-height: 120%;
   font-weight: 700;
   font-family: inherit;
+  cursor: pointer;
 }
 .empty1 {
   position: relative;
@@ -77,8 +81,6 @@
   gap: var(--gap-9xs);
 }
 .button-child {
-  height: 8px;
-  width: 4px;
   position: relative;
 }
 .button20 {
@@ -122,7 +124,7 @@
 }
 
 @media screen and (max-width: 1275px) {
-  .princess-1001-carath1 {
+  .compared-title {
     font-size: var(--buttom-size);
     line-height: 19px;
   }

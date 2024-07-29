@@ -36,7 +36,7 @@ const V = ({
             <div className="id-3832123222">Id: {diamond.diamondId}</div>
           </div>
           <img onClick={()=>removeCompareDiamondIds(diamond.diamondId)}
-            className="vector-icon15"
+            className="vector-icon15 remove-compared"
             loading="lazy"
             alt=""
             src="/vector-31.svg"
@@ -53,7 +53,7 @@ const V = ({
       </div>
       <div className="frame-container">
         <div className="princess-1001-carath-parent">
-          <h3 className="princess-1001-carath1">{diamond.mainHeader}</h3>
+          <h3 className="compared-title">{diamond.mainHeader}</h3>
           <b className="empty1"><ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></b>
         </div>
         <div className="button20">

@@ -144,8 +144,8 @@
   font-family: var(--body-14-reg);
 }
 .breadcrumb-separator-icon {
-  width: 2.5px;
-  height: 5px;
+  width: 12px;
+  height: 12px;
   position: relative;
   object-fit: contain;
 }
@@ -162,7 +162,7 @@
 .bread1 {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: baseline;
   justify-content: flex-start;
   gap: var(--gap-xs);
   cursor: pointer;
@@ -321,14 +321,12 @@
   gap: var(--gap-lgi-7);
 }
 .product-info {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
   padding: 0px 0px var(--padding-4xs);
   box-sizing: border-box;
-  min-width: 536px;
   max-width: 100%;
 }
 .id-383212322 {
@@ -856,13 +854,13 @@
   color: var(--white);
 }
 .specifications {
-  max-width: 792px;
+  max-width: 970px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-21xl);
- 
+  flex: 2;
   width: 100%;
   color: var(--grey);
 }
@@ -931,16 +929,16 @@
   }
 
   .specifications {
-    flex: 1;
-  }
-
-  .product-details {
-    flex-wrap: wrap;
+    flex: 2;
   }
 }
 @media screen and (max-width: 1275px) {
   .head {
     gap: var(--gap-61xl);
+  }
+
+  .product-details {
+    flex-wrap: wrap;
   }
 
   .thumbnails {

@@ -86,22 +86,19 @@ const Stats = ({
       </div>
       }
       <div className="stat-items3" onClick={openPrintRequest}>
-        <img
-          className="fi-8429504-icon"
-          loading="lazy"
-          alt=""
-          src="/fi-151912.svg"
-        />
-       <div>
-      <div
-      > 
-       <ComponentToPrint ref={componentRef} />
-      </div>
-      <div className="drop-a-hint-wrapper" onClick={handlePrint}>
-          <b className="request-more-info">Print</b>
+          <img
+              className="fi-8429504-icon"
+              loading="lazy"
+              alt=""
+              src="/print.svg"
+            />
+            <div>
+            {/* <div> <ComponentToPrint ref={componentRef} /></div> */}
+
+            <div className="drop-a-hint-wrapper" onClick={handlePrint}>
+              <b className="request-more-info">Print</b>
+            </div>
         </div>
-      
-    </div>
       </div>
     </div>
   );

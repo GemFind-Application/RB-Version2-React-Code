@@ -158,7 +158,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
                 <div className="div64">
                   <div className="div65">
                     <div className="payment-info">
-                      <b className="prong-round-solitaire2">
+                      <b className="complete-ring-title">
                       {settingDetail.settingName?settingDetail.settingName:''}
                       </b>
                       <div className="id-3832123223">Id: {settingDetail.settingId?settingDetail.settingId:''}</div>
@@ -195,7 +195,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
                 <div className="div64">
                   <div className="div69">
                     <div className="payment-info">
-                      <b className="prong-round-solitaire2">
+                      <b className="complete-ring-title">
                       {diamondDetail.shape!=""?diamondDetail.shape:''} { ' '} {diamondDetail.caratWeight!=""?diamondDetail.caratWeight:''} {'CARATH'}
                       </b>
                       <div className="id-3832123223">

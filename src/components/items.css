@@ -250,7 +250,7 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
-  line-height: 1;
+  line-height: 31px;
 }
 .popup-content {
   padding: 30px 20px;

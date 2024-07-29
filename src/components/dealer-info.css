@@ -40,7 +40,10 @@
   padding: 0;
 }
 .drop4 {
-  width: 250px;
+  max-width: 250px;
+  width: 100%;
+}
+.drop4 input {
   border-radius: var(--br-21xl);
   border: 1px solid var(--stroke);
   box-sizing: border-box;
@@ -48,7 +51,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--padding-4xs) var(--padding-xl);
+  padding: 20px;
+  width: 100%;
 }
 .submit {
   position: relative;
