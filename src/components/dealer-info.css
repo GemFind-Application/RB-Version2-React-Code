@@ -135,7 +135,8 @@
   letter-spacing: normal;
 }
 
-.top3 {
+.content3:has(.success-message) .top3{
+  display: flex;
   flex-wrap: wrap;
   flex-direction: row;
 }
