@@ -6,6 +6,8 @@ const  dealerId = `${import.meta.env.VITE_DEALER_ID}`;
 const addtocartPrefix = `${import.meta.env.VITE_ADD_TO_CART_PREFIX}`;
 const addtocartUrl = `${import.meta.env.VITE_ADD_TO_CART}`;
 const videoUrl= `${import.meta.env.VITE_APP_API_VIDEOURL}`;
+const completePurchase = `${import.meta.env.VITE_ADD_TO_CART_COMPLETE_PURCHASE_PREFIX}`;
+const apiurlForForms = `${import.meta.env.VITE_APP_FORM_API_URL}`;
 //const tamayouInfluencerbaseUrl = `${process.env.REACT_APP_API_URL}/tamayou_influencers`;
 
 export const diamondService = {
@@ -15,7 +17,8 @@ export const diamondService = {
   getDiamondDetail,
   getFancyDiamondFilter,
   getDiamondVideoUrl,
-  addTocart
+  addTocart,
+  addTocartcompletePurchase
 };
 
 function getDiamondFilter(option) {
@@ -186,3 +189,9 @@ let formData = new FormData();
     `${addtocartUrl}/${addtocartPrefix}/${diamondId}`,
     formData
    );}
+function addTocartcompletePurchase (diamondId,settingID,formData){
+  
+      fetchWrapper.postFormData(
+        `${apiurlForForms}/${completePurchase}/${diamondId}/${settingID}/`,
+        formData
+       );}
