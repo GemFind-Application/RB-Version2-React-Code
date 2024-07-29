@@ -85,7 +85,6 @@ const Stats = ({
         </div>
       </div>
       }
-       {!configAppData.enable_print &&
       <div className="stat-items3" onClick={openPrintRequest}>
         <img
           className="fi-8429504-icon"
@@ -95,7 +94,6 @@ const Stats = ({
         />
        <div>
       <div
-      style={{ display: "none" }}// This make ComponentToPrint show   only while printing
       > 
        <ComponentToPrint ref={componentRef} />
       </div>
@@ -105,7 +103,6 @@ const Stats = ({
       
     </div>
       </div>
-      }
     </div>
   );
 };

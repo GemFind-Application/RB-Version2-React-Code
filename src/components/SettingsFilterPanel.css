@@ -343,8 +343,8 @@
 }
 
 .filter-option-icon {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: auto;
   margin-bottom: var(--padding-3xs);
 }
 

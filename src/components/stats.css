@@ -19,11 +19,7 @@
   cursor: pointer;
 }
 .stat-items {
-  width: 300px;
   margin: 0 !important;
-  position: absolute;
-  top: 24px;
-  left: 0px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -72,11 +68,7 @@
   min-width: 124px;
 }
 .stat-items3 {
-  width: 300px;
   margin: 0 !important;
-  position: absolute;
-  top: 80px;
-  left: 324px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
