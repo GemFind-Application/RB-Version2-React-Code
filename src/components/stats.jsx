@@ -12,9 +12,7 @@ import { useReactToPrint } from 'react-to-print';
     }
   
   )
-  useEffect(() => {
-    ComponentToPrint()
-  }, []);
+ 
 const Stats = ({ 
   formSetting,
   configAppData,

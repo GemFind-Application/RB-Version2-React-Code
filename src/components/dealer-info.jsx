@@ -48,7 +48,7 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
         }
         page = "setting";
       }
-
+      setErrorsFromRes("");
       let formDataVal = new FormData();
       Object.keys(formData).forEach(function (key) {
         formDataVal.append(key, formData[key]);
