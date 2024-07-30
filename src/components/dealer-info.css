@@ -144,6 +144,16 @@
   letter-spacing: normal;
 }
 
+.content3:has(.success-message) .top3{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.dealerinfo-label {
+  font-weight: bold;
+}
+
 @media screen and (max-width: 825px) {
   .dealer-info1 {
     font-size: var(--buttom-size);
