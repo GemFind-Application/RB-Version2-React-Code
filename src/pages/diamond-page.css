@@ -863,6 +863,7 @@
   flex: 2;
   width: 100%;
   color: var(--grey);
+  flex: 1 1 70%;
 }
 .product-details {
   max-width: 1680px;

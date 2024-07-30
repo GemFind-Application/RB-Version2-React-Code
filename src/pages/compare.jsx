@@ -7,6 +7,7 @@ import V from "../components/v";
 import TableColumns from "../components/table-columns";
 import "./compare.css";
 import { diamondService } from "../Services";
+import { remove } from "lodash";
 
 const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabGrown}) => {
   console.log(compareDiamondsId)
@@ -15,7 +16,6 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
   const [showAllParam, setShowAllParam] = useState(true);
   const navigate = useNavigate();
   const fetchDiamondDetails = async (compareDiamondsId,isLabGrown) => {
-   
         try {
             const promises = compareDiamondsId.map((item) => diamondService.getDiamondDetail(item,isLabGrown));
             const diamondDataData = await Promise.all(promises);
@@ -33,6 +33,8 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
         }
   };
   useEffect(() => {
+    console.log(compareDiamondsId)
+    localStorage.setItem('diamondIdsToCompare',JSON.stringify(compareDiamondsId))
     fetchDiamondDetails(compareDiamondsId,isLabGrown);
   }, [compareDiamondsId]);
   const onBreadContainerClick = useCallback(() => {
@@ -55,6 +57,8 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
         <FrameComponent5 
             setShowAllParam={setShowAllParam} 
             showAllParam={showAllParam}
+            compareDiamondsId={compareDiamondsId}
+            removeCompareDiamondIds={removeCompareDiamondIds}
             />
         {allDiamondDetailsToCompare.length>0 ?
         <>

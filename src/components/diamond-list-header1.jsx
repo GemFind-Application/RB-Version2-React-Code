@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import PropTypes from "prop-types";
 import DiamondExpandDetail from "./diamond-expand-details";
 import "./diamond-list-header1.css";
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
 import VideoModal from "./VideoModal";
 import { diamondService } from "../Services";
-const DiamondListHeader1 = ({ className = "", diamond ,configAppData}) => {
+const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareDiamondIds,compareDiamondsId}) => {
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isDiamondPresentInCompare, setIsDiamondPresentInCompare] = useState(false);
+  useEffect(() => {   
+    let isDiamondPresentInCompare = compareDiamondsId.filter(item=>item===diamond.diamondId);
+    setIsDiamondPresentInCompare(isDiamondPresentInCompare.length > 0?true:false)
+  
+  },[compareDiamondsId])
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
@@ -30,6 +36,11 @@ const DiamondListHeader1 = ({ className = "", diamond ,configAppData}) => {
       console.error("Error fetching filter data:", error);
       setError("Failed to fetch filter data. Please try again later.");
     }  
+  };
+   // handle when compare svg is clicked
+   const handleCompareClick = () => {
+    addCompareDiamondIds(diamond.diamondId);
+    setIsDiamondPresentInCompare(!isDiamondPresentInCompare);
   };
   return (
     <div className={`diamond-list-header ${className}`}>
@@ -106,7 +117,22 @@ const DiamondListHeader1 = ({ className = "", diamond ,configAppData}) => {
           </div>
         }
           <div className="actions5 compare-list--diamond">
-            <img className="compare-icon" alt="" src="/compare.svg" />
+          {isDiamondPresentInCompare ? (
+                <img 
+                  className="compare-icon2 compared" 
+                  alt="compared" 
+                  src="/compared.svg"
+                  onClick={()=>addCompareDiamondIds(diamond.diamondId)}
+                />
+              ) : (
+                <img 
+                  className="compare-icon2 hide-when-filled" 
+                  alt="compare" 
+                  src="/compare.svg" 
+                  onClick={()=>addCompareDiamondIds(diamond.diamondId)}
+                />
+              )}
+           
           </div>
           <div className="button25 show--more-diamond_info" onClick={handleToggleExpand}>
             <img 

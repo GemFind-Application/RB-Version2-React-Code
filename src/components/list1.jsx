@@ -3,10 +3,10 @@ import DiamondListHeader from "./diamond-list-header";
 import PropTypes from "prop-types";
 import "./list1.css";
 
-const List1 = ({ className = "" ,diamond,configAppData}) => {
+const List1 = ({ className = "" ,diamond,configAppData,addCompareDiamondIds,compareDiamondsId}) => {
   return (
     <div className={`list5 ${className}`}>
-      <DiamondListHeader1 diamond={diamond} configAppData={configAppData}/>
+      <DiamondListHeader1 diamond={diamond} configAppData={configAppData} addCompareDiamondIds={addCompareDiamondIds} compareDiamondsId={compareDiamondsId}/>
     </div>
   );
 };

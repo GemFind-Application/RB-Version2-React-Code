@@ -40,7 +40,7 @@ function getDiamondFilter(option) {
   }
  if(option.isLabGrown==='fancy'){
   console.log(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}`)
-  return fetchWrapper.get(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}`);
+  return fetchWrapper.get(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}&TableMin=0&TableMax=100&DepthMin=0&DepthMax=100`);
  }else{
   if( initialFilter===true){
     if(option.isLabGrown===0){
@@ -183,10 +183,12 @@ function getQueryParam(option){
   } 
 }
 
-function addTocart(diamondId){
+function addTocart(diamondId,labcreated){
+  console.log(labcreated)
+  const isLab = labcreated==true?'/labcreated':labcreated=='fancy'?'/fancydiamonds':''
 let formData = new FormData();
   fetchWrapper.postFormData(
-    `${addtocartUrl}/${addtocartPrefix}/${diamondId}`,
+    `${addtocartUrl}/${addtocartPrefix}/${diamondId}${isLab}`,
     formData
    );}
 function addTocartcompletePurchase (diamondId,settingID,formData){

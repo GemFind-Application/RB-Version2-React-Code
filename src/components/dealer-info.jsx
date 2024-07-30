@@ -69,7 +69,7 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
       setErrorsFromRes('An error occurred. Please try again.');
     }
   };
-
+console.log(dealerInfo)
   return (
     <div className={`dealer-info ${className}`}>
       <section className="content3">
@@ -109,7 +109,8 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
               <h2>Vendor Info</h2>
               <section className="content3">
                 <div className="top3">
-                  {Object.entries(dealerInfo).map(([key, value]) => (
+                {dealerInfo.retailerName &&
+                  Object.entries(dealerInfo).map(([key, value]) => (
                     <div key={key} className="h11 dealerinfores">
                       <div className="enter-your-password">
                         {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:

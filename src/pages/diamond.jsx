@@ -44,6 +44,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
   const [orderDirection,setOrderDirection] = useState('ASC');
   const [selectedCaratRange,setSelectedCaratRange] = useState([]);
   const [currentLabGrown,setCurrentLabGrown] = useState(isLabGrown);
+  const [isClaritySelected,setIsClaritySelected] = useState(false);
   const location = useLocation();
   console.log("====="+isLabGrown)
   /*if(isLabGrown===true){
@@ -181,7 +182,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
                 
                 
                 clarity:((storedData==null || (storedData && storedData.clarity.length===0))) ? 
-                                   res[1][0].clarityRange.map(item=> {return item.clarityName}):storedData?storedData.clarity:[],
+                                   res[1][0].clarityRange.map(item=> {return item.clarityId}):storedData?storedData.clarity:[],
                 price: ((storedData==null || (storedData&&storedData.price.length===0)) )? [res[1][0].priceRange[0].minPrice,res[1][0].priceRange[0].maxPrice]:storedData?storedData.price:[],
                 carat: (selectedRingShape!="" && selectedCaratRangeForSetting.length >0) ?  selectedCaratRangeForSetting  :  ( (storedData==null || (storedData  &&storedData.carat.length=== 0)))?[res[1][0].caratRange[0].minCarat,res[1][0].caratRange[0].maxCarat]:storedData?storedData.carat:[],
               });
@@ -224,6 +225,7 @@ let  selectedcarat = selectedFilters.carat;
     }  
     useEffect(() => {
       fetchDiamondFilter(isLabGrown);
+      setIsClaritySelected(false)
     }, [isLabGrown, doReset ]);
 
 
@@ -248,7 +250,19 @@ let  selectedcarat = selectedFilters.carat;
       console.log(fancyClarityArray)
         console.log("in getting diamonds");
         console.log(selectedFilters) */
-        //setIsResetClicked(false)    
+        //setIsResetClicked(false)  
+        let newselectedClarity = [];
+        if (isClaritySelected===false)
+        {
+          filterData.clarityRange.map(item=>{
+            //if(selectedFilters.clarity.length > filterData.clarityRange){
+              if(selectedFilters.clarity.includes(item.clarityId)){
+                newselectedClarity.push(item.clarityName)
+              }})
+        }   else{
+          newselectedClarity=selectedFilters.clarity;
+        }     
+
             try {       
               let option = {
                 pageNumber:page,    
@@ -257,8 +271,8 @@ let  selectedcarat = selectedFilters.carat;
                 shape:selectedFilters.shape.length>0?selectedFilters.shape.join(','):'',
                 cut:selectedFilters.cut.length>0?selectedFilters.cut.join(','):'',
                 colour:selectedFilters.colour.length>0?selectedFilters.colour.join(','):'',
-                intensity:selectedFilters.intensity.length>0?selectedFilters.intensity.join(','):'',
-                clarity:selectedFilters.clarity.length>0?selectedFilters.clarity.join(','):'',
+                intensity:selectedFilters.intensity.length>0?selectedFilters.intensity.join(',')+',':'',
+                clarity:selectedFilters.clarity.length>0?newselectedClarity.join(','):'',
                 isLabGrown:isLab==='fancy'?isLab:isLab===true?true:false,
                 priceMin:selectedFilters.price[0],
                 priceMax:selectedFilters.price[1],
@@ -406,7 +420,7 @@ let  selectedcarat = selectedFilters.carat;
   return (
     <div className="diamond">
       <Header />
-      <DiamondNavigation diamondNavigation={diamondNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown}/>
+      <DiamondNavigation diamondNavigation={diamondNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown} configAppData={configAppData}/>
       {isDiamondFilterLoaded ? 
       isDiamondFilterLoaded &&
       <DiamondFilter 
@@ -436,6 +450,7 @@ let  selectedcarat = selectedFilters.carat;
        orderDirection={orderDirection}
        configAppData={configAppData}
        selectedCaratRange={selectedCaratRange}
+       setClaritySelected={setIsClaritySelected}
        />
        : (
         <SkeletonFilterPanel />
@@ -452,6 +467,7 @@ let  selectedcarat = selectedFilters.carat;
             additionOptionSetting={additionOptionSetting}
             key={product.diamondId}
             addCompareDiamondIds={addCompareDiamondIds}
+            compareDiamondsId={compareDiamondsId}
             diamond={{
               ...product,
               videoURL: product.videoURL || null,
@@ -464,6 +480,8 @@ let  selectedcarat = selectedFilters.carat;
         <List1   
         configAppData={configAppData}
           key={product.diamondId}
+          compareDiamondsId={compareDiamondsId}
+          addCompareDiamondIds={addCompareDiamondIds}
           diamond={{
             ...product,
             videoURL: product.videoURL || null,

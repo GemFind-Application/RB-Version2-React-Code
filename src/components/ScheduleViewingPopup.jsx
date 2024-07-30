@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import "./ScheduleViewingPopup.css";
@@ -10,7 +10,7 @@ const ExampleCustomTimeInput = ({ date, value, onChange }) => (
     style={{ border: "solid 1px pink" }}
   />
 );
-const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl ,diamondId,diamondtype,diamondurl}) => {
+const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl ,diamondId,diamondtype,diamondurl,diamondDetail}) => {
   let formDataValue= {
     name: '',
     email: '',
@@ -44,17 +44,73 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
   const [ScheduleViewing, setScheduleViewing] = useState(false);
   const [scheduleViewingMessage,setScheduleViewingMessage]= useState('');
   const [errorsFromRes, setErrorsFromRes] = useState('');
+  const [timearray, setTimeArray] = useState([]);
+  const [availableTimeArray, setAvailableTimeArray] = useState([]);
+  useEffect(() => {
+    setAvailableTimeArray([])
+    if( diamondDetail.retailerInfo.addressList){
+      const locationIdObject = diamondDetail.retailerInfo.addressList.filter(item=>item.locationName===formData.location); 
+      console.log(locationIdObject)    
+      if(locationIdObject.length > 0){
+        const timedetail = diamondDetail.retailerInfo.timingList.filter(item=>item.locationID==locationIdObject[0].locationID);
+        setTimeArray(timedetail)
+        setFormData({...formData,avail_date:null,appnt_time:null})
+      }
+    } 
+  }, [formData.location]);
   const handleInputChange = (e) => {
+   
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    console.log(name)
+    console.log(value)
+   
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
     }
   };
-
+  const convertTime12to24 = (time12h) => {
+   // console.log(time12h)
+    const [time, modifier] = time12h.split(' ');
+  
+    let [hours, minutes] = time.split(':');
+  
+    if (hours === '12') {
+      hours = '00';
+    }
+  
+    if (modifier === 'PM') {
+      hours = parseInt(hours, 10) + 12;
+    }
+  
+    return `${hours}:${minutes!==undefined ?minutes:'00'}`;
+  }
+  
   const handleDateChange = (date) => {
-    console.log(date)
-    setFormData({ ...formData, avail_date: date ,appnt_time: date.toLocaleTimeString()});   
+    const start = new Date(date);
+    const end = new Date(date);
+    const isStoreClose = ('storeClosed'+start.toLocaleString('en-US', { weekday: 'short' }))
+    if(timearray[0][isStoreClose]=="" && timearray.length > 0){     
+      const dayArray = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+      let startDay =convertTime12to24(timearray[0][(dayArray[date.getDay()])+'Start']);
+      let endDay = convertTime12to24(timearray[0][(dayArray[date.getDay()])+'End']);
+      let startDayArray = (startDay.split(':'));
+      let endDayArray = (endDay.split(':')); 
+      start.setHours(startDayArray[0],startDayArray[1],0);
+      end.setHours(endDayArray[0],endDayArray[1],0);
+      let availableTime = [];
+      while (start <= end) {
+        availableTime.push((start.toLocaleString('en-US', {hour: '2-digit', minute: '2-digit'})));
+        start.setMinutes(start.getMinutes() + 30);
+      }
+     setAvailableTimeArray(availableTime)
+     setFormData({ ...formData, avail_date: date,appnt_time:availableTime[0]});   
+   //  setFormData({...formData,appnt_time:availableTime[0]})
+    }else{
+      setFormData({ ...formData, avail_date: date}); 
+    }
+   
+   // setFormData({ ...formData, avail_date: date});   
    // setFormData({ ...formData, appnt_time: date.toLocaleTimeString() });
     if (errors.preference) {
       setErrors({ ...errors, preference: '' });
@@ -76,24 +132,25 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
+ 
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-    
+    console.log("herer")
     if (validateForm()) {
+      console.log("herer")
       let formDataVal = new FormData();
       Object.keys(formData).forEach(function (key) {
         formDataVal.append(key,formData[key]);
       });
-      
+      console.log(formDataVal)
       let sendRequest = 'settings';
         if((!formData.settingid) && formData.diamondid && formData.diamondid!=""){
           sendRequest='diamondtools'
         }else{
           sendRequest = 'settings'
         }
-        console.log(formData)
+        console.log(sendRequest)
         let apiCall = (formData.settingid && formData.diamondId) ? "resultscheview_cr" : "resultscheview";
         const res = await settingService.scheduleViewing(formDataVal,sendRequest,apiCall); 
       if(res.output.status===2){
@@ -105,9 +162,11 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
        }
       //setScheduleViewing(true);
       // onClose();
+    }else{
+      console.log(errors)
     }
   };
-
+console.log(formData)
   return (
     <div className="popup-overlay requestInfopopup-overlay">
       <div className="popup-content">
@@ -145,7 +204,7 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
               placeholder={errors.phoneNumber || "Your Phone Number"}
               value={formData.phone}
               onChange={handleInputChange} 
-              className={errors.phone ? 'error' : ''}
+              className={errors.phoneNumber ? 'error' : ''}
             />
           </div>
           <div className="flex message_info">
@@ -185,18 +244,35 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
                     <DatePicker 
                       selected={formData.avail_date}
                       onChange={handleDateChange}
-                      placeholderText="00.00.0000 00:00"
+                      placeholderText="00.00.0000"
                       className={errors.preference ? 'error' : ''}
-                      dateFormat="MM/dd/yyyy h:mm aa"
+                      dateFormat="MM/dd/yyyy"
                       minDate={new Date()}
-                      showTimeSelect
-                     
+                                         
                     />
                   </div>
                 </div>
-                {errors.preference && <span className="error-message">{errors.preference}</span>}
+
+                {
+               
+                (availableTimeArray.length > 0) &&
+                  <div className="preference_val">
+                    <select
+                      name="appnt_time"
+                      value={formData.appnt_time}
+                      onChange={(e)=>{handleInputChange(e)}}
+                      className={errors.appnt_time ? 'error' : 'no-appearance select--outline'}
+                      placeholder='Select Time'
+                    >                      
+                      {availableTimeArray.map((time, index) => (
+                        <option key={index} value={time}>{time}</option>
+                      ))}
+                    </select>
+                  </div>
+                  }
+            
               </div>
-              
+             
               <button type="submit" className="submit-button">Request</button>
             </div>
           </div>

@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import PropTypes from "prop-types";
 import "./v.css";
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
+import { utils } from "../Helpers";
+import { useNavigate } from 'react-router-dom';
 const V = ({
   className = "",
   propBorderRadius,
@@ -28,6 +30,12 @@ const V = ({
     propBorderRight,
     propBorderBottom,
   ]);
+  const navigate = useNavigate();
+  const viewDiamond=(diamond)=>{
+     const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
+     const viewUrlLink = utils.getDiamondViewUrl(diamond)
+    navigate("/"+diamondDetailUrl+"/"+viewUrlLink)
+  }
   return (
     <div className={`v1 ${className}`} style={v1Style}>
       <div className="image10">
@@ -35,7 +43,7 @@ const V = ({
           <div className="id-383212322-wrapper">
             <div className="id-3832123222">Id: {diamond.diamondId}</div>
           </div>
-          <img onClick={()=>removeCompareDiamondIds(diamond.diamondId)}
+          <img onClick={()=>removeCompareDiamondIds([diamond.diamondId])}
             className="vector-icon15 remove-compared"
             loading="lazy"
             alt=""
@@ -56,7 +64,7 @@ const V = ({
           <h3 className="compared-title">{diamond.mainHeader}</h3>
           <b className="empty1"><ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></b>
         </div>
-        <div className="button20">
+        <div className="button20" onClick={()=>viewDiamond(diamond)}>
           <img
             className="button-child"
             loading="lazy"

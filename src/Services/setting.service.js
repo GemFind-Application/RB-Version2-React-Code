@@ -69,7 +69,7 @@ function validateDealerPassword(data,page){
   }
  
 }
-function scheduleViewing(formData){
+function scheduleViewing(formData,sendRequest,apiCall){
   //console.log(formData);
  return fetchWrapper.postFormData(
    `${apiurlForForms}/${sendRequest}/${apiCall}`,

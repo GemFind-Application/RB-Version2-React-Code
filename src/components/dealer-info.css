@@ -23,7 +23,8 @@
   gap: var(--gap-5xs);
 }
 .dealerinfores {
-  flex-direction: row;
+  /*flex-direction: row;*/
+  flex:1 1 calc(49% - var(--gap-5xs))
 }
 .your-gemfind-password {
   width: 151px;
@@ -92,13 +93,21 @@
   padding: var(--padding-3xl) 0px 0px;
   gap: var(--gap-5xl);
 }
+.fw-600{
+  font-weight:600;
+}
+.errorText{
+  color:red;
+  min-width:100%;
+}
 .top3 {
   align-self: stretch;
   display: flex;
-  flex-direction: column;
+  /*flex-direction: column;*/
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-5xl);
+  flex-wrap:wrap;
 }
 .content3 {
   position: absolute;

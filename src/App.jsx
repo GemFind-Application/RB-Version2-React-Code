@@ -23,12 +23,14 @@ import Footer from "./components/Footer";
 import ThemeSetup from './components/ThemeSetup';
 function App() {
   const location = useLocation();
+  let diamondIdsToCompare = JSON.parse(localStorage.getItem('diamondIdsToCompare'));
+  console.log(diamondIdsToCompare)
   const [ additionOptionSetting,setAdditionOptionSetting] = useState([]);
   const [ isAdditionOptionSettingLoaded,setIsAdditionOptionSettingLoaded] = useState(false);
   const [settingNavigation,setSettingNavigation] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isSettingNavLoaded, setIsSettingNavLoaded] = useState(false);
-  const [compareDiamondsId, setCompareDiamondsId] = useState([]);
+  const [compareDiamondsId, setCompareDiamondsId] = useState(diamondIdsToCompare?diamondIdsToCompare.length > 0?diamondIdsToCompare:[]:[]);
   const [isLabGrown, setIsLabGrown] = useState(false); // Default to Mined
   const [showAlertPopUp,setshowAlertPopUp] =useState(false);
   const [message,setMessage] =useState('');
@@ -218,22 +220,44 @@ function App() {
     let newcompareDiamonds = compareDiamondsId.filter(item => item === diamondId);
     console.log(newcompareDiamonds)
     if(newcompareDiamonds.length > 0){
+      //remove from array
       let newcompareArray = compareDiamondsId.filter(item => item !== diamondId);
       setCompareDiamondsId(newcompareArray);
+      
     }else{
-      setCompareDiamondsId([...compareDiamondsId,diamondId]);
+      if(compareDiamondsId.length > 5 ){
+        setshowAlertPopUp(true)
+       setMessage('You can select a maximum of 6 diamonds to compare! Please check your compare item page you have some items in your compare list.')
+      }else{
+        setCompareDiamondsId([...compareDiamondsId,diamondId]);
+        
+      }
+      
+      
     }   
     //setCurrentPage(1);
   };
-  const removeCompareDiamondIds = (diamondId) => {
-   let newcompareDiamonds = compareDiamondsId.filter(item => item !== diamondId);
-   setCompareDiamondsId(newcompareDiamonds);
-  };
+  const removeCompareDiamondIds = (diamondIdArray) => {
+    console.log(diamondIdArray)
+    if(diamondIdArray.length > 1) {
+      setCompareDiamondsId([])
+    }else{
+      diamondIdArray.map(diamondId=>{
+        let newcompareDiamonds = compareDiamondsId.filter(item => item !== diamondId);
+        setCompareDiamondsId(newcompareDiamonds);
+      })
+    }
+      
+    }
+    
+    
+ 
+  
 
 
 
 
-  //console.log(settingNavigation)
+  console.log(compareDiamondsId)
   return (
    
     <div>
@@ -248,7 +272,10 @@ function App() {
       formSetting={additionOptionSetting}
       isLabGrown={isLabGrown} 
       settingNavigationData={settingNavigation}/>} />
-      <Route path="/diamondtools/compare/" element={<Compare  isLabGrown={isLabGrown} configAppData={configAppData} removeCompareDiamondIds={removeCompareDiamondIds} compareDiamondsId={compareDiamondsId} />} />
+      <Route path="/diamondtools/compare/" element={
+        <Compare  
+        isLabGrown={isLabGrown} configAppData={configAppData} removeCompareDiamondIds={removeCompareDiamondIds}
+         compareDiamondsId={compareDiamondsId} />} />
       <Route path="/diamondtools" element={<Diamond additionOptionSetting={additionOptionSetting}  configAppData={configAppData} addCompareDiamondIds={addCompareDiamondIds} compareDiamondsId={compareDiamondsId} onCompareContainerClick={onCompareContainerClick}   isLabGrown={isLabGrown} setIsLabGrown={setIsLabGrown}/>} />
       <Route path="/diamondtools/product/:diamondId" element={<DiamondPage className={styleData} isLabGrown={isLabGrown} shopUrl={shopUrl}  additionOptionSetting={additionOptionSetting} configAppData={configAppData} formSetting={additionOptionSetting} />} />   
      

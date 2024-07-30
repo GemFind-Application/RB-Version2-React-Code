@@ -12,6 +12,9 @@ import { useReactToPrint } from 'react-to-print';
     }
   
   )
+  useEffect(() => {
+    ComponentToPrint()
+  }, []);
 const Stats = ({ 
   formSetting,
   configAppData,
@@ -46,7 +49,7 @@ const Stats = ({
         </div>
       </div>
       }
-      {!configAppData.enable_schedule_viewing &&
+      {configAppData.enable_schedule_viewing &&
       <div className="stat-items1" onClick={openScheduleViewing}>
         <img
           className="fi-8429504-icon"

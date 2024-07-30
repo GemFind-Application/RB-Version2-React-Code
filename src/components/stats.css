@@ -33,11 +33,8 @@
   min-width: 121px;
 }
 .stat-items1 {
-  width: 300px;
+ 
   margin: 0 !important;
-  position: absolute;
-  top: 24px;
-  left: 324px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -51,11 +48,8 @@
   min-width: 95px;
 }
 .stat-items2 {
-  width: 300px;
+  
   margin: 0 !important;
-  position: absolute;
-  top: 80px;
-  left: 0px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -76,6 +70,7 @@
   justify-content: flex-start;
   gap: var(--gap-5xs);
   cursor: pointer;
+
 }
 .stats9 {
   align-self: stretch;

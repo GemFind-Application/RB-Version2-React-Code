@@ -347,9 +347,7 @@ select.select--outline option {
   text-decoration: none;
 }
 
-.errorText{
-  color:red
-}
+
 /* Responsive utilities */
 @media (max-width: 640px) {
   .sm\:flex-col {

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import "./frame-component5.css";
 
-const FrameComponent5 = ({ className = "",setShowAllParam,showAllParam }) => {
+const FrameComponent5 = ({ className = "",setShowAllParam,showAllParam,removeCompareDiamondIds,compareDiamondsId }) => {
   console.log(showAllParam)
   return (
     <section className={`top-content-wrapper ${className}`}>
@@ -10,14 +10,14 @@ const FrameComponent5 = ({ className = "",setShowAllParam,showAllParam }) => {
           <h1 className="compare-diamonds1">Compare Diamonds</h1>
           <div className="type">
             <div className="view1">
-              <button className={showAllParam==true ? "grid1":"grid1Unselected"} onClick={()=>setShowAllParam(true)}>
+              <button className={showAllParam==true ? "grid1 borderLeft":"grid1Unselected"} onClick={()=>setShowAllParam(true)}>
                 <b className="all-parameters">All Parameters</b>
               </button>
-              <div className={showAllParam==false ? "grid1":"table3"} onClick={()=>setShowAllParam(false)}>
+              <div className={showAllParam==false ? "grid1 borderRight":"table3"} onClick={()=>setShowAllParam(false)}>
                 <div className="difference-only">Difference only</div>
               </div>
             </div>
-            <div className="button19">
+            <div className="button19" onClick={()=>removeCompareDiamondIds(compareDiamondsId)}>
               <img
                 className="fi-9742093-icon"
                 loading="lazy"

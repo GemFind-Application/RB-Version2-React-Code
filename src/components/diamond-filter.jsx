@@ -32,7 +32,8 @@ const DiamondFilter = ({ className = "",
   setOrderDirection,
   orderDirection,
   configAppData,
-  selectedCaratRange
+  selectedCaratRange,
+  setClaritySelected
 }) => {
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -43,6 +44,9 @@ const DiamondFilter = ({ className = "",
   const [tableRange, setTableRange] = useState(advancedFilters.table.length === 0 ? [filterData.tableRange[0].minTable, filterData.tableRange[0].maxTable] : [advancedFilters.table[0], advancedFilters.table[1]]);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [sortBy, setSortBy] = useState("Clarity");
+ 
+
+  //const [claritySel, setClaritySel] = useState(newClarityData.length ===0 ?selectedFilters.clarity:newClarityData);
   const [availableFilter, setAvailableFilter] = useState(['shape', 'price', 'carat', 'cut', 'colour', 'clarity']);
   const [searchQuery, setSearchQuery] = useState(selectedFilters.search ? selectedFilters.search != "" ? selectedFilters.search : '' : '');
   /*const [selectedFilters, setSelectedFilters] = useState({
@@ -64,7 +68,7 @@ const DiamondFilter = ({ className = "",
     setTableRange(advancedFilters.table.length === 0 ? [filterData.tableRange[0].minTable, filterData.tableRange[0].maxTable] : [advancedFilters.table[0], advancedFilters.table[1]]);
   }, [selectedFilters,filterData,selectedCaratRange]);
 
- console.log(caratRange)
+ //console.log(caratRange)
 
   const onTableContainerClick = useCallback(() => {
     setIsGridView(false)
@@ -135,6 +139,9 @@ const DiamondFilter = ({ className = "",
   );
 
   const handleFilterChange = (filterType, value) => {
+    if(filterType==='clarity'){
+      setClaritySelected(true)
+    }
    
     setSelectedFilters(prev => ({
       ...prev,
@@ -163,9 +170,11 @@ const DiamondFilter = ({ className = "",
   };
 
   const isFilterApplied = (filterType) => {
+    console.log(filterType)
     if (filterType === 'price') {
       //return priceRange[0] > mockPriceData.minPrice || priceRange[1] < mockPriceData.maxPrice;
     }
+    console.log(selectedFilters[filterType].length)
     return selectedFilters[filterType] && selectedFilters[filterType].length > 0;
   };
 console.log
@@ -187,7 +196,35 @@ console.log
     };
     return contents[filterType] || "Information not available.";
   };
+const resetThisFilter=(filter)=>{
+  console.log(filter)
+if(filter==='clarity'){
+  setSelectedFilters({...selectedFilters,[filter]:filterData.clarityRange.map(item=>item.clarityId)})
+}
+if(filter==='colour'){
+  setSelectedFilters({...selectedFilters,[filter]:  
+    
+    filterData.colorRange ? filterData.colorRange.map(item=> {return item.colorId}):filterDatadiamondColorRange?
+    
+    filterData.diamondColorRange.map(item=> {return (item.diamondColorName).toLowerCase()}):[]})
+}
+if(filter==='cut'){
+  setSelectedFilters({...selectedFilters,[filter]:[]})
+}
+if(filter==='shape'){
+  setSelectedFilters({...selectedFilters,[filter]:[]})
+}
+if(filter==='price'){
+  setSelectedFilters({...selectedFilters,[filter]:[filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]})
+}
+if(filter==='carat'){
+  setSelectedFilters({...selectedFilters,[filter]:[filterData.caratRange[0].minCarat, filterData.caratRange[0].maxCarat]})
+}
+if(filter==='intensity'){
+  setSelectedFilters({...selectedFilters,[filter]:filterData.intensity.map(item=>item.intensityName)})
+}
 
+}
   return (
     <div className={`diamond-inner ${className}`}>
       <div className="frame-parent9">
@@ -220,7 +257,7 @@ console.log
                   <option value="Symmetry">Symmetry</option>
                   <option value="Measurements">Measurement</option>
                   <option value="Certificate">Certificate</option> 
-                  <option value="price1">Price</option>
+                  <option value="FltPrice">Price</option>
                    </select> 
            
                 
@@ -248,7 +285,7 @@ console.log
                   {availableFilter.map((filter) => (
                     <div key={filter} className="filter--val" onClick={() => toggleDropdown(filter)}>
                       <div className={filter === 'shape' ? "shape-option" : ""}>
-                        {isFilterApplied(filter) && <img className="icon--close" alt="" src="/vector2.svg" />}
+                        {<img onClick={()=>resetThisFilter(filter)}className="icon--close" alt="" src="/vector2.svg" />}
                         <div className={filter === 'shape' ? "shape5" : filter === 'price' ? "price23" : filter === 'carat' ? "carat4" : filter === 'cut' ? "cut10" : filter === 'colour' ? "filters7" : "clarity10"}>
                           
                           {filter!=='diamondColorRange'?filter.charAt(0).toUpperCase() + filter.slice(1):'color'.charAt(0).toUpperCase() + 'color'.slice(1)}

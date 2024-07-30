@@ -24,7 +24,7 @@
   border: none;
   padding: var(--padding-3xs-5) var(--padding-xl);
   background-color: var(--beige-02);
-  border-radius: var(--br-21xl) 0px 0px var(--br-21xl);
+  
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -49,6 +49,12 @@
   position: relative;
   display: inline-block;
   min-width: 97px;
+}
+.borderLeft{
+  border-radius: var(--br-21xl) 0px 0px var(--br-21xl);
+}
+.borderRight{
+  border-radius: 0 var(--br-21xl) var(--br-21xl) 0;
 }
 .table3 {
   border-radius: var(--br-21xl);

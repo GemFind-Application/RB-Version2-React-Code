@@ -158,7 +158,7 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
     navigate("/settings");
   }
   const addToCart = async(diamondDetail) => {
-      const res = await diamondService.addTocart(diamondDetail.diamondId);
+      const res = await diamondService.addTocart(diamondDetail.diamondId,isLabGrown);
   }
 
   
@@ -444,6 +444,7 @@ console.log(images)
             diamondId={diamondDetail.diamondId}
             diamondurl={window.location.hostname +location.pathname}
             shopurl={shopUrl}
+            diamondDetail={diamondDetail}
             diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
             onClose={() => setIsScheduleViewingOpen(false)}
             locations={diamondDetail.retailerInfo ? diamondDetail.retailerInfo.addressList.map(address => address.locationName) : []}

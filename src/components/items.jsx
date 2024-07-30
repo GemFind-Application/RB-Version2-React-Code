@@ -1,4 +1,4 @@
-import { useMemo,useState ,useEffect} from "react";
+import React,{ useMemo,useState ,useEffect} from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./items.css";
@@ -9,7 +9,7 @@ import { diamondService } from "../Services";
 import { utils } from "../Helpers";
 
 
-const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData,additionOptionSetting}) => {
+const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData,additionOptionSetting,compareDiamondsId}) => {
 const [showVideoPopup, setShowVideoPopup] = useState(false);
 const [videoUrl, setVideoUrl] = useState('');
 const [isDiamondPresentInCompare, setIsDiamondPresentInCompare] = useState(false);
@@ -17,7 +17,11 @@ const [showDetailsPopup, setShowDetailsPopup] = useState(false);
 
 
 const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
-console.log(isDiamondPresentInCompare)
+useEffect(() => {   
+  let isDiamondPresentInCompare = compareDiamondsId.filter(item=>item===diamond.diamondId);
+  setIsDiamondPresentInCompare(isDiamondPresentInCompare.length > 0?true:false)
+
+},[compareDiamondsId])
   const handleVideoIconClick = async() => {
     setShowVideoPopup(false)
     try {     
@@ -43,10 +47,10 @@ console.log(isDiamondPresentInCompare)
   };
 
   // handle when compare svg is clicked
-  const handleCompareClick = () => {
+  /*const handleCompareClick = () => {
     addCompareDiamondIds(diamond.diamondId);
     setIsDiamondPresentInCompare(!isDiamondPresentInCompare);
-  };
+  };*/
 
   return (
     <div className={`items ${className}`}>
@@ -70,14 +74,14 @@ console.log(isDiamondPresentInCompare)
                   className="compare-icon2 compared" 
                   alt="compared" 
                   src="/compared.svg"
-                  onClick={handleCompareClick}
+                  onClick={()=>addCompareDiamondIds(diamond.diamondId)}
                 />
               ) : (
                 <img 
                   className="compare-icon2 hide-when-filled" 
                   alt="compare" 
                   src="/compare.svg" 
-                  onClick={handleCompareClick}
+                  onClick={()=>addCompareDiamondIds(diamond.diamondId)}
                 />
               )}
             </div>
