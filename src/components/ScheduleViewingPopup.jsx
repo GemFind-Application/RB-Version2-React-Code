@@ -1,16 +1,11 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect ,useRef} from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import "./ScheduleViewingPopup.css";
 import { settingService } from '../Services';
-const ExampleCustomTimeInput = ({ date, value, onChange }) => (
-  <input
-    value={value}
-    onChange={(e) => onChange(e.target.value)}
-    style={{ border: "solid 1px pink" }}
-  />
-);
-const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl ,diamondId,diamondtype,diamondurl,diamondDetail}) => {
+import SettingDetails1 from './setting-details1';
+import ReCAPTCHA from 'react-google-recaptcha';
+const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl ,diamondId,diamondtype,diamondurl,diamondDetail,SettingDetails,configAppData}) => {
   let formDataValue= {
     name: '',
     email: '',
@@ -20,7 +15,9 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
     location: '',
     appnt_time:null,
     isLabSetting: isLabSetting,   
-    shopurl: shopurl
+    shopurl: shopurl,
+    'captcha-response':'',
+    'secret-key':configAppData.secret_key
   }
   if(settingId&&settingId!==""){
     formDataValue.settingid = settingId;
@@ -46,24 +43,50 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
   const [errorsFromRes, setErrorsFromRes] = useState('');
   const [timearray, setTimeArray] = useState([]);
   const [availableTimeArray, setAvailableTimeArray] = useState([]);
+  const recaptcha = useRef();
   useEffect(() => {
     setAvailableTimeArray([])
-    if( diamondDetail.retailerInfo.addressList){
-      const locationIdObject = diamondDetail.retailerInfo.addressList.filter(item=>item.locationName===formData.location); 
-      console.log(locationIdObject)    
-      if(locationIdObject.length > 0){
-        const timedetail = diamondDetail.retailerInfo.timingList.filter(item=>item.locationID==locationIdObject[0].locationID);
-        setTimeArray(timedetail)
-        setFormData({...formData,avail_date:null,appnt_time:null})
-      }
-    } 
+    if(settingId&&settingId!==""){
+      if( SettingDetails.addressList){
+        const locationIdObject = SettingDetails.addressList.filter(item=>item.locationName===formData.location); 
+        console.log(locationIdObject)    
+        if(locationIdObject.length > 0){
+          const timedetail = SettingDetails.timingList.filter(item=>item.locationID==locationIdObject[0].locationID);
+          setTimeArray(timedetail)
+          setFormData({...formData,avail_date:null,appnt_time:null})
+        }
+      } 
+    }else{
+      if( diamondDetail.retailerInfo.addressList){
+        const locationIdObject = diamondDetail.retailerInfo.addressList.filter(item=>item.locationName===formData.location); 
+        console.log(locationIdObject)    
+        if(locationIdObject.length > 0){
+          const timedetail = diamondDetail.retailerInfo.timingList.filter(item=>item.locationID==locationIdObject[0].locationID);
+          setTimeArray(timedetail)
+          setFormData({...formData,avail_date:null,appnt_time:null})
+        }
+      } 
+    }
+   
   }, [formData.location]);
+  useEffect(() => {
+    // setIsLabGrown(false);
+    async function fetchToken(){
+      try {      
+        const token = await recaptcha.current.executeAsync();
+        formData['captcha-response'] = token;      
+      } catch (err) {  
+        console.error("Error fetching products:", error);
+        setError("Failed to get captcha . Please try again later.");
+      }
+    }
+    fetchToken()
+   }, [errorsFromRes]);
   const handleInputChange = (e) => {
    
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(name)
-    console.log(value)
+   
    
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
@@ -128,7 +151,9 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
     if (!formData.hint_message.trim()) newErrors.message = 'Message is required';
     if (!formData.avail_date) newErrors.preference = 'Please select a date';
     if (!formData.location) newErrors.location = 'Please select a location';
-
+    if (!formData['captcha-response']) {
+      newErrors.recaptcha = 'Please verify captcha';
+    }  
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -155,10 +180,12 @@ const RequestInfoPopup = ({ onClose, locations, settingId, isLabSetting, ringurl
         const res = await settingService.scheduleViewing(formDataVal,sendRequest,apiCall); 
       if(res.output.status===2){
         setErrorsFromRes(res.output.msg);
+        recaptcha.current.reset();
        }
        if(res.output.status===1){
         setScheduleViewingMessage(res.output.msg)
         setScheduleViewing(true);
+        recaptcha.current.reset();
        }
       //setScheduleViewing(true);
       // onClose();
@@ -176,7 +203,7 @@ console.log(formData)
         <h2>Schedule Viewing</h2> 
         <p>See This Item & More In Our Store.</p>
         {errorsFromRes!="" &&            
-          <p className='error'>{errorsFromRes}</p>            
+          <div className='enter-your-password errorText'>{errorsFromRes}</div>            
         }
         <form onSubmit={handleSubmit}>
           <div className="flex basic_info">
@@ -270,7 +297,13 @@ console.log(formData)
                     </select>
                   </div>
                   }
-            
+                <div>
+                  {configAppData.site_key && configAppData.site_key!=="" && 
+                    <div className="gift-deadline">
+                    <ReCAPTCHA  ref={recaptcha} size="invisible" sitekey={configAppData.site_key} />
+                    </div>
+                  }
+              </div>
               </div>
              
               <button type="submit" className="submit-button">Request</button>
@@ -290,4 +323,4 @@ console.log(formData)
 };
 
 
-export default RequestInfoPopup;
+export default ScheduleViewingPopup;

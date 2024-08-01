@@ -1,10 +1,12 @@
-import React from 'react'
+import React ,{useContext} from 'react'
+
 import { Link } from 'react-router-dom'
 
-function Header() {
+function Header({ }) {
+    const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
     return (
         <header className="head1">
-            <img className="jewellery-icon1" loading="lazy" alt="" src="/jewellery.svg" />
+            <img className="jewellery-icon1" loading="lazy" alt="" src={`${imageUrl}`+"/jewellery.svg" }/>
             <nav className="menu-container-wrapper">
                 <nav className="menu-container">
                     <Link className="menu-element10" href="/">Home</Link>
@@ -16,22 +18,22 @@ function Header() {
             <div className="image-gallery-wrapper">
                 <div className="image-gallery">
                     <div className="acc-wrapper">
-                        <img className="acc-icon1" loading="lazy" alt="" src="/acc.svg" />
+                        <img className="acc-icon1" loading="lazy" alt="" src={`${imageUrl}`+"/acc.svg" }/>
                     </div>
                     <div className="vector-parent">
-                        <img className="vector-icon9" loading="lazy" alt="" src="/vector.svg" />
+                        <img className="vector-icon9" loading="lazy" alt="" src={`${imageUrl}`+"/vector.svg"} />
                         <div className="div37">
                             <a className="a10">2</a>
                         </div>
                     </div>
                     <div className="vector-parent">
-                        <img className="vector-icon10" loading="lazy" alt="" src="/vector-1.svg" />
+                        <img className="vector-icon10" loading="lazy" alt="" src={`${imageUrl}`+"/vector-1.svg"} />
                         <div className="div37">
                             <a className="a10">5</a>
                         </div>
                     </div>
                     <div className="vector-parent">
-                        <img className="vector-icon11" alt="" src="/vector-2.svg" />
+                        <img className="vector-icon11" alt="" src={`${imageUrl}`+"/vector-2.svg"} />
                         <div className="div37">
                             <a className="a10">3</a>
                         </div>

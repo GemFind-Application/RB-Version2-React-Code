@@ -45,7 +45,7 @@
 .wrapper5 {
   flex: 1;
   border-radius: var(--br-5xs);
-  background-color: var(--background);
+  background-color: var(--beige-04);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,11 +53,7 @@
   padding: var(--padding-6xs-5) var(--padding-xs);
   color: var(--link);
 }
-.wrapper6:hover{
-  background-color: var(--hover-color);
-  color: var(--hover-color);
 
-}
 .inactive_pagination {
   position: relative;
   display: inline-block;

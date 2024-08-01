@@ -45,7 +45,7 @@ const DiamondFilter = ({ className = "",
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [sortBy, setSortBy] = useState("Clarity");
  
-
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   //const [claritySel, setClaritySel] = useState(newClarityData.length ===0 ?selectedFilters.clarity:newClarityData);
   const [availableFilter, setAvailableFilter] = useState(['shape', 'price', 'carat', 'cut', 'colour', 'clarity']);
   const [searchQuery, setSearchQuery] = useState(selectedFilters.search ? selectedFilters.search != "" ? selectedFilters.search : '' : '');
@@ -75,6 +75,7 @@ const DiamondFilter = ({ className = "",
   }, [navigate]);
   const onGridContainerClick = useCallback(() => {
     setIsGridView(true)
+    
   }, [navigate]);
   const toggleDropdown = (dropdown) => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
@@ -262,8 +263,8 @@ if(filter==='intensity'){
            
                 
               </div>
-              <div className="settings-sort-page"> {orderDirection==='ASC' && <a onClick={()=>setOrderDirection('DESC')} ><img title='DESC' className={'imgDescAsc'} src="./downarrow_dir.png"></img></a>}
-              {orderDirection==='DESC' &&<a onClick={()=>setOrderDirection('ASC')}><img className={'imgDescAsc'} title="ASC"  src="./uparrow_dir.png"/></a>}</div>
+              <div className="settings-sort-page"> {orderDirection==='ASC' && <a onClick={()=>setOrderDirection('DESC')} ><img title='DESC' className={'imgDescAsc'} src={`${imageUrl}`+"/downarrow_dir.png"}></img></a>}
+              {orderDirection==='DESC' &&<a onClick={()=>setOrderDirection('ASC')}><img className={'imgDescAsc'} title="ASC" src={`${imageUrl}`+"/uparrow_dir.png"}/></a>}</div>
               <div className="settings-sort-page">
                 <div className="show7">Show:</div>
                 <select className='no-appearance' value={itemsPerPage} onChange={(e) => onItemsPerPageChange(Number(e.target.value))}>
@@ -285,13 +286,13 @@ if(filter==='intensity'){
                   {availableFilter.map((filter) => (
                     <div key={filter} className="filter--val" onClick={() => toggleDropdown(filter)}>
                       <div className={filter === 'shape' ? "shape-option" : ""}>
-                        {<img onClick={()=>resetThisFilter(filter)}className="icon--close" alt="" src="/vector2.svg" />}
+                        {<img onClick={()=>resetThisFilter(filter)}className="icon--close" alt="" src={`${imageUrl}`+"/vector2.svg"} />}
                         <div className={filter === 'shape' ? "shape5" : filter === 'price' ? "price23" : filter === 'carat' ? "carat4" : filter === 'cut' ? "cut10" : filter === 'colour' ? "filters7" : "clarity10"}>
                           
                           {filter!=='diamondColorRange'?filter.charAt(0).toUpperCase() + filter.slice(1):'color'.charAt(0).toUpperCase() + 'color'.slice(1)}
                         </div>
                       </div>
-                      <img className="show-inner" alt="" src="/vector-21.svg" />
+                      <img className="show-inner" alt="" src={`${imageUrl}`+"/vector-21.svg"} />
                       {filter === 'shape' && (
                         <div className="shape-placeholder">
                           <b className="placeholder1">{selectedFilters.shape.length}</b>
@@ -322,7 +323,7 @@ if(filter==='intensity'){
                           <b className="placeholder1">{selectedFilters.clarity.length}</b>
                         </div>
                       )}
-                      {configAppData.show_filter_info ===true &&
+                      {configAppData.show_filter_info ==="true" &&
                       <div className={filter === 'shape' ? "shape-info1" : filter === 'price' ? "empty-options" : "border--round"}>
                         <b className="filter--hover-icon" onClick={(e) => {
                           e.stopPropagation();
@@ -343,12 +344,12 @@ if(filter==='intensity'){
                     <div className="diamond-save-reset" >
                       <div className="save--filter" onClick={saveFilters}>
                         <button className="save--diamond_filter">
-                          <img className="icons3" alt="" src="/vector-4.svg" />
+                          <img className="icons3" alt="" src={`${imageUrl}`+"/vector-4.svg"} />
                         </button>
                       </div>
                       <div className="reset--filter" onClick={confirmReset}>
                         <button className="reset--diamond_filter">
-                          <img className="vector-icon26" alt="" src="/vector-5.svg" />
+                          <img className="vector-icon26" alt="" src={`${imageUrl}`+"/vector-5.svg"} />
                         </button>
                       </div>
                     </div>
@@ -356,7 +357,7 @@ if(filter==='intensity'){
                 </div>
                 <div className="div103">
                   <div className="search4 search-products">
-                    <img className="icon3" alt="" src="/vector-3.svg" />
+                    <img className="icon3" alt="" src={`${imageUrl}`+"/vector-3.svg"} />
                     <input
                       type="text"
                       onKeyDown={searchSetting}
@@ -370,11 +371,11 @@ if(filter==='intensity'){
                   </div>
                   <div className="view3 product--view">
                     <div className={isGridView ? 'grid3' : 'table7'} onClick={onGridContainerClick}>
-                      <img className="fi-11034222-icon2" alt="" src="/fi-110342221.svg" />
+                      <img className="fi-11034222-icon2" alt="" src={`${imageUrl}`+"/fi-110342221.svg" }/>
                       <b className="grid-view2">Grid View</b>
                     </div>
                     <div className={!isGridView ? 'grid3' : 'table7'} onClick={onTableContainerClick}>
-                      <img className="fi-11034222-icon2" alt="" src="/fi-142371531.svg" />
+                      <img className="fi-11034222-icon2" alt="" src={`${imageUrl}`+"/fi-142371531.svg" }/>
                       <b className="table-view2">Table View</b>
                     </div>
                   </div>
@@ -471,7 +472,7 @@ if(filter==='intensity'){
           <div className="adv2" onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}>
             <b className="advanced-filters2">Advanced Filters</b>
             <div className="adv-child">
-              <img className="frame-child6" alt="" src="/vector-24.svg" />
+              <img className="frame-child6" alt="" src={`${imageUrl}`+"/vector-24.svg"} />
             </div>
           </div>
         </div>

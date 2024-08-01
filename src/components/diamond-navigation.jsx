@@ -29,6 +29,7 @@ const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLab
   const togglePopup = (popup) => {
     setActivePopup(activePopup === popup ? null : popup);
   };
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const getPopupContent = (filterType) => {
     const contents = {
       mined: "Formed over billions of years, natural diamonds are mined from the earth. Diamonds are the hardest mineral on earth, which makes them an ideal material for daily wear over a lifetime. Our natural diamonds are conflict-free and GIA certified.",
@@ -45,11 +46,11 @@ const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLab
         <div className="home-group">
           <div className="home2">Home</div>
           <div className="home-buttons1">
-            <img className="icons" alt="" src="/vector-12.svg" />
+            <img className="icons" alt="" src={`${imageUrl}`+"/vector-12.svg"} />
           </div>
           <div className="create-ring2">Create Ring</div>
           <div className="home-buttons1">
-            <img className="icons" alt="" src="/vector-23.svg" />
+            <img className="icons" alt="" src={`${imageUrl}`+"/vector-23.svg" }/>
           </div>
           <b className="choose-diamond3">Choose Diamond</b>
         </div>
@@ -71,7 +72,7 @@ const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLab
                 {(diamondNavigation.navStandard && diamondNavigation.navStandard!==null) &&
                 <div className={isLabGrown===false?'price18':'price19'}  onClick={()=>handleLabGrownToggle(diamondNavigation.navStandard)}>
                   <div className="mined1">{diamondNavigation.navStandard}</div>
-                  {configAppData.show_filter_info &&
+                  {(configAppData.show_filter_info==="true") &&
                   <div className="empty-row">
                     <b className="i10" onClick={(e) => {
                       e.stopPropagation();
@@ -89,7 +90,7 @@ const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLab
                 {(diamondNavigation.navLabGrown && diamondNavigation.navLabGrown!==null) &&
                 <div className={isLabGrown===true?'price18':'price19'} onClick={()=>handleLabGrownToggle(diamondNavigation.navLabGrown)}>
                   <div className="lab-growned1">{diamondNavigation.navLabGrown}</div>
-                  {configAppData.show_filter_info &&
+                  {(configAppData.show_filter_info==="true") &&
                   <div className="empty-row">
                     <b className="i10" onClick={(e) => {
                       e.stopPropagation();
@@ -106,7 +107,7 @@ const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLab
                 {(diamondNavigation.navFancyColored && diamondNavigation.navFancyColored!==null) &&
                 <div className={isLabGrown==='fancy'?'price18':'price19'} onClick={()=>handleLabGrownToggle(diamondNavigation.navFancyColored)}>
                   <div className="fancy-colour1">{diamondNavigation.navFancyColored}</div>
-                  {configAppData.show_filter_info &&
+                  {(configAppData.show_filter_info==="true") &&
                   <div className="empty-row">
                    
                     <b className="i10" onClick={(e) => {

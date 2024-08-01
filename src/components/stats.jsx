@@ -2,6 +2,7 @@ import React, { useState, useRef ,useEffect,forwardRef} from "react";
 import PropTypes from "prop-types";
 import "./stats.css";
 import { useReactToPrint } from 'react-to-print';
+const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
 //const  ComponentToPrint=()=>{
  //class ComponentToPrint extends React.PureComponent {
   const ComponentToPrint = forwardRef((props, ref) => {
@@ -30,16 +31,16 @@ const Stats = ({
     const input = componentRef.current;
    //input.select();
   }, []);
-
+//console.log(configAppData)
   return (
     <div className="stats9">
-      {!configAppData.enable_hint &&
+      {configAppData.enable_hint &&
       <div className="stat-items" onClick={openDropHint}>
         <img
           className="fi-8429504-icon"
           loading="lazy"
           alt=""
-          src="/fi-8429504.svg"
+          src={`${imageUrl}`+"/fi-8429504.svg"}
         />
       
         <div className="drop-a-hint-wrapper">
@@ -53,20 +54,20 @@ const Stats = ({
           className="fi-8429504-icon"
           loading="lazy"
           alt=""
-          src="/fi-956926.svg"
+          src={`${imageUrl}`+"/fi-956926.svg"}
         />
         <div className="drop-a-hint-wrapper">
           <b className="schedule-viewing1">Schedule Viewing</b>
         </div>
       </div>
       }
-      {!configAppData.enable_email_friend &&
+      {configAppData.enable_email_friend &&
       <div className="stat-items2" onClick={emailAFriend}>
         <img
           className="fi-8429504-icon"
           loading="lazy"
           alt=""
-          src="/fi-2989993.svg"
+          src={`${imageUrl}`+"/fi-2989993.svg"}
         />
         <div className="drop-a-hint-wrapper">
           <b className="email-a-friend">Email A Friend</b>
@@ -79,7 +80,7 @@ const Stats = ({
           className="fi-8429504-icon"
           loading="lazy"
           alt=""
-          src="/fi-151912.svg"
+          src={`${imageUrl}`+"/fi-151912.svg"}
         />
         <div className="drop-a-hint-wrapper">
           <b className="request-more-info">Request More Info</b>
@@ -91,7 +92,7 @@ const Stats = ({
               className="fi-8429504-icon"
               loading="lazy"
               alt=""
-              src="/print.svg"
+              src={`${imageUrl}`+"/print.svg"}
             />
             <div>
             {/* <div> <ComponentToPrint ref={componentRef} /></div> */}

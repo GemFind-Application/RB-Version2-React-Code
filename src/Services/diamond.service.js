@@ -2,14 +2,14 @@ import { fetchWrapper } from '../Helpers';
 
 const baseUrl = `${import.meta.env.VITE_APP_API_URL}`;
 //const dealerId = 3943
-const  dealerId = `${import.meta.env.VITE_DEALER_ID}`;
+//const  dealerId = `${import.meta.env.VITE_DEALER_ID}`;
 const addtocartPrefix = `${import.meta.env.VITE_ADD_TO_CART_PREFIX}`;
-const addtocartUrl = `${import.meta.env.VITE_ADD_TO_CART}`;
+const ext = `${import.meta.env.VITE_SHOP_EXTENSION}`;
+const addtocartUrl = window.location.origin+ext;
 const videoUrl= `${import.meta.env.VITE_APP_API_VIDEOURL}`;
 const completePurchase = `${import.meta.env.VITE_ADD_TO_CART_COMPLETE_PURCHASE_PREFIX}`;
 const apiurlForForms = `${import.meta.env.VITE_APP_FORM_API_URL}`;
-//const tamayouInfluencerbaseUrl = `${process.env.REACT_APP_API_URL}/tamayou_influencers`;
-
+//console.log(window.location)
 export const diamondService = {
   getDiamondFilter,
   getAllDiamond,
@@ -18,81 +18,75 @@ export const diamondService = {
   getFancyDiamondFilter,
   getDiamondVideoUrl,
   addTocart,
-  addTocartcompletePurchase
+  addTocartcompletePurchase,
+  getPrintDoc
 };
-
-function getDiamondFilter(option) {
- 
+//get diamond filter
+function getDiamondFilter(option,dealerId) { 
   //let queryParam = getQueryFilterParam(option);
   let initialFilter='';
-  let startflowPath = JSON.parse(localStorage.getItem('startflow'));
-         
+  let startflowPath = JSON.parse(localStorage.getItem('startflow'));         
   if(startflowPath && startflowPath.path=='/diamondtools' && startflowPath.isLoaded===false){           
-    localStorage.setItem('startflow',JSON.stringify({'path':startflowPath.path,'isLoaded':true}));
-   
-   //setShowInitialFilter("initial");
-   initialFilter=true
-    // res = await diamondService.getDiamondInitialFilter(option);
+    localStorage.setItem('startflow',JSON.stringify({'path':startflowPath.path,'isLoaded':true}));   
+    initialFilter=true;
   }else{
-    initialFilter=false
-   // setShowInitialFilter("regular");
-    // res = await diamondService.getDiamondFilter(option);
+    initialFilter=false;
   }
- if(option.isLabGrown==='fancy'){
-  console.log(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}`)
-  return fetchWrapper.get(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}&TableMin=0&TableMax=100&DepthMin=0&DepthMax=100`);
- }else{
-  if( initialFilter===true){
-    if(option.isLabGrown===0){
-    return fetchWrapper.get(`${baseUrl}/GetInitialFilter?DealerId=${dealerId}&IsLabGrown=false`);
-    }else{
-      return fetchWrapper.get(`${baseUrl}/GetInitialFilter?DealerId=${dealerId}&IsLabGrown=true`);
-    }    
+  if(option.isLabGrown==='fancy'){
+    return fetchWrapper.get(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}&TableMin=0&TableMax=100&DepthMin=0&DepthMax=100`);
   }else{
-    if(option.isLabGrown===false){
-      return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}&IsLabGrown=false`);
+    if( initialFilter===true){
+      if(option.isLabGrown===0){
+        return fetchWrapper.get(`${baseUrl}/GetInitialFilter?DealerId=${dealerId}&IsLabGrown=false`);
+      }else{
+        return fetchWrapper.get(`${baseUrl}/GetInitialFilter?DealerId=${dealerId}&IsLabGrown=true`);
+      }    
     }else{
-      return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}&IsLabGrown=true`);
-    }  
-  }
- 
- }    
+      if(option.isLabGrown===false){
+        return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}&IsLabGrown=false`);
+      }else{
+        return fetchWrapper.get(`${baseUrl}/GetDiamondFilter?DealerId=${dealerId}&IsLabGrown=true`);
+      }  
+    } 
+  }    
 }
-function getDiamondVideoUrl(diamondId){
+
+//get diamond video url
+function getDiamondVideoUrl(diamondId){  
  return fetchWrapper.get(`${videoUrl}?InventoryID=${diamondId}&Type=Diamond`); 
 }
-function getFancyDiamondFilter(option,settingId) {
+//get fancy diamond filter
+function getFancyDiamondFilter(option,settingId,dealerId) {
   return fetchWrapper.get(`${baseUrl}/GetColorDiamondFilter?DealerId=${dealerId}`);
 }
-function getDiamondDetail(diamondId,isLabGrown) {
-  console.log(isLabGrown)
+//get diamond details
+function getDiamondDetail(diamondId,isLabGrown,dealerId) {
   if(isLabGrown===true){
     return fetchWrapper.get(`${baseUrl}/GetDiamondDetail?DealerId=${dealerId}&DID=${diamondId}&IsLabGrown=True`);
   }else{
     return fetchWrapper.get(`${baseUrl}/GetDiamondDetail?DealerId=${dealerId}&DID=${diamondId}`);
-  }
-  
+  }  
 }
-
-function getAllDiamond(option) {
+//get all diamond list
+function getAllDiamond(option,dealerId) {
   let queryParam = getQueryParam(option);
   if(option.isLabGrown==='fancy') {
-    console.log(`${baseUrl}/GetColorDiamond?DealerId=${dealerId}${encodeURIComponent(queryParam)}&IsLabGrown=false`)
     return fetchWrapper.get(`${baseUrl}/GetColorDiamond?DealerId=${dealerId}${queryParam}&IsLabGrown=false`);
   }else{
     return fetchWrapper.get(`${baseUrl}/GetDiamond?DealerId=${dealerId}${queryParam}`);
   }  
 }
-function getDiamondNavigation(){
+
+//get diamond navigation
+function getDiamondNavigation(dealerId){
   return fetchWrapper.get(`${baseUrl}/GetNavigation?DealerId=${dealerId}`);  
 }
+//create get query 
 function getQueryParam(option){
-  //console.log(option)
   let filterString = "";
   if(option.pageSize && option.pageSize!==undefined){   
     filterString = 'pageSize='+option.pageSize;    
   }
-  console.log(filterString)
   if(option.pageNumber && option.pageNumber!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'pageNumber='+option.pageNumber;    
@@ -101,7 +95,7 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'DID='+option.searchDiamond;    
   }
-  if(option.orderBy && option.orderBy!==undefined){
+  if(option.OrderBy ){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'OrderBy='+option.orderBy+"&OrderType="+option.orderDirection  ; 
   }
@@ -152,8 +146,7 @@ function getQueryParam(option){
     }else{
       filterString += filterString.length > 0 ? `&` : '';
       filterString += 'ColorId='+option.colour; 
-    }
-      
+    }      
   }
   if(option.clarity && option.clarity!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
@@ -175,25 +168,37 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'intIntensity='+option.intensity;    
   }
-  //console.log(filterString)
   if(filterString!=""){
     return "&"+filterString;
   }else{
     return filterString;
   } 
 }
-
-function addTocart(diamondId,labcreated){
-  console.log(labcreated)
+//get print doc
+function getPrintDoc(diamondId,labcreated){
   const isLab = labcreated==true?'/labcreated':labcreated=='fancy'?'/fancydiamonds':''
-let formData = new FormData();
+  let formData = new FormData();
+  formData.append('diamondid',diamondId)
+  formData.append('shop','https://gemfind-product-demo-10.myshopify.com/')
+  formData.append('diamond_type',isLab)
   fetchWrapper.postFormData(
-    `${addtocartUrl}/${addtocartPrefix}/${diamondId}${isLab}`,
+      `${apiurlForForms}/diamondtools/printdiamond/`,
+      formData
+  );
+}
+//get add to cart
+function addTocart(diamondId,labcreated){
+  const isLab = labcreated==true?'/labcreated':labcreated=='fancy'?'/fancydiamonds':''
+  let formData = new FormData();
+  fetchWrapper.postFormData(
+    `${addtocartUrl}/${addtocartPrefix}/${settingID}/`,   
     formData
-   );}
-function addTocartcompletePurchase (diamondId,settingID,formData){
-  
-      fetchWrapper.postFormData(
-        `${apiurlForForms}/${completePurchase}/${diamondId}/${settingID}/`,
-        formData
-       );}
+  );addtocartUrl
+}
+//get add to cary from complete page
+function addTocartcompletePurchase (diamondId,settingID,formData){  
+  fetchWrapper.postFormData(
+    `${addtocartUrl}/${completePurchase}/${diamondId}/${settingID}/`,
+    formData
+    );
+}

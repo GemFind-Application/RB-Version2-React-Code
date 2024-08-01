@@ -4,21 +4,21 @@ import StepItems from "./step-items";
 import PropTypes from "prop-types";
 import "./settingsbreadcrumb.css";
 
-const Settingsbreadcrumb = ({ className = "" }) => {
+const Settingsbreadcrumb = ({ className = "" ,configAppData}) => {
   const navigate = useNavigate();
 
   const onStepItemsContainer1Click = useCallback(() => {
     navigate("/diamondtools");
   }, [navigate]);
-
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
     <div className={`settingsfilter-wrapper ${className}`}>
       <div className="settingsfilter-container">
         <div className="settings-breadcrumb">
           <div className="home3">Home</div>
-          <img className="bread-child" alt="" src="/vector-12.svg" />
+          <img className="bread-child" alt="" src={`${imageUrl}`+"/vector-12.svg"} />
           <div className="create-ring3">Create Ring</div>
-          <img className="bread-child" alt="" src="/vector-23.svg" />
+          <img className="bread-child" alt="" src={`${imageUrl}`+"/vector-23.svg"} />
           <b className="choose-setting2">Choose Setting</b>
         </div>
         <div className="settings-panel-wrapper">
@@ -27,10 +27,7 @@ const Settingsbreadcrumb = ({ className = "" }) => {
               <b className="settings1">SETTINGS</b>
               <b className="create-your-own3">Create your own ring</b>
               <div className="settings-desc">
-                Lorem nisl fringilla magna malesuada egestas dui. Fringilla
-                fermentum fusce interdum nulla velit vestibulum. Pretium iaculis
-                id elementum commodo convallis. A rhoncus malesuada orci aliquam
-                ipsum quis praesent. Egestas molestie nec enim et sem in orci.
+               {configAppData.announcement_text}
               </div>
             </div>
             <div className="settings-steps">
@@ -43,9 +40,9 @@ const Settingsbreadcrumb = ({ className = "" }) => {
                   <img
                     className="image-9-icon14"
                     alt=""
-                    src="/image-9@2x.png"
+                    src={`${configAppData.imageUrl}`+"/image-9@2x.png"}
                   />
-                  <img className="frame-icon5" alt="" src="/frame2.svg" />
+                  <img className="frame-icon5" alt="" src={`${imageUrl}`+"/frame2.svg"} />
                 </div>
               </div>
               <StepItems

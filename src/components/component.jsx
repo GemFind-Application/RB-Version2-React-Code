@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import "./component.css";
 
 const Component = ({ className = "" }) => {
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
     <div className={`div95 ${className}`}>
       <div className="inner2">
@@ -10,7 +11,7 @@ const Component = ({ className = "" }) => {
           <b className="choose-diamond2">Choose Diamond</b>
         </div>
       </div>
-      <img className="icon1" alt="" src="/01.svg" />
+      <img className="icon1" alt="" src={`${imageUrl}`+"/01.svg" }/>
     </div>
   );
 };

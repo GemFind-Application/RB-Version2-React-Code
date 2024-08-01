@@ -1,14 +1,10 @@
 import { fetchWrapper } from '../Helpers';
-
+import React, { useState, useEffect ,useContext} from 'react';
+import { ConfigContext } from "../components/Context"
 const baseUrl = `${import.meta.env.VITE_APP_API_URL}`;
-const apiurlForForms = `${import.meta.env.VITE_APP_FORM_API_URL}`;
-//const dealerId = 3943
+const apiurlForForms=`${import.meta.env.VITE_APP_FORM_API_URL}`;
 const videoUrl= `${import.meta.env.VITE_APP_API_VIDEOURL}`;
-//const dealerId = 4141
-const dealerId = `${import.meta.env.VITE_DEALER_ID}`;
-//const tamayouInfluencerbaseUrl = `${process.env.REACT_APP_API_URL}/tamayou_influencers`;
-
-export const settingService = {
+export const settingService = {  
   getSettingFilters,
   getAllSettings,
   getSettingNavigation,
@@ -18,44 +14,44 @@ export const settingService = {
   validateDealerPassword,
   scheduleViewing,
   requestMoreInfo,
-  getSettingVideoUrl
+  getSettingVideoUrl,  
 };
-
-function getSettingFilters(option) {
+//to get all setting filters
+function getSettingFilters(option,dealerId) {  
   let queryParam = getQueryFilterParam(option);
   return fetchWrapper.get(`${baseUrl}/GetFilters?DealerId=${dealerId}${queryParam}`);
 }
-function getSettingDetail(settingId) {
+//to get setting details for particualr setting
+function getSettingDetail(settingId,dealerId) {
   return fetchWrapper.get(`${baseUrl}/GetMountingDetail?DealerId=${dealerId}&SID=${settingId}`);
 }
-
-function getAllSettings(option) {
+//get all settings
+function getAllSettings(option,dealerId) {  
   let queryParam = getQueryParam(option);
-  //console.log(`${baseUrl}/GetMountingList?DealerId=${dealerId}${queryParam}`)
   return fetchWrapper.get(`${baseUrl}/GetMountingList?DealerId=${dealerId}${queryParam}`);
 }
-function getSettingNavigation(){
-  return fetchWrapper.get(`${baseUrl}/GetNavigation?DealerId=${dealerId}`);
-  
+//to get setting vanigation
+function getSettingNavigation(dealerId){ 
+  if(dealerId!=null &&dealerId!=undefined ){
+    return fetchWrapper.get(`${baseUrl}/GetNavigation?DealerId=${dealerId}`);
+  }
 }
-
+//drop a hint call
 function dropAHint(formData,sendRequest,apiCall){
-  console.log(formData);
-  
   return fetchWrapper.postFormData(
     `${apiurlForForms}/${sendRequest}/${apiCall}`,
     formData
   )
 }
+//send email to friend
 function friendsEmail(formData,sendRequest,apiCall){
  return fetchWrapper.postFormData(
     `${apiurlForForms}/${sendRequest}/${apiCall}`,
     formData
   )
-
 }
+//dealer info auth and get dealer info
 function validateDealerPassword(data,page){
-  console.log(data);
   if(page==='setting') {
     return fetchWrapper.postFormData(
       `${apiurlForForms}/settings/authenticate`,
@@ -66,26 +62,27 @@ function validateDealerPassword(data,page){
       `${apiurlForForms}/diamondtools/authenticate`,
        data
       );
-  }
- 
+  } 
 }
-function scheduleViewing(formData,sendRequest,apiCall){
-  //console.log(formData);
+//schedule viewing
+function scheduleViewing(formData,sendRequest,apiCall){  
  return fetchWrapper.postFormData(
    `${apiurlForForms}/${sendRequest}/${apiCall}`,
    formData
   );
 }
+//get video url
 function getSettingVideoUrl(settingId){
   return fetchWrapper.get(`${videoUrl}?InventoryID=${settingId}&Type=Jewelry`); 
  }
-function requestMoreInfo(formData){
+ //request info popup call
+function requestMoreInfo(formData,sendRequest,apiCall){
   return fetchWrapper.postFormData(
     `${apiurlForForms}/${sendRequest}/${apiCall}`,
     formData
-   );
- 
+   ); 
 }
+//set parameters for setting
 function getQueryParam(option){
   console.log(option)
   let filterString = "";
@@ -134,31 +131,21 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'IsLabSettingsAvailable=1';    
   }
-
   if(option.CenterStoneMinCarat !=="" && option.CenterStoneMaxCarat !=="" ){
     
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'CenterStoneMinCarat='+option.CenterStoneMinCarat+"&CenterStoneMaxCarat="+option.CenterStoneMaxCarat;    
-  }
-
-  
-  console.log(filterString)
+  }  
   if(filterString!=""){
     return "&"+filterString;
   }else{
     return filterString;
-  }
- 
+  } 
 }
+//set patameters for setting filters
 function getQueryFilterParam(option){
  
   let filterString = "";
- 
-  console.log(option)
- 
- 
- 
-
   if(option.shape && option.shape!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'Shape='+option.shape;    
@@ -184,6 +171,5 @@ function getQueryFilterParam(option){
     return "&"+filterString;
   }else{
     return filterString;
-  }
- 
+  } 
 }

@@ -5,7 +5,7 @@ import "./component4.css";
 
 const Component4 = ({ className = "" }) => {
   const navigate = useNavigate();
-
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const onContainerClick = useCallback(() => {
     navigate("/settings");
   }, [navigate]);
@@ -19,10 +19,10 @@ const Component4 = ({ className = "" }) => {
         </div>
       </div>
       <div className="step-images">
-        <img className="image-10-icon3" alt="" src="/image-10@2x.png" />
-        <img className="image-9-icon12" alt="" src="/image-9@2x.png" />
+        <img className="image-10-icon3" alt="" src={`${imageUrl}`+"/image-10@2x.png"} />
+        <img className="image-9-icon12" alt="" src={`${imageUrl}`+"/image-9@2x.png"} />
         <div className="div94">
-          <img className="group-icon5" alt="" src="/group1.svg" />
+          <img className="group-icon5" alt="" src={`${imageUrl}`+"/group1.svg"} />
         </div>
       </div>
     </div>

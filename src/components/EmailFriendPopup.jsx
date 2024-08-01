@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect,useRef} from 'react';
 import "./email-friend.css";
 import { settingService } from '../Services';
-const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamondId,diamondtype,diamondurl }) => {
+import ReCAPTCHA from 'react-google-recaptcha';
+const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamondId,diamondtype,diamondurl,configAppData }) => {
   let formDataValue= {yourName: '',
     name: '',
     email: '',
@@ -9,7 +10,10 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
     friend_email: '',
     message: '',
     isLabSetting: isLabSetting,   
-    shopurl: shopurl}
+    shopurl: shopurl,
+    'captcha-response':'',
+    'secret-key':configAppData.secret_key
+  }
     if(settingId && settingId!==""){
       formDataValue.settingid = settingId;
       formDataValue.ringurl=ringurl;
@@ -27,6 +31,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
   const [SendEmail, setSendEmail] = useState(false);
   const [errorsFromRes, setErrorsFromRes] = useState('');
   const [sendFriendMessage, setSendFriendMessage] = useState('');
+  const recaptcha = useRef();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -34,7 +39,19 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
       setErrors({ ...errors, [name]: '' });
     }
   };
-
+  useEffect(() => {
+    // setIsLabGrown(false);
+    async function fetchToken(){
+      try {      
+        const token = await recaptcha.current.executeAsync();
+        formData['captcha-response'] = token;      
+      } catch (err) {  
+        console.error("Error fetching products:", error);
+        setError("Failed to get captcha . Please try again later.");
+      }
+    }
+    fetchToken()
+   }, [errorsFromRes]);
   const validateForm = () => {
     let newErrors = {};
 
@@ -65,7 +82,9 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
     if (!formData.message.trim()) {
       newErrors.message = 'Personal Message is required';
     }
-
+    if (!formData['captcha-response']) {
+      newErrors.recaptcha = 'Please verify captcha';
+    }  
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -89,8 +108,10 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
         const res = await settingService.friendsEmail(formDataVal,sendRequest,apiCall); 
       if(res.output.status===2){
         setErrorsFromRes(res.output.msg);
+        recaptcha.current.reset();
        }
        if(res.output.status===1){
+        recaptcha.current.reset();
         setSendFriendMessage(res.output.msg)
         setSendEmail(true);
        }
@@ -109,7 +130,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
         <form onSubmit={handleSubmit}>
         {errorsFromRes!="" &&
           <div>
-            <p className='error'>{errorsFromRes}</p>
+            <div className='enter-your-password errorText'>{errorsFromRes}</div>      
           </div>
           }
           <div className="flex basic_info">
@@ -157,6 +178,13 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
               className={errors.message ? 'error' : ''}
             ></textarea>
           </div>
+          <div>
+          {configAppData.site_key && configAppData.site_key!=="" && 
+              <div className="gift-deadline">
+              <ReCAPTCHA  ref={recaptcha} size="invisible" sitekey={configAppData.site_key} />
+              </div>
+              }
+          </div>         
           <div className="request_infocta">
             <div className="flex flex-cta">
               <button type="button" className="cancel-button" onClick={onClose}>Cancel</button>

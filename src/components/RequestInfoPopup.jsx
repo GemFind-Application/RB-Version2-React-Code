@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect ,useRef} from 'react';
 import "./requestinfo.css";
 import { settingService } from '../Services';
-const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,diamondId,diamondtype,diamondurl}) => {
+import ReCAPTCHA from 'react-google-recaptcha';
+const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,diamondId,diamondtype,diamondurl,configAppData}) => {
   let formDataValue= {
     name: '',
     email: '',
@@ -9,7 +10,10 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
     hint_message: '',
     contact_pref: '',   
     isLabSetting:isLabSetting,   
-    shopurl:shopurl}
+    shopurl:shopurl,
+    'captcha-response':'',
+    'secret-key':configAppData.secret_key
+  }
     if(settingId&&settingId!==""){
       formDataValue.settingid = settingId;
       formDataValue.ringurl=ringurl;
@@ -29,8 +33,21 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
   const [errorsFromRes, setErrorsFromRes] = useState('');
   const [requestInfoMessage, setRequestInfoMessage] = useState('');
   const [errors, setErrors] = useState({});
-  const [requestSend, setRequestSend] = useState(false)
-
+  const [requestSend, setRequestSend] = useState(false);
+  const recaptcha = useRef();
+  useEffect(() => {
+    // setIsLabGrown(false);
+    async function fetchToken(){
+      try {      
+        const token = await recaptcha.current.executeAsync();
+        formData['captcha-response'] = token;      
+      } catch (err) {  
+        console.error("Error fetching products:", error);
+        setError("Failed to get captcha . Please try again later.");
+      }
+    }
+    fetchToken()
+   }, [errorsFromRes]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -71,7 +88,9 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
     if (!formData.contact_pref) {
       newErrors.preference = 'Please select a contact preference';
     }
-
+    if (!formData['captcha-response']) {
+      newErrors.recaptcha = 'Please verify captcha';
+    }  
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -90,14 +109,16 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
       }else{
         sendRequest = 'settings'
       }
-     // let apiCall = (formData.settingid && formData.diamondId) ? "resultreqinfo_cr" : "resultreqinfo";
-      const res = await settingService.requestMoreInfo(formDataVal);
+     let apiCall = (formData.settingid && formData.diamondId) ? "resultreqinfo_cr" : "resultreqinfo";
+      const res = await settingService.requestMoreInfo(formDataVal,sendRequest,apiCall);
       if(res.output.status===2){
         setErrorsFromRes(res.output.msg);
+        recaptcha.current.reset();
        }
        if(res.output.status===1){
         setRequestInfoMessage(res.output.msg)
         setRequestSend(true);
+        recaptcha.current.reset();
        }
       //setRequestSend(true); 
       // onClose();
@@ -114,7 +135,7 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
         <h2>Request More Information</h2>
         <p>Our specialists will contact you.</p>
         {errorsFromRes!="" &&              
-          <p className='error'>{errorsFromRes}</p>              
+          <div className='enter-your-password errorText'>{errorsFromRes}</div>     
         }
         <form onSubmit={handleSubmit}>
           <div className="flex basic_info">
@@ -181,6 +202,13 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
                     />
                     <label htmlFor="preference-email">By Email</label>
                   </div>
+                  <div>
+                  {configAppData.site_key && configAppData.site_key!=="" && 
+                    <div className="gift-deadline">
+                    <ReCAPTCHA  ref={recaptcha} size="invisible" sitekey={configAppData.site_key} />
+                    </div>
+                  }
+              </div>
                 </div>
                 {errors.preference && <span className="error-message">{errors.preference}</span>}
               </div>

@@ -10,6 +10,7 @@ const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareD
   const [videoUrl, setVideoUrl] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDiamondPresentInCompare, setIsDiamondPresentInCompare] = useState(false);
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   useEffect(() => {   
     let isDiamondPresentInCompare = compareDiamondsId.filter(item=>item===diamond.diamondId);
     setIsDiamondPresentInCompare(isDiamondPresentInCompare.length > 0?true:false)
@@ -113,7 +114,7 @@ const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareD
         {(diamond.hasVideo)&&
           <div className="actions4 list-diamond--video"  id={diamond.diamondId}
           onClick={handleVideoIconClick}>
-            <img className="video-icon" alt="" src="/video.svg" />
+            <img className="video-icon" alt="" src={`${imageUrl}`+"/video.svg"} />
           </div>
         }
           <div className="actions5 compare-list--diamond">
@@ -121,14 +122,14 @@ const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareD
                 <img 
                   className="compare-icon2 compared" 
                   alt="compared" 
-                  src="/compared.svg"
+                  src={`${imageUrl}`+"/compared.svg"}
                   onClick={()=>addCompareDiamondIds(diamond.diamondId)}
                 />
               ) : (
                 <img 
                   className="compare-icon2 hide-when-filled" 
                   alt="compare" 
-                  src="/compare.svg" 
+                  src={`${imageUrl}`+"/compare.svg" }
                   onClick={()=>addCompareDiamondIds(diamond.diamondId)}
                 />
               )}
@@ -138,7 +139,7 @@ const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareD
             <img 
               className="button-item" 
               alt="" 
-              src={isExpanded ? "/arr-up.svg" : "/vector-2-3.svg"}
+              src={isExpanded ? `${imageUrl}`+ "/arr-up.svg" : `${imageUrl}`+"/vector-2-3.svg"}
             />
           </div>
         </div>

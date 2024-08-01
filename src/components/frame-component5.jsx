@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 import "./frame-component5.css";
 
 const FrameComponent5 = ({ className = "",setShowAllParam,showAllParam,removeCompareDiamondIds,compareDiamondsId }) => {
-  console.log(showAllParam)
+  //console.log(showAllParam)
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
     <section className={`top-content-wrapper ${className}`}>
       <div className="top-content">
@@ -22,7 +23,7 @@ const FrameComponent5 = ({ className = "",setShowAllParam,showAllParam,removeCom
                 className="fi-9742093-icon"
                 loading="lazy"
                 alt=""
-                src="/fi-9742093.svg"
+                src={`${imageUrl}`+"/fi-9742093.svg"}
               />
             </div>
           </div>

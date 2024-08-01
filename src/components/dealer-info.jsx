@@ -10,7 +10,7 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
   const [errorsFromRes, setErrorsFromRes] = useState('');
   const [dealerInfoAuthMessage, setDealerInfoAuthMessage] = useState('');
   const [dealerInfo, setDealerInfo] = useState({});
-
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const validatePassword = (password) => {
     return password.length >= 4;
   };
@@ -21,7 +21,7 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
       return;
     }
 
-    if (!validatePassword(password)) {
+    if (!validatePassword(password)) {      
       setError('Password must be at least 4 characters long');
       return;
     }
@@ -57,7 +57,7 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
       const res = await settingService.validateDealerPassword(formDataVal, page);
 
       if (res.output.status === 2) {
-        setErrorsFromRes(res.output.msg);
+        setError(res.output.msg);
       }
       if (res.output.status === 1) {
         setDealerInfoAuthMessage(res.output.msg);
@@ -69,13 +69,13 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
       setErrorsFromRes('An error occurred. Please try again.');
     }
   };
-console.log(dealerInfo)
+console.log(error)
   return (
     <div className={`dealer-info ${className}`}>
       <section className="content3">
         <div className="top3">
-          {errorsFromRes !== "" &&
-            <div className='enter-your-password errorText'>{errorsFromRes}</div>
+          {error !== "" &&
+            <div className='enter-your-password errorText'>{error}</div>
           }
           {!isSuccess ? (
             <>
@@ -114,7 +114,7 @@ console.log(dealerInfo)
                     Dealer Name:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.retailerName}
+                    {dealerInfo.retailerName&&dealerInfo.retailerName!==""?dealerInfo.retailerName:'NA'}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -122,7 +122,7 @@ console.log(dealerInfo)
                   Dealer Company:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.retailerCompany}
+                    {dealerInfo.retailerCompany&&dealerInfo.retailerCompany!==""?dealerInfo.retailerCompany:'NA'}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -130,7 +130,7 @@ console.log(dealerInfo)
                   Dealer City/State:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.retailerCity}
+                    {dealerInfo.retailerCity&&dealerInfo.retailerCity!==""?dealerInfo.retailerCity:'NA'}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -138,7 +138,7 @@ console.log(dealerInfo)
                   Dealer Contact No.:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.retailerContactNo}
+                    {dealerInfo.retailerContactNo&&dealerInfo.retailerContactNo!==""?dealerInfo.retailerContactNo:'NA'}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -146,7 +146,7 @@ console.log(dealerInfo)
                   Dealer Email:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.retailerEmail}
+                    {dealerInfo.retailerEmail&&dealerInfo.retailerEmail!==""?dealerInfo.retailerEmail:'NA'}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -154,7 +154,7 @@ console.log(dealerInfo)
                   Dealer Lot number of the item:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.retailerLotNo}
+                    {dealerInfo.retailerLotNo&&dealerInfo.retailerLotNo!==""?dealerInfo.retailerLotNo:'NA'}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -162,7 +162,7 @@ console.log(dealerInfo)
                   Dealer Stock number of the item:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.retailerStockNo}
+                    {dealerInfo.retailerStockNo&&dealerInfo.retailerStockNo!==""?dealerInfo.retailerStockNo:'NA'}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -170,7 +170,7 @@ console.log(dealerInfo)
                   Wholesale Price:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.wholesalePrice}
+                    {dealerInfo.wholesalePrice&&dealerInfo.wholesalePrice!==""?dealerInfo.wholesalePrice:'NA'}
                   </div>
                 </div>
 
@@ -179,7 +179,7 @@ console.log(dealerInfo)
                   Third Party:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.thirdParty}
+                    {dealerInfo.thirdParty&&dealerInfo.thirdParty!==""?dealerInfo.thirdParty:'NA'}
                   </div>
                 </div>            
                 <div className="h11 dealerinfores" >
@@ -187,7 +187,7 @@ console.log(dealerInfo)
                   Diamond Id:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.diamondID}
+                    {dealerInfo.diamondID&&dealerInfo.diamondID!==""?dealerInfo.diamondID:'NA'}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -195,7 +195,7 @@ console.log(dealerInfo)
                   Seller Name:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.sellerName}
+                    {dealerInfo.sellerName&&dealerInfo.sellerName!==""?dealerInfo.sellerName:'NA'}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -203,7 +203,7 @@ console.log(dealerInfo)
                   Seller Address:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.sellerAddress}
+                    {dealerInfo.sellerAddress&&dealerInfo.sellerAddress!==""?dealerInfo.sellerAddress:'NA'}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -211,7 +211,7 @@ console.log(dealerInfo)
                   Dealer Fax:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.retailerFax}
+                    {dealerInfo.retailerFax&&dealerInfo.retailerFax!==""?dealerInfo.retailerFax:'NA'}
                   </div>
                 </div>
                 <div className="h11 dealerinfores" >
@@ -219,7 +219,7 @@ console.log(dealerInfo)
                   Dealer Address:
                   </div>             
                   <div className="enter-your-password">
-                    {dealerInfo.retailerAddress} 
+                    {dealerInfo.retailerAddress&&dealerInfo.retailerAddress!==""?dealerInfo.retailerAddress:'NA'} 
                   </div>
                 </div>
               </div>
@@ -232,7 +232,7 @@ console.log(dealerInfo)
         className="close-icon2"
         loading="lazy"
         alt=""
-        src="/close.svg"
+        src={`${imageUrl}`+"/close.svg"}
         onClick={onClose}
       />
     </div>

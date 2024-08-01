@@ -8,6 +8,7 @@ import { utils } from "../Helpers";
 import VideoPopup from "./VideoPopup";
 import { settingService } from "../Services";
 const SkeletonProductItem = () => (
+  
   <div className="skeleton">
     <div className="ring-items__header skeleton-header">
       <div className="skeleton-title"></div>
@@ -37,6 +38,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
   const [viewUrlSetting, setViewUrlSetting] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
   const settingUrl = `${import.meta.env.VITE_SETTINGS_DETAIL_PAGE}`;
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   if (isLoading) {
     return <SkeletonProductItem />;
   }
@@ -97,7 +99,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
             productid={product.settingId}
             onClick={()=>handleVideoIconClick(product.settingId)}
           >
-            {(product.videoURL&&product.videoURL!="") && <img className="video-icon3" alt="" src="/video.svg" />}
+            {(product.videoURL&&product.videoURL!="") && <img className="video-icon3" alt="" src={`${imageUrl}`+"/video.svg" }/>}
           </div>
           <div className="ring-items__item-wishlist" productid={product.settingId}>
             {/*<img className="heart-icon" alt="" src="/heart1.svg" />*/}
@@ -132,7 +134,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
             {product.showPrice && (
               <b className="b38"> <ShowCostInCard settingDetailForCost={product} configAppData={configAppData}></ShowCostInCard> </b>
             )}
-            {configAppData.display_tryon &&            
+            {configAppData.display_tryon=="1" &&            
            <button className="virtual-try-on1" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.stockNumber))}>Virtual Try On</button>
             }
           </div>

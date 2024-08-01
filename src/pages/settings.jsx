@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Settingsbreadcrumb from "../components/Settingsbreadcrumb";
 import SettingsFilterPanel from "../components/SettingsFilterPanel";
@@ -12,6 +12,7 @@ import "./settings.css";
 import { diamondService, settingService } from '../Services';
 import VideoModal from "../components/VideoModal";
 import AlertPopUp from "../components/AlertPopUp";
+import { ConfigContext } from "../components/Context"
 const SkeletonProductItem = () => (
   <div className="product-item-skeleton">
     <div className="skeleton-image"></div>
@@ -21,13 +22,17 @@ const SkeletonProductItem = () => (
 );
 
 const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,className}) => {
+
+  const dealerIdShop = useContext(ConfigContext);
+ console.log('this is configdata')
+console.log(configAppData.products_pp)
   const [showVirtualTryOn, setShowVirtualTryOn] = useState(false);
   const [showVirtualTryOnUrl, setShowVirtualTryOnUrl] = useState('');
   const [filterData, setFilterData] = useState(null);
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(12);
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [itemsPerPage, setItemsPerPage] = useState(configAppData.products_pp?parseInt(configAppData.products_pp):12);
   const [sortOrder, setSortOrder] = useState( configAppData.sorting_order === 'cost-l-h'  ? 'Low to High' : 'High to Low');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null); 
@@ -42,6 +47,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
   const [selectedDiamondCarat,setSelectedDiamondCarat] = useState([]);
   const [isResetClicked,setIsResetClicked] = useState(false);
   const [doReset,setDoReset] = useState(false);
+  const [dealerId,setDealerId] = useState(dealerIdShop);
   let storedData = JSON.parse(localStorage.getItem('activeFilters')); 
 
   const [activeFilters, setActiveFilters] = useState({
@@ -54,7 +60,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
   //const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
   const navigate = useNavigate();
   useEffect(() => {
-    setIsLabGrown(false);
+   // setIsLabGrown(false);
     localStorage.removeItem('selectedRing');
   }, []);
   const fetchProducts = async (page, pageSize, isLab, sort, filters) => {
@@ -76,7 +82,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
         CenterStoneMaxCarat :selectedDiamondShape!=""? selectedDiamondCarat[1]:''
       }
 
-      const data = await settingService.getAllSettings(option); 
+      const data = await settingService.getAllSettings(option,configAppData.dealerid); 
       if(data.mountingList) {
         setProducts(data.mountingList);
         setTotalProducts(data.count);
@@ -109,7 +115,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
         style:filters.collections.join(','),
         isLabSettingsAvailable:isLab 
       }
-      const res = await settingService.getSettingFilters(option);  
+      const res = await settingService.getSettingFilters(option,configAppData.dealerid);  
       if(res && res.length>0)     {
         setFilterData(res[1][0]); 
         setIsSettingFilterLoaded(true);
@@ -144,7 +150,7 @@ useEffect(()=>{
    fetchSelectedDiamondDetail(isLabGrown)
 },[])
 
- console.log(selectedDiamondCarat)
+
   useEffect(() => {
     fetchFilterData(isLabGrown,activeFilters).then(() => fetchProducts(currentPage, itemsPerPage, isLabGrown, sortOrder, activeFilters));
   }, [isLabGrown, currentPage, itemsPerPage, sortOrder, activeFilters,selectedDiamondShape]);
@@ -212,8 +218,9 @@ useEffect(()=>{
 //console.log(settingNavigation)
   return (
     <div className="settings">
-      <Header />
-      <Settingsbreadcrumb />
+       
+      <Header   />
+      <Settingsbreadcrumb configAppData={configAppData}/>
       <div className="settingsfilter-wrapper">
         {filterData && isSettingFilterLoaded ? (
           <SettingsFilterPanel 
@@ -262,6 +269,7 @@ useEffect(()=>{
           ))
         )}
       </div>
+      {isProductLoaded &&
       <PaginationPanel 
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
@@ -269,7 +277,7 @@ useEffect(()=>{
         onPageChange={handlePageChange}
         onItemsPerPageChange={handleItemsPerPageChange}
       />
-     
+      }
       {showVirtualTryOn && showVirtualTryOnUrl!="" &&
       <PortalPopup
         overlayColor="rgba(0, 0, 0, 0.3)"
@@ -296,7 +304,7 @@ useEffect(()=>{
        
        </AlertPopUp>
       }
-
+   
     </div>
     
   );

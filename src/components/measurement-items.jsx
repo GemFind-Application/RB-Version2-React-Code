@@ -14,7 +14,7 @@ const MeasurementItems = ({
       flex: propFlex,
     };
   }, [propFlex]);
-
+  //const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
     <div
       className={`measurement-items ${className}`}

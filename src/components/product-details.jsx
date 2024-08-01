@@ -26,7 +26,8 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
   const [isEmailAFriendOpen, setIsEmailAFriendOpen] = useState(false);
   const [isRequestInfoOpen, setIsRequestInfoOpen] = useState(false);
   const [ringUrl,setRingUrl]=useState('');
-  const [diamondUrl,setDiamondUrl] = useState('')
+  const [diamondUrl,setDiamondUrl] = useState('');
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const openSettingDetails = useCallback(() => {
     setSettingDetailsOpen(true);
   }, []);
@@ -90,12 +91,12 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
       centerstonesizevalue : settingDetail.centerStoneMinCarat!=""?settingDetail.centerStoneMinCarat+'-'+settingDetail.centerStoneMaxCarat:'',
       islabsettings :settingDetail.isLabSetting,
     }
-    console.log(formData)
+    //console.log(formData)
     let formDataToSend = new FormData();
     Object.keys(formDataToSend).forEach(function (key) {
       formDataToSend.append(key,formData[key]);
     });
-    console.log(formDataToSend)
+    //console.log(formDataToSend)
     const res = await diamondService.addTocartcompletePurchase(diamondDetail.diamondId,settingDetail.settingId,formDataToSend);
   }
   useEffect(() => {
@@ -153,7 +154,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
           </div>
           <div className="number3">
             <div className="detail-elements">
-              <img className="fi-8467779-icon3" alt="" src="/fi-84677791.svg" />
+              <img className="fi-8467779-icon3" alt="" src={`${imageUrl}`+"/fi-84677791.svg"} />
               <div className="div63">
                 <div className="div64">
                   <div className="div65">
@@ -174,14 +175,14 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
                   <img
                     className="edit-child"
                     alt=""
-                    src="/sort-show-icons.svg"
+                    src={`${imageUrl}`+"/sort-show-icons.svg"}
                   />
                 </div>
               </div>
               <img
                 className="info-icon"
                 alt=""
-                src="/info.svg"
+                src={`${imageUrl}`+"/info.svg"}
                 onClick={openSettingDetails}
               />
             </div>
@@ -189,7 +190,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
               <img
                 className="fi-8467779-icon3"
                 alt=""
-                src="/fi-127911891.svg"
+                src={`${imageUrl}`+"/fi-127911891.svg"}
               />
               <div className="div67">
                 <div className="div64">
@@ -238,14 +239,14 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
                   <img
                     className="edit-child"
                     alt=""
-                    src="/sort-show-icons.svg"
+                    src={`${imageUrl}`+"/sort-show-icons.svg"}
                   />
                 </div>
               </div>
               <img
                 className="info-icon"
                 alt=""
-                src="/info.svg"
+                src={`${imageUrl}`+"/info.svg"}
                 onClick={openDiamondDetails}
               />
             </div>
@@ -269,7 +270,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
             <div className="button21">
               <b className="add-to-cart" onClick={()=>addToCart(diamondDetail,settingDetail)}>Add to cart - <ShowTotalPrice configAppData={configAppData} settingDetailForCost={settingDetail} diamondDetail={diamondDetail}></ShowTotalPrice></b>
             </div>
-            {configAppData.display_tryon &&
+            {configAppData.display_tryon =="1" &&
             <div className="button22">
               <b className="virtual-try-on">Virtual try-on</b>
             </div>}
@@ -317,6 +318,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
             diamondurl={diamondUrl}
             ringurl={ringUrl}
             shopurl={shopUrl}
+            configAppData={configAppData}
             isLabSetting={settingDetail.isLabSetting}
             onClose={() => setIsDropHintOpen(false)} />
         </PortalPopup>
@@ -330,7 +332,8 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
          <ScheduleViewingPopup
             settingId={settingDetail.settingId}
             diamondId={diamondDetail.diamondId}
-            diamondurl={diamondUrl}
+            diamondurl={diamondUrl}            
+            configAppData={configAppData}
             ringurl={ringUrl}
             shopurl={shopUrl}
             isLabSetting={settingDetail.isLabSetting}
@@ -352,7 +355,8 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
           diamondurl={diamondUrl}
           ringurl={ringUrl}
           shopurl={shopUrl}
-          isLabSetting={settingDetail.isLabSetting}
+          isLabSetting={settingDetail.isLabSetting}          
+          configAppData={configAppData}
           />
         </PortalPopup>
        
@@ -370,7 +374,9 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
           ringurl={ringUrl}
           shopurl={shopUrl}
           isLabSetting={settingDetail.isLabSetting}
-          onClose={() => setIsEmailAFriendOpen(false)} />
+          onClose={() => setIsEmailAFriendOpen(false)} 
+          
+          configAppData={configAppData}/>
         </PortalPopup>
       )}
     </>

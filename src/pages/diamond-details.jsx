@@ -19,7 +19,7 @@ import ScheduleViewingPopup from "../components/ScheduleViewingPopup";
 import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
 const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,isLabGrown}) => {
- // console.log(isLabGrown)
+  console.log(shopUrl + location.pathname)
   const { diamondId } = useParams();
   const [diamondDetail, setDiamondDetail] = useState({});
   const [isDiamondDetailLoaded, setIsAllDiamondDetailsLoaded] = useState(false);
@@ -32,17 +32,16 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,is
   const [isRequestInfoOpen, setIsRequestInfoOpen] = useState(false);
   const [diamondIdToShow, setDiamondIdToShow] = useState(diamondId.substring(diamondId.lastIndexOf("-")+1));
   const [videoUrl,setVideoUrl]=useState('')
-  //const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
+  const [images,setImages]=useState([]);
   const [showVideoPopup,setShowVideoPopup]=useState(false)
-  
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
 const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
 //console.log(isDiamondPresentInCompare)
   const handleVideoIconClick = async(diamondId) => {
     //setShowVideoPopup(false)
     try {     
       const res = await diamondService.getDiamondVideoUrl(diamondId);  
-      if(res)     {
-        console.log(res);
+      if(res) {
         if(res.showVideo !== false){
           setVideoUrl(res.videoURL);         
           //setShowVideoPopup(true);          
@@ -53,26 +52,77 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
     }
     catch (error) {
       console.error("Error fetching filter data:", error);
-      setError("Failed to fetch filter data. Please try again later.");
+      setError("Failed to fetch video data. Please try again later.");
     }  
   };
   const navigate = useNavigate();
   const fetchProductDetails = async (diamondId,isLabGrown) => {
     try {
-      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown); 
+      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown,configAppData.dealerid); 
       if(res) {
-        setDiamondDetail(res);  
-        //checkFileExists(res.videoFileName);
+        setDiamondDetail(res);
         setIsAllDiamondDetailsLoaded(true);
       }     
     } catch (error) {
       console.error("Error fetching product details:", error);
+      setError("Failed to fetch diamond data. Please try again later.");
+    }
+  };
+  const fetchPrintDoc = async (diamondId,isLabGrown) => {
+    console.log("asdaada")
+    try {
+      const res = await diamondService.getPrintDoc(diamondId,isLabGrown);      
+      if(res) {
+        console.log(res)
+      }     
+    } catch (error) {
+      console.error("Error fetching print doc details:", error);
+      setError("Failed to fetch print doc data. Please try again later.");
     }
   };
   useEffect(() => {
     handleVideoIconClick(diamondIdToShow)
     fetchProductDetails(diamondIdToShow,isLabGrown);
+    //fetchPrintDoc(diamondIdToShow,isLabGrown)
   }, [diamondId]);
+  useEffect(() => {
+    const images = [];
+        if (diamondDetail.image2 && diamondDetail.image2 !='') {
+          images.push({
+            original: diamondDetail.image2,
+            thumbnail: diamondDetail.image2,
+          });
+          images.push({
+            original: diamondDetail.image1,
+            thumbnail: diamondDetail.image1,}
+          );  
+          videoUrl!=="" &&
+          images.push({
+            embedUrl:videoUrl,
+            original:'/360-view.png',
+            thumbnail:'/360-view.png',
+            renderItem: renderVideo.bind(this),
+          })
+        } else if (diamondDetail.image1) {
+          images.push({
+            original: diamondDetail.image1,
+            thumbnail: diamondDetail.image1,
+          });
+          images.push({
+            original: diamondDetail.image1,
+            thumbnail: diamondDetail.image1,}
+          );
+          videoUrl!=="" &&
+          images.push({
+            embedUrl:videoUrl,
+            original:'/360-view.png',
+            thumbnail:'/360-view.png',
+            renderItem: renderVideo.bind(this),
+          })
+        }
+        console.log(images)
+        setImages(images);
+  }, [diamondDetail,videoUrl]);
   useEffect(() => {
     let selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));
     if(selectedRingSetting) {
@@ -85,8 +135,6 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
     navigate("/diamondtools");
   }, [navigate]);
   const renderVideo = (item) => {
-    console.log("in fwerwerwe");
-        
     return (
       <div className="video-popup-content" >
       <iframe
@@ -94,10 +142,8 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
           height={'100%'}
           width={'100%'}        
           allow={"autoplay"}       
-          src={item.embedUrl+'?autoplay=1'}
-         
-      />
-        
+          src={item.embedUrl}         
+      />        
       </div>
     )
   };
@@ -134,8 +180,7 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
      let convertStringToArray = JSON.parse(configAppData.settings_carat_ranges);
      let appConfigWeight =  convertStringToArray[caratWeight];
      localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,diamondUrl:window.location.href}));
-    }else{
-     
+    }else{     
       let appConfigWeight =  (Number(diamondDetail.caratWeight) - 0.1).toFixed(2)+"-"+ (Number(diamondDetail.caratWeight)+0.1).toFixed(2);
       console.log(appConfigWeight)
       localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,diamondUrl:window.location.href}));
@@ -163,40 +208,7 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
 
   
 
-  const images = [];
-  if (diamondDetail.image2 && diamondDetail.image2 !='') {
-    images.push({
-      original: diamondDetail.image2,
-      thumbnail: diamondDetail.image2,
-    });
-    images.push({
-      original: diamondDetail.image1,
-      thumbnail: diamondDetail.image1,}
-    );  
-    videoUrl!=="" &&
-    images.push({
-      embedUrl:videoUrl,
-      original:'/360-view.png',
-      thumbnail:'/360-view.png',
-      renderItem: renderVideo.bind(this),
-    })
-  } else if (diamondDetail.image1) {
-    images.push({
-      original: diamondDetail.image1,
-      thumbnail: diamondDetail.image1,
-    });
-    images.push({
-      original: diamondDetail.image1,
-      thumbnail: diamondDetail.image1,}
-    );
-    videoUrl!=="" &&
-    images.push({
-      embedUrl:videoUrl,
-      original:'/360-view.png',
-      thumbnail:'/360-view.png',
-      renderItem: renderVideo.bind(this),
-    })
-  }
+
   const openUrl=() => {
   //  event.preventDefault();
     window.open(diamondDetail.certificateUrl,'CERTVIEW','scrollbars=yes,resizable=yes,width=860,height=550')
@@ -218,7 +230,7 @@ console.log(images)
                         className="breadcrumb-separator-icon"
                         loading="lazy"
                         alt=""
-                        src="/vector-11.svg"
+                        src={`${imageUrl}`+"/vector-11.svg"}
                       />
                     </div>
                     <b className="back-to-all">Back to All Diamonds</b>
@@ -226,11 +238,11 @@ console.log(images)
                   <div className="product-gallery">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
-                      <ImageGallery items={images} autoPlay={false} onErrorImageURL={'/no-image.jpg'}/>
+                      <ImageGallery items={images} autoPlay={false} showPlayButton={false} showNav={false}  onErrorImageURL={'/no-image.jpg'}/>
                     </div>               
                   </div>
                 </div>
-                {!formSetting.internalUseLink &&
+                {diamondDetail.internalUselink &&
                     <div className="link1">
                       <div className="dealer__info">
                         <span>{`Internal Use Only: `}</span>
@@ -272,7 +284,7 @@ console.log(images)
                             className="group-icon1"
                             loading="lazy"
                             alt=""
-                            src="/group.svg"
+                            src={`${imageUrl}`+"/group.svg"}
                           />
                         </div>
                         <div className="header-items1">
@@ -343,18 +355,18 @@ console.log(images)
                   </div>
                   <div className="number2">
                     <MeasurementItems
-                      fi8467779="/fi-8467779.svg"
+                      fi8467779={`${imageUrl}`+"/fi-8467779.svg"}
                       measurementSubValues={diamondDetail.depth&&diamondDetail.depth!="" ? diamondDetail.depth+"%":'-'}
                       depth="Depth"
                     />
                     <MeasurementItems
-                      fi8467779="/fi-12791189.svg"
+                      fi8467779={`${imageUrl}`+"/fi-12791189.svg"}
                       measurementSubValues={diamondDetail.table&&diamondDetail.table!="" ? diamondDetail.table+"%":'-'}
                       depth="Table"
                       propFlex="0.2357"
                     />
                     <MeasurementItems
-                      fi8467779="/fi-8052211.svg"
+                      fi8467779={`${imageUrl}`+"/fi-8052211.svg"}
                       measurementSubValues={diamondDetail.measurement && diamondDetail.measurement!=""?diamondDetail.measurement:'-'}
                       depth="Measurement"
                       propFlex="1"
@@ -428,8 +440,9 @@ console.log(images)
         >
         <DropHintPopup
             diamondId={diamondDetail.diamondId}
-            diamondurl={window.location.hostname +location.pathname}
+            diamondurl={shopUrl+location.pathname}
             shopurl={shopUrl}
+            configAppData={configAppData}
             diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
             onClose={() => setIsDropHintOpen(false)} />
         </PortalPopup>
@@ -442,8 +455,9 @@ console.log(images)
         >
          <ScheduleViewingPopup
             diamondId={diamondDetail.diamondId}
-            diamondurl={window.location.hostname +location.pathname}
+            diamondurl={shopUrl+location.pathname}
             shopurl={shopUrl}
+            configAppData={configAppData}
             diamondDetail={diamondDetail}
             diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
             onClose={() => setIsScheduleViewingOpen(false)}
@@ -458,9 +472,10 @@ console.log(images)
           onOutsideClick={closeRequestInfo}
         >
            <RequestInfoPopup 
+          configAppData={configAppData}
           onClose={() => setIsRequestInfoOpen(false)}
           diamondId={diamondDetail.diamondId}
-          diamondurl={window.location.hostname + location.pathname}
+          diamondurl={shopUrl+location.pathname}
           shopurl={shopUrl}
           diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
           />
@@ -474,8 +489,9 @@ console.log(images)
           onOutsideClick={closeemailAFriend}
         >
          <EmailFriendPopup 
+          configAppData={configAppData}
           diamondId={diamondDetail.diamondId}
-          diamondurl={window.location.hostname + location.pathname}
+          diamondurl={shopUrl+location.pathname}
           shopurl={shopUrl}
           diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
           onClose={() => setIsEmailAFriendOpen(false)} />

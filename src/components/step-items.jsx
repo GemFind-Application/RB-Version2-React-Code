@@ -8,6 +8,7 @@ const StepItems = ({
   prop,
   onStepItemsContainerClick,
 }) => {
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
     <div
       className={`step-items ${className}`}
@@ -17,7 +18,7 @@ const StepItems = ({
         <b className="step-22">{step2}</b>
         <b className="step-title">{chooseDiamond}</b>
       </div>
-      <img className="icon4" alt="" src={prop} />
+      <img className="icon4" alt="" src={imageUrl+prop} />
     </div>
   );
 };

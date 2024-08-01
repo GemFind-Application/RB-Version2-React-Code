@@ -60,6 +60,7 @@ function put(url, body) {
   return fetch(url, requestOptions).then(handleResponse);
 }
 function postFormData(url, body) {
+  console.log(url)
   const requestOptions = {
     method: 'POST',   
     body: (body)
@@ -84,25 +85,30 @@ function authHeader(url) {
 }
 
 function handleResponse(response) {
-  return response.text().then(text => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      let errorMessage = '';
-      if (data['error']) {
-        errorMessage = `Error: ${data['error']['message'] ||
-          data['error']['status'] ||
-          data['error']}`;
-      } else if (data['errors']) {
-        errorMessage = objToString(data['errors']);
-      } else {
-        errorMessage = (data && data.message) || response.statusText;
+let c = (response.headers.get("content-type"))
+ 
+    return response.text().then(text => {
+    
+      const data = text && JSON.parse(text);
+      if (!response.ok) {
+        let errorMessage = '';
+        if (data['error']) {
+          errorMessage = `Error: ${data['error']['message'] ||
+            data['error']['status'] ||
+            data['error']}`;
+        } else if (data['errors']) {
+          errorMessage = objToString(data['errors']);
+        } else {
+          errorMessage = (data && data.message) || response.statusText;
+        }
+        return Promise.reject(errorMessage);
       }
-      return Promise.reject(errorMessage);
-    }
-   
-
-    return data;
-  });
+     
+  
+      return data;
+    });
+  
+ 
 }
 
 function objToString(obj) {

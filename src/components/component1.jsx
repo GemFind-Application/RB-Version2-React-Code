@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import "./component1.css";
 
 const Component1 = ({ className = "", onContainerClick1 }) => {
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
     <div className={`div96 ${className}`} onClick={onContainerClick1}>
       <div className="inner3">
@@ -10,7 +11,7 @@ const Component1 = ({ className = "", onContainerClick1 }) => {
           <b className="complete-ring3">Complete Ring</b>
         </div>
       </div>
-      <img className="icon2" alt="" src="/02.svg" />
+      <img className="icon2" alt="" src={`${imageUrl}`+"/02.svg"} />
     </div>
   );
 };

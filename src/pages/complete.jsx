@@ -21,7 +21,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
  // const [isSettingAnDiamondIdLoaded, setIsSettingAnDiamondIdLoaded] = useState(false);
   const fetchDiamondDetails = async (diamondId,isLabGrown) => {
     try {
-      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown); 
+      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown,configAppData.dealerid); 
       console.log()
       if(res) {
         setDiamondDetail(res);  
@@ -35,7 +35,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
   };
   const fetchSettingDetails = async (settingId) => {
     try {
-      const res = await settingService.getSettingDetail(settingId); 
+      const res = await settingService.getSettingDetail(settingId,configAppData.dealerid); 
       if(res) {
         setSettingDetail(res);  
         const images = [];
@@ -90,8 +90,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
    
    
   }, []);
- console.log(settingDetail)
- console.log(diamondDetail)
+
   return (
     <div className="complete">
       <Header />
@@ -105,7 +104,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
         <div className="image-container">
           <div className="plp-image-gallery">
             <div className="image-wrapper">
-              <ImageGallery items={images} onErrorImageURL={'/no-image.jpg'}/>
+              <ImageGallery items={images} showPlayButton={false} showNav={false}  onErrorImageURL={'/no-image.jpg'}/>
             </div>               
           </div>
         </div>

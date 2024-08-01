@@ -19,11 +19,11 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
       thumbnail: diamond.biggerDiamondimage,
     });
   }
-
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
     <div className={`diamond-details ${className}`}>
       <section className="dd-gallery">
-        <ImageGallery items={images} />
+        <ImageGallery items={images} showPlayButton={false} showNav={false} onErrorImageURL={'/no-image.jpg'}/>
       </section>
       <section className="content2">
         <div className="top2">
@@ -85,7 +85,7 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
               className="fi-8467779-icon"
               loading="lazy"
               alt=""
-              src="/fi-8467779.svg"
+              src={`${imageUrl}`+"/fi-8467779.svg"}
             />
             <div className="x-x-measurement">
               <b className="x-x-values">{diamond.depth ? `${diamond.depth}%` : '-'}</b>
@@ -97,7 +97,7 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
               className="fi-8467779-icon"
               loading="lazy"
               alt=""
-              src="/fi-12791189.svg"
+              src={`${imageUrl}`+"/fi-12791189.svg"}
             />
             <div className="x-x-measurement">
               <b className="b4">{diamond.table ? `${diamond.table}%` : '-'}</b>
@@ -109,7 +109,7 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
               className="fi-8467779-icon"
               loading="lazy"
               alt=""
-              src="/fi-8052211.svg"
+             src={`${imageUrl}`+"/fi-8052211.svg"}
             />
             <div className="x-x-measurement">
               <b className="x371x232">{diamond.measurement || '-'}</b>

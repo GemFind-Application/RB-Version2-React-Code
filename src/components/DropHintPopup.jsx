@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import "./hint.css"
 import { settingService } from '../Services';
-
-const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diamondId,diamondtype,diamondurl }) => {
+import ReCAPTCHA from 'react-google-recaptcha';
+const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diamondId,diamondtype,diamondurl,configAppData }) => {
   let formDataValue= {yourName: '',
   name: '',
   email:'',
@@ -12,7 +12,9 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diam
   hint_message: '',
   gift_deadline: '',
   islabsettings: isLabSetting, 
-  shopurl: shopurl
+  shopurl: shopurl,
+  'captcha-response':'',
+  'secret-key':configAppData.secret_key
 }
 if(settingId&&settingId!==""){
     formDataValue.settingid = settingId;
@@ -30,7 +32,7 @@ if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
  // formDataValue.diamondtype = diamondtype;
   formDataValue.diamondurl = diamondurl;
 }
-
+const recaptcha = useRef();
   const [formData, setFormData] = useState(formDataValue)
  
 
@@ -48,7 +50,7 @@ if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
       setErrors({ ...errors, [name]: '' });
     }
   };
-
+  
   const validateForm = () => {
     let newErrors = {};
 
@@ -83,21 +85,39 @@ if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
     if (!formData.gift_deadline) {
       newErrors.giftDeadline = 'Gift deadline is required';
     }
+   
+    if (!formData['captcha-response']) {
+      newErrors.recaptcha = 'Please verify captcha';
+    }  
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
+  useEffect(() => {
+    // setIsLabGrown(false);
+    async function fetchToken(){
+      try {      
+        const token = await recaptcha.current.executeAsync();
+        formData['captcha-response'] = token;
+      
+      } catch (err) {  
+        console.error("Error fetching products:", error);
+        setError("Failed to get captcha . Please try again later.");
+      }
+    }
+    fetchToken()
+   }, [errorsFromRes]);
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
-    if (validateForm()) {
-     
+   // const token = await captchaValue.current.executeAsync();
+    if (validateForm()) {   
+     // const captchaValue = recaptcha.current
+     //setFormData({...formData,'captcha-response': captchaValue})
       let formDataVal = new FormData();
       Object.keys(formData).forEach(function (key) {
         formDataVal.append(key,formData[key]);
-      });
-     
+      });    
   
       try {
         let sendRequest = 'settings';
@@ -112,10 +132,12 @@ if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
        const res = await settingService.dropAHint(formDataVal,sendRequest,apiCall);
        if(res.output.status===2){
         setErrorsFromRes(res.output.msg);
+        recaptcha.current.reset();
        }
        if(res.output.status===1){
         setHintDroppedMessage(res.output.msg)
         setHintDropped(true);
+        recaptcha.current.reset();
        }
        
       } catch (error) {
@@ -124,7 +146,7 @@ if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
       }
     }
   };
-
+//console.log(configAppData)
   return (
     <div className="popup-overlay drop-hint-popup">
       <div className="popup-content">
@@ -137,9 +159,8 @@ if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
             <hr className="hr" />
             <form onSubmit={handleSubmit}>
               {errorsFromRes!="" &&
-              <div>
-                <p className='error'>{errorsFromRes}</p>
-              </div>
+              <div className='enter-your-password errorText'>{errorsFromRes}</div>
+            
               }
               <div>
                 <input name="ringurl" type="hidden" value={formData.ringurl} />
@@ -213,6 +234,11 @@ if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
                   <button type="submit" className="submit-button">DROP HINT</button>
                 </div>
               </div>
+              {configAppData.site_key && configAppData.site_key!=="" && 
+              <div className="gift-deadline">
+              <ReCAPTCHA  ref={recaptcha} size="invisible" sitekey={configAppData.site_key} />
+              </div>
+              }
             </form>
           </>
         ) : (

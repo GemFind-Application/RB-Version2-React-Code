@@ -13,18 +13,18 @@ const FrameComponent4 = ({ className = "" }) => {
   const onStepsContentContainer1Click = useCallback(() => {
     navigate("/diamondtools");
   }, [navigate]);
-
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
     <div className={`home-content-wrapper ${className}`}>
       <div className="home-content">
         <div className="home-buttons">
           <div className="home">Home</div>
           <div className="home-buttons-inner">
-            <img className="frame-child1" alt="" src="/vector-12.svg" />
+            <img className="frame-child1" alt="" src={`${imageUrl}`+"/vector-12.svg" }/>
           </div>
           <div className="create-ring">Create Ring</div>
           <div className="home-buttons-inner">
-            <img className="frame-child1" alt="" src="/vector-23.svg" />
+            <img className="frame-child1" alt="" src={`${imageUrl}`+"/vector-23.svg"} />
           </div>
           <b className="complete-ring">Complete Ring</b>
         </div>
@@ -55,15 +55,15 @@ const FrameComponent4 = ({ className = "" }) => {
                   <img
                     className="image-10-icon"
                     alt=""
-                    src="/image-10@2x.png"
+                    src={`${imageUrl}`+"/image-10@2x.png"}
                   />
                   <img
                     className="image-9-icon11"
                     alt=""
-                    src="/image-9@2x.png"
+                    src={`${imageUrl}`+"/image-9@2x.png"}
                   />
                   <div className="div58">
-                    <img className="group-icon3" alt="" src="/group1.svg" />
+                    <img className="group-icon3" alt="" src={`${imageUrl}`+"/group1.svg"} />
                   </div>
                 </div>
               </div>
@@ -81,10 +81,10 @@ const FrameComponent4 = ({ className = "" }) => {
                   <img
                     className="image-10-icon1"
                     alt=""
-                    src="/image-10@2x.png"
+                    src={`${imageUrl}`+"/image-10@2x.png"}
                   />
                   <div className="div58">
-                    <img className="group-icon3" alt="" src="/group1.svg" />
+                    <img className="group-icon3" alt="" src={`${imageUrl}`+"/group1.svg"} />
                   </div>
                 </div>
               </div>
@@ -95,7 +95,7 @@ const FrameComponent4 = ({ className = "" }) => {
                     <b className="choose-setting">Complete Ring</b>
                   </div>
                 </div>
-                <img className="icon" alt="" src="/0.svg" />
+                <img className="icon" alt="" src={`${imageUrl}`+"/0.svg" }/>
               </div>
             </div>
           </div>

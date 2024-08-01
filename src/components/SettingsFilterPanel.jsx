@@ -46,10 +46,9 @@ const SettingsFilterPanel = ({
   const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
   const [priceRange, setPriceRange] = useState(activeFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [activeFilters.price[0], activeFilters.price[1]]);
   const [availableFilter, setAvailableFilter] = useState([]); 
-  const hover11 = useHover({color: className.hoverEffect_color},{color:className.link_color},{background:className.columnHeaderAccent_color})
-  console.log(hover11)
-  const [hover, setHover] = useState(false);
-  const [hoverlab, setHoverLab] = useState(false);
+  //const hover11 = useHover({color: className.hoverEffect_color},{color:className.link_color},{background:className.columnHeaderAccent_color})
+  const [activePopup, setActivePopup] = useState(null);
+  
   useEffect(() => {
    // setPriceRange(activeFilters.price || [0, 29678.00]);
     let filterAvailable = [];
@@ -80,7 +79,7 @@ const SettingsFilterPanel = ({
       price: [min, max]
     });
   };*/
-  console.log(className)
+  //console.log(configAppData)
   const handlePriceChange = ({ min, max }) => {
     console.log(min)
     setPriceRange([min, max]);  
@@ -100,26 +99,23 @@ const SettingsFilterPanel = ({
     debounce(handleSetTimeRange, 500),
     [activeFilters],
   );
-  function useHover(styleOnHover, styleOnNotHover)
-{
-    const [style, setStyle] = React.useState(styleOnNotHover);
-console.log(styleOnHover)
-    const onMouseEnter = () => setStyle(styleOnHover)
-    const onMouseLeave = () => setStyle(styleOnNotHover)
+ 
 
-    return {style, onMouseEnter, onMouseLeave}
-}
-const myComponentStyle = {
-  background: className.columnHeaderAccent_color,
-  
-}
-const  style ={
-  normal:{
-    background: className.columnHeaderAccent_color,
-   
-  },
-  
-}
+const togglePopup = (popup) => {
+  setActivePopup(activePopup === popup ? null : popup);
+};
+const getPopupContent = (filterType) => {
+  console.log(filterType)
+  const contents = {
+    shapes: "",
+    price: "",
+    metalType: "",
+    collections: "",
+    mined: "Formed over billions of years, natural diamonds are mined from the earth. Diamonds are the hardest mineral on earth, which makes them an ideal material for daily wear over a lifetime. Our natural diamonds are conflict-free and GIA certified.",
+    labgrown: "Lab-grown diamonds are created in a lab by replicating the high heat and high pressure environment that causes a natural diamond to form. They are compositionally identical to natural mined diamonds (hardness, density, light refraction, etc), and the two look exactly the same. A lab-grown diamond is an attractive alternative for those seeking a product with less environmental footprint.",
+  };
+  return contents[filterType] || "Information not available.";
+};
  // const debounced = React.useCallback(debounce(handlePriceChange, 1500), []);
   //console.log(settingNavigation)
  
@@ -135,9 +131,20 @@ const  style ={
             >
               {settingNavigation.navStandard}
             </div>
-            {configAppData.show_filter_info ===true &&
-            <div className="separator"><b className="i22">i</b></div>
+            {(configAppData.show_filter_info =="true") &&
+             <div className="empty-row">
+                    <b className="i10" onClick={(e) => {
+                      e.stopPropagation();
+                      togglePopup('mined');
+                    }}>i</b>
+                  </div>
+                  
             }
+            {activePopup == 'mined' && (
+                  <div className="filter-popup">
+                 {getPopupContent('mined')}
+                  </div>
+                )}
           </div>
            }
            {settingNavigation.navLabGrown && 
@@ -150,8 +157,18 @@ const  style ={
             >
              {settingNavigation.navLabGrown}
             </div>
-            {configAppData.show_filter_info ===true &&
-            <div className="separator"><b className="i22">i</b></div>}
+            {(configAppData.show_filter_info =="true") &&
+            <div className="empty-row">
+            <b className="i10" onClick={(e) => {
+              e.stopPropagation();
+              togglePopup('labgrown');
+            }}>i</b>
+          </div>}
+          {activePopup == 'labgrown' && (
+                  <div className="filter-popup">
+                 {getPopupContent('mined')}
+                  </div>
+                )}
           </div>
           }
         </div>
@@ -198,6 +215,18 @@ const  style ={
                         <div className="filter-count">{activeFilters[filter].length}</div>
                       )}
                     </button>
+                    {configAppData.show_filter_info ==="true" &&
+                      <div className={filter === 'shape' ? "shape-info1" : filter === 'price' ? "empty-options" : "border--round"}>
+                        <b className="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          togglePopup(filter);
+                        }}>i</b>
+                      </div>}
+                      {activePopup === filter && (
+                        <div className="filter-popup">
+                          {getPopupContent(filter)}
+                        </div>
+                      )}
                   </div>
                 ))}
                 <div className="filter-dropdown">
@@ -208,6 +237,18 @@ const  style ={
                     <div className="filter-label">Price</div>
                     <ChevronDown size={16} />
                   </button>
+                  {configAppData.show_filter_info ==="true" &&
+                      <div className={ "empty-options" }>
+                        <b className="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          togglePopup('price');
+                        }}>i</b>
+                      </div>}
+                      {activePopup === 'price' && (
+                        <div className="filter-popup">
+                          {getPopupContent('price')}
+                        </div>
+                      )}
                 </div>
               </div>
               <div className="actions13">

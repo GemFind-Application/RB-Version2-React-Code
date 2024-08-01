@@ -31,6 +31,7 @@ const V = ({
     propBorderBottom,
   ]);
   const navigate = useNavigate();
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const viewDiamond=(diamond)=>{
      const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
      const viewUrlLink = utils.getDiamondViewUrl(diamond)
@@ -47,7 +48,7 @@ const V = ({
             className="vector-icon15 remove-compared"
             loading="lazy"
             alt=""
-            src="/vector-31.svg"
+            src={`${imageUrl}`+"/vector-31.svg"}
           />
         </div>
         <div className="image-9-wrapper">
@@ -69,7 +70,7 @@ const V = ({
             className="button-child"
             loading="lazy"
             alt=""
-            src="/vector-22.svg"
+            src={`${imageUrl}`+"/vector-22.svg"}
           />
         </div>
       </div>

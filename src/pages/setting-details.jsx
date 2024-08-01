@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect ,useContext} from "react";
 import { Link, useNavigate, useParams,useLocation } from "react-router-dom";
 import DealerInfo from "../components/dealer-info";
 import PortalPopup from "../components/portal-popup";
@@ -12,6 +12,7 @@ import DropHintPopup from "../components/DropHintPopup";
 import ScheduleViewingPopup from "../components/ScheduleViewingPopup";
 import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
+import { diamondService } from '../Services';
 import { BASE_URL, DEALER_ID } from '../components/api';
 import Skeleton from 'react-loading-skeleton';
 import AlertPopUp from "../components/AlertPopUp";
@@ -25,11 +26,11 @@ import SocialIcon from "../components/SocialIcon";
 import Footer from "../components/Footer"
 import { settingService } from '../Services';
 import VideoModal from "../components/VideoModal";
-
+import { ConfigContext } from "../components/Context"
 import { utils } from "../Helpers";
 
 const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData,setIsLabGrown}) => {
- 
+  const dealerIdShop = useContext(ConfigContext);
   const { settingId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -64,14 +65,17 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   const [isDiamondSelectedFirst,setIsDiamondSelectedFirst] = useState(false);
   const [notFitMessage, setNotFitMessage] = useState([]);
   const [isPrintInfoOpen, setIsPrintInfoOpen] = useState(false);
-
-  
+  const [dealerId,setDealerId] = useState(dealerIdShop);
+  const [diamondNavigation,setDiamondNavigation] = useState([]);
+  const [isDiamondNavLoaded, setIsDiamondNavLoaded] = useState(false);
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const settingUrl = `${import.meta.env.VITE_SETTINGS_DETAIL_PAGE}`;
-  // /console.log()
+  //console.log(shopUrl+location.pathname)
   //const [selectedRingSize,setSelectedRingSize]= useState('');
   useEffect(() => {
+   
     let selecteddiamond = JSON.parse(localStorage.getItem('selectedDiamond'));
-    console.log(selecteddiamond)
+    //console.log(selecteddiamond)
     if(selecteddiamond) {
 
     if(selecteddiamond.diamondId &&  selecteddiamond.diamondId!=""){
@@ -80,9 +84,26 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
     
     fetchProductDetails(settingIdToShow);
   }, [settingIdToShow]);  
+  useEffect(() => {       
+    async function fetchDiamondNavigation(){
+      try {      
+        const res = await diamondService.getDiamondNavigation(configAppData.dealerid); 
+        if(res[0]) {
+          console.log(res[0])
+          setDiamondNavigation(res[0]);
+        }         
+        setIsDiamondNavLoaded(true);
+      } catch (err) {   
+        console.error("Error fetching products:", err);
+        setError("Failed to fetch diamond navigation. Please try again later.");     
+      }
+    }
+    //localStorage.removeItem('selectedDiamond');
+    fetchDiamondNavigation();
+  },[])
   const fetchProductDetails = async (settingId) => {
     try {
-      const res = await settingService.getSettingDetail(settingId); 
+      const res = await settingService.getSettingDetail(settingId,configAppData.dealerid); 
       if(res) {
         if(selectedParam!=""){
         let url =  utils.getUrl(res.metalType,res.settingName,settingId,'details')
@@ -231,7 +252,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
     }
   }
   const onBreadContainerClick = useCallback(() => {
-    navigate("/");
+    navigate("/settings");
   }, [navigate]);
 
   const showVirtualTryOnIframe = (stockNumber)=>{
@@ -288,14 +309,14 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
               <div className="bread-crumb">
                 <div className="back-link-container" onClick={onBreadContainerClick}>
                   <div className="back-link-container">
-                    <img className="back-link-icon" alt="" src="/vector-11.svg" />
+                    <img className="back-link-icon" alt="" src={`${imageUrl}`+"/vector-11.svg" }/>
                   </div>
                   <b className="select-side-stone">Back to All Settings</b>
                 </div>                
                 <div className="image-container">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
-                      <ImageGallery items={images}   onErrorImageURL={'/no-image.jpg'}/>
+                      <ImageGallery items={images} showPlayButton={false} showNav={false}    onErrorImageURL={'/no-image.jpg'}/>
                     </div>               
                   </div>
                 </div>
@@ -310,7 +331,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                       </div>
                     </div>
                   </div>
-                  {!formSetting.internalUseLink &&
+                  {product.internalUselink &&
                     <div className="link1">
                       <div className="dealer__info">
                         <span>{`Internal Use Only: `}</span>
@@ -353,7 +374,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                             <div className="shipping-header">
                               <div className="ring-specifications">Ring Specifications</div>
                             </div>
-                            <img className="group-icon2" loading="lazy" alt="" src="/group.svg" />
+                            <img className="group-icon2" loading="lazy" alt="" src={`${imageUrl}`+"/group.svg" }/>
                           </div>
                         </div>
                       </div>                      
@@ -502,45 +523,45 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                             ))}
                           </select>
                         </div>
-                        {(settingNavigationData && (settingNavigationData.navStandard || settingNavigationData.navLabGrown)) && (
+                        {(diamondNavigation && (diamondNavigation.navStandard || diamondNavigation.navLabGrown)) && (
                           <div className="filter-opened7">
                             <div className="select-side-stone">Select Diamond Type</div>
                             <div className="diamond-type-filter">
                               {product.isLabSetting == 1 ? (
                                 <>
-                                  {settingNavigationData.navLabGrown &&
+                                  {diamondNavigation.navLabGrown &&
                                     <button
                                       className={`range66 ${selectedDiamondType === 'Lab Grown' ? 'active' : ''}`}
                                       onClick={() => setSelectedDiamondType('Lab Grown')}
                                     >
-                                      <div className="txt66">{settingNavigationData.navLabGrown}</div>
+                                      <div className="txt66">{diamondNavigation.navLabGrown}</div>
                                     </button>
                                   }
-                                  {settingNavigationData.navStandard &&
+                                  {diamondNavigation.navStandard &&
                                     <button
                                       className={`range67 ${selectedDiamondType === 'Mined' ? 'active' : ''}`}
                                       onClick={() => setSelectedDiamondType('Mined')}
                                     >
-                                      <div className="txt67">{settingNavigationData.navStandard}</div>
+                                      <div className="txt67">{diamondNavigation.navStandard}</div>
                                     </button>
                                   }
                                 </>
                               ) : (
                                 <>
-                                  {settingNavigationData.navStandard &&
+                                  {diamondNavigation.navStandard &&
                                     <button
                                       className={`range66 ${selectedDiamondType === 'Mined' ? 'active' : ''}`}
                                       onClick={() => setSelectedDiamondType('Mined')}
                                     >
-                                      <div className="txt66">{settingNavigationData.navStandard}</div>
+                                      <div className="txt66">{diamondNavigation.navStandard}</div>
                                     </button>
                                   }
-                                  {settingNavigationData.navLabGrown &&
+                                  {diamondNavigation.navLabGrown &&
                                     <button
                                       className={`range67 ${selectedDiamondType === 'Lab Grown' ? 'active' : ''}`}
                                       onClick={() => setSelectedDiamondType('Lab Grown')}
                                     >
-                                      <div className="txt67">{settingNavigationData.navLabGrown}</div>
+                                      <div className="txt67">{diamondNavigation.navLabGrown}</div>
                                     </button>
                                   }
                                 </>
@@ -550,6 +571,9 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                           </div>
                         )}
                       </div>
+                      <div className="filter-opened7">
+                            <div className="select-side-stone"></div>
+                            <div className="diamond-type-filter">{configAppData.announcement_text_rbdetail}</div></div>
                       <div className="filter-opened7">
                             <div className="select-side-stone"></div>
                             <div className="diamond-type-filter">{notFitMessage}</div></div>
@@ -568,7 +592,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                         <b className="select-485">Complete Your Ring - Select - <ShowCostInCard settingDetailForCost={product} configAppData={{configAppData}}></ShowCostInCard></b>
                       </button>
                         }
-                        {configAppData.display_tryon &&
+                        {configAppData.display_tryon=="1" &&
                         <button className="button-fav1" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.styleNumber))}>                        
                            <b>Virtual Try On</b>
                         </button>}
@@ -608,8 +632,8 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         >
           <DealerInfo 
             settingId={product.settingId}
-            ringurl={window.location.hostname + location.pathname}
-            shopurl={'gemfind-product-demo-10.myshopify.com'}
+            ringurl={shopUrl+location.pathname}
+            shopurl={configAppData.shop}
             isLabSetting={product.isLabSetting}
             onClose={() => setIsDealerInfoOpen(false)} />
         </PortalPopup>
@@ -637,9 +661,10 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         >
           <DropHintPopup
             settingId={product.settingId}
-            ringurl={window.location.hostname + location.pathname}
+            ringurl={shopUrl + location.pathname}
             shopurl={shopUrl}
             isLabSetting={product.isLabSetting}
+            configAppData={configAppData}
             onClose={() => setIsDropHintOpen(false)} />
         </PortalPopup>
       )}
@@ -650,7 +675,9 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         >
           <ScheduleViewingPopup
             settingId={product.settingId}
-            ringurl={window.location.hostname + location.pathname}
+            SettingDetails={product}
+            configAppData={configAppData}
+            ringurl={shopUrl+location.pathname}
             shopurl={shopUrl}
             isLabSetting={product.isLabSetting}
             onClose={() => setIsScheduleViewingOpen(false)}
@@ -666,7 +693,8 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         <RequestInfoPopup 
           onClose={() => setIsRequestInfoOpen(false)}
           settingId={product.settingId}
-          ringurl={window.location.hostname + location.pathname}
+          configAppData={configAppData}
+          ringurl={shopUrl+location.pathname}
           shopurl={shopUrl}
           isLabSetting={product.isLabSetting}
           />
@@ -678,8 +706,9 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
           onOutsideClick={() => setIsEmailAFriendOpen(false)}
         >
           <EmailFriendPopup 
+          configAppData={configAppData}
           settingId={product.settingId}
-          ringurl={window.location.hostname + location.pathname}
+          ringurl={shopUrl+location.pathname}
           shopurl={shopUrl}
           isLabSetting={product.isLabSetting}
           onClose={() => setIsEmailAFriendOpen(false)} />

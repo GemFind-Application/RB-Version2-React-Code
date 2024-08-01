@@ -85,9 +85,10 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
     certificates:advanceFilterStoredData ? advanceFilterStoredData.certificates.length > 0 ?advanceFilterStoredData.certificates:[]:[],
   });*/
   useEffect(() => {   
+    
     async function fetchDiamondNavigation(){
       try {      
-        const res = await diamondService.getDiamondNavigation(); 
+        const res = await diamondService.getDiamondNavigation(configAppData.dealerid); 
         if(res[0]) {
           setDiamondNavigation(res[0]);
         }         
@@ -147,11 +148,11 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
             setSelectedCaratRange([resSetting.centerStoneMinCarat,resSetting.centerStoneMaxCarat]);
           }}
          
+          console.log("in getting diamonds filter");
+          console.log(configAppData) 
         
-        
-          const res = await diamondService.getDiamondFilter({ isLabGrown:isLab =='fancy'?isLab:isLab==true?true:false});  
-           console.log("in getting diamonds filter");
-          console.log(selectedFilters) 
+          const res = await diamondService.getDiamondFilter({ isLabGrown:isLab =='fancy'?isLab:isLab==true?true:false},configAppData.dealerid);  
+           
           
         
           if(res){
@@ -287,7 +288,7 @@ let  selectedcarat = selectedFilters.carat;
                 depth:advancedFilters.depth.length > 0?[advancedFilters.depth[0],advancedFilters.depth[1]]:[],
               }      
               console.log(option)  
-              const res = await diamondService.getAllDiamond(option);
+              const res = await diamondService.getAllDiamond(option,configAppData.dealerid);
               if(res.diamondList ) {
                 
                 setDiamond(res.diamondList);  
@@ -458,7 +459,7 @@ let  selectedcarat = selectedFilters.carat;
       
       { isDiamondLoaded ?(
       <>{
-      isGridView ?
+      !isGridView ?
       <div className="list2">
       {
         diamond.map(product => (

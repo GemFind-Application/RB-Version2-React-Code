@@ -15,9 +15,10 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
   const [allDiamondDetailsToCompare, setAllDiamondDetailsToCompare] = useState([]);
   const [showAllParam, setShowAllParam] = useState(true);
   const navigate = useNavigate();
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const fetchDiamondDetails = async (compareDiamondsId,isLabGrown) => {
         try {
-            const promises = compareDiamondsId.map((item) => diamondService.getDiamondDetail(item,isLabGrown));
+            const promises = compareDiamondsId.map((item) => diamondService.getDiamondDetail(item,isLabGrown,configAppData.dealerid));
             const diamondDataData = await Promise.all(promises);
             console.log(diamondDataData)
             if(diamondDataData){
@@ -49,7 +50,7 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
         <div className="bread-wrapper">
           <div className="bread" onClick={onBreadContainerClick}>
             <div className="bread-inner">
-              <img className="frame-child" alt="" src="/vector-11.svg" />
+              <img className="frame-child" alt="" src={`${imageUrl}`+"/vector-11.svg"} />
             </div>
             <b className="back-to-diamond">Back to Diamond List</b>
           </div>

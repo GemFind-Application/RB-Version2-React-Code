@@ -14,7 +14,7 @@ const PaginationPanel = ({
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
-
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const renderPageNumbers = () => {
     const pageNumbers = [];
     const maxPagesToShow = 5;
@@ -95,7 +95,7 @@ const PaginationPanel = ({
 
     return pageNumbers;
   };
-
+  
   return (
     <div className={`pagination-panel ${className}`}>
       <div className="pagination-container">
@@ -109,14 +109,14 @@ const PaginationPanel = ({
             className="page-number-icons-wrapper"
             onClick={() => onPageChange(Math.max(1, currentPage - 1))}
           >
-            <img className="page-number-icons" alt="Previous" src="/vector-2-11.svg" />
+            <img className="page-number-icons" alt="Previous" src={`${imageUrl}`+"/vector-2-11.svg"} />
           </div>
           {renderPageNumbers()}
           <div 
             className="page-number-icons-wrapper"
             onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
           >
-            <img className="instance-item" alt="Next" src="/vector-2-12.svg" />
+            <img className="instance-item" alt="Next" src={`${imageUrl}`+"/vector-2-12.svg" }/>
           </div>
         </div>
         }

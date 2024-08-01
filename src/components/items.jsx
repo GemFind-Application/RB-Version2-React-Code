@@ -17,6 +17,7 @@ const [showDetailsPopup, setShowDetailsPopup] = useState(false);
 
 
 const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
+const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
 useEffect(() => {   
   let isDiamondPresentInCompare = compareDiamondsId.filter(item=>item===diamond.diamondId);
   setIsDiamondPresentInCompare(isDiamondPresentInCompare.length > 0?true:false)
@@ -64,7 +65,7 @@ useEffect(() => {
             <div className="actions11"
                  id={diamond.diamondId}
                  onClick={handleVideoIconClick}>
-              <img className="video-icon2" alt="" src="/video.svg" />
+              <img className="video-icon2" alt="" src={`${imageUrl}`+"/video.svg"} />
             </div>
             }
             {/* Compare icons */}
@@ -73,20 +74,20 @@ useEffect(() => {
                 <img 
                   className="compare-icon2 compared" 
                   alt="compared" 
-                  src="/compared.svg"
+                  src={`${imageUrl}`+"/compared.svg"}
                   onClick={()=>addCompareDiamondIds(diamond.diamondId)}
                 />
               ) : (
                 <img 
                   className="compare-icon2 hide-when-filled" 
                   alt="compare" 
-                  src="/compare.svg" 
+                  src={`${imageUrl}`+"/compare.svg" }
                   onClick={()=>addCompareDiamondIds(diamond.diamondId)}
                 />
               )}
             </div>
             <div className="actions11 3dots" onClick={toggleDetailsPopup}>
-              <img className="vector-icon27" alt="" src="/vector3.svg" />
+              <img className="vector-icon27" alt="" src={`${imageUrl}`+"/vector3.svg"} />
             </div>
           </div>
           {/* end diamond actions buttons */}
