@@ -17,8 +17,7 @@ export const diamondService = {
   getDiamondDetail,
   getFancyDiamondFilter,
   getDiamondVideoUrl,
-  addTocart,
-  addTocartcompletePurchase,
+ 
   getPrintDoc
 };
 //get diamond filter
@@ -73,7 +72,7 @@ function getAllDiamond(option,dealerId) {
   if(option.isLabGrown==='fancy') {
     return fetchWrapper.get(`${baseUrl}/GetColorDiamond?DealerId=${dealerId}${queryParam}&IsLabGrown=false`);
   }else{
-    return fetchWrapper.get(`${baseUrl}/GetDiamond?DealerId=${dealerId}${queryParam}`);
+    return fetchWrapper.get(`${baseUrl}/GetDiamond?DealerId=${dealerId}${queryParam}&TableMin=0&TableMax=100&DepthMin=0&DepthMax=100`);
   }  
 }
 
@@ -168,6 +167,13 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'intIntensity='+option.intensity;    
   }
+
+  if(option.diamondfilter && option.diamondfilter!=='all'){
+    filterString += filterString.length > 0 ? `&` : '';
+    filterString += 'diamondfilter='+option.diamondfilter;    
+  }
+  
+
   if(filterString!=""){
     return "&"+filterString;
   }else{
@@ -186,19 +192,4 @@ function getPrintDoc(diamondId,labcreated){
       formData
   );
 }
-//get add to cart
-function addTocart(diamondId,labcreated){
-  const isLab = labcreated==true?'/labcreated':labcreated=='fancy'?'/fancydiamonds':''
-  let formData = new FormData();
-  fetchWrapper.postFormData(
-    `${addtocartUrl}/${addtocartPrefix}/${settingID}/`,   
-    formData
-  );addtocartUrl
-}
-//get add to cary from complete page
-function addTocartcompletePurchase (diamondId,settingID,formData){  
-  fetchWrapper.postFormData(
-    `${addtocartUrl}/${completePurchase}/${diamondId}/${settingID}/`,
-    formData
-    );
-}
+

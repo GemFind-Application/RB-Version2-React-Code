@@ -18,8 +18,9 @@ import DropHintPopup from "../components/DropHintPopup";
 import ScheduleViewingPopup from "../components/ScheduleViewingPopup";
 import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
-const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,isLabGrown}) => {
-  console.log(shopUrl + location.pathname)
+import ShowError from "../components/ShowError";
+const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,isLabGrown, setShowLoading}) => {
+  
   const { diamondId } = useParams();
   const [diamondDetail, setDiamondDetail] = useState({});
   const [isDiamondDetailLoaded, setIsAllDiamondDetailsLoaded] = useState(false);
@@ -35,6 +36,7 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,is
   const [images,setImages]=useState([]);
   const [showVideoPopup,setShowVideoPopup]=useState(false)
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
+  const [error, setError] = useState(null); 
 const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
 //console.log(isDiamondPresentInCompare)
   const handleVideoIconClick = async(diamondId) => {
@@ -58,18 +60,21 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
   const navigate = useNavigate();
   const fetchProductDetails = async (diamondId,isLabGrown) => {
     try {
+      setShowLoading(true)
       const res = await diamondService.getDiamondDetail(diamondId,isLabGrown,configAppData.dealerid); 
       if(res) {
         setDiamondDetail(res);
         setIsAllDiamondDetailsLoaded(true);
+        setShowLoading(false);
       }     
     } catch (error) {
       console.error("Error fetching product details:", error);
       setError("Failed to fetch diamond data. Please try again later.");
+      setShowLoading(false);
     }
   };
   const fetchPrintDoc = async (diamondId,isLabGrown) => {
-    console.log("asdaada")
+   
     try {
       const res = await diamondService.getPrintDoc(diamondId,isLabGrown);      
       if(res) {
@@ -99,8 +104,8 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
           videoUrl!=="" &&
           images.push({
             embedUrl:videoUrl,
-            original:'/360-view.png',
-            thumbnail:'/360-view.png',
+            original:imageUrl+'/360-view.png',
+            thumbnail:imageUrl+'/360-view.png',
             renderItem: renderVideo.bind(this),
           })
         } else if (diamondDetail.image1) {
@@ -115,12 +120,11 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
           videoUrl!=="" &&
           images.push({
             embedUrl:videoUrl,
-            original:'/360-view.png',
-            thumbnail:'/360-view.png',
+            original:imageUrl+'/360-view.png',
+            thumbnail:imageUrl+'/360-view.png',
             renderItem: renderVideo.bind(this),
           })
         }
-        console.log(images)
         setImages(images);
   }, [diamondDetail,videoUrl]);
   useEffect(() => {
@@ -175,14 +179,17 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
     setRequestInfoOpen(false);
   }, []);
   const onButtonContainerClick = (diamondDetail) => {
-    if(configAppData.settings_carat_ranges){
+    let isJsonString = utils.isJsonString(configAppData.settings_carat_ranges);
+    //console.log(convertStringToArray)
+    if(configAppData.settings_carat_ranges && isJsonString){
      let caratWeight = diamondDetail.caratWeight;
      let convertStringToArray = JSON.parse(configAppData.settings_carat_ranges);
+
      let appConfigWeight =  convertStringToArray[caratWeight];
      localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,diamondUrl:window.location.href}));
     }else{     
       let appConfigWeight =  (Number(diamondDetail.caratWeight) - 0.1).toFixed(2)+"-"+ (Number(diamondDetail.caratWeight)+0.1).toFixed(2);
-      console.log(appConfigWeight)
+      //console.log(appConfigWeight)
       localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,diamondUrl:window.location.href}));
     }
    // localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow}));
@@ -197,13 +204,54 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
      }else{
       let caratWeight = diamondDetail.caratWeight;
        let appConfigWeight =  (Number(diamondDetail.caratWeight) - 0.1).toFixed(2)+"-"+ (Number(diamondDetail.caratWeight)+0.1).toFixed(2);
-       console.log(appConfigWeight)
+       //console.log(appConfigWeight)
        localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow,caratDetail:appConfigWeight,caratWeight:caratWeight,diamondUrl:window.location.href}));
      }
     navigate("/settings");
   }
   const addToCart = async(diamondDetail) => {
-      const res = await diamondService.addTocart(diamondDetail.diamondId,isLabGrown);
+/*
+const ext = `${import.meta.env.VITE_SHOP_EXTENSION}`;
+const addtocartUrl = window.location.origin+ext;
+const addtocartPrefix = `${import.meta.env.VITE_ADD_TO_CART_PREFIX}`;
+console.log(addtocartPrefix)
+let  url=addtocartUrl+"/"+addtocartPrefix+'/'+diamondDetail.diamondId;
+const request = new XMLHttpRequest();
+request.open("POST",url , false); // `false` makes the request synchronous
+request.send(null);
+
+if (request.status === 200) {
+  console.log(request)
+//console.log(request.responseText);
+//return request.responseText;
+//window.open(window.location.origin+'/cart',"_self");
+}
+return null;*/
+
+    
+     //const res = await diamondService.addTocart(diamondDetail.diamondId,isLabGrown); 
+     const addtocartPrefix = `${import.meta.env.VITE_ADD_TO_CART_PREFIX}`;   
+     console.log("response addcart")
+     let formData = new FormData();
+     const requestOptions = {
+      method: 'POST', 
+      body: (formData)
+    }
+     const ext = `${import.meta.env.VITE_SHOP_EXTENSION}`;
+    const addtocartUrl = window.location.origin+ext;
+    let  url=addtocartUrl+"/"+addtocartPrefix+'/'+diamondDetail.diamondId;
+     fetch(url,requestOptions)
+      .then(function(response) {
+        console.log(response);
+        if(response.status===200){
+          console.log(response.url);
+          localStorage.removeItem('selectedDiamond')
+          window.open(response.url,"_self");
+        }
+        else{
+          setError("There is some problem is adding the product . Please try again")
+        }
+      })  
   }
 
   
@@ -214,7 +262,9 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
     window.open(diamondDetail.certificateUrl,'CERTVIEW','scrollbars=yes,resizable=yes,width=860,height=550')
   }
  
-console.log(images)
+  if (error) {
+    return <ShowError error={error}/>;
+  }
   return (
     <>
       <div className="diamond-page">
@@ -238,7 +288,7 @@ console.log(images)
                   <div className="product-gallery">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
-                      <ImageGallery items={images} autoPlay={false} showPlayButton={false} showNav={false}  onErrorImageURL={'/no-image.jpg'}/>
+                      <ImageGallery items={images} autoPlay={false} showPlayButton={false} showNav={false}  onErrorImageURL={imageUrl+'/no-image.jpg'}/>
                     </div>               
                   </div>
                 </div>
@@ -379,9 +429,9 @@ console.log(images)
                     <div className="button9" onClick={()=>addToCart(diamondDetail)}>
                        <b className="select-363440">Add To Cart</b>
                      </div>
-                    {isSettingSelected ?
+                    {isSettingSelected===true ?
                       <div className="button9" onClick={()=>onButtonContainerClick(diamondDetail)}>
-                        <b className="select-363440">Select - <ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamondDetail}></ShowCostInCardDiamond></b>
+                        <b className="select-363440">Complete Your Ring - <ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamondDetail}></ShowCostInCardDiamond></b>
                       </div> :
                        <div className="button9" onClick={()=>selectSetting(diamondDetail)}>
                        <b className="select-363440">Add Your Setting</b>

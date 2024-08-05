@@ -11,14 +11,19 @@ export default function  AlertPopUp  ({onClose,message,title,onClick})  {
         overlayColor="rgba(113, 113, 113, 0.3)"
           
       >
+        
         <div className="popup-overlay drop-hint-popup">
-        <div className="popup-content">
-          <button  onClick={onClose} className="close-button" >×</button>   
-       <div className="success-message">
-       <h2>{title}</h2>
-       <p>{message}</p>
-       {title==='Reset'&& <button onClick={onClick}>Reset</button> }
-     </div></div></div>
+          <div className="popup-content">
+           {message!=="" ? 
+           <>
+            <button  onClick={onClose} className="close-button" >×</button>   
+            <div className="success-message">
+              <h2>{title}</h2>
+              <p>{message}</p>
+                {title==='Reset'&& <button onClick={onClick}>Reset</button> }          
+            </div></>:<div><img src='/diamond.gif'/></div>}
+          </div>
+        </div>
      </PortalPopup>
     )
   }

@@ -16,8 +16,11 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
     appnt_time:null,
     isLabSetting: isLabSetting,   
     shopurl: shopurl,
-    'captcha-response':'',
-    'secret-key':configAppData.secret_key
+   
+  }
+  if(configAppData.site_key&&configAppData.site_key!==""){
+    formDataValue['captcha-response']='',
+    formDataValue['secret-key']=configAppData.secret_key
   }
   if(settingId&&settingId!==""){
     formDataValue.settingid = settingId;
@@ -49,7 +52,7 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
     if(settingId&&settingId!==""){
       if( SettingDetails.addressList){
         const locationIdObject = SettingDetails.addressList.filter(item=>item.locationName===formData.location); 
-        console.log(locationIdObject)    
+        
         if(locationIdObject.length > 0){
           const timedetail = SettingDetails.timingList.filter(item=>item.locationID==locationIdObject[0].locationID);
           setTimeArray(timedetail)
@@ -59,7 +62,7 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
     }else{
       if( diamondDetail.retailerInfo.addressList){
         const locationIdObject = diamondDetail.retailerInfo.addressList.filter(item=>item.locationName===formData.location); 
-        console.log(locationIdObject)    
+         
         if(locationIdObject.length > 0){
           const timedetail = diamondDetail.retailerInfo.timingList.filter(item=>item.locationID==locationIdObject[0].locationID);
           setTimeArray(timedetail)
@@ -72,13 +75,14 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
   useEffect(() => {
     // setIsLabGrown(false);
     async function fetchToken(){
+      if(configAppData.site_key&&configAppData.site_key!==""){
       try {      
         const token = await recaptcha.current.executeAsync();
         formData['captcha-response'] = token;      
       } catch (err) {  
-        console.error("Error fetching products:", error);
-        setError("Failed to get captcha . Please try again later.");
-      }
+        console.error("Error fetching captcha:", err);
+        setErrors("Failed to get captcha . Please try again later.");
+      }}
     }
     fetchToken()
    }, [errorsFromRes]);
@@ -151,31 +155,28 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
     if (!formData.hint_message.trim()) newErrors.message = 'Message is required';
     if (!formData.avail_date) newErrors.preference = 'Please select a date';
     if (!formData.location) newErrors.location = 'Please select a location';
-    if (!formData['captcha-response']) {
-      newErrors.recaptcha = 'Please verify captcha';
-    }  
+    if(configAppData.site_key&&configAppData.site_key!==""){
+      if (!formData['captcha-response']) {
+        newErrors.recaptcha = 'Please verify captcha';
+      }  
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
  
   const handleSubmit = async (e) => {
-
     e.preventDefault();
-    console.log("herer")
     if (validateForm()) {
-      console.log("herer")
       let formDataVal = new FormData();
       Object.keys(formData).forEach(function (key) {
         formDataVal.append(key,formData[key]);
       });
-      console.log(formDataVal)
       let sendRequest = 'settings';
         if((!formData.settingid) && formData.diamondid && formData.diamondid!=""){
           sendRequest='diamondtools'
         }else{
           sendRequest = 'settings'
         }
-        console.log(sendRequest)
         let apiCall = (formData.settingid && formData.diamondId) ? "resultscheview_cr" : "resultscheview";
         const res = await settingService.scheduleViewing(formDataVal,sendRequest,apiCall); 
       if(res.output.status===2){
@@ -190,10 +191,9 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
       //setScheduleViewing(true);
       // onClose();
     }else{
-      console.log(errors)
+      
     }
   };
-console.log(formData)
   return (
     <div className="popup-overlay requestInfopopup-overlay">
       <div className="popup-content">
@@ -297,15 +297,15 @@ console.log(formData)
                     </select>
                   </div>
                   }
-                <div>
+              
+              </div>
+               <div className="flex message_info">
                   {configAppData.site_key && configAppData.site_key!=="" && 
                     <div className="gift-deadline">
                     <ReCAPTCHA  ref={recaptcha} size="invisible" sitekey={configAppData.site_key} />
                     </div>
                   }
               </div>
-              </div>
-             
               <button type="submit" className="submit-button">Request</button>
             </div>
           </div>

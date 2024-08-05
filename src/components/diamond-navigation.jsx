@@ -39,7 +39,6 @@ const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLab
     };
     return contents[filterType] || "Information not available.";
   };
-  console.log(activePopup)
   return (
     <div className={`wrapper3 ${className}`}>
       <div className="diamond-nav-container">
@@ -61,11 +60,7 @@ const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLab
               <div className="create-your-own-ring-group">
                 <b className="create-your-own2">Create your own ring</b>
                 <div className="lorem-nisl-fringilla2">
-                  Lorem nisl fringilla magna malesuada egestas dui. Fringilla
-                  fermentum fusce interdum nulla velit vestibulum. Pretium
-                  iaculis id elementum commodo convallis. A rhoncus malesuada
-                  orci aliquam ipsum quis praesent. Egestas molestie nec enim et
-                  sem in orci.
+                {configAppData.announcement_text}
                 </div>
               </div>
               <div className="type1">

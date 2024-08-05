@@ -1,5 +1,5 @@
 export default function  VideoModal  ({onClose,src})  {
-  console.log(src)
+  
   return (
       <div className="popup-overlay" style={{width:'100%' ,height:'100%'}}>
       <div className="popup-content">

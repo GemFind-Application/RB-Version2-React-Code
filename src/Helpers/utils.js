@@ -37,6 +37,14 @@ function getskuForVirtualTryOn  (styleNumber)  {
     return styleNumber.split('-')[0];
   }
 }
+function isJsonString(str) {
+  try {
+      JSON.parse(str);
+  } catch (e) {
+      return false;
+  }
+  return true;
+}
 function getDiamondViewUrl(diamondDetail){
  
   let diamondviewurl = '';   
@@ -53,5 +61,5 @@ function getDiamondViewUrl(diamondDetail){
       return  urlstring;          
 //$diamondviewurl = $this->diamond_lib->getDiamondViewUrl($urlstring,$type,$base_shop_domain,$pathprefixshop); 
 }
-const utils = { kFormatter,numberWithCommas,getUrl,truncateString,getskuForVirtualTryOn,getDiamondViewUrl};
+const utils = { kFormatter,numberWithCommas,getUrl,truncateString,getskuForVirtualTryOn,getDiamondViewUrl,isJsonString};
 export { utils };

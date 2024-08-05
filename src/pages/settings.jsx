@@ -6,13 +6,13 @@ import SkeletonFilterPanel from "../components/SkeletonFilterPanel";
 import ProductItems from "../components/product-items";
 import PaginationPanel from "../components/pagination-panel";
 import Header from '../components/Header';
-import { BASE_URL, DEALER_ID } from '../components/api';
 import PortalPopup from "../components/portal-popup";
 import "./settings.css";
 import { diamondService, settingService } from '../Services';
 import VideoModal from "../components/VideoModal";
 import AlertPopUp from "../components/AlertPopUp";
 import { ConfigContext } from "../components/Context"
+import ShowError from "../components/ShowError"
 const SkeletonProductItem = () => (
   <div className="product-item-skeleton">
     <div className="skeleton-image"></div>
@@ -21,11 +21,8 @@ const SkeletonProductItem = () => (
   </div>
 );
 
-const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,className}) => {
-
+const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,className,setShowLoading}) => {
   const dealerIdShop = useContext(ConfigContext);
- console.log('this is configdata')
-console.log(configAppData.products_pp)
   const [showVirtualTryOn, setShowVirtualTryOn] = useState(false);
   const [showVirtualTryOnUrl, setShowVirtualTryOnUrl] = useState('');
   const [filterData, setFilterData] = useState(null);
@@ -64,7 +61,7 @@ console.log(configAppData.products_pp)
     localStorage.removeItem('selectedRing');
   }, []);
   const fetchProducts = async (page, pageSize, isLab, sort, filters) => {
-    setLoading(true);    
+    setLoading(true);     
     setError(null);  
     try {    
       let option = {
@@ -81,24 +78,24 @@ console.log(configAppData.products_pp)
         CenterStoneMinCarat:selectedDiamondShape!=""?selectedDiamondCarat[0] :'',
         CenterStoneMaxCarat :selectedDiamondShape!=""? selectedDiamondCarat[1]:''
       }
-
       const data = await settingService.getAllSettings(option,configAppData.dealerid); 
       if(data.mountingList) {
         setProducts(data.mountingList);
         setTotalProducts(data.count);
         setIsProductLoaded(true)
-      }
-      
-
+        setShowLoading(false)
+      }     
     } catch (error) {
       console.error("Error fetching products:", error);
+      setShowLoading(false)
       setError("Failed to fetch products. Please try again later.");
     } finally {
       setLoading(false);
+     // setShowLoading(false)
     }
   };
   const showVirtualTryOnIframe = (stockNumber)=>{
-    console.log("here")
+    //console.log("here")
     let url = `https://cdn.camweara.com/gemfind/index_client.php?company_name=Gemfind&ringbuilder=1&skus=${stockNumber}&buynow=0`;
     setShowVirtualTryOn(true);
     setShowVirtualTryOnUrl(url)
@@ -119,39 +116,30 @@ console.log(configAppData.products_pp)
       if(res && res.length>0)     {
         setFilterData(res[1][0]); 
         setIsSettingFilterLoaded(true);
-       // setSettingNavigation(settingNavigationData)
       }   
-    }
-    
+    }    
     catch (error) {
       console.error("Error fetching filter data:", error);
       setError("Failed to fetch filter data. Please try again later.");
     }
   };
 
-useEffect(()=>{
-  const fetchSelectedDiamondDetail= async(isLabGrown) =>{
+  useEffect(()=>{
+    const fetchSelectedDiamondDetail= async(isLabGrown) =>{
     let selectedDiamond = JSON.parse(localStorage.getItem('selectedDiamond'));    
     if(selectedDiamond){
-      const resSelectedDiamond = await diamondService.getDiamondDetail(selectedDiamond.diamondId,isLabGrown);  
+      const resSelectedDiamond = await diamondService.getDiamondDetail(selectedDiamond.diamondId,isLabGrown,configAppData.dealerid);  
      let selectedCaratArray = (selectedDiamond.caratDetail.split("-")) 
-      setSelectedDiamondCarat(selectedCaratArray)
-      console.log(resSelectedDiamond)       
-      if(resSelectedDiamond) {
-       // resetFilters()
-       console.log()
-      
+      setSelectedDiamondCarat(selectedCaratArray);
+      if(resSelectedDiamond) {      
        setSelectedDiamondShape(resSelectedDiamond.shape);
-       applyFilters({...activeFilters,shapes:[resSelectedDiamond.shape]})
-       
+       applyFilters({...activeFilters,shapes:[resSelectedDiamond.shape]});       
       }}
-  }
- 
+    } 
    fetchSelectedDiamondDetail(isLabGrown)
-},[])
-
-
+  },[])
   useEffect(() => {
+    setShowLoading(true)   
     fetchFilterData(isLabGrown,activeFilters).then(() => fetchProducts(currentPage, itemsPerPage, isLabGrown, sortOrder, activeFilters));
   }, [isLabGrown, currentPage, itemsPerPage, sortOrder, activeFilters,selectedDiamondShape]);
   //setIsLabGrown
@@ -178,7 +166,6 @@ useEffect(()=>{
     setActiveFilters(filters);
     setCurrentPage(1);
   };
-
  
   const searchSetting = event => { 
     if(event.target.value === ""){
@@ -190,6 +177,7 @@ useEffect(()=>{
       applyFilters({ ...activeFilters, search: event.target.value });
     }    
   }; 
+
   const resetFilters = () => {
     setActiveFilters({
       collections: [],
@@ -213,12 +201,11 @@ useEffect(()=>{
   };
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <ShowError error={error}/>;
   }
 //console.log(settingNavigation)
   return (
-    <div className="settings">
-       
+    <div className="settings">       
       <Header   />
       <Settingsbreadcrumb configAppData={configAppData}/>
       <div className="settingsfilter-wrapper">
@@ -300,14 +287,10 @@ useEffect(()=>{
        title={'Reset'}
        message={'Do you reallly want to reset?'}
        onClick={() => {setIsResetClicked(false); resetFilters();setDoReset(!doReset) }}
-       onClose={() => {setIsResetClicked(false);setMessage('')}}> 
-       
+       onClose={() => {setIsResetClicked(false);setMessage('')}}>        
        </AlertPopUp>
-      }
-   
-    </div>
-    
+      }   
+    </div>    
   );
 };
-
 export default Settings;

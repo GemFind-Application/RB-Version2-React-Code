@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./frame-component4.css";
 
-const FrameComponent4 = ({ className = "" }) => {
+const FrameComponent4 = ({ className = "",configAppData }) => {
   const navigate = useNavigate();
 
   const onStepsContentContainerClick = useCallback(() => {
@@ -34,10 +34,7 @@ const FrameComponent4 = ({ className = "" }) => {
             <div className="create-ring-description">
               <b className="create-your-own">Create your own ring</b>
               <div className="lorem-nisl-fringilla">
-                Lorem nisl fringilla magna malesuada egestas dui. Fringilla
-                fermentum fusce interdum nulla velit vestibulum. Pretium iaculis
-                id elementum commodo convallis. A rhoncus malesuada orci aliquam
-                ipsum quis praesent. Egestas molestie nec enim et sem in orci.
+              {configAppData.announcement_text}
               </div>
             </div>
             <div className="steps-content-parent">

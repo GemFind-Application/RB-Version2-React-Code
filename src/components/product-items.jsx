@@ -47,7 +47,6 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
     try {     
       const res = await settingService.getSettingVideoUrl(settingId);  
       if(res)     {
-        console.log(res);
         if(res.showVideo !== false){
           setVideoUrl(res.videoURL);         
           setShowVideoPopup(true);          
@@ -68,7 +67,6 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
       let url = utils.getUrl(metalTypeForUrl,product.name,product.priceSettingId)
       setViewUrlSetting(url)
     }else{
-      console.log(product)
      let metalTypeForUrl ='n-a';    
       let url = utils.getUrl(metalTypeForUrl,product.name,product.priceSettingId)
       setViewUrlSetting(url)

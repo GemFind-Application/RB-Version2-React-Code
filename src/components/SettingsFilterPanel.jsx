@@ -7,7 +7,7 @@ import { debounce } from "lodash";
 const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive,selectedDiamondShape,filterType}) => (
   <>
  {((!isActive&&isCollectionisActive && isCollectionisActive==0)|| (selectedDiamondShape!=""&&filterType==='shapes')) ?
-  <div className={`filter-option noCursor`} >
+  <div className={`filter-option noCursor ${selectedDiamondShape ? 'active spaceInbetween' : ''}`} >
     {isActive && <X size={10} />}
     {icon && <img src={icon} alt={label} className="filter-option-icon" />}
     <span>{label}</span>
@@ -45,8 +45,7 @@ const SettingsFilterPanel = ({
   const [openFilter, setOpenFilter] = useState(null);
   const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
   const [priceRange, setPriceRange] = useState(activeFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [activeFilters.price[0], activeFilters.price[1]]);
-  const [availableFilter, setAvailableFilter] = useState([]); 
-  //const hover11 = useHover({color: className.hoverEffect_color},{color:className.link_color},{background:className.columnHeaderAccent_color})
+  const [availableFilter, setAvailableFilter] = useState([]);   
   const [activePopup, setActivePopup] = useState(null);
   
   useEffect(() => {
@@ -62,7 +61,7 @@ const SettingsFilterPanel = ({
   const toggleFilter = (filter) => {
     setOpenFilter(openFilter === filter ? null : filter);
   };
- console.log(activeFilters)
+ 
   const toggleFilterOption = (filter, option) => {
     applyFilters({
       ...activeFilters,
@@ -80,8 +79,7 @@ const SettingsFilterPanel = ({
     });
   };*/
   //console.log(configAppData)
-  const handlePriceChange = ({ min, max }) => {
-    console.log(min)
+  const handlePriceChange = ({ min, max }) => {    
     setPriceRange([min, max]);  
     handleDebounce({min,max});
   };
@@ -91,33 +89,28 @@ const SettingsFilterPanel = ({
   };
    // memoize the callback with useCallback
   // we need it since it's a dependency in useMemo below
-  const handleSetTimeRange = (value) => { 
-    console.log("myFilter: ", value);
+  const handleSetTimeRange = (value) => {     
     applyFilters({ ...activeFilters, price: [value.min,value.max] });
   };
   const handleDebounce = useCallback(
     debounce(handleSetTimeRange, 500),
     [activeFilters],
-  );
- 
+  ); 
 
-const togglePopup = (popup) => {
-  setActivePopup(activePopup === popup ? null : popup);
-};
-const getPopupContent = (filterType) => {
-  console.log(filterType)
-  const contents = {
-    shapes: "",
-    price: "",
-    metalType: "",
-    collections: "",
-    mined: "Formed over billions of years, natural diamonds are mined from the earth. Diamonds are the hardest mineral on earth, which makes them an ideal material for daily wear over a lifetime. Our natural diamonds are conflict-free and GIA certified.",
-    labgrown: "Lab-grown diamonds are created in a lab by replicating the high heat and high pressure environment that causes a natural diamond to form. They are compositionally identical to natural mined diamonds (hardness, density, light refraction, etc), and the two look exactly the same. A lab-grown diamond is an attractive alternative for those seeking a product with less environmental footprint.",
+  const togglePopup = (popup) => {
+    setActivePopup(activePopup === popup ? null : popup);
   };
-  return contents[filterType] || "Information not available.";
-};
- // const debounced = React.useCallback(debounce(handlePriceChange, 1500), []);
-  //console.log(settingNavigation)
+  const getPopupContent = (filterType) => { 
+    const contents = {
+      shapes: "",
+      price: "This refer to different type of Price to filter and select the appropriate ring as per your requirements. Look for best suit price of your chosen ring.",
+      metalType: "This refer to different type of Metal Type to filter and select the appropriate ring as per your requirements. Look for a metal type best suit of your chosen ring.",
+      collections: "",
+      mined: "Formed over billions of years, natural diamonds are mined from the earth. Diamonds are the hardest mineral on earth, which makes them an ideal material for daily wear over a lifetime. Our natural diamonds are conflict-free and GIA certified.",
+      labgrown: "Lab-grown diamonds are created in a lab by replicating the high heat and high pressure environment that causes a natural diamond to form. They are compositionally identical to natural mined diamonds (hardness, density, light refraction, etc), and the two look exactly the same. A lab-grown diamond is an attractive alternative for those seeking a product with less environmental footprint.",
+    };
+    return contents[filterType] || "Information not available.";
+  };
  
   return (
     <div className={`SettingsFilterPanel ${className}`}>
@@ -149,8 +142,7 @@ const getPopupContent = (filterType) => {
            }
            {settingNavigation.navLabGrown && 
           <div   className={`lab-settings ${isLabGrown ? 'active' : ''}`} 
-              onClick={() => handleLabGrownToggle(true)}  
-              
+              onClick={() => handleLabGrownToggle(true)}                
               >
             <div 
               className={`lab-growned2`} 
@@ -165,10 +157,10 @@ const getPopupContent = (filterType) => {
             }}>i</b>
           </div>}
           {activePopup == 'labgrown' && (
-                  <div className="filter-popup">
-                 {getPopupContent('mined')}
-                  </div>
-                )}
+            <div className="filter-popup">
+            {getPopupContent('mined')}
+            </div>
+          )}
           </div>
           }
         </div>

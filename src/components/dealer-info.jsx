@@ -69,7 +69,7 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
       setErrorsFromRes('An error occurred. Please try again.');
     }
   };
-console.log(error)
+//console.log(error)
   return (
     <div className={`dealer-info ${className}`}>
       <section className="content3">

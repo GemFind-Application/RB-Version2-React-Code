@@ -11,8 +11,10 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
     contact_pref: '',   
     isLabSetting:isLabSetting,   
     shopurl:shopurl,
-    'captcha-response':'',
-    'secret-key':configAppData.secret_key
+  }
+  if(configAppData.site_key&&configAppData.site_key!==""){
+    formDataValue['captcha-response']='',
+    formDataValue['secret-key']=configAppData.secret_key
   }
     if(settingId&&settingId!==""){
       formDataValue.settingid = settingId;
@@ -42,8 +44,8 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
         const token = await recaptcha.current.executeAsync();
         formData['captcha-response'] = token;      
       } catch (err) {  
-        console.error("Error fetching products:", error);
-        setError("Failed to get captcha . Please try again later.");
+        console.error("Error fetching captcha:", err);
+        setErrors("Failed to get captcha . Please try again later.");
       }
     }
     fetchToken()
@@ -88,9 +90,13 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
     if (!formData.contact_pref) {
       newErrors.preference = 'Please select a contact preference';
     }
-    if (!formData['captcha-response']) {
-      newErrors.recaptcha = 'Please verify captcha';
-    }  
+    if(configAppData.site_key&&configAppData.site_key!==""){
+      if (!formData['captcha-response']) {
+        newErrors.recaptcha = 'Please verify captcha';
+      }  
+     }
+   
+     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };

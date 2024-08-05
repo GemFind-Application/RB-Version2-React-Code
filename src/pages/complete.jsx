@@ -8,7 +8,8 @@ import "./complete.css";
 import { diamondService } from "../Services";
 import { settingService } from "../Services";
 import ImageGallery from 'react-image-gallery';
-const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLabGrown}) => {
+import ShowError from "../components/ShowError";
+const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLabGrown,setShowLoading}) => {
   const [settingId, setSettingId] = useState();
   const [diamondId, setDiamondId] = useState();
   const [settingDetail, setSettingDetail] = useState();
@@ -17,20 +18,20 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
   const [images, setImages] = useState([]);
   const [issettingLoaded, setIssettingLoaded] = useState(false);
   const [isDiamondLoaded, setIsDiamondLoaded] = useState(false);
- 
+  const [error, setError] = useState(null);
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
  // const [isSettingAnDiamondIdLoaded, setIsSettingAnDiamondIdLoaded] = useState(false);
   const fetchDiamondDetails = async (diamondId,isLabGrown) => {
     try {
-      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown,configAppData.dealerid); 
-      console.log()
+      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown,configAppData.dealerid);      
       if(res) {
         setDiamondDetail(res);  
         setIsDiamondLoaded(true);
-        //checkFileExists(res.videoFileName);
-       // setIsAllDiamondDetailsLoaded(true);
       }     
     } catch (error) {
       console.error("Error fetching product details:", error);
+      setError("Error fetching product details")
+      setShowLoading(false)
     }
   };
   const fetchSettingDetails = async (settingId) => {
@@ -38,8 +39,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
       const res = await settingService.getSettingDetail(settingId,configAppData.dealerid); 
       if(res) {
         setSettingDetail(res);  
-        const images = [];
-        console.log(res)
+        const images = [];        
         if (res.extraImage && res.extraImage.length > 0) {
           images.push({
             original: res.mainImageURL,
@@ -54,48 +54,45 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
             original: res.mainImageURL,
             thumbnail: res.mainImageURL,
           });
-        }
-        console.log(images)
+        }        
         setImages(images);
-        setIssettingLoaded(true)
-        //checkFileExists(res.videoFileName);
-        //setIsAllDiamondDetailsLoaded(true);
+        setIssettingLoaded(true);
+        setShowLoading(false)
       }     
     } catch (error) {
       console.error("Error fetching product details:", error);
+      setError("Failed to fetch diamond details. Please try again later.");
+      setShowLoading(false)
     }
   };
    useEffect(() => {
-    let selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));
-    console.log(selectedRingSetting)
+    setShowLoading(true)
+    let selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));   
     if(selectedRingSetting) {
-    if(selectedRingSetting.settingId &&  selectedRingSetting.settingId!=""){
-      console.log(selectedRingSetting.settingId)
-      setSettingId(selectedRingSetting.settingId);
-      setSelectedRingSize(selectedRingSetting.ringSize);
-      fetchSettingDetails(selectedRingSetting.settingId);
-    }}
+      if(selectedRingSetting.settingId &&  selectedRingSetting.settingId!=""){
+        setSettingId(selectedRingSetting.settingId);
+        setSelectedRingSize(selectedRingSetting.ringSize);
+        fetchSettingDetails(selectedRingSetting.settingId);  
+        setShowLoading(false)    
+      }
+    }
     let selecteddiamond = JSON.parse(localStorage.getItem('selectedDiamond'));
-    console.log(selecteddiamond)
     if(selecteddiamond) {
-
-    if(selecteddiamond.diamondId &&  selecteddiamond.diamondId!=""){
-      console.log(selecteddiamond.diamondId)
-      setDiamondId(selecteddiamond.diamondId);
-      fetchDiamondDetails(selecteddiamond.diamondId,isLabGrown);
-    }}
+      if(selecteddiamond.diamondId &&  selecteddiamond.diamondId!=""){
+        setDiamondId(selecteddiamond.diamondId);
+        fetchDiamondDetails(selecteddiamond.diamondId,isLabGrown);
+        //setShowLoading(false)
+      }
+    }
     //setIsSettingAnDiamondIdLoaded(true)
-  }, []);
-  useEffect(() => {
-   
-   
-  }, []);
-
+  }, []); 
+  if (error) {
+    return <ShowError error={error}/>;
+  }
   return (
     <div className="complete">
       <Header />
-      <FrameComponent4 />
-
+      <FrameComponent4 configAppData={configAppData}/>
       <div className="complete-inner">
         <div className="frame-parent">
         {(settingId && diamondId) ?
@@ -104,29 +101,23 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
         <div className="image-container">
           <div className="plp-image-gallery">
             <div className="image-wrapper">
-              <ImageGallery items={images} showPlayButton={false} showNav={false}  onErrorImageURL={'/no-image.jpg'}/>
+              <ImageGallery items={images} showPlayButton={false} showNav={false}  onErrorImageURL={imageUrl+'/no-image.jpg'}/>
             </div>               
           </div>
-        </div>
-        
+        </div>        
         <ProductDetails shopUrl={shopUrl} additionOptionSetting={additionOptionSetting} formSetting={formSetting} settingDetail={settingDetail} diamondDetail={diamondDetail} ringSize={selectedRingSize} configAppData={configAppData}/>
-        
-       </>
+        </>
        :<>
         <div className="complete-inner">
         <div className="frame-parent">
             <div>Please select Ring and Diamond First</div>
         </div>
         </div>
-       </>
-        
-      
-        }
+       </> 
+      }
        
-        </div>
-        
-      </div>
-     
+      </div>        
+      </div>     
     </div>
   );
 };

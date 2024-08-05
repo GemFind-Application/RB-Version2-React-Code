@@ -355,6 +355,10 @@
 .noCursor{
   cursor:default;
 }
+.spaceInbetween{
+  margin-right: 5px;
+  margin-left: 5px;
+}
 .price-slider input[type="range"] {
   width: 100%;
   margin-bottom: var(--padding-3xs);

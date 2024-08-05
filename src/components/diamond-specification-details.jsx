@@ -19,7 +19,7 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
       thumbnail: diamond.biggerDiamondimage,
     });
   }
-
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
     <div className="popup-overlay ring-specs-popup">
       <div className="popup-content">
@@ -39,11 +39,11 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
               <div className="price4">Price:</div>
               <b className="b1"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b>
             </div>
-            { additionOptionSetting.show_In_House_Diamonds_Column_with_SKU && diamond.inhouse  &&
-            <div className="spec-labels1">
-              <div className="price4">In House:</div>
-              <b className="b1">{diamond.inhouse}</b>
-            </div>
+            { additionOptionSetting.show_In_House_Diamonds_Column_with_SKU && 
+              <div className="spec-labels">
+                <div className="price4">In House:</div>
+                <b className="b1">{diamond.txtinhouse && diamond.txtinhouse ==true ? diamond.txtinhouse : '-'}</b>
+              </div>
             }
 
 
@@ -95,7 +95,8 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
               className="fi-8467779-icon"
               loading="lazy"
               alt=""
-              src="/fi-8467779.svg"
+              src={`${imageUrl}`+"/fi-8467779.svg"}
+              
             />
             <div className="x-x-measurement">
               <b className="x-x-values">{diamond.depth ? `${diamond.depth}%` : '-'}</b>
@@ -107,7 +108,7 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
               className="fi-8467779-icon"
               loading="lazy"
               alt=""
-              src="/fi-12791189.svg"
+              src={`${imageUrl}`+"/fi-12791189.svg"}
             />
             <div className="x-x-measurement">
               <b className="b4">{diamond.table ? `${diamond.table}%` : '-'}</b>
@@ -119,7 +120,7 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
               className="fi-8467779-icon"
               loading="lazy"
               alt=""
-              src="/fi-8052211.svg"
+              src={`${imageUrl}`+"/fi-8052211.svg"}
             />
             <div className="x-x-measurement">
               <b className="x371x232">{diamond.measurement || '-'}</b>

@@ -6,13 +6,9 @@ import {
   useLocation,
 } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import DiamondTableScroll from "./pages/diamond-table-scroll";
-import RequestSent from "./pages/request-sent";
-import HintSent from "./pages/hint-sent";
 import Compare from "./pages/compare";
 import DiamondPage from "./pages/diamond-details";
 import Complete from "./pages/complete";
-import DiamondTable from "./pages/diamond-table";
 import Diamond from "./pages/diamond";
 import Settings from "./pages/settings";
 import SettingDetails from "./pages/setting-details"; 
@@ -21,7 +17,7 @@ import { settingService } from './Services';
 import AlertPopUp from "./components/AlertPopUp";
 import Footer from "./components/Footer";
 import ThemeSetup from './components/ThemeSetup';
-import {ConfigContext} from './components/Context';
+import ShowError  from  "./components/ShowError";
 function App() {
   const location = useLocation();
   let diamondIdsToCompare = JSON.parse(localStorage.getItem('diamondIdsToCompare'));
@@ -29,6 +25,7 @@ function App() {
   const [ isAdditionOptionSettingLoaded,setIsAdditionOptionSettingLoaded] = useState(false);
   const [settingNavigation,setSettingNavigation] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showLoading, setShowLoading] = useState(true);
   const [isSettingNavLoaded, setIsSettingNavLoaded] = useState(false);
   const [compareDiamondsId, setCompareDiamondsId] = useState(diamondIdsToCompare?diamondIdsToCompare.length > 0?diamondIdsToCompare:[]:[]);
   const [isLabGrown, setIsLabGrown] = useState(false); // Default to Mined
@@ -44,27 +41,29 @@ function App() {
   const pathname = location.pathname;
   const [isconfigLoaded,setIsConfigLoaded] = useState(false);
   const [shopUrl,setShopUrl]=useState('');
+  const [error,setError]=useState('');
   const navigate = useNavigate();
   const shopUrlforEmail = `${import.meta.env.VITE_RING_URL_EXT}`;
   //console.log(window.location)
   useEffect(() => {
+    //functin to get config data from database
     async function fetchConfigSetting(){
       try {
         const res = await appService.getConfigSetting();  
         if(res) {
           let data = res.data;       
           setConfigAppData(data);
-          setShopUrl(res.data.shop+shopUrlforEmail)
+          setShopUrl(res.data.shop)
           setIsConfigLoaded(true);
         }       
       } catch (err) {       
-        setError("Failed to fetch products. Please try again later."); 
+        setError("Failed to fetch products. Please try again later.");         
       }
     }
     if (window.location.origin!='http://localhost:5173'){
       fetchConfigSetting();
     }else{
-          let data = {
+        let data = {
         show_powered_by:false,
         sorting_order: 'cost-l-h',
         price_row_format:'left',
@@ -77,9 +76,7 @@ function App() {
         enable_schedule_viewing:true,
         enable_hint:true,
         dealerid:1089,
-        products_pp:12,
-        secret_key:"6LdCz18jAAAAACbf0IhYqdKxhzLvNDqK7i-_zU0g",
-        site_key:"6LdCz18jAAAAAHywVwcFZgXq0L0TDAyxjIw3uckW",
+        products_pp:48,       
         shop:'https://gemfind-product-demo-10.myshopify.com/'
       }
       setShopUrl(data.shop+shopUrlforEmail)
@@ -89,8 +86,8 @@ function App() {
    
   }, []);
   useEffect(() => {
+    //if starting is from diamond tools then save this in localstorage to get the api change accordingly for getting diamond filter
     let storedFlowData = JSON.parse(localStorage.getItem('startflow'));
-    //console.log(storedFlowData)
      if(storedFlowData===null){
        const pathname = location.pathname;
        localStorage.setItem('startflow',JSON.stringify({'path':pathname,'isLoaded':false}));
@@ -101,6 +98,7 @@ function App() {
   }, []);
 
   useEffect(() => {   
+    //function to get style data
     async function fetchStyleData(id){
       try {
         const res = await appService.getStyleData(id);  
@@ -120,6 +118,7 @@ function App() {
         setError("Failed to fetch products. Please try again later.");    
       }
     }
+    //function to get app setting data
     async function fetchAppSetting(id){
       try {
         const res = await appService.getAdditionalOption(id);  
@@ -132,28 +131,27 @@ function App() {
         setError("Failed to fetch products. Please try again later.");
       }
     }
+    //function to get setting navigation
     async function fetchSettingNavigation(id){    
       try {
         let res={}
         let splitArray=location.pathname.split('/');
-       console.log()
+       //console.log()
         if(splitArray[1]==='settings'){
           let isLab = splitArray[splitArray.length-2]==='islabsettings'? true:false;
-          console.log("@@@@"+isLab)
           setIsLabGrown(isLab);
           res = await settingService.getSettingNavigation(id); 
           if(res[0]){
             setSettingNavigation(res[0]);
             setIsSettingNavLoaded(true);
           }
-          setLoading(true);
         }
         if(splitArray[1]==='diamondtools'){
           let isLab = splitArray[splitArray.length-1]==='navlabgrown'? true: splitArray[splitArray.length-1]==='navfancycolored'?'fancy':false;
          //  isLab = ? fancy:false;
           setIsLabGrown(isLab);
           //res = await diamondService.getDiamondFilter(id); 
-          setLoading(true);
+          //setLoading(true);
         } 
        // if(res[0]) {
         //  setIsLabGrown((location.pathname.split('/'))[splitArray.length-1]==='navlabgrown'? true: false :true);
@@ -169,19 +167,23 @@ function App() {
       fetchAppSetting(configAppData.dealerid);
       fetchStyleData(configAppData.dealerid);  
     }
+    
    
   },[configAppData])
   useEffect(() => {   
    if(compareDiamondsId.length>0){
-    compareDiamondsId.splice(0, compareDiamondsId.length);
+    //compareDiamondsId.splice(0, compareDiamondsId.length);
    }  
   },[isLabGrown])
+  useEffect(() => {   
+    if(isSettingNavLoaded===true&& isStyleLoaded===true&&isconfigLoaded===true){
+      setShowLoading(false)
+    } 
+   },[isSettingNavLoaded,isStyleLoaded,isconfigLoaded])
   useEffect(() => {
     let title = "";
     let metaDescription = "";
     let newPathName = pathname.split('/');
-    console.log(newPathName)
-    console.log("===="+pathname)
     switch (newPathName[1]) {
       case "/":
         title = configAppData.ring_meta_title
@@ -198,13 +200,11 @@ function App() {
       case "diamondtools/compare":
         title = configAppData.diamond_meta_title
         metaDescription = configAppData.diamond_meta_description
-        break;
-     
+        break;     
       case "/complete":
         title = "";
         metaDescription = "";
-        break;
-     
+        break;     
       case "diamondtools":
         title = configAppData.diamond_meta_title
         metaDescription = configAppData.diamond_meta_description
@@ -214,17 +214,14 @@ function App() {
           metaDescription = configAppData.diamond_meta_description
           break;  
       case "settings":
-        console.log(configAppData)
         title = configAppData.ring_meta_title
         metaDescription = configAppData.ring_meta_description
         break;
       case "/settings":
-          console.log(configAppData)
           title = configAppData.ring_meta_title
           metaDescription = configAppData.ring_meta_description
           break;  
     }
-console.log(title)
     if (title) {
       document.title = title;
     }
@@ -238,8 +235,8 @@ console.log(title)
       }
     }
   }, [pathname,configAppData]);
+  //to navigate to compare page 
   const onCompareContainerClick = () => {
-
     if(compareDiamondsId.length <2){
       setshowAlertPopUp(true)
       setMessage('Please select minimum 2 diamonds to compare.')
@@ -251,17 +248,16 @@ console.log(title)
         setshowAlertPopUp(false)
         setMessage('');
         navigate("/diamondtools/compare");
-      }
-      
+      }      
     }   
   };
+  //to add compare diamond ids
   const addCompareDiamondIds = (diamondId) => {
     let newcompareDiamonds = compareDiamondsId.filter(item => item === diamondId);
     if(newcompareDiamonds.length > 0){
       //remove from array
       let newcompareArray = compareDiamondsId.filter(item => item !== diamondId);
-      setCompareDiamondsId(newcompareArray);
-      
+      setCompareDiamondsId(newcompareArray);      
     }else{
       if(compareDiamondsId.length > 5 ){
         setshowAlertPopUp(true)
@@ -272,6 +268,7 @@ console.log(title)
     }   
     //setCurrentPage(1);
   };
+  //to remove diamond ids from compareIds array
   const removeCompareDiamondIds = (diamondIdArray) => {
     if(diamondIdArray.length > 1) {
       setCompareDiamondsId([])
@@ -282,9 +279,13 @@ console.log(title)
       })
     }      
     }
+    if (error) {
+      return <ShowError error={error}/>;
+    }
+    console.log(loading)
   return (   
     <div>      
-    <ThemeSetup />
+    <ThemeSetup />    
     {loading && isStyleLoaded &&  isconfigLoaded &&   
     <Routes>
       <Route path="/" element={
@@ -294,6 +295,7 @@ console.log(title)
           settingNavigationData={settingNavigation} 
           setIsLabGrown={setIsLabGrown} 
           isLabGrown={isLabGrown} 
+          setShowLoading={setShowLoading}
         />} 
       />
       <Route path="/settings" element={
@@ -303,6 +305,7 @@ console.log(title)
           settingNavigationData={settingNavigation} 
           setIsLabGrown={setIsLabGrown} 
           isLabGrown={isLabGrown}
+          setShowLoading={setShowLoading}
         />} 
       />   
       <Route path="/settings/islabsettings/1" element={
@@ -312,6 +315,7 @@ console.log(title)
         settingNavigationData={settingNavigation} 
         setIsLabGrown={setIsLabGrown} 
         isLabGrown={isLabGrown}
+        setShowLoading={setShowLoading}
       />} 
       />     
       <Route path="/settings/view/path/:settingId"  element={
@@ -322,6 +326,7 @@ console.log(title)
           formSetting={additionOptionSetting}
           isLabGrown={isLabGrown} 
           settingNavigationData={settingNavigation}
+          setShowLoading={setShowLoading}
         />}
       />
       <Route path="/diamondtools/compare/" element={
@@ -330,6 +335,7 @@ console.log(title)
           configAppData={configAppData} 
           removeCompareDiamondIds={removeCompareDiamondIds}
           compareDiamondsId={compareDiamondsId} 
+          setShowLoading={setShowLoading}
         />} 
       />
       <Route path="/diamondtools" element={
@@ -340,6 +346,8 @@ console.log(title)
           compareDiamondsId={compareDiamondsId} 
           onCompareContainerClick={onCompareContainerClick}   
           isLabGrown={isLabGrown} setIsLabGrown={setIsLabGrown}
+          setShowLoading={setShowLoading}
+          removeCompareDiamondIds={removeCompareDiamondIds}
         />} 
       />
       <Route path="/diamondtools/product/:diamondId" element={
@@ -350,6 +358,7 @@ console.log(title)
           additionOptionSetting={additionOptionSetting} 
           configAppData={configAppData} 
           formSetting={additionOptionSetting} 
+          setShowLoading={setShowLoading}
         />} 
       />       
       <Route path="/diamondtools/diamondtype/navlabgrown" element={
@@ -361,6 +370,8 @@ console.log(title)
           onCompareContainerClick={onCompareContainerClick}  
           isLabGrown={isLabGrown} 
           setIsLabGrown={setIsLabGrown}
+          setShowLoading={setShowLoading}          
+          setCompareDiamondsId={setCompareDiamondsId}
         />}
       />  
       <Route path="/diamondtools/diamondtype/navfancycolored" element={
@@ -372,6 +383,8 @@ console.log(title)
           onCompareContainerClick={onCompareContainerClick}  
           isLabGrown={isLabGrown} 
           setIsLabGrown={setIsLabGrown}
+          setShowLoading={setShowLoading}          
+          setCompareDiamondsId={setCompareDiamondsId}
         />}
       />  
       <Route path="/diamondtools/completering/" element={
@@ -381,19 +394,26 @@ console.log(title)
             additionOptionSetting={additionOptionSetting}
             formSetting={additionOptionSetting} 
             configAppData={configAppData}
+            setShowLoading={setShowLoading}
           />} 
       />     
     </Routes>   
     }
     
     <Footer configAppData={configAppData}></Footer>
-    {showAlertPopUp && message!="" &&      
+      {showAlertPopUp && message!="" &&      
        <AlertPopUp       
        title={title}
        message={message}
        onClose={() => {setshowAlertPopUp(false) ; setMessage('')}}> 
        </AlertPopUp>
       }
+      {showLoading===true &&
+       <AlertPopUp       
+       title={''}
+       message={''}
+       onClose={() => {setshowAlertPopUp(false) ; setMessage('')}}> 
+       </AlertPopUp>}
     </div>
     
   );

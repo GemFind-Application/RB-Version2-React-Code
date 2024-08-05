@@ -5,26 +5,31 @@ import "./diamond-list-header1.css";
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
 import VideoModal from "./VideoModal";
 import { diamondService } from "../Services";
-const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareDiamondIds,compareDiamondsId}) => {
+import { utils } from "../Helpers";
+import { useNavigate } from 'react-router-dom';
+const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareDiamondIds,compareDiamondsId,additionOptionSetting}) => {
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
+  const [error, setError] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const [isDiamondPresentInCompare, setIsDiamondPresentInCompare] = useState(false);
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
+  const navigate = useNavigate();
   useEffect(() => {   
     let isDiamondPresentInCompare = compareDiamondsId.filter(item=>item===diamond.diamondId);
     setIsDiamondPresentInCompare(isDiamondPresentInCompare.length > 0?true:false)
   
   },[compareDiamondsId])
-  const handleToggleExpand = () => {
+  const handleToggleExpand = (e) => {
+    e.stopPropagation();
     setIsExpanded(!isExpanded);
   };
-  const handleVideoIconClick = async() => {
+  const handleVideoIconClick = async(e) => {
+    e.stopPropagation(); 
     setShowVideoPopup(false)
     try {     
       const res = await diamondService.getDiamondVideoUrl(diamond.diamondId);  
       if(res)     {
-        console.log(res);
         if(res.showVideo !== false){
           setVideoUrl(res.videoURL);         
           setShowVideoPopup(true);          
@@ -37,15 +42,14 @@ const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareD
       console.error("Error fetching filter data:", error);
       setError("Failed to fetch filter data. Please try again later.");
     }  
-  };
-   // handle when compare svg is clicked
-   const handleCompareClick = () => {
-    addCompareDiamondIds(diamond.diamondId);
-    setIsDiamondPresentInCompare(!isDiamondPresentInCompare);
-  };
+  }; 
+  const getdiamondDetail = (e)=>{
+    const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
+    navigate("/"+ diamondDetailUrl+"/"+utils.getDiamondViewUrl(diamond))
+  }
   return (
-    <div className={`diamond-list-header ${className}`}>
-      <div className="diamond-card-details">
+    <div className={`diamond-list-header ${className}`} onClick={getdiamondDetail}>
+      <div className="diamond-card-details"  >
         <div className="diamond-details4">
           <img className="image-icon4" alt="" src={diamond.biggerDiamondimage} />
           <div className="name2">
@@ -97,6 +101,18 @@ const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareD
             <div className="polish4">{`Polish `}</div>
           </div>
         </div>
+        <div className="cell">
+        {additionOptionSetting.show_In_House_Diamonds_Column_with_SKU===true&&
+        <>
+            <div className="diamond-table-value">
+              <b className="diamond-card-action">{diamond.txtinhouse && diamond.txtinhouse ==true ? diamond.txtinhouse : '-'}</b>
+              <div className="intensity1">In House</div>
+            </div>
+            <div className="diamond-table-value">     
+            </div>
+        </>
+        }  
+        </div>
         <div className="cell4">
           <b className="diamond-measurement-value">{` `}</b>
         </div>
@@ -108,12 +124,12 @@ const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareD
           <div className="diamond-table-value">
             <b className="diamond-card-action">{diamond.intensity && diamond.intensity !== "" ? diamond.intensity : '-'}</b>
             <div className="intensity1">Intensity</div>
-          </div>
+          </div>                  
         </div>
         <div className="actions3">
         {(diamond.hasVideo)&&
           <div className="actions4 list-diamond--video"  id={diamond.diamondId}
-          onClick={handleVideoIconClick}>
+          onClick={(e)=>handleVideoIconClick(e)}>
             <img className="video-icon" alt="" src={`${imageUrl}`+"/video.svg"} />
           </div>
         }
@@ -123,19 +139,18 @@ const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareD
                   className="compare-icon2 compared" 
                   alt="compared" 
                   src={`${imageUrl}`+"/compared.svg"}
-                  onClick={()=>addCompareDiamondIds(diamond.diamondId)}
+                  onClick={(e)=>{e.stopPropagation();addCompareDiamondIds(diamond.diamondId)}}
                 />
               ) : (
                 <img 
                   className="compare-icon2 hide-when-filled" 
                   alt="compare" 
                   src={`${imageUrl}`+"/compare.svg" }
-                  onClick={()=>addCompareDiamondIds(diamond.diamondId)}
+                  onClick={(e)=>{e.stopPropagation();addCompareDiamondIds(diamond.diamondId)}}
                 />
-              )}
-           
+              )}           
           </div>
-          <div className="button25 show--more-diamond_info" onClick={handleToggleExpand}>
+          <div className="button25 show--more-diamond_info" onClick={(e)=>handleToggleExpand(e)}>
             <img 
               className="button-item" 
               alt="" 

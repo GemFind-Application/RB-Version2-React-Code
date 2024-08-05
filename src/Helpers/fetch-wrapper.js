@@ -1,14 +1,14 @@
 
 import { storageHandler } from './storage';
 import { http } from './http-common';
-
+import { utils } from './utils';
 export const fetchWrapper = {
   get,
   post,
   put,
   postFile,
   delete: _delete,
-  postFormData
+  postFormData,
 };
 
 function get(url) {
@@ -59,14 +59,17 @@ function put(url, body) {
   };
   return fetch(url, requestOptions).then(handleResponse);
 }
+
 function postFormData(url, body) {
-  console.log(url)
   const requestOptions = {
-    method: 'POST',   
+    method: 'POST',  
+
     body: (body)
   };
   return fetch(url, requestOptions).then(handleResponse);
 }
+
+
 // prefixed with underscored because delete is a reserved word in javascript
 function _delete(url) {
   const requestOptions = {
@@ -88,8 +91,9 @@ function handleResponse(response) {
 let c = (response.headers.get("content-type"))
  
     return response.text().then(text => {
-    
+   
       const data = text && JSON.parse(text);
+     
       if (!response.ok) {
         let errorMessage = '';
         if (data['error']) {
@@ -103,8 +107,6 @@ let c = (response.headers.get("content-type"))
         }
         return Promise.reject(errorMessage);
       }
-     
-  
       return data;
     });
   

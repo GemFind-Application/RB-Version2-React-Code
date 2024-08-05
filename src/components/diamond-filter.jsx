@@ -33,7 +33,9 @@ const DiamondFilter = ({ className = "",
   orderDirection,
   configAppData,
   selectedCaratRange,
-  setClaritySelected
+  setClaritySelected,
+  isInHouseOrVirtualOrAll,
+  setIsInHouseOrVirtualOrAll
 }) => {
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -43,21 +45,11 @@ const DiamondFilter = ({ className = "",
   const [depthRange, setDepthRange] = useState(advancedFilters.depth.length === 0 ? [filterData.depthRange[0].minDepth, filterData.depthRange[0].maxDepth] : [advancedFilters.depth[0], advancedFilters.depth[1]]);
   const [tableRange, setTableRange] = useState(advancedFilters.table.length === 0 ? [filterData.tableRange[0].minTable, filterData.tableRange[0].maxTable] : [advancedFilters.table[0], advancedFilters.table[1]]);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const [sortBy, setSortBy] = useState("Clarity");
- 
+  const [sortBy, setSortBy] = useState("Clarity"); 
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
-  //const [claritySel, setClaritySel] = useState(newClarityData.length ===0 ?selectedFilters.clarity:newClarityData);
   const [availableFilter, setAvailableFilter] = useState(['shape', 'price', 'carat', 'cut', 'colour', 'clarity']);
   const [searchQuery, setSearchQuery] = useState(selectedFilters.search ? selectedFilters.search != "" ? selectedFilters.search : '' : '');
-  /*const [selectedFilters, setSelectedFilters] = useState({
-    shape: [],
-    carat: [],
-    cut: [],
-    colour: [],
-    clarity: [],
-  });*/
-  console.log(selectedCaratRange);
- //console.log(filterData)
+ 
   useEffect(() => {
     if(filterData.diamondColorRange){
       setAvailableFilter(['shape', 'price', 'carat', 'diamondColorRange','intensity' ,'clarity'])
@@ -171,14 +163,12 @@ const DiamondFilter = ({ className = "",
   };
 
   const isFilterApplied = (filterType) => {
-    console.log(filterType)
     if (filterType === 'price') {
       //return priceRange[0] > mockPriceData.minPrice || priceRange[1] < mockPriceData.maxPrice;
     }
-    console.log(selectedFilters[filterType].length)
+    //console.log(selectedFilters[filterType].length)
     return selectedFilters[filterType] && selectedFilters[filterType].length > 0;
   };
-console.log
   // POpup content of filters
   const getPopupContent = (filterType) => {
     const contents = {
@@ -198,7 +188,7 @@ console.log
     return contents[filterType] || "Information not available.";
   };
 const resetThisFilter=(filter)=>{
-  console.log(filter)
+ // console.log(filter)
 if(filter==='clarity'){
   setSelectedFilters({...selectedFilters,[filter]:filterData.clarityRange.map(item=>item.clarityId)})
 }
@@ -241,6 +231,14 @@ if(filter==='intensity'){
               </div>
             </div>
             <div className="settings-sort">
+            <div className="settings-sort-page">
+                <div className="sort-by4">View:</div>
+                <select className='no-appearance' value={isInHouseOrVirtualOrAll} onChange={(e) => setIsInHouseOrVirtualOrAll(e.target.value)}>
+                  <option value="all">All</option>
+                  <option value="in-house">In House</option>
+                  <option value="virtual">Virtual</option>                 
+                   </select> 
+              </div>
               <div className="settings-sort-page">
                 <div className="sort-by4">Sort by:</div>
                 <select className='no-appearance' value={sortOrder} onChange={(e) => onSortOrderChange(e.target.value)}>
@@ -259,9 +257,7 @@ if(filter==='intensity'){
                   <option value="Measurements">Measurement</option>
                   <option value="Certificate">Certificate</option> 
                   <option value="FltPrice">Price</option>
-                   </select> 
-           
-                
+                </select>
               </div>
               <div className="settings-sort-page"> {orderDirection==='ASC' && <a onClick={()=>setOrderDirection('DESC')} ><img title='DESC' className={'imgDescAsc'} src={`${imageUrl}`+"/downarrow_dir.png"}></img></a>}
               {orderDirection==='DESC' &&<a onClick={()=>setOrderDirection('ASC')}><img className={'imgDescAsc'} title="ASC" src={`${imageUrl}`+"/uparrow_dir.png"}/></a>}</div>
@@ -392,7 +388,6 @@ if(filter==='intensity'){
                       </div>
                     ))
                   )}
-
                   {activeDropdown === 'shape' && (
                     filterData.shapes.map(shape => (
                       <div className="dropdown-btns" key={shape.shapeName}>

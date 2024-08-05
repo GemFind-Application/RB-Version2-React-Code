@@ -28,8 +28,8 @@ import { settingService } from '../Services';
 import VideoModal from "../components/VideoModal";
 import { ConfigContext } from "../components/Context"
 import { utils } from "../Helpers";
-
-const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData,setIsLabGrown}) => {
+import ShowError from "../components/ShowError";
+const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData,setIsLabGrown, setShowLoading}) => {
   const dealerIdShop = useContext(ConfigContext);
   const { settingId } = useParams();
   const navigate = useNavigate();
@@ -70,6 +70,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   const [isDiamondNavLoaded, setIsDiamondNavLoaded] = useState(false);
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const settingUrl = `${import.meta.env.VITE_SETTINGS_DETAIL_PAGE}`;
+  const [error, setError] = useState(null); 
   //console.log(shopUrl+location.pathname)
   //const [selectedRingSize,setSelectedRingSize]= useState('');
   useEffect(() => {
@@ -89,7 +90,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
       try {      
         const res = await diamondService.getDiamondNavigation(configAppData.dealerid); 
         if(res[0]) {
-          console.log(res[0])
+          //console.log(res[0])
           setDiamondNavigation(res[0]);
         }         
         setIsDiamondNavLoaded(true);
@@ -103,6 +104,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   },[])
   const fetchProductDetails = async (settingId) => {
     try {
+      setShowLoading(true)
       const res = await settingService.getSettingDetail(settingId,configAppData.dealerid); 
       if(res) {
         if(selectedParam!=""){
@@ -113,7 +115,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
         setProduct(res);
         setConfigurableProduct(res.configurableProduct);       
         let selectedSetting= res.configurableProduct.filter(item=>item.gfInventoryId === settingId );  
-        console.log(selectedSetting)
+        //console.log(selectedSetting)
        // if(selectedSetting.length === 0){
           
          // selectedSetting[0].diamondShape = res.centerStoneFit;
@@ -140,7 +142,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
           setSelectedDiamondType(res.isLabSetting ? 'Lab Grown' : 'Mined');
        
         }
-        console.log(selectedSetting)
+        //console.log(selectedSetting)
         if(selectedSetting.length > 0){
           if(selectedSetting[0]['sideStoneQuality']!=null) {
             filterBySideStoneType = filterByMetalType.filter(item=>item.sideStoneQuality == selectedSetting[0]['sideStoneQuality']);
@@ -166,10 +168,12 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
           setUniqueCenterStoneSizes(uniqueCenterStoneSizesArray);
           setUniqueSideStoneQualities(uniqueSideStoneQualityArray);
           setUniqueDiamondShape(allDiamondShape);
-        }      
+        }   
+        setShowLoading(false);   
       }     
     } catch (error) {
       console.error("Error fetching product details:", error);
+      setShowLoading(false);
     }
   };
   
@@ -199,7 +203,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
       setSettingIdToShow(selectedCenterStoneSizeProduct[0].gfInventoryId);
     } 
     let selecteddiamond = JSON.parse(localStorage.getItem('selectedDiamond'));
-    console.log(selecteddiamond)
+    //console.log(selecteddiamond)
     if(selecteddiamond) {
 
     if(selecteddiamond.diamondId &&  selecteddiamond.diamondId!=""){
@@ -218,11 +222,11 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   }
   const selectByDiamondShape = async (shape) => {
     const size= selectedCenterStoneSize;
-    console.log(shape)
+    //console.log(shape)
     var selectedShapeProduct= configurableProduct.filter(item=> item.metalType ==selectedMetalType &&  item.diamondShape ===  shape &&  item.centerStoneSize == size  );
    // let sortedarray = selectedShapeProduct.sort((a, b) => a.centerStoneSize - b.centerStoneSize);
     setSelectedParam('diamondShape');
-    console.log(selectedShapeProduct)
+    //console.log(selectedShapeProduct)
     setSettingIdToShow(selectedShapeProduct[0].gfInventoryId)
   }
   const selectBysideStoneQuality = async (sideStoneQuality) => {
@@ -256,7 +260,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   }, [navigate]);
 
   const showVirtualTryOnIframe = (stockNumber)=>{
-    console.log("here")
+    //console.log("here")
     let url = `https://cdn.camweara.com/gemfind/index_client.php?company_name=Gemfind&ringbuilder=1&skus=${stockNumber}&buynow=0`;
     setShowVirtualTryOn(true);
     setShowVirtualTryOnUrl(url)
@@ -298,7 +302,9 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   }
  
 //console.log(uniqueDiamondShape)
-
+if (error) {
+  return <ShowError error={error}/>;
+}
   return (
     <>
       <div className="setting-page">
@@ -316,7 +322,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                 <div className="image-container">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
-                      <ImageGallery items={images} showPlayButton={false} showNav={false}    onErrorImageURL={'/no-image.jpg'}/>
+                      <ImageGallery items={images} showPlayButton={false} showNav={false}    onErrorImageURL={imageUrl+'/no-image.jpg'}/>
                     </div>               
                   </div>
                 </div>
@@ -586,7 +592,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
                         </button> */}
                         {isDiamondSelectedFirst==false ?
                         <button type="button" className="submitring_product" onClick={selectRingSetting} >
-                          <b className="select-485">Select - <ShowCostInCard settingDetailForCost={product} configAppData={{configAppData}}></ShowCostInCard></b>
+                          <b className="select-485">Add Your Diamond - <ShowCostInCard settingDetailForCost={product} configAppData={{configAppData}}></ShowCostInCard></b>
                         </button>:
                         <button type="button" className="submitring_product" onClick={selectRingSetting} >
                         <b className="select-485">Complete Your Ring - Select - <ShowCostInCard settingDetailForCost={product} configAppData={{configAppData}}></ShowCostInCard></b>

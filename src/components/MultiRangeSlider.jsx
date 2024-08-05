@@ -22,11 +22,7 @@ const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent})
     if (minValRef.current) {
       const minPercent = getPercent(minVal);
       const maxPercent = getPercent(maxVal);
-console.log(minPercent)
-console.log(maxPercent)
-console.log(range.current.id)
       if (range.current) {
-        console.log(maxPercent)
 
         range.current.style.left = `${minPercent}%`;
         range.current.style.width = `${maxPercent - minPercent}%`;
@@ -50,7 +46,6 @@ console.log(range.current.id)
   };
 
   const handleMaxChange = (event) => {
-    console.log(event.target.value)
     const value = Math.max(Number(event.target.value), minVal + 1);
     setMaxVal(value);
     event.target.value = value.toString();    

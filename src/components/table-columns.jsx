@@ -42,11 +42,11 @@ const TableColumns = ({
     
     //'shape':'Shape','skun':'#sku','carat':'Carat','table':'Table', 'color':'Color','polish':'Polish','symmetry':'Symmetry','clarity':'Clarity']);
 const [item ,setItem] = useState(diamond);
-console.log(showAllParam)
+
 useEffect(() => {
   const getData = async()=>{
     if(showAllParam == false) {
-      console.log('in');
+      
      // let newKeysArray=[] ;
       const promises =await Promise.all(  parametersToShow.map((item,index)=>{
         let allDetails = [];  
@@ -63,12 +63,10 @@ useEffect(() => {
           return 0;
          }
       }))
-      
-       console.log(promises)
+
        let data = promises.filter(function( element ) {
         return element !== 0 && element !==undefined;
      });
-     console.log(data)
   setParametersToShow(data)
       
     }else{

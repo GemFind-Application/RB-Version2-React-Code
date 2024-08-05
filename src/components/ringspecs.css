@@ -109,6 +109,10 @@
   opacity: 0.2;
 }
 
+.canbesetwithspace{
+  margin-top: 6px;
+  margin-left: 6px;
+}
 /* Responsive adjustments */
 @media (max-width: 480px) {
   .ring-specs-popup {

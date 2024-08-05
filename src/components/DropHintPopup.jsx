@@ -13,8 +13,7 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diam
   gift_deadline: '',
   islabsettings: isLabSetting, 
   shopurl: shopurl,
-  'captcha-response':'',
-  'secret-key':configAppData.secret_key
+  
 }
 if(settingId&&settingId!==""){
     formDataValue.settingid = settingId;
@@ -31,6 +30,10 @@ if(settingId&&settingId!==""&&diamondId&&diamondId!=""){
   formDataValue.diamondId=diamondId;
  // formDataValue.diamondtype = diamondtype;
   formDataValue.diamondurl = diamondurl;
+}
+if(configAppData.site_key&&configAppData.site_key!==""){
+  formDataValue['captcha-response']='',
+  formDataValue['secret-key']=configAppData.secret_key
 }
 const recaptcha = useRef();
   const [formData, setFormData] = useState(formDataValue)
@@ -85,10 +88,12 @@ const recaptcha = useRef();
     if (!formData.gift_deadline) {
       newErrors.giftDeadline = 'Gift deadline is required';
     }
-   
+   if(configAppData.site_key&&configAppData.site_key!==""){
     if (!formData['captcha-response']) {
       newErrors.recaptcha = 'Please verify captcha';
     }  
+   }
+ 
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -96,14 +101,19 @@ const recaptcha = useRef();
   useEffect(() => {
     // setIsLabGrown(false);
     async function fetchToken(){
-      try {      
-        const token = await recaptcha.current.executeAsync();
-        formData['captcha-response'] = token;
-      
-      } catch (err) {  
-        console.error("Error fetching products:", error);
-        setError("Failed to get captcha . Please try again later.");
+      if(configAppData.site_key&&configAppData.site_key!==""){
+        try {  
+          //.current.getValue()
+          const token = await recaptcha.current.executeAsync();
+         //const token = await recaptcha.current.getValue();
+          formData['captcha-response'] = token;
+        
+        } catch (err) {  
+          console.error("Error fetching captcha:", err);
+          setErrors("Failed to get captcha . Please try again later.");
+        }
       }
+     
     }
     fetchToken()
    }, [errorsFromRes]);
@@ -126,7 +136,6 @@ const recaptcha = useRef();
         }else{
           sendRequest = 'settings'
         }
-        console.log(formData)
         let apiCall = (formData.settingid && formData.diamondId) ? "resultdrophint_cr" : "resultdrophint";
 
        const res = await settingService.dropAHint(formDataVal,sendRequest,apiCall);
@@ -236,7 +245,7 @@ const recaptcha = useRef();
               </div>
               {configAppData.site_key && configAppData.site_key!=="" && 
               <div className="gift-deadline">
-              <ReCAPTCHA  ref={recaptcha} size="invisible" sitekey={configAppData.site_key} />
+              <ReCAPTCHA  ref={recaptcha} sitekey={configAppData.site_key} size="invisible"/>
               </div>
               }
             </form>

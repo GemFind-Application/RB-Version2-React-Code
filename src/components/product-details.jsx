@@ -14,13 +14,14 @@ import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
 import ShowTotalPrice from "./ShowTotalPrice";
 import { diamondService } from "../Services";
+import { useNavigate } from 'react-router-dom';
 const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ringSize,configAppData,formSetting,additionOptionSetting }) => {
-  console.log(formSetting)
+  
   const [isSettingDetailsOpen, setSettingDetailsOpen] = useState(false);
   const [isDiamondDetailsOpen, setDiamondDetailsOpen] = useState(false);
   const [isHintOpen, setHintOpen] = useState(false);
   const [isScheduleOpen, setScheduleOpen] = useState(false);
-
+  const navigate = useNavigate();
   const [isDropHintOpen, setIsDropHintOpen] = useState(false);
   const [isScheduleViewingOpen, setIsScheduleViewingOpen] = useState(false);
   const [isEmailAFriendOpen, setIsEmailAFriendOpen] = useState(false);
@@ -96,8 +97,48 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
     Object.keys(formDataToSend).forEach(function (key) {
       formDataToSend.append(key,formData[key]);
     });
-    //console.log(formDataToSend)
-    const res = await diamondService.addTocartcompletePurchase(diamondDetail.diamondId,settingDetail.settingId,formDataToSend);
+
+    const completePurchase = `${import.meta.env.VITE_ADD_TO_CART_COMPLETE_PURCHASE_PREFIX}`;   
+     console.log("response addcart")
+     const requestOptions = {
+      method: 'POST', 
+      body: (formDataToSend)
+    }
+     const ext = `${import.meta.env.VITE_SHOP_EXTENSION}`;
+    const addtocartUrl = window.location.origin+ext;
+    let  url=addtocartUrl+"/"+completePurchase+'/'+diamondDetail.diamondId+"/"+settingDetail.settingId;
+     fetch(url,requestOptions)
+      .then(function(response) {
+        console.log(response);
+        if(response.status===200){
+          localStorage.removeItem('selectedDiamond');
+          localStorage.removeItem('selectedRing');
+          console.log(response.url);
+          window.open(response.url,"_self");
+          
+        }
+        else{
+          setError("There is some problem is adding the product . Please try again")
+        }
+      })
+    
+    //const res = await diamondService.addTocartcompletePurchase(diamondDetail.diamondId,settingDetail.settingId,formDataToSend);
+ 
+  
+  //if(res){
+    //window.open =('https://gemfind-product-demo-10.myshopify.com/cart')
+ // }
+  
+  }
+  const changeSetting = ()=>{
+    localStorage.removeItem('selectedRing');
+    console.log(ringUrl)
+    const navigateUrl = (ringUrl.substring(ringUrl.indexOf("settings")))
+    navigate("/"+navigateUrl)
+  }
+  const changeDiamond = ()=>{
+    localStorage.removeItem('selectedDiamond');
+    navigate("/diamondtools")
   }
   useEffect(() => {
     const selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));   
@@ -171,7 +212,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
                   </div>
                 </div>
                 <div className="edit">
-                  <b className="change-setting">Change Setting</b>
+                  <b className="change-setting" onClick={()=>changeSetting()}>Change Setting</b>
                   <img
                     className="edit-child"
                     alt=""
@@ -230,12 +271,12 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
                     {additionOptionSetting.show_In_House_Diamonds_Column_with_SKU &&
                     <div className="stats-elements">
                       <div className="clarity4">In House:</div>
-                      <b className="i13">{diamondDetail.inhouse!=""?diamondDetail.inhouse:'-'}</b>
+                      <b className="i13">{diamondDetail.txtinhouse && diamondDetail.txtinhouse===true ? diamondDetail.txtinhouse : '-'}</b>
                     </div>}
                   </div>
                 </div>
                 <div className="edit1">
-                  <b className="change-diamond">Change Diamond</b>
+                  <b className="change-diamond" onClick={()=>changeDiamond()}>Change Diamond</b>
                   <img
                     className="edit-child"
                     alt=""
@@ -267,9 +308,11 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
         </div>*/}
         <div className="payment-options">
           <div className="cart-buttons">
+            {settingDetail.rbEcommerce && diamondDetail.dsEcommerce &&
             <div className="button21">
               <b className="add-to-cart" onClick={()=>addToCart(diamondDetail,settingDetail)}>Add to cart - <ShowTotalPrice configAppData={configAppData} settingDetailForCost={settingDetail} diamondDetail={diamondDetail}></ShowTotalPrice></b>
             </div>
+            }
             {configAppData.display_tryon =="1" &&
             <div className="button22">
               <b className="virtual-try-on">Virtual try-on</b>
@@ -335,10 +378,12 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
             diamondurl={diamondUrl}            
             configAppData={configAppData}
             ringurl={ringUrl}
+            diamondDetail={diamondDetail}
+            SettingDetails={settingDetail}
             shopurl={shopUrl}
             isLabSetting={settingDetail.isLabSetting}
             onClose={() => setIsScheduleViewingOpen(false)}
-            locations={settingDetail.addressList ? settingDetail.addressList.map(address => settingDetail.locationName) : []}
+            locations={settingDetail.addressList ? settingDetail.addressList.map(address => address.locationName) : []}
           />
         </PortalPopup>
       )}

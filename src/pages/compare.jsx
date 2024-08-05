@@ -8,40 +8,40 @@ import TableColumns from "../components/table-columns";
 import "./compare.css";
 import { diamondService } from "../Services";
 import { remove } from "lodash";
-
-const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabGrown}) => {
-  console.log(compareDiamondsId)
+import ShowError from "../components/ShowError";
+const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabGrown,setShowLoading}) => {
+  
   const [isAllDiamondDetailsLoaded, setIsAllDiamondDetailsLoaded] = useState(false);
   const [allDiamondDetailsToCompare, setAllDiamondDetailsToCompare] = useState([]);
   const [showAllParam, setShowAllParam] = useState(true);
+  const [error, setError] = useState(null); 
   const navigate = useNavigate();
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const fetchDiamondDetails = async (compareDiamondsId,isLabGrown) => {
-        try {
-            const promises = compareDiamondsId.map((item) => diamondService.getDiamondDetail(item,isLabGrown,configAppData.dealerid));
-            const diamondDataData = await Promise.all(promises);
-            console.log(diamondDataData)
-            if(diamondDataData){
-
-              setAllDiamondDetailsToCompare(diamondDataData)
-              setIsAllDiamondDetailsLoaded(true)
-            }
-            console.log(diamondDataData)
-            //const filteredPokemon = diamondDataData.map(filterPokemonData);
-           // setPokemon(filteredPokemon);
-        } catch (error) {
-            console.error("Error fetching Pokémon:", error);
-        }
+    try {
+        setShowLoading(true)
+        const promises = compareDiamondsId.map((item) => diamondService.getDiamondDetail(item,isLabGrown,configAppData.dealerid));
+        const diamondDataData = await Promise.all(promises);            
+        if(diamondDataData){
+          setAllDiamondDetailsToCompare(diamondDataData)
+          setIsAllDiamondDetailsLoaded(true)
+          setShowLoading(false)
+        }         
+    } catch (error) {
+        console.error("Error fetching diamond details:", error);
+        setError("Failed to fetch diamond details. Please try again later.");
+    }
   };
   useEffect(() => {
-    console.log(compareDiamondsId)
     localStorage.setItem('diamondIdsToCompare',JSON.stringify(compareDiamondsId))
     fetchDiamondDetails(compareDiamondsId,isLabGrown);
   }, [compareDiamondsId]);
   const onBreadContainerClick = useCallback(() => {
     navigate("/diamondtools");
   }, [navigate]);
-
+  if (error) {
+    return <ShowError error={error}/>;
+  }
   return (
     <div className="compare">
       <Header />
@@ -86,13 +86,11 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
           <div className="main-container" >           
             <b className="back-to-diamond no--compare">Please select Diamonds To compare</b>
           </div>
-        </div>
-         
+        </div>         
         )
         }
       </main>
-      }
-    
+      }    
     </div>
   );
 };

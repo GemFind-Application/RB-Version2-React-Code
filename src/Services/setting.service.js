@@ -84,7 +84,7 @@ function requestMoreInfo(formData,sendRequest,apiCall){
 }
 //set parameters for setting
 function getQueryParam(option){
-  console.log(option)
+  //console.log(option)
   let filterString = "";
   if(option.pageSize && option.pageSize!==undefined){   
     filterString = 'pageSize='+option.pageSize;    
@@ -166,7 +166,7 @@ function getQueryFilterParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'IsLabSettingsAvailable=0';    
   }
-  console.log(filterString)
+  //console.log(filterString)
   if(filterString!=""){
     return "&"+filterString;
   }else{

@@ -56,6 +56,10 @@ const V = ({
             className="image-9-icon10"
             loading="lazy"
             alt={diamond.mainHeader}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src=imageUrl+'/no-image.jpg'
+            }}
             src={diamond.image2}
           />
         </div>

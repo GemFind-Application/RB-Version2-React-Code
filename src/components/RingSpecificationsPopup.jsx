@@ -28,11 +28,13 @@ const RingSpecificationsPopup = ({ product, onClose,configAppData }) => {
            {product.sideDiamondDetail1 && (
              product.sideDiamondDetail1.map((item,index) => {
             return <div className="side-diamond-details" key={index}>
-              <h3>Side Diamond Details</h3>
+              {index===0 && <h3>Side Diamond Details</h3>}
               <div className="diamonds_info flex">
                 <p>Number of Diamonds {index+1}: <b>{item.noOfDiamonds ? item.noOfDiamonds:'-'}</b></p>
                 <p>Cut {index+1}: <b>{item.diamondCut?item.diamondCut:'-'}</b></p>
                 <p>Minimum Carat Weight (ct.tw.) {index+1}: <b>{item.minimumCaratWeight?item.minimumCaratWeight:'-'}</b></p>
+                <p>Diamond Quality {index+1}: <b>{item.diamondQuality?item.diamondQuality:'-'}</b></p>
+                
               </div>
             </div>
              })
@@ -46,7 +48,7 @@ const RingSpecificationsPopup = ({ product, onClose,configAppData }) => {
             product.centerStoneFit.split(",").map((item,index) => {
               return (    
               <>   
-                <div className="diamonds_info flex" key={'canbesetwith_'+index}>
+                <div className="diamonds_info flex canbesetwithspace" key={'canbesetwith_'+index}>
                   <p>{item}  -  </p>
                   <p>&nbsp; </p>
                   <p> {product.centerStoneMinCarat?product.centerStoneMinCarat:'-'} - {product.centerStoneMaxCarat?product.centerStoneMaxCarat:'-'} </p>              

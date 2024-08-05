@@ -8,14 +8,14 @@ import VideoModal from "./VideoModal";
 import { diamondService } from "../Services";
 import { utils } from "../Helpers";
 
-
+import { useNavigate } from 'react-router-dom';
 const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData,additionOptionSetting,compareDiamondsId}) => {
 const [showVideoPopup, setShowVideoPopup] = useState(false);
 const [videoUrl, setVideoUrl] = useState('');
 const [isDiamondPresentInCompare, setIsDiamondPresentInCompare] = useState(false);
 const [showDetailsPopup, setShowDetailsPopup] = useState(false);
 
-
+const navigate = useNavigate();
 const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
 const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
 useEffect(() => {   
@@ -28,7 +28,6 @@ useEffect(() => {
     try {     
       const res = await diamondService.getDiamondVideoUrl(diamond.diamondId);  
       if(res)     {
-        console.log(res);
         if(res.showVideo !== false){
           setVideoUrl(res.videoURL);         
           setShowVideoPopup(true);          
@@ -46,12 +45,6 @@ useEffect(() => {
   const toggleDetailsPopup = () => {
     setShowDetailsPopup(!showDetailsPopup);
   };
-
-  // handle when compare svg is clicked
-  /*const handleCompareClick = () => {
-    addCompareDiamondIds(diamond.diamondId);
-    setIsDiamondPresentInCompare(!isDiamondPresentInCompare);
-  };*/
 
   return (
     <div className={`items ${className}`}>
@@ -108,7 +101,6 @@ useEffect(() => {
       {(showVideoPopup && videoUrl!="")  && (
         <VideoModal src={videoUrl} onClose={() => setShowVideoPopup(false)} />
       )}
-
       {showDetailsPopup && (
         <DiamondDetailsPopup 
           diamond={diamond} 
