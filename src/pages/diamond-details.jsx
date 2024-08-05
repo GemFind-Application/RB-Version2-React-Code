@@ -400,7 +400,7 @@ return null;*/
                     </div>
                     <div className="summary-items7">
                       <div className="intensity">Intensity:</div>
-                      <b className="b12">-</b>
+                      <b className="b12">{diamondDetail.fancyColorIntensity!="" ? diamondDetail.fancyColorIntensity:'-'}</b>
                     </div>
                   </div>
                   <div className="number2">
@@ -465,6 +465,7 @@ return null;*/
         >
           <DealerInfo onClose={closeDealerInfo}          
           shopurl={shopUrl}
+          setShowLoading={setShowLoading}
           diamondId={diamondDetail.diamondId}
           diamondtype={diamondDetail.isLabCreated===true?'labcreated':''} />
         </PortalPopup>
@@ -494,7 +495,8 @@ return null;*/
             shopurl={shopUrl}
             configAppData={configAppData}
             diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
-            onClose={() => setIsDropHintOpen(false)} />
+            onClose={() => setIsDropHintOpen(false)} 
+            setShowLoading={setShowLoading}/>
         </PortalPopup>
       )}
       {isScheduleViewingOpen && (
@@ -511,6 +513,7 @@ return null;*/
             diamondDetail={diamondDetail}
             diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
             onClose={() => setIsScheduleViewingOpen(false)}
+            setShowLoading={setShowLoading}
             locations={diamondDetail.retailerInfo ? diamondDetail.retailerInfo.addressList.map(address => address.locationName) : []}
           />
         </PortalPopup>
@@ -527,6 +530,7 @@ return null;*/
           diamondId={diamondDetail.diamondId}
           diamondurl={shopUrl+location.pathname}
           shopurl={shopUrl}
+          setShowLoading={setShowLoading}
           diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
           />
         </PortalPopup>
@@ -540,6 +544,7 @@ return null;*/
         >
          <EmailFriendPopup 
           configAppData={configAppData}
+          setShowLoading={setShowLoading}
           diamondId={diamondDetail.diamondId}
           diamondurl={shopUrl+location.pathname}
           shopurl={shopUrl}

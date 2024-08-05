@@ -5,7 +5,7 @@ import "./ScheduleViewingPopup.css";
 import { settingService } from '../Services';
 import SettingDetails1 from './setting-details1';
 import ReCAPTCHA from 'react-google-recaptcha';
-const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl ,diamondId,diamondtype,diamondurl,diamondDetail,SettingDetails,configAppData}) => {
+const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, ringurl, shopurl ,diamondId,diamondtype,diamondurl,diamondDetail,SettingDetails,configAppData, setShowLoading}) => {
   let formDataValue= {
     name: '',
     email: '',
@@ -177,16 +177,19 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
         }else{
           sendRequest = 'settings'
         }
+        setShowLoading(true);
         let apiCall = (formData.settingid && formData.diamondId) ? "resultscheview_cr" : "resultscheview";
         const res = await settingService.scheduleViewing(formDataVal,sendRequest,apiCall); 
       if(res.output.status===2){
         setErrorsFromRes(res.output.msg);
         recaptcha.current.reset();
+        setShowLoading(false)
        }
        if(res.output.status===1){
         setScheduleViewingMessage(res.output.msg)
         setScheduleViewing(true);
         recaptcha.current.reset();
+        setShowLoading(false)
        }
       //setScheduleViewing(true);
       // onClose();

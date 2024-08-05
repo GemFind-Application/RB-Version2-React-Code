@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./dealer-info.css";
 import { settingService } from '../Services';
 
-const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl, diamondId, diamondtype }) => {
+const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl, diamondId, diamondtype ,setShowLoading}) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
@@ -53,9 +53,9 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
       Object.keys(formData).forEach(function (key) {
         formDataVal.append(key, formData[key]);
       });
-
+      setShowLoading(true)
       const res = await settingService.validateDealerPassword(formDataVal, page);
-
+      
       if (res.output.status === 2) {
         setError(res.output.msg);
       }
@@ -64,7 +64,9 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
         setDealerInfo(res.output.dealerInfo);
         setIsSuccess(true);
       }
+      setShowLoading(false)
     } catch (error) {
+      setShowLoading(false)
       console.error('Error Dealer Info:', error);
       setErrorsFromRes('An error occurred. Please try again.');
     }

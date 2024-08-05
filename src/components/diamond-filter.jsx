@@ -356,7 +356,7 @@ if(filter==='intensity'){
                     <img className="icon3" alt="" src={`${imageUrl}`+"/vector-3.svg"} />
                     <input
                       type="text"
-                      onKeyDown={searchSetting}
+                      onKeyUp={(e)=>searchSetting(e)}
                       placeholder="Search..."
                       className="search5"
                       onChange={(e) => {

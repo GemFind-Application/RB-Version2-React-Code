@@ -77,7 +77,8 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
   const fetchDiamondFilter=async(isLab) => {
     try {    
         let storedData=[];
-        let advanceFilterStoredData=[];          
+        let advanceFilterStoredData=[];  
+        setShowLoading(true)        
         setIsDiamondLoaded(false);        
         if(isLabGrown===true){
           storedData = JSON.parse(localStorage.getItem('saveDiamondFiltersLab')); 

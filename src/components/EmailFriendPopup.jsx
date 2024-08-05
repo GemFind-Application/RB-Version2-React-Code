@@ -2,7 +2,7 @@ import React, { useState ,useEffect,useRef} from 'react';
 import "./email-friend.css";
 import { settingService } from '../Services';
 import ReCAPTCHA from 'react-google-recaptcha';
-const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamondId,diamondtype,diamondurl,configAppData }) => {
+const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamondId,diamondtype,diamondurl,configAppData, setShowLoading }) => {
   let formDataValue= {yourName: '',
     name: '',
     email: '',
@@ -110,6 +110,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
         }else{
           sendRequest = 'settings'
         }
+        setShowLoading(true)
         let apiCall = (formData.settingid && formData.diamondId) ? "resultemailfriend_cr" : "resultemailfriend";
         const res = await settingService.friendsEmail(formDataVal,sendRequest,apiCall); 
       if(res.output.status===2){
@@ -121,6 +122,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
         setSendFriendMessage(res.output.msg)
         setSendEmail(true);
        }
+       setShowLoading(false)
       
       // onClose();
     }

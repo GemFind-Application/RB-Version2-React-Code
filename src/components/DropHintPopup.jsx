@@ -2,7 +2,7 @@ import React, { useState,useRef,useEffect } from 'react';
 import "./hint.css"
 import { settingService } from '../Services';
 import ReCAPTCHA from 'react-google-recaptcha';
-const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diamondId,diamondtype,diamondurl,configAppData }) => {
+const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diamondId,diamondtype,diamondurl,configAppData , setShowLoading}) => {
   let formDataValue= {yourName: '',
   name: '',
   email:'',
@@ -136,20 +136,24 @@ const recaptcha = useRef();
         }else{
           sendRequest = 'settings'
         }
+        setShowLoading(true)
         let apiCall = (formData.settingid && formData.diamondId) ? "resultdrophint_cr" : "resultdrophint";
 
        const res = await settingService.dropAHint(formDataVal,sendRequest,apiCall);
        if(res.output.status===2){
+        setShowLoading(false)
         setErrorsFromRes(res.output.msg);
         recaptcha.current.reset();
        }
        if(res.output.status===1){
+        setShowLoading(false)
         setHintDroppedMessage(res.output.msg)
         setHintDropped(true);
         recaptcha.current.reset();
        }
        
       } catch (error) {
+        setShowLoading(false)
         console.error('Error dropping hint:', error);
         // show err msgs to user
       }

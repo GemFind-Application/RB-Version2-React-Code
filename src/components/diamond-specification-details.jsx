@@ -87,6 +87,10 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
               <div className="fluorescence1">Fluorescence:</div>
               <b className="none">{diamond.fluorescence || '-'}</b>
             </div>
+            <div className="spec-labels1">
+              <div className="fluorescence1">Intensity:</div>
+              <b className="none">{diamond.fancyColorIntensity || '-'}</b>
+            </div>
           </div>
         </div>
         <div className="number">

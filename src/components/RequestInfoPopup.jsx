@@ -2,7 +2,7 @@ import React, { useState,useEffect ,useRef} from 'react';
 import "./requestinfo.css";
 import { settingService } from '../Services';
 import ReCAPTCHA from 'react-google-recaptcha';
-const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,diamondId,diamondtype,diamondurl,configAppData}) => {
+const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,diamondId,diamondtype,diamondurl,configAppData, setShowLoading}) => {
   let formDataValue= {
     name: '',
     email: '',
@@ -115,6 +115,7 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
       }else{
         sendRequest = 'settings'
       }
+      setShowLoading(true)
      let apiCall = (formData.settingid && formData.diamondId) ? "resultreqinfo_cr" : "resultreqinfo";
       const res = await settingService.requestMoreInfo(formDataVal,sendRequest,apiCall);
       if(res.output.status===2){
@@ -126,6 +127,7 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
         setRequestSend(true);
         recaptcha.current.reset();
        }
+       setShowLoading(false)
       //setRequestSend(true); 
       // onClose();
     }

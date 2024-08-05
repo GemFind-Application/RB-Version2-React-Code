@@ -263,7 +263,7 @@ const SettingsFilterPanel = ({
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
-                onKeyDown={searchSetting}
+                onKeyUp={(e)=>searchSetting(e)}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
                  // applyFilters({ ...activeFilters, search: e.target.value });

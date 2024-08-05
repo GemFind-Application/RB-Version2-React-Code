@@ -77,6 +77,7 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
               <div className="fluorescence1">Fluorescence:</div>
               <b className="none">{diamond.fluorescence || '-'}</b>
             </div>
+            
           </div>
         </div>
         <div className="number">

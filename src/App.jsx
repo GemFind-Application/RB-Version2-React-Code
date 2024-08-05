@@ -25,7 +25,7 @@ function App() {
   const [ isAdditionOptionSettingLoaded,setIsAdditionOptionSettingLoaded] = useState(false);
   const [settingNavigation,setSettingNavigation] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showLoading, setShowLoading] = useState(true);
+  const [showLoading, setShowLoading] = useState(false);
   const [isSettingNavLoaded, setIsSettingNavLoaded] = useState(false);
   const [compareDiamondsId, setCompareDiamondsId] = useState(diamondIdsToCompare?diamondIdsToCompare.length > 0?diamondIdsToCompare:[]:[]);
   const [isLabGrown, setIsLabGrown] = useState(false); // Default to Mined

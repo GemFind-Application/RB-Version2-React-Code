@@ -641,7 +641,8 @@ if (error) {
             ringurl={shopUrl+location.pathname}
             shopurl={configAppData.shop}
             isLabSetting={product.isLabSetting}
-            onClose={() => setIsDealerInfoOpen(false)} />
+            onClose={() => setIsDealerInfoOpen(false)} 
+            setShowLoading={setShowLoading}/>
         </PortalPopup>
       )}
       {isSettingDetailsOpen && (
@@ -671,7 +672,8 @@ if (error) {
             shopurl={shopUrl}
             isLabSetting={product.isLabSetting}
             configAppData={configAppData}
-            onClose={() => setIsDropHintOpen(false)} />
+            onClose={() => setIsDropHintOpen(false)} 
+            setShowLoading={setShowLoading}/>
         </PortalPopup>
       )}
       {isScheduleViewingOpen && (
@@ -687,6 +689,7 @@ if (error) {
             shopurl={shopUrl}
             isLabSetting={product.isLabSetting}
             onClose={() => setIsScheduleViewingOpen(false)}
+            setShowLoading={setShowLoading}
             locations={product.addressList ? product.addressList.map(address => address.locationName) : []}
           />
         </PortalPopup>
@@ -703,6 +706,7 @@ if (error) {
           ringurl={shopUrl+location.pathname}
           shopurl={shopUrl}
           isLabSetting={product.isLabSetting}
+          setShowLoading={setShowLoading}
           />
         </PortalPopup>
       )}
@@ -717,7 +721,8 @@ if (error) {
           ringurl={shopUrl+location.pathname}
           shopurl={shopUrl}
           isLabSetting={product.isLabSetting}
-          onClose={() => setIsEmailAFriendOpen(false)} />
+          onClose={() => setIsEmailAFriendOpen(false)} 
+          setShowLoading={setShowLoading}/>
         </PortalPopup>
       )}
       {showVirtualTryOn && showVirtualTryOnUrl!="" &&

@@ -61,7 +61,8 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
     localStorage.removeItem('selectedRing');
   }, []);
   const fetchProducts = async (page, pageSize, isLab, sort, filters) => {
-    setLoading(true);     
+    setLoading(true);   
+    setShowLoading(true)  
     setError(null);  
     try {    
       let option = {
@@ -139,7 +140,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
    fetchSelectedDiamondDetail(isLabGrown)
   },[])
   useEffect(() => {
-    setShowLoading(true)   
+    setShowLoading(true)
     fetchFilterData(isLabGrown,activeFilters).then(() => fetchProducts(currentPage, itemsPerPage, isLabGrown, sortOrder, activeFilters));
   }, [isLabGrown, currentPage, itemsPerPage, sortOrder, activeFilters,selectedDiamondShape]);
   //setIsLabGrown
@@ -168,7 +169,9 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
   };
  
   const searchSetting = event => { 
+   console.log(event.target.value)
     if(event.target.value === ""){
+      console.log('here is this')
       setIsSerachIsClicked(!isserachIsClicked);
       applyFilters({ ...activeFilters, search: event.target.value });
     }
