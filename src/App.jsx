@@ -184,6 +184,7 @@ function App() {
     let title = "";
     let metaDescription = "";
     let newPathName = pathname.split('/');
+    window.scrollTo(0, 0);
     switch (newPathName[1]) {
       case "/":
         title = configAppData.ring_meta_title

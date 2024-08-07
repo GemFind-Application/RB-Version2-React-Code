@@ -37,6 +37,7 @@ const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,is
   const [showVideoPopup,setShowVideoPopup]=useState(false)
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const [error, setError] = useState(null); 
+  const [diamondContent, setDiamondContent] = useState(''); 
 const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
 //console.log(isDiamondPresentInCompare)
   const handleVideoIconClick = async(diamondId) => {
@@ -76,10 +77,38 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
   const fetchPrintDoc = async (diamondId,isLabGrown) => {
    
     try {
-      const res = await diamondService.getPrintDoc(diamondId,isLabGrown);      
-      if(res) {
-        console.log(res)
-      }     
+      let formData = new FormData();
+      formData.append('diamondid',diamondId)
+      formData.append('shop',window.location.origin)
+      formData.append('diamond_type',isLabGrown)
+      const apiurlForForms = `${import.meta.env.VITE_APP_FORM_API_URL}`;
+      let  url=apiurlForForms+"/diamondtools/printdiamond";
+      const requestOptions = {
+        method: 'POST', 
+        body: (formData)
+      }
+      fetch(url,requestOptions)
+      .then(function (response) {
+        // The API call was successful!
+        return response.text();
+      }).then(function (html) {      
+        // Convert the HTML string into a document object
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(html, 'text/html');
+      //console.log(doc)
+      setDiamondContent(doc)
+      }).catch(function (err) {
+        // There was an error
+        console.warn('Something went wrong.', err);
+      });
+
+
+
+
+
+
+
+         
     } catch (error) {
       console.error("Error fetching print doc details:", error);
       setError("Failed to fetch print doc data. Please try again later.");
@@ -88,7 +117,7 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
   useEffect(() => {
     handleVideoIconClick(diamondIdToShow)
     fetchProductDetails(diamondIdToShow,isLabGrown);
-    //fetchPrintDoc(diamondIdToShow,isLabGrown)
+    fetchPrintDoc(diamondIdToShow,isLabGrown)
   }, [diamondId]);
   useEffect(() => {
     const images = [];
@@ -451,7 +480,8 @@ return null;*/
                 emailAFriend={() => setIsEmailAFriendOpen(true)}
                 openDropHint={() => setIsDropHintOpen(true)}
                 openScheduleViewing={() => setIsScheduleViewingOpen(true)}
-                openRequestInfo={() => setIsRequestInfoOpen(true)}/>
+                openRequestInfo={() => setIsRequestInfoOpen(true)}
+                diamondContent={diamondContent}/>
               </div>
             </div>
           </section>

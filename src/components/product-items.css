@@ -89,6 +89,7 @@
   gap: var(--gap-8xs);
   font-size: var(--h3-size);
   font-family: var(--h4);
+  max-height:8%;
 }
 
 .b38 {

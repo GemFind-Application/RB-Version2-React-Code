@@ -5,10 +5,11 @@ import { useReactToPrint } from 'react-to-print';
 const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
 //const  ComponentToPrint=()=>{
  //class ComponentToPrint extends React.PureComponent {
-  const ComponentToPrint = forwardRef((props, ref) => {
-   
+  const ComponentToPrint = forwardRef(({data}, ref) =>{
+    console.log('here 2')
+   console.log(data)
       return (
-        <div ref={ref}>{'sss'} </div>
+        <div ref={ref}>{data} </div>
       );
     }
   
@@ -21,8 +22,11 @@ const Stats = ({
   openDropHint, 
   openScheduleViewing, 
   openRequestInfo ,
-  openPrintRequest
+  openPrintRequest,
+  diamondContent
 }) => {
+  console.log('here 1')
+  console.log(diamondContent)
   const componentRef = React.useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -95,7 +99,7 @@ const Stats = ({
               src={`${imageUrl}`+"/print.svg"}
             />
             <div>
-            {/* <div> <ComponentToPrint ref={componentRef} /></div> */}
+            { <div> <ComponentToPrint ref={componentRef} data={[diamondContent?diamondContent.all:'']} /></div> }
 
             <div className="drop-a-hint-wrapper" onClick={handlePrint}>
               <b className="request-more-info">Print</b>

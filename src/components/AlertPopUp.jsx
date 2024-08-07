@@ -12,19 +12,21 @@ export default function  AlertPopUp  ({onClose,message,title,onClick})  {
         overlayColor="rgba(113, 113, 113, 0.3)"
           
       >
-        
-        <div className="popup-overlay drop-hint-popup">
+         {message!=="" ?
+        <div className="popup-overlay drop-hint-popup ">
           <div className="popup-content">
-           {message!=="" ? 
-           <>
+           
+           
             <button  onClick={onClose} className="close-button" >×</button>   
             <div className="success-message">
               <h2>{title}</h2>
               <p>{message}</p>
                 {title==='Reset'&& <button onClick={onClick}>Reset</button> }          
-            </div></>:<div><img src={imageUrl+'/diamond.gif'}/></div>}
+            </div>
           </div>
         </div>
+        :<div className="popup-overlay drop-hint-popup loaderpopup">
+          <div className="popup-content"><div><img src={imageUrl+'/diamond.gif'} className="loader"/></div></div></div>}
      </PortalPopup>
     )
   }

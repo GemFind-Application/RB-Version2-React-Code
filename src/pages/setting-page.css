@@ -1248,6 +1248,9 @@ img.round-icon-caret {
   justify-content: flex-start;
   gap: var(--gap-xs);
 }
+.image-gallery-content.fullscreen{
+  width:100%;
+}
 .filter-opened7 {
   display: flex;
   flex-direction: column;

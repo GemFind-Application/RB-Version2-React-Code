@@ -340,7 +340,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
       
       { isDiamondLoaded ?(
       <>{
-      !isGridView ?
+      isGridView ?
       <div className="list2">
       {
         diamond.map(product => (

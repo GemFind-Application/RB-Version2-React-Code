@@ -22,7 +22,27 @@
   line-height: normal;
   letter-spacing: normal;
 }
+.loaderpopup{
+  background-color: transparent;
+  border-radius: 0%;
+  box-shadow: none;
+  z-index:9999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* top: 31%; */
+ /* position: absolute;*/
+  height: 100%;
+    margin-top: auto;
 
+}
+.loaderpopup .popup-content{
+  overflow-y: hidden;
+}
+.loader{
+  width:200px;
+  height:200px;
+}
 @media(min-width: 768px) and (max-width: 1080px) {
 
   .setting-product-list {
