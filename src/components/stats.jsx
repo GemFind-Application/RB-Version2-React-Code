@@ -6,10 +6,12 @@ const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
 //const  ComponentToPrint=()=>{
  //class ComponentToPrint extends React.PureComponent {
   const ComponentToPrint = forwardRef(({data}, ref) =>{
-    console.log('here 2')
-   console.log(data)
+    var parser = new DOMParser();
+     var doc = parser.parseFromString(data, 'text/html');
+    // const myDiv = doc.querySelector('.printDiv');
+    //const RenderHTML = (props) => (<span dangerouslySetInnerHTML={{__html:props.HTML}}></span>)
       return (
-        <div ref={ref}>{data} </div>
+         <div  ref={ref} dangerouslySetInnerHTML={{__html:data}}/>
       );
     }
   
@@ -99,7 +101,7 @@ const Stats = ({
               src={`${imageUrl}`+"/print.svg"}
             />
             <div>
-            { <div> <ComponentToPrint ref={componentRef} data={[diamondContent?diamondContent.all:'']} /></div> }
+            { <div style={{display:'none'}}> <ComponentToPrint ref={componentRef} data={[diamondContent?diamondContent:'']} /></div> }
 
             <div className="drop-a-hint-wrapper" onClick={handlePrint}>
               <b className="request-more-info">Print</b>

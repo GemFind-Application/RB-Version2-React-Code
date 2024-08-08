@@ -44,7 +44,7 @@ const SettingsFilterPanel = ({
 }) => {
   const [openFilter, setOpenFilter] = useState(null);
   const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
-  const [priceRange, setPriceRange] = useState(activeFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [activeFilters.price[0], activeFilters.price[1]]);
+  const [priceRange, setPriceRange] = useState(activeFilters.price.length===0 ? filterData.priceRange.length >0?[filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [activeFilters.price[0], activeFilters.price[1]]:[]);
   const [availableFilter, setAvailableFilter] = useState([]);   
   const [activePopup, setActivePopup] = useState(null);
   
@@ -188,7 +188,7 @@ const SettingsFilterPanel = ({
             </div>
           </div>
         </div>
-        <div className="filters-setting">
+        <div className="filters-setting" >
           <div className="mid2">
             <div className="filters9">
               <div className="filters-wrapper1">
@@ -221,6 +221,7 @@ const SettingsFilterPanel = ({
                       )}
                   </div>
                 ))}
+                {filterData.priceRange.length > 0 &&
                 <div className="filter-dropdown">
                   <button
                     className={`filter-button ${openFilter === 'price' ? 'active' : ''}`}
@@ -241,8 +242,9 @@ const SettingsFilterPanel = ({
                           {getPopupContent('price')}
                         </div>
                       )}
-                </div>
+                </div>}
               </div>
+              {filterData.priceRange.length > 0 &&
               <div className="actions13">
                 <button className="button30" onClick={saveFilters}>
                   <BookmarkMinus size={16} />
@@ -254,7 +256,9 @@ const SettingsFilterPanel = ({
                   <RotateCcw size={16} />
                 </button>
               </div>
+               }
             </div>
+           
             <div className="search6">
               <div className="search-input">
                 <Search size={16} />

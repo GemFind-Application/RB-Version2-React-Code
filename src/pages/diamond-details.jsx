@@ -74,13 +74,14 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
       setShowLoading(false);
     }
   };
-  const fetchPrintDoc = async (diamondId,isLabGrown) => {
+  const fetchPrintDoc = async (diamondDetail) => {
    
     try {
       let formData = new FormData();
-      formData.append('diamondid',diamondId)
-      formData.append('shop',window.location.origin)
-      formData.append('diamond_type',isLabGrown)
+      formData.append('diamondid',diamondDetail.diamondId);
+      //console.log( window.location)
+      formData.append('shop',window.location.hostname)
+      formData.append('diamond_type',diamondDetail.isLabCreated===true?'labcreated':'',)
       const apiurlForForms = `${import.meta.env.VITE_APP_FORM_API_URL}`;
       let  url=apiurlForForms+"/diamondtools/printdiamond";
       const requestOptions = {
@@ -89,14 +90,15 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
       }
       fetch(url,requestOptions)
       .then(function (response) {
+        console.log(response)
         // The API call was successful!
         return response.text();
       }).then(function (html) {      
         // Convert the HTML string into a document object
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(html, 'text/html');
+       // var parser = new DOMParser();
+       // var doc = parser.parseFromString(html, 'text/html');
       //console.log(doc)
-      setDiamondContent(doc)
+      setDiamondContent(html)
       }).catch(function (err) {
         // There was an error
         console.warn('Something went wrong.', err);
@@ -117,8 +119,13 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
   useEffect(() => {
     handleVideoIconClick(diamondIdToShow)
     fetchProductDetails(diamondIdToShow,isLabGrown);
-    fetchPrintDoc(diamondIdToShow,isLabGrown)
+    //fetchPrintDoc(diamondIdToShow,isLabGrown)
   }, [diamondId]);
+  useEffect(() => {
+    //handleVideoIconClick(diamondIdToShow)
+    //fetchProductDetails(diamondIdToShow,isLabGrown);
+    fetchPrintDoc(diamondDetail)
+  }, [diamondDetail]);
   useEffect(() => {
     const images = [];
         if (diamondDetail.image2 && diamondDetail.image2 !='') {

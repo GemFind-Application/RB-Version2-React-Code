@@ -18,7 +18,7 @@ export const diamondService = {
   getFancyDiamondFilter,
   getDiamondVideoUrl,
  
-  getPrintDoc
+  
 };
 //get diamond filter
 function getDiamondFilter(option,dealerId) { 
@@ -179,17 +179,5 @@ function getQueryParam(option){
   }else{
     return filterString;
   } 
-}
-//get print doc
-function getPrintDoc(diamondId,labcreated){
-  const isLab = labcreated==true?'/labcreated':labcreated=='fancy'?'/fancydiamonds':''
-  let formData = new FormData();
-  formData.append('diamondid',diamondId)
-  formData.append('shop','https://gemfind-product-demo-10.myshopify.com/')
-  formData.append('diamond_type',isLab)
-  fetchWrapper.postFormData(
-      `${apiurlForForms}/diamondtools/printdiamond/`,
-      formData
-  );
 }
 

@@ -36,7 +36,7 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
           password: password,
           diamondId: diamondId,
           diamondtype: diamondtype,
-          shopurl: 'gemfind-app-store.myshopify.com'
+          shopurl: window.location.host
         }
         page = "diamond";
       } else {
