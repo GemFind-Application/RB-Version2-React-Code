@@ -102,13 +102,19 @@ function App() {
     async function fetchStyleData(id){
       try {
         const res = await appService.getStyleData(id);  
-        if(res[0]) {                
-          setStyleData(res[0][0]);        
+        if(res) {                
+          setStyleData(res);        
           let styleDataObj = {
-            callToActionButton_color:res[0][0].callToActionButton[0].color2 && res[0][0].callToActionButton[0].color2!==""?res[0][0].callToActionButton[0].color2:res[0][0].callToActionButton[0].color1,
-            link_color:res[0][0].linkColor[0].color2 && res[0][0].linkColor[0].color2!==""?res[0][0].linkColor[0].color2:res[0][0].linkColor[0].color1,
-            hoverEffect_color:res[0][0].hoverEffect[0].color2 && res[0][0].hoverEffect[0].color2!==""?res[0][0].hoverEffect[0].color2:res[0][0].hoverEffect[0].color1,
-            columnHeaderAccent_color:res[0][0].columnHeaderAccent[0].color2 && res[0][0].columnHeaderAccent[0].color2!==""?res[0][0].columnHeaderAccent[0].color2:res[0][0].columnHeaderAccent[0].color1,
+            hoverEffect : res.hover ? res.hover : '',
+            columnHeaderAccent :res.header,
+            linkColor : res.link,
+            callToActionButton :res.button,
+            background :res.background,
+            slider_barmakian : res.slider,
+            //callToActionButton_color:res[0][0].callToActionButton[0].color2 && res[0][0].callToActionButton[0].color2!==""?res[0][0].callToActionButton[0].color2:res[0][0].callToActionButton[0].color1,
+            //link_color:res[0][0].linkColor[0].color2 && res[0][0].linkColor[0].color2!==""?res[0][0].linkColor[0].color2:res[0][0].linkColor[0].color1,
+            //hoverEffect_color:res[0][0].hoverEffect[0].color2 && res[0][0].hoverEffect[0].color2!==""?res[0][0].hoverEffect[0].color2:res[0][0].hoverEffect[0].color1,
+            //columnHeaderAccent_color:res[0][0].columnHeaderAccent[0].color2 && res[0][0].columnHeaderAccent[0].color2!==""?res[0][0].columnHeaderAccent[0].color2:res[0][0].columnHeaderAccent[0].color1,
           }         
           setStyleDataDynamic(styleDataObj);
           setIsStyleLoaded(true);
@@ -147,7 +153,7 @@ function App() {
           }
         }
         if(splitArray[1]==='diamondtools'){
-          let isLab = splitArray[splitArray.length-1]==='navlabgrown'? true: splitArray[splitArray.length-1]==='navfancycolored'?'fancy':false;
+          let isLab = (splitArray[splitArray.length-1]==='navlabgrown'||splitArray[splitArray.length-1]==='labcreated') ? true: (splitArray[splitArray.length-1]==='navfancycolored'||splitArray[splitArray.length-1]==='fancydiamonds')?'fancy':false;
          //  isLab = ? fancy:false;
           setIsLabGrown(isLab);
           //res = await diamondService.getDiamondFilter(id); 
@@ -286,7 +292,7 @@ function App() {
     console.log(loading)
   return (   
     <div>      
-    <ThemeSetup />    
+    <ThemeSetup styleDataDynamic={styleDataDynamic} />    
     {loading && isStyleLoaded &&  isconfigLoaded &&   
     <Routes>
       <Route path="/" element={
@@ -361,7 +367,18 @@ function App() {
           formSetting={additionOptionSetting} 
           setShowLoading={setShowLoading}
         />} 
-      />       
+      />   
+      <Route path="/diamondtools/product/:diamondId/:type" element={
+        <DiamondPage 
+          className={styleData} 
+          isLabGrown={isLabGrown} 
+          shopUrl={shopUrl}  
+          additionOptionSetting={additionOptionSetting} 
+          configAppData={configAppData} 
+          formSetting={additionOptionSetting} 
+          setShowLoading={setShowLoading}
+        />} 
+      />        
       <Route path="/diamondtools/diamondtype/navlabgrown" element={
         <Diamond 
           additionOptionSetting={additionOptionSetting}  

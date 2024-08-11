@@ -105,7 +105,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   const fetchProductDetails = async (settingId) => {
     try {
       setShowLoading(true)
-      const res = await settingService.getSettingDetail(settingId,configAppData.dealerid); 
+      const res = await settingService.getSettingDetail(settingId,configAppData.dealerid,isLabGrown); 
       if(res) {
         if(selectedParam!=""){
         let url =  utils.getUrl(res.metalType,res.settingName,settingId,'details')

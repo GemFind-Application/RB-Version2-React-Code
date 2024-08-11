@@ -4,6 +4,9 @@ import { ConfigContext } from "../components/Context"
 const baseUrl = `${import.meta.env.VITE_APP_API_URL}`;
 const apiurlForForms=`${import.meta.env.VITE_APP_FORM_API_URL}`;
 const videoUrl= `${import.meta.env.VITE_APP_API_VIDEOURL}`;
+const ext = `${import.meta.env.VITE_SHOP_EXTENSION}`;
+const addtocartUrl = window.location.origin+ext;
+//const apiurlForForms=`${import.meta.env.VITE_APP_FORM_API_URL}`;
 export const settingService = {  
   getSettingFilters,
   getAllSettings,
@@ -22,8 +25,13 @@ function getSettingFilters(option,dealerId) {
   return fetchWrapper.get(`${baseUrl}/GetFilters?DealerId=${dealerId}${queryParam}`);
 }
 //to get setting details for particualr setting
-function getSettingDetail(settingId,dealerId) {
-  return fetchWrapper.get(`${baseUrl}/GetMountingDetail?DealerId=${dealerId}&SID=${settingId}`);
+function getSettingDetail(settingId,dealerId,isLabGrown) {
+  if(isLabGrown==true){
+    return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetMountingDetail?DealerId=${dealerId}&SID=${settingId}&shop=https://gemfind-product-demo-10.myshopify.com/`);
+  }else{
+    return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetMountingDetail?DealerId=${dealerId}&SID=${settingId}&shop=https://gemfind-product-demo-10.myshopify.com/`);
+  }
+  
 }
 //get all settings
 function getAllSettings(option,dealerId) {  

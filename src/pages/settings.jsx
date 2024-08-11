@@ -45,6 +45,8 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
   const [isResetClicked,setIsResetClicked] = useState(false);
   const [doReset,setDoReset] = useState(false);
   const [dealerId,setDealerId] = useState(dealerIdShop);
+  const [showFilterDetails,setShowFilterDetails] = useState('');
+  const [openFilter, setOpenFilter] = useState(null);
   let storedData = JSON.parse(localStorage.getItem('activeFilters')); 
 
   const [activeFilters, setActiveFilters] = useState({
@@ -61,7 +63,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
     localStorage.removeItem('selectedRing');
   }, []);
   const fetchProducts = async (page, pageSize, isLab, sort, filters) => {
-    setLoading(true);   
+    //setLoading(true);   
     setShowLoading(true)  
     setError(null);  
     try {    
@@ -79,6 +81,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
         CenterStoneMinCarat:selectedDiamondShape!=""?selectedDiamondCarat[0] :'',
         CenterStoneMaxCarat :selectedDiamondShape!=""? selectedDiamondCarat[1]:''
       }
+     
       const data = await settingService.getAllSettings(option,configAppData.dealerid); 
       if(data.mountingList) {
         setProducts(data.mountingList);
@@ -106,8 +109,8 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
   }
   const fetchFilterData = async (isLab,filters) => {
     try {
-      setIsSettingFilterLoaded(false);
-      setIsProductLoaded(false);
+      
+     
       let option = {         
         shape:filters.shapes.join(','),
         style:filters.collections.join(','),
@@ -137,6 +140,8 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
        applyFilters({...activeFilters,shapes:[resSelectedDiamond.shape]});       
       }}
     } 
+    setIsSettingFilterLoaded(false);
+    setIsProductLoaded(false);
    fetchSelectedDiamondDetail(isLabGrown)
   },[])
   useEffect(() => {
@@ -206,13 +211,14 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
   if (error) {
     return <ShowError error={error}/>;
   }
-//console.log(settingNavigation)
+console.log("===="+loading + isProductLoaded)
   return (
     <div className="settings">       
       <Header   />
       <Settingsbreadcrumb configAppData={configAppData}/>
       <div className="settingsfilter-wrapper">
         {filterData && isSettingFilterLoaded ? (
+        
           <SettingsFilterPanel 
             filterData={filterData}
             isLabGrown={isLabGrown}
@@ -232,7 +238,11 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
             selectedDiamondShape={selectedDiamondShape}  
             configAppData={configAppData}
             className={className}
-          />
+            showFilterDetails={showFilterDetails}
+            openFilter={openFilter}
+            setOpenFilter={setOpenFilter}
+          />  
+
         ) : (
           <SkeletonFilterPanel />
         )}

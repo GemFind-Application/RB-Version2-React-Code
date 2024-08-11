@@ -45,7 +45,7 @@ function isJsonString(str) {
   }
   return true;
 }
-function getDiamondViewUrl(diamondDetail){
+function getDiamondViewUrl(diamondDetail,typeD){
  
   let diamondviewurl = '';   
   let type= diamondDetail.isLabCreated? 'labcreated':'';
@@ -57,8 +57,9 @@ function getDiamondViewUrl(diamondDetail){
   let urlcert = diamondDetail.cert?diamondDetail.cert.split(" ").join("-")+'-certificate-':'-certificate-';  
   
   let urlstring = (urlshape+urlcarat+urlcolor+urlclarity+urlcut+urlcert+'sku-'+diamondDetail.diamondId).toLowerCase();
+ let typeToadd = typeD=='fancy' ?'/fancydiamonds' :typeD==true?'/labcreated':''
  
-      return  urlstring;          
+      return  urlstring+  typeToadd       
 //$diamondviewurl = $this->diamond_lib->getDiamondViewUrl($urlstring,$type,$base_shop_domain,$pathprefixshop); 
 }
 const utils = { kFormatter,numberWithCommas,getUrl,truncateString,getskuForVirtualTryOn,getDiamondViewUrl,isJsonString};

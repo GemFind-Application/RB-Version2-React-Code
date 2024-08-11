@@ -9,6 +9,7 @@ const addtocartUrl = window.location.origin+ext;
 const videoUrl= `${import.meta.env.VITE_APP_API_VIDEOURL}`;
 const completePurchase = `${import.meta.env.VITE_ADD_TO_CART_COMPLETE_PURCHASE_PREFIX}`;
 const apiurlForForms = `${import.meta.env.VITE_APP_FORM_API_URL}`;
+
 //console.log(window.location)
 export const diamondService = {
   getDiamondFilter,
@@ -60,11 +61,20 @@ function getFancyDiamondFilter(option,settingId,dealerId) {
 }
 //get diamond details
 function getDiamondDetail(diamondId,isLabGrown,dealerId) {
-  if(isLabGrown===true){
-    return fetchWrapper.get(`${baseUrl}/GetDiamondDetail?DealerId=${dealerId}&DID=${diamondId}&IsLabGrown=True`);
+  if(isLabGrown!==false){
+    if(isLabGrown==true){
+      return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetDiamondDetail?DealerId=${dealerId}&DID=${diamondId}&IsLabGrown=labcreated&shop=gemfind-product-demo-10.myshopify.com`);
+    }
+    if(isLabGrown=='fancy'){
+      return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetDiamondDetail?DealerId=${dealerId}&DID=${diamondId}&IsLabGrown=fancydiamonds&shop=gemfind-product-demo-10.myshopify.com`);
+    }
+    
   }else{
-    return fetchWrapper.get(`${baseUrl}/GetDiamondDetail?DealerId=${dealerId}&DID=${diamondId}`);
+    return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetDiamondDetail?DealerId=${dealerId}&DID=${diamondId}&shop=gemfind-product-demo-10.myshopify.com`);
   }  
+
+
+  
 }
 //get all diamond list
 function getAllDiamond(option,dealerId) {

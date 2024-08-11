@@ -39,12 +39,15 @@ const SettingsFilterPanel = ({
   settingNavigation,
   searchSetting  ,
   confirmReset,
-  selectedDiamondShape
-  ,configAppData
+  selectedDiamondShape,
+  configAppData,
+  showFilterDetails,
+  openFilter,
+  setOpenFilter
 }) => {
-  const [openFilter, setOpenFilter] = useState(null);
+ 
   const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
-  const [priceRange, setPriceRange] = useState(activeFilters.price.length===0 ? filterData.priceRange.length >0?[filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [activeFilters.price[0], activeFilters.price[1]]:[]);
+  const [priceRange, setPriceRange] = useState(filterData.priceRange.length > 0 ?activeFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [activeFilters.price[0], activeFilters.price[1]]:[]);
   const [availableFilter, setAvailableFilter] = useState([]);   
   const [activePopup, setActivePopup] = useState(null);
   
@@ -56,6 +59,8 @@ const SettingsFilterPanel = ({
     filterData.shapes.length>0 && filterAvailable.push('shapes');
     setSearchQuery(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
     setAvailableFilter(filterAvailable)
+   // setOpenFilter(openFilter!=="" ? null : filter);
+   // openFilter === filter ? null : filter
     
   }, []);
   const toggleFilter = (filter) => {
@@ -69,6 +74,8 @@ const SettingsFilterPanel = ({
         ? activeFilters[filter].filter(item => item !== option)
         : [ option]
     });
+    //console.log(openFilter)
+    //setOpenFilter(openFilter === filter ? null : filter);
   };
 
   /*const handlePriceChange = ({ min, max }) => {
@@ -188,7 +195,7 @@ const SettingsFilterPanel = ({
             </div>
           </div>
         </div>
-        <div className="filters-setting" >
+        <div className="filters-setting">
           <div className="mid2">
             <div className="filters9">
               <div className="filters-wrapper1">
@@ -207,7 +214,7 @@ const SettingsFilterPanel = ({
                         <div className="filter-count">{activeFilters[filter].length}</div>
                       )}
                     </button>
-                    {configAppData.show_filter_info ==="true" &&
+                    {(configAppData.show_filter_info ==="true") && (filter === 'price' || filter === 'metalType') &&
                       <div className={filter === 'shape' ? "shape-info1" : filter === 'price' ? "empty-options" : "border--round"}>
                         <b className="filter--hover-icon" onClick={(e) => {
                           e.stopPropagation();
@@ -242,7 +249,8 @@ const SettingsFilterPanel = ({
                           {getPopupContent('price')}
                         </div>
                       )}
-                </div>}
+                </div>
+                }
               </div>
               {filterData.priceRange.length > 0 &&
               <div className="actions13">
@@ -321,6 +329,7 @@ const SettingsFilterPanel = ({
           )}
         </div>
       )}
+      <div className="filters-label searchView">{showFilterDetails}</div>
     </div>
   );
 };
