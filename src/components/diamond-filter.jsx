@@ -327,7 +327,7 @@ if(filter==='intensity'){
                         }}>i</b>
                       </div>}
                       {activePopup === filter && (
-                        <div className="filter-popup">
+                        <div className="filter-popup filter-popup-info">
                           {getPopupContent(filter)}
                         </div>
                       )}

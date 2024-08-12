@@ -1,5 +1,5 @@
 import { useState, useCallback ,useEffect} from "react";
-import { Link, useNavigate, useParams,useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DealerInfo from "../components/dealer-info";
 import PortalPopup from "../components/portal-popup";
 import DiamondSpecificationDetail from "../components/diamond-specification-details";
@@ -12,7 +12,6 @@ import { diamondService } from "../Services";
 import Header from "../components/Header";
 import ShowCostInCardDiamond from "../components/showCostInCardDiamond";
 import SocialIcon from "../components/SocialIcon";
-import axios from "axios";
 import { utils } from "../Helpers";
 import DropHintPopup from "../components/DropHintPopup";
 import ScheduleViewingPopup from "../components/ScheduleViewingPopup";

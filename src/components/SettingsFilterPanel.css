@@ -1,4 +1,3 @@
-/* SettingsFilterPanel.css */
 .SettingsFilterPanel {
   align-self: stretch;
   display: flex;
@@ -14,7 +13,7 @@
   font-family: var(--h4);
 }
 
-.list-header {
+.SettingsFilterPanel .list-header {
   width: 1680px;
   display: flex;
   flex-direction: column;
@@ -24,7 +23,7 @@
   max-width: 100%;
 }
 
-.settingfilter-top {
+.SettingsFilterPanel .settingfilter-top {
   align-self: stretch;
   border-bottom: 1px solid var(--stroke);
   box-sizing: border-box;
@@ -37,15 +36,15 @@
   max-width: 100%;
 }
 
-.settings-founded {
+.SettingsFilterPanel .settings-founded {
   position: relative;
   line-height: 110%;
   display: inline-block;
   max-width: 100%;
 }
 
-.settings-sort,
-.settings-sort-page {
+.SettingsFilterPanel .settings-sort,
+.SettingsFilterPanel .settings-sort-page {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -56,26 +55,26 @@
   font-family: var(--body-14-reg);
 }
 
-.settings-sort {
+.SettingsFilterPanel .settings-sort {
   gap: var(--gap-6xl);
 }
 
-.sort-by4,
-.show7 {
+.SettingsFilterPanel .sort-by4,
+.SettingsFilterPanel .show7 {
   position: relative;
   display: inline-block;
   min-width: 50px;
 }
 
-.low-to-high,
-.per-page3 {
+.SettingsFilterPanel .low-to-high,
+.SettingsFilterPanel .per-page3 {
   position: relative;
   display: inline-block;
   color: var(--black);
   min-width: 79px;
 }
 
-.filters-setting {
+.SettingsFilterPanel .filters-setting {
   align-self: stretch;
   display: flex;
   flex-direction: row;
@@ -87,7 +86,7 @@
   font-family: var(--body-14-reg);
 }
 
-.mid2 {
+.SettingsFilterPanel .mid2 {
   flex: 1;
   display: flex;
   flex-direction: row;
@@ -99,8 +98,8 @@
   gap: var(--gap-xl);
 }
 
-.filters9,
-.filter-container {
+.SettingsFilterPanel .filters9,
+.SettingsFilterPanel .filter-container {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -108,12 +107,12 @@
   gap: var(--gap-base);
 }
 
-.filters9 {
+.SettingsFilterPanel .filters9 {
   max-width: 740px;
   width: 100%;
 }
 
-.filters-wrapper1 {
+.SettingsFilterPanel .filters-wrapper1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -121,16 +120,16 @@
   padding: var(--padding-2xs-5) 0px 0px;
 }
 
-.filters-label {
+.SettingsFilterPanel .filters-label {
   font-weight: 500;
   color: var(--grey);
 }
 
-.filter-dropdown {
+.SettingsFilterPanel .filter-dropdown {
   position: relative;
 }
 
-.filter-button {
+.SettingsFilterPanel .filter-button {
   border-radius: var(--br-21xl);
   border: 1px solid var(--beige-04);
   box-sizing: border-box;
@@ -147,17 +146,17 @@
   position: relative;
 }
 
-.filter-button.active {
+.SettingsFilterPanel .filter-button.SettingsFilterPanel .active {
   border-color: var(--accent);
 }
 
-.filter-label {
+.SettingsFilterPanel .filter-label {
   font-weight: 500;
 }
 
-.filter-count {
+.SettingsFilterPanel .filter-count {
   position: absolute;
-  top: -11.5px;
+  top: -11.SettingsFilterPanel .5px;
   right: -11px;
   width: 22px;
   height: 22px;
@@ -173,7 +172,7 @@
   font-weight: bold;
 }
 
-.filter-options {
+.SettingsFilterPanel .filter-options {
   background-color: var(--white);
   margin-top: 5px;
   display: flex;
@@ -185,7 +184,7 @@
   z-index: 1;
 }
 
-.filter-option {
+.SettingsFilterPanel .filter-option {
   padding: var(--padding-3xs) var(--padding-xs);
   cursor: pointer;
   display: flex;
@@ -193,17 +192,17 @@
   align-items: center;
 }
 
-.filter-option:hover {
+.SettingsFilterPanel .filter-option:hover {
   background-color: var(--beige-01);
 }
 
-.filter-option.active {
+.SettingsFilterPanel .filter-option.SettingsFilterPanel .active {
   background-color: var(--beige-02);
   font-weight: 500;
   display: flex;
 }
 
-.actions13 {
+.SettingsFilterPanel .actions13 {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -212,8 +211,8 @@
   gap: var(--gap-lgi);
 }
 
-.button30,
-.button31 {
+.SettingsFilterPanel .button30,
+.SettingsFilterPanel .button31 {
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -223,19 +222,19 @@
   cursor: pointer;
 }
 
-.button30 {
+.SettingsFilterPanel .button30 {
   background-color: var(--accent);
   color: var(--white);
   border: none;
 }
 
-.button31 {
+.SettingsFilterPanel .button31 {
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
 }
 
-.search6 {
+.SettingsFilterPanel .search6 {
   max-width: 350px;
   border-radius: var(--br-21xl);
   border: 1px solid var(--stroke);
@@ -249,7 +248,7 @@
   width: 100%;
 }
 
-.search7 {
+.SettingsFilterPanel .search7 {
   border: none;
   outline: none;
   font-size: var(--body-14-reg-size);
@@ -258,7 +257,7 @@
   flex: 1;
 }
 
-.filter-options-container {
+.SettingsFilterPanel .filter-options-container {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -268,7 +267,7 @@
   position: relative;
 }
 
-.filter-options-fullwidth {
+.SettingsFilterPanel .filter-options-fullwidth {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -278,38 +277,38 @@
 
 
 @media screen and (max-width: 1275px) {
-  .settings-founded {
+  .SettingsFilterPanel .settings-founded {
     font-size: var(--font-size-7xl);
     line-height: 28px;
   }
 
-  .settingfilter-top {
+  .SettingsFilterPanel .settingfilter-top {
     flex-wrap: wrap;
   }
 
-  .filters9 {
+  .SettingsFilterPanel .filters9 {
     flex-wrap: wrap;
   }
 }
 
 @media screen and (max-width: 825px) {
-  .settings-founded {
+  .SettingsFilterPanel .settings-founded {
     font-size: var(--font-size-lgi);
     line-height: 21px;
   }
 
-  .filter-container {
+  .SettingsFilterPanel .filter-container {
     flex-wrap: wrap;
   }
 }
 
 @media screen and (max-width: 450px) {
-  .mid2 {
+  .SettingsFilterPanel .mid2 {
     flex-wrap: wrap;
   }
 }
 
-.filter-container {
+.SettingsFilterPanel .filter-container {
   display: flex;
   flex-wrap: wrap;
   gap: var(--gap-base);
@@ -317,11 +316,11 @@
   position: relative;
 }
 
-.filter-dropdown {
+.SettingsFilterPanel .filter-dropdown {
   position: relative;
 }
 
-.filter-option {
+.SettingsFilterPanel .filter-option {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -334,72 +333,72 @@
   flex-wrap: nowrap;
 }
 
-.filter-option:hover {
+.SettingsFilterPanel .filter-option:hover {
   background-color: var(--beige-01);
 }
 
-.filter-option.active {
+.SettingsFilterPanel .filter-option.SettingsFilterPanel .active {
   background-color: var(--beige-02);
 }
 
-.filter-option-icon {
+.SettingsFilterPanel .filter-option-icon {
   width: 60px;
   height: auto;
   margin-bottom: var(--padding-3xs);
 }
 
-.price-slider {
+.SettingsFilterPanel .price-slider {
   width: 100%;
   padding: var(--padding-xs);
 }
-.noCursor{
+.SettingsFilterPanel .noCursor{
   cursor:default;
 }
-.spaceInbetween{
+.SettingsFilterPanel .spaceInbetween{
   margin-right: 5px;
   margin-left: 5px;
 }
-.price-slider input[type="range"] {
+.SettingsFilterPanel .price-slider input[type="range"] {
   width: 100%;
   margin-bottom: var(--padding-3xs);
 }
 
-.price-range {
+.SettingsFilterPanel .price-range {
   display: flex;
   justify-content: space-between;
 }
 
-.actions13 {
+.SettingsFilterPanel .actions13 {
   display: flex;
   gap: var(--gap-3xs);
 }
 
-.filter-option span {
+.SettingsFilterPanel .filter-option span {
   font-size: 14px;
   color: #6A665E;
   font-family: 'manrope', sans-serif;
 }
 
-.filter-option svg {
+.SettingsFilterPanel .filter-option svg {
   width: 40px;
   height: 40px;
 }
 
-.filter-option.active svg:first-child {
+.SettingsFilterPanel .filter-option.SettingsFilterPanel .active svg:first-child {
   width: 20px;
   height: 20px;
   margin-bottom: 10px;
 }
 
 /* FILTER INFO i */
-.filter-info {
+.SettingsFilterPanel .filter-info {
   position: relative;
   display: inline-block;
   margin-left: 5px;
   cursor: pointer;
 }
 
-.filter-info-popup {
+.SettingsFilterPanel .filter-info-popup {
   position: absolute;
   top: 100%;
   left: 50%;
@@ -408,12 +407,12 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.SettingsFilterPanel .1);
   z-index: 1;
   width: 300px;
 }
 
-.active__filter {
+.SettingsFilterPanel .active__filter {
   background-color: var(--accent);
   color: var(--white);
   padding: var(--gap-smi);
