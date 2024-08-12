@@ -36,7 +36,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
   };
   const fetchSettingDetails = async (settingId) => {
     try {
-      const res = await settingService.getSettingDetail(settingId,configAppData.dealerid); 
+      const res = await settingService.getSettingDetail(settingId,configAppData.dealerid,isLabGrown); 
       if(res) {
         setSettingDetail(res);  
         const images = [];        

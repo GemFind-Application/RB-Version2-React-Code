@@ -61,6 +61,7 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
   const fetchProductDetails = async (diamondId,isLabGrown) => {
     try {
       setShowLoading(true)
+     // console.log("====="+isLabGrown)
       const res = await diamondService.getDiamondDetail(diamondId,isLabGrown,configAppData.dealerid); 
       if(res) {
         setDiamondDetail(res);

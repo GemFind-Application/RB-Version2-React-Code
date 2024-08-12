@@ -35,7 +35,8 @@ const DiamondFilter = ({ className = "",
   selectedCaratRange,
   setClaritySelected,
   isInHouseOrVirtualOrAll,
-  setIsInHouseOrVirtualOrAll
+  setIsInHouseOrVirtualOrAll,
+  showFilterDetails
 }) => {
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -458,10 +459,12 @@ if(filter==='intensity'){
                   )}
                   
                 </div>
+               
               </div>
             )}
           </div>
         </div>
+        
         {/* Advanced filters for diamond */}
         <div className="advances1">
           <div className="adv2" onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}>

@@ -47,6 +47,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
   const [currentLabGrown,setCurrentLabGrown] = useState(isLabGrown);
   const [isClaritySelected,setIsClaritySelected] = useState(false);
   const [isInHouseOrVirtualOrAll,setIsInHouseOrVirtualOrAll] = useState('all');
+  const [showFilterDetails,setShowFilterDetails] = useState('');
   const location = useLocation(); 
   const [selectedFilters, setSelectedFilters] = useState({ shape:  [],
     carat:  [],
@@ -71,6 +72,8 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
       }
     }
     localStorage.removeItem('selectedDiamond');
+    setIsDiamondLoaded(false); 
+    setIsDiamondFilterLoaded(false)
     fetchDiamondNavigation();
   },[])
 
@@ -79,7 +82,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
         let storedData=[];
         let advanceFilterStoredData=[];  
         setShowLoading(true)        
-        setIsDiamondLoaded(false);        
+               
         if(isLabGrown===true){
           storedData = JSON.parse(localStorage.getItem('saveDiamondFiltersLab')); 
           advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFiltersLab')); 
@@ -91,13 +94,13 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
         advanceFilterStoredData =  JSON.parse(localStorage.getItem('saveAdvanceDiamondFiltersMined')); 
         }       
      
-        setIsDiamondFilterLoaded(false)
+       // setIsDiamondFilterLoaded(false)
         let selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));        
         //console.log(selectedRingSetting)
         let selectedRingShape = '';
         let selectedCaratRangeForSetting = [];
         if(selectedRingSetting){
-          const resSetting = await settingService.getSettingDetail(selectedRingSetting.settingId,configAppData.dealerid);          
+          const resSetting = await settingService.getSettingDetail(selectedRingSetting.settingId,configAppData.dealerid,isLab);          
           if(resSetting) {
             selectedRingShape = resSetting.centerStoneFit;
             setSelectedSettingShape(selectedRingShape);
@@ -186,7 +189,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
               polish:advancedFilters.polish.length>0 ?advancedFilters.polish.join(','):'',
               table:advancedFilters.table.length > 0 ? [advancedFilters.table[0],advancedFilters.table[1]]:[],
               depth:advancedFilters.depth.length > 0?[advancedFilters.depth[0],advancedFilters.depth[1]]:[],
-            }  
+            } 
             const res = await diamondService.getAllDiamond(option,configAppData.dealerid);
             if(res.diamondList ) {                
               setDiamond(res.diamondList);  
@@ -333,6 +336,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
        setClaritySelected={setIsClaritySelected}
        isInHouseOrVirtualOrAll={isInHouseOrVirtualOrAll}
        setIsInHouseOrVirtualOrAll={setIsInHouseOrVirtualOrAll}
+       showFilterDetails={showFilterDetails}
        />
        : (
         <SkeletonFilterPanel />
@@ -350,6 +354,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
             key={product.diamondId}
             addCompareDiamondIds={addCompareDiamondIds}
             compareDiamondsId={compareDiamondsId}
+            isLabGrown={isLabGrown}
             diamond={{
               ...product,
               videoURL: product.videoURL || null,
@@ -364,6 +369,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
           key={product.diamondId}
           additionOptionSetting={additionOptionSetting}
           compareDiamondsId={compareDiamondsId}
+          isLabGrown={isLabGrown}
           addCompareDiamondIds={addCompareDiamondIds}
           diamond={{
             ...product,

@@ -27,8 +27,8 @@ const Stats = ({
   openPrintRequest,
   diamondContent
 }) => {
-  console.log('here 1')
-  console.log(diamondContent)
+  //console.log('here 1')
+  //console.log(diamondContent)
   const componentRef = React.useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,

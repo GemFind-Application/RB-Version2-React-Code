@@ -9,7 +9,7 @@ import { diamondService } from "../Services";
 import { utils } from "../Helpers";
 
 import { useNavigate } from 'react-router-dom';
-const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData,additionOptionSetting,compareDiamondsId}) => {
+const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData,additionOptionSetting,compareDiamondsId,isLabGrown}) => {
 const [showVideoPopup, setShowVideoPopup] = useState(false);
 const [videoUrl, setVideoUrl] = useState('');
 const [isDiamondPresentInCompare, setIsDiamondPresentInCompare] = useState(false);
@@ -96,7 +96,7 @@ useEffect(() => {
         </div>
       </div>
       <div className="button29 btn__group">
-        <Link to={`/${diamondDetailUrl}/${utils.getDiamondViewUrl(diamond)}`} className="diamond_item--link">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>
+        <Link to={`/${diamondDetailUrl}/${utils.getDiamondViewUrl(diamond,isLabGrown)}`} className="diamond_item--link">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>
       </div>
       {(showVideoPopup && videoUrl!="")  && (
         <VideoModal src={videoUrl} onClose={() => setShowVideoPopup(false)} />

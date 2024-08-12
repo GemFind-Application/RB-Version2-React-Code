@@ -7,7 +7,7 @@ import VideoModal from "./VideoModal";
 import { diamondService } from "../Services";
 import { utils } from "../Helpers";
 import { useNavigate } from 'react-router-dom';
-const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareDiamondIds,compareDiamondsId,additionOptionSetting}) => {
+const DiamondListHeader1 = ({ className = "", diamond ,isLabGrown ,configAppData,addCompareDiamondIds,compareDiamondsId,additionOptionSetting}) => {
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
   const [error, setError] = useState('');
@@ -45,7 +45,7 @@ const DiamondListHeader1 = ({ className = "", diamond ,configAppData,addCompareD
   }; 
   const getdiamondDetail = (e)=>{
     const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
-    navigate("/"+ diamondDetailUrl+"/"+utils.getDiamondViewUrl(diamond))
+    navigate("/"+ diamondDetailUrl+"/"+utils.getDiamondViewUrl(diamond,isLabGrown))
   }
   return (
     <div className={`diamond-list-header ${className}`} onClick={getdiamondDetail}>
