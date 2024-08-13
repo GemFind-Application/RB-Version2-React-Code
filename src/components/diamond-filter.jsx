@@ -488,14 +488,7 @@ if(filter==='intensity'){
             <div className="filter--content_dropdown">
               <div className="flex-advanced-filter">
                 <div className="advanced-filter-group">
-                  <h4>Polish
-                    {configAppData.show_filter_info ==="true" &&
-                      <div className="shape-info1" style={{position:'relative'}}>
-                        <b className="filter--hover-icon" onClick={(e) => {
-                          e.stopPropagation();
-                          togglePopup('polish');
-                        }}>i</b>
-                      </div>}</h4>
+                  <h4>Polish</h4>
                   <div className="group-inner">
                     {filterData.polishRange.map(polish => (
                       <div className="dropdown-btns" key={polish.polishId}>
@@ -511,13 +504,7 @@ if(filter==='intensity'){
                 </div>
                 <div className="advanced--price-sliders">
                   <div className="advanced-filter-group">
-                    <h4>Depth</h4>{configAppData.show_filter_info ==="true" &&
-                      <div className="shape-info1" style={{position:'relative'}}>
-                        <b className="filter--hover-icon" onClick={(e) => {
-                          e.stopPropagation();
-                          togglePopup('depth');
-                        }}>i</b>
-                      </div>}
+                    <h4>Depth</h4>
                     <MultiRangeSlider
                         min={parseFloat(filterData.depthRange[0].minDepth)}
                         max={parseFloat(filterData.depthRange[0].maxDepth)}
@@ -529,13 +516,7 @@ if(filter==='intensity'){
                   </div>
 
                   <div className="advanced-filter-group">
-                    <h4>Table</h4>{configAppData.show_filter_info ==="true" &&
-                      <div className="shape-info1" style={{position:'relative'}}>
-                        <b className="filter--hover-icon" onClick={(e) => {
-                          e.stopPropagation();
-                          togglePopup('table');
-                        }}>i</b>
-                      </div>}
+                    <h4>Table</h4>
                     <MultiRangeSlider
                         min={parseFloat(filterData.tableRange[0].minTable)}
                         max={parseFloat(filterData.tableRange[0].maxTable)}
@@ -549,13 +530,7 @@ if(filter==='intensity'){
               </div>
               <div className="flex-advanced-filter">
                 <div className="advanced-filter-group">
-                  <h4>Fluorescence</h4>{configAppData.show_filter_info ==="true" &&
-                      <div className="shape-info1" style={{position:'relative'}}>
-                        <b className="filter--hover-icon" onClick={(e) => {
-                          e.stopPropagation();
-                          togglePopup('fluorescence');
-                        }}>i</b>
-                      </div>}
+                  <h4>Fluorescence</h4>
                   <div className="group-inner">
                     {filterData.fluorescenceRange.map(fluorescence => (
                       <div className="dropdown-btns" key={fluorescence.fluorescenceId}>
@@ -570,13 +545,7 @@ if(filter==='intensity'){
                   </div>
                 </div>
                 <div className="advanced-filter-group">
-                  <h4>Symmetry</h4>{configAppData.show_filter_info ==="true" &&
-                      <div className="shape-info1" style={{position:'relative'}}>
-                        <b className="filter--hover-icon" onClick={(e) => {
-                          e.stopPropagation();
-                          togglePopup('symmetry');
-                        }}>i</b>
-                      </div>}
+                  <h4>Symmetry</h4>
                   <div className="group-inner">
                     {filterData.symmetryRange.map(symmetry => (
                       <div className="dropdown-btns" key={symmetry.symmetryId}>
