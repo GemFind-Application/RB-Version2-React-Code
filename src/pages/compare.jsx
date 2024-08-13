@@ -44,7 +44,6 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
   }
   return (
     <div className="compare">
-      <Header />
       {isAllDiamondDetailsLoaded &&
       <main className="empty">
         <div className="bread-wrapper">

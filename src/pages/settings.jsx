@@ -9,7 +9,7 @@ import Header from '../components/Header';
 import PortalPopup from "../components/portal-popup";
 import "./settings.css";
 import { diamondService, settingService } from '../Services';
-import VideoModal from "../components/VideoModal";
+import VideoTryOn from "../components/VideoTryOn";
 import AlertPopUp from "../components/AlertPopUp";
 import { ConfigContext } from "../components/Context"
 import ShowError from "../components/ShowError"
@@ -102,7 +102,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
     console.log("here")
     console.log(stockNumber)
     let url = `https://cdn.camweara.com/gemfind/index_client.php?company_name=Gemfind&ringbuilder=1&skus=${stockNumber}&buynow=0`;
-    console.log(url)
+    //console.log
     setShowVirtualTryOn(true);
     setShowVirtualTryOnUrl(url)
   }
@@ -217,7 +217,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
 //console.log("===="+loading + isProductLoaded)
   return (
     <div className="settings">       
-      {/* <Header   /> */}
+     
       <Settingsbreadcrumb configAppData={configAppData}/>
       <div className="settingsfilter-wrapper" ref={scrollRef}>
         {filterData && isSettingFilterLoaded ? (
@@ -285,11 +285,11 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
       <PortalPopup
         overlayColor="rgba(0, 0, 0, 0.3)"
         onOutsideClick={() => {setShowVirtualTryOnUrl('') ; setShowVirtualTryOn(false)}}>
-       <VideoModal
+       <VideoTryOn
        src={showVirtualTryOnUrl}
        onClose={() => {setShowVirtualTryOnUrl('') ; setShowVirtualTryOn(false)}}>
  
-       </VideoModal></PortalPopup>
+       </VideoTryOn></PortalPopup>
        }
       {showAlertPopUp && message!="" &&      
        <AlertPopUp       

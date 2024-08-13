@@ -305,7 +305,6 @@ return null;*/
     <>
       <div className="diamond-page">
         <main className="main">
-          <Header/>
           <section className="product">
             <div className="product-details">
               <div className="product-info">

@@ -306,7 +306,6 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
  
   return (
     <div className="diamond">
-      <Header />
       <DiamondNavigation diamondNavigation={diamondNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown} configAppData={configAppData}/>
       {isDiamondFilterLoaded ? 
       isDiamondFilterLoaded &&
