@@ -29,6 +29,7 @@ import VideoModal from "../components/VideoModal";
 import { ConfigContext } from "../components/Context"
 import { utils } from "../Helpers";
 import ShowError from "../components/ShowError";
+import VideoTryOn from "../components/VideoTryOn";
 const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData,setIsLabGrown, setShowLoading}) => {
   const dealerIdShop = useContext(ConfigContext);
   const { settingId } = useParams();
@@ -309,7 +310,6 @@ if (error) {
   return (
     <>
       <div className="setting-page">
-        <Header />
         <main className="main1">
           <section className="bread-crumbs-container">
             <div className="bread-crumbs">
@@ -730,11 +730,11 @@ if (error) {
        <PortalPopup
        overlayColor="rgba(0, 0, 0, 0.3)"
        onOutsideClick={() => {setShowVirtualTryOnUrl('') ; setShowVirtualTryOn(false)}}>
-      <VideoModal
+      <VideoTryOn
       src={showVirtualTryOnUrl}
       onClose={() => {setShowVirtualTryOnUrl('') ; setShowVirtualTryOn(false)}}>
 
-      </VideoModal></PortalPopup>
+      </VideoTryOn></PortalPopup>
       }
       {isPrintInfoOpen &&
        <PortalPopup

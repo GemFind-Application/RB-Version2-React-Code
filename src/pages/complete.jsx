@@ -91,7 +91,6 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
   }
   return (
     <div className="complete">
-      <Header />
       <FrameComponent4 configAppData={configAppData}/>
       <div className="complete-inner">
         <div className="frame-parent">

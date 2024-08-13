@@ -4,7 +4,6 @@ import "../pages/compare.css";
 const ShowError = ({error})=>{
 
     return   <div> 
-    <Header   />
     <div className="empty">
     <div className="no--compare-container">
           <div className="main-container" >           

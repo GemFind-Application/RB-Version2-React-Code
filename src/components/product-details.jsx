@@ -14,11 +14,15 @@ import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
 import ShowTotalPrice from "./ShowTotalPrice";
 import { diamondService } from "../Services";
+import { utils } from "../Helpers";
+import VideoTryOn from "../components/VideoTryOn";
 import { useNavigate } from 'react-router-dom';
 const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ringSize,configAppData,formSetting,additionOptionSetting }) => {
   
   const [isSettingDetailsOpen, setSettingDetailsOpen] = useState(false);
   const [isDiamondDetailsOpen, setDiamondDetailsOpen] = useState(false);
+  const [showVirtualTryOn, setShowVirtualTryOn] = useState(false);
+  const [showVirtualTryOnUrl, setShowVirtualTryOnUrl] = useState('');
   const [isHintOpen, setHintOpen] = useState(false);
   const [isScheduleOpen, setScheduleOpen] = useState(false);
   const navigate = useNavigate();
@@ -147,7 +151,12 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
     setDiamondUrl(selectedDiamond.diamondUrl)
   }, []);
   
-
+  const showVirtualTryOnIframe = (stockNumber)=>{
+    //console.log("here")
+    let url = `https://cdn.camweara.com/gemfind/index_client.php?company_name=Gemfind&ringbuilder=1&skus=${stockNumber}&buynow=0`;
+    setShowVirtualTryOn(true);
+    setShowVirtualTryOnUrl(url)
+  }
 
   return (
     <>
@@ -314,9 +323,11 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
             </div>
             }
             {configAppData.display_tryon =="1" &&
-            <div className="button22">
-              <b className="virtual-try-on">Virtual try-on</b>
-            </div>}
+           
+               <button className="button22" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(settingDetail.styleNumber))}>                        
+                           <b>Virtual Try On</b>
+                        </button>
+            }
           </div>
           <Stats 
                 formSetting={formSetting}
@@ -349,6 +360,16 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
           onClose={closeDiamondDetails} />
         </PortalPopup>
       )}
+      {showVirtualTryOn && showVirtualTryOnUrl!="" &&
+       <PortalPopup
+       overlayColor="rgba(0, 0, 0, 0.3)"
+       onOutsideClick={() => {setShowVirtualTryOnUrl('') ; setShowVirtualTryOn(false)}}>
+      <VideoTryOn
+      src={showVirtualTryOnUrl}
+      onClose={() => {setShowVirtualTryOnUrl('') ; setShowVirtualTryOn(false)}}>
+
+      </VideoTryOn></PortalPopup>
+      }
       {isDropHintOpen && (
         <PortalPopup
           overlayColor="rgba(113, 113, 113, 0.3)"

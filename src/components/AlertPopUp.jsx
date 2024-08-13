@@ -25,8 +25,8 @@ export default function  AlertPopUp  ({onClose,message,title,onClick})  {
             </div>
           </div>
         </div>
-        :<div className="popup-overlay drop-hint-popup loaderpopup">
-          <div className="popup-content"><div><img src={imageUrl+'/diamond.gif'} className="loader"/></div></div></div>}
+        :<div className="popup-overlay drop-hint-popup loaderpopup" style={{overflow:'hidden'}}>
+          <div className="popup-content" style={{overflow:'hidden'}}><div><img src={imageUrl+'/diamond.gif'} className="loader"/></div></div></div>}
      </PortalPopup>
     )
   }
