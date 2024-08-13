@@ -24,7 +24,6 @@
   object-fit: contain;
 }
 .page-number-icons-wrapper {
-  width: 32px;
   border-radius: var(--br-5xs);
   border: 1px solid var(--beige-04);
   box-sizing: border-box;
@@ -50,7 +49,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--padding-6xs-5) var(--padding-xs);
+  padding: 5px 15px;
   color: var(--link);
 }
 
@@ -99,7 +98,6 @@
   position: relative;
 }
 .pages1 {
-  width: 225px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -114,7 +112,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: var(--padding-sm) var(--padding-101xl) var(--padding-base);
+  padding: var(--padding-sm) 50px var(--padding-base);
   gap: var(--gap-xl);
 }
 .gemfind-app-store5 {
@@ -142,6 +140,10 @@
   max-width: 1680px;
   width: 100%;
   margin: 0 auto;
+}
+
+.settings > div.pagination-panel {
+  padding: 0;
 }
 
 @media screen and (max-width: 1275px) {

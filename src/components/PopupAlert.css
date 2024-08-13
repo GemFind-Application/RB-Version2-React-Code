@@ -1,0 +1,78 @@
+.popupalert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popupalert .popup-content {
+    background-color: white;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    margin: 20px;
+  }
+  
+  .popupalert .popup-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--white);
+    background-color: var(--accent);
+    margin: 0;
+    padding: 4px;
+  }
+  
+  .popupalert .popup-close:hover {
+    color: #333;
+  }
+  
+  .popupalert .popup-body {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.56;
+  }
+  
+  .popupalert .popup-body p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  
+  .popupalert .popup-body .popup-Diamond-Table {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .popupalert .popup-body .popup-Diamond-Table ol {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .popupalert .popup-body .popup-Diamond-Table li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    flex: 1 1 15%;
+  }
+  
+  .popupalert .popup-body .popup-Dimond-Sketch img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }

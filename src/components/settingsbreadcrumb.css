@@ -47,7 +47,7 @@
 .create-your-own3 {
   align-self: stretch;
   position: relative;
-  font-size: var(--h1-size);
+  font-size: 40px;
   line-height: 110%;
   font-family: var(--h4);
   color: var(--black);
@@ -62,7 +62,7 @@
 }
 
 .h16 {
-  max-width: 568px;
+  max-width: 490px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -255,7 +255,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: var(--gap-5xl);
   max-width: 100%;
@@ -272,7 +272,7 @@
   justify-content: flex-start;
   padding: var(--padding-2xl) var(--padding-2xl) var(--padding-2xl);
   box-sizing: border-box;
-  gap: var(--gap-53xl);
+  gap: 30px;
   max-width: 100%;
 }
 

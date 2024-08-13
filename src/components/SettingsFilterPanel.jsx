@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Search, ChevronDown, BookmarkMinus, RotateCcw, X } from 'lucide-react';
 import './SettingsFilterPanel.css';
 import MultiRangeSlider from './MultiRangeSlider';
+import PopupAlert from './PopupAlert';
 import { debounce } from "lodash";
 const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive,selectedDiamondShape,filterType}) => (
   <>
@@ -49,8 +50,11 @@ const SettingsFilterPanel = ({
   const [searchQuery, setSearchQuery] = useState(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
   const [priceRange, setPriceRange] = useState(filterData.priceRange.length > 0 ?activeFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [activeFilters.price[0], activeFilters.price[1]]:[]);
   const [availableFilter, setAvailableFilter] = useState([]);   
-  const [activePopup, setActivePopup] = useState(null);
+  // const [activePopup, setActivePopup] = useState(null);
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
+
+  const [popupContent, setPopupContent] = useState(null);
+
   useEffect(() => {
    // setPriceRange(activeFilters.price || [0, 29678.00]);
     let filterAvailable = [];
@@ -104,72 +108,67 @@ const SettingsFilterPanel = ({
     [activeFilters],
   ); 
 
-  const togglePopup = (popup) => {
-    setActivePopup(activePopup === popup ? null : popup);
-  };
+  // const togglePopup = (popup) => {
+  //   setActivePopup(activePopup === popup ? null : popup);
+  // };
   const getPopupContent = (filterType) => { 
     console.log(filterType)
     const contents = {
-      shapes : '<p>A diamond’s shape is not the same as a diamond’s cut. The shape refers to the general outline of the stone, and not its light refractive qualities. Look for a shape that best suits the ring setting you have chosen, as well as the recipient’s preference and personality. Here are some of the more common shapes that '+window.location.origin+' offers:</p><div class="popup-Diamond-Table" style="height:160px;"><ol class="list-unstyled"><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/round.png" alt="round"></span><span>Round</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/asscher.png" alt="asscher"></span><span>Asscher</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/marquise.png" alt="marquise"></span><span>Marquise</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/oval.png" alt="oval"></span><span>Oval</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/cushion.png" alt="cushion"></span><span>Cushion</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/radiant.png" alt="radiant"></span><span>Radiant</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/pear-v2.png" alt="pear"></span><span>Pear</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/emerald.png" alt="emerald"></span><span>Emerald</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/heart.png" alt="heart_tn"></span><span>Heart</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/princess.png" alt="princess"></span><span>Princess</span></li></ol></div>',
-      price: "This refer to different type of Price to filter and select the appropriate ring as per your requirements. Look for best suit price of your chosen ring.",
-      metalType: "This refer to different type of Metal Type to filter and select the appropriate ring as per your requirements. Look for a metal type best suit of your chosen ring.",
+      shapes : '<p>A diamond’s shape is not the same as a diamond’s cut. The shape refers to the general outline of the stone, and not its light refractive qualities. Look for a shape that best suits the ring setting you have chosen, as well as the recipient’s preference and personality. Here are some of the more common shapes that '+window.location.origin+' offers:</p><div class="popup-Diamond-Table"><ol class="list-unstyled"><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/round.png" alt="round"></span><span>Round</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/asscher.png" alt="asscher"></span><span>Asscher</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/marquise.png" alt="marquise"></span><span>Marquise</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/oval.png" alt="oval"></span><span>Oval</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/cushion.png" alt="cushion"></span><span>Cushion</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/radiant.png" alt="radiant"></span><span>Radiant</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/pear-v2.png" alt="pear"></span><span>Pear</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/emerald.png" alt="emerald"></span><span>Emerald</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/heart.png" alt="heart_tn"></span><span>Heart</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/princess.png" alt="princess"></span><span>Princess</span></li></ol></div>',
+      price: "<p>This refer to different type of Price to filter and select the appropriate ring as per your requirements. Look for best suit price of your chosen ring.</p>",
+      metalType: "<p>This refer to different type of Metal Type to filter and select the appropriate ring as per your requirements. Look for a metal type best suit of your chosen ring.</p>",
       collections: "",
-      mined: "Formed over billions of years, natural diamonds are mined from the earth. Diamonds are the hardest mineral on earth, which makes them an ideal material for daily wear over a lifetime. Our natural diamonds are conflict-free and GIA certified.",
-      labgrown: "Lab-grown diamonds are created in a lab by replicating the high heat and high pressure environment that causes a natural diamond to form. They are compositionally identical to natural mined diamonds (hardness, density, light refraction, etc), and the two look exactly the same. A lab-grown diamond is an attractive alternative for those seeking a product with less environmental footprint.",
+      mined: "<p>Formed over billions of years, natural diamonds are mined from the earth. Diamonds are the hardest mineral on earth, which makes them an ideal material for daily wear over a lifetime. Our natural diamonds are conflict-free and GIA certified.</p>",
+      labgrown: "<p>Lab-grown diamonds are created in a lab by replicating the high heat and high pressure environment that causes a natural diamond to form. They are compositionally identical to natural mined diamonds (hardness, density, light refraction, etc), and the two look exactly the same. A lab-grown diamond is an attractive alternative for those seeking a product with less environmental footprint.</p>",
     };
     return contents[filterType] || "Information not available.";
+  };
+
+  // popup - use this for setting the content
+  const handleInfoClick = (filterType) => {
+    const content = getPopupContent(filterType);
+    setPopupContent(content);
+  };
+
+  const closePopup = () => {
+    setPopupContent(null);
   };
  
   return (
     <div className={`SettingsFilterPanel ${className}`}>
       <div className="settingsfilter-wrapper">
         <div className="mined-lab-wrapper">
-        {settingNavigation.navStandard && 
-          <div  className={`mined-settings ${!isLabGrown ? 'active' : ''}` } 
-              onClick={() => handleLabGrownToggle(false)}>
-            <div 
-              className={`mined2`}
-            >
-              {settingNavigation.navStandard}
+          {settingNavigation.navStandard && 
+            <div className={`mined-settings ${!isLabGrown ? 'active' : ''}`} 
+                onClick={() => handleLabGrownToggle(false)}>
+              <div className={`mined2`}>
+                {settingNavigation.navStandard}
+              </div>
+              {(configAppData.show_filter_info === "true") &&
+                <div className="empty-row">
+                  <b className="filter--hover-icon" onClick={(e) => {
+                    e.stopPropagation();
+                    handleInfoClick('mined');
+                  }}>i</b>
+                </div>
+              }
             </div>
-            {(configAppData.show_filter_info =="true") &&
-             <div className="empty-row">
-                    <b className="i10" onClick={(e) => {
-                      e.stopPropagation();
-                      togglePopup('mined');
-                    }}>i</b>
-                  </div>
-                  
-            }
-            {activePopup == 'mined' && (
-                  <div className="filter-popup">
-                 {getPopupContent('mined')}
-                  </div>
-                )}
-          </div>
-           }
-           {settingNavigation.navLabGrown && 
-          <div   className={`lab-settings ${isLabGrown ? 'active' : ''}`} 
-              onClick={() => handleLabGrownToggle(true)}                
-              >
-            <div 
-              className={`lab-growned2`} 
-            >
-             {settingNavigation.navLabGrown}
+          }
+          {settingNavigation.navLabGrown && 
+            <div className={`lab-settings ${isLabGrown ? 'active' : ''}`} 
+                onClick={() => handleLabGrownToggle(true)}>
+              <div className={`lab-growned2`}>
+                {settingNavigation.navLabGrown}
+              </div>
+              {(configAppData.show_filter_info === "true") &&
+                <div className="empty-row">
+                  <b className="filter--hover-icon" onClick={(e) => {
+                    e.stopPropagation();
+                    handleInfoClick('labgrown');
+                  }}>i</b>
+                </div>
+              }
             </div>
-            {(configAppData.show_filter_info =="true") &&
-            <div className="empty-row">
-            <b className="i10" onClick={(e) => {
-              e.stopPropagation();
-              togglePopup('labgrown');
-            }}>i</b>
-          </div>}
-          {activePopup == 'labgrown' && (
-            <div className="filter-popup">
-            {getPopupContent('mined')}
-            </div>
-          )}
-          </div>
           }
         </div>
       </div>
@@ -203,33 +202,29 @@ const SettingsFilterPanel = ({
                 <div className="filters-label">Filters:</div>
               </div>
               <div className="filter-container">
-                {availableFilter.map((filter) => (
-                  <div key={filter} className="filter-dropdown">
-                    <button
-                      className={`filter-button ${openFilter === filter ? 'active' : ''}`}
-                      onClick={() => toggleFilter(filter)}
-                    >
-                      <div className="filter-label">{filter.charAt(0).toUpperCase() + filter.slice(1)}</div>
-                      <ChevronDown size={16} />
-                      {activeFilters[filter].length  > 0  && (
-                        <div className="filter-count">{activeFilters[filter].length}</div>
-                      )}
-                    </button>
-                    {(configAppData.show_filter_info ==="true") && (filter === 'price' || filter === 'metalType'||filter==='shapes') &&
-                      <div className={filter === 'shape' ? "shape-info1" : filter === 'price' ? "empty-options" : "border--round"}>
-                        <b className="filter--hover-icon" onClick={(e) => {
-                          e.stopPropagation();
-                          togglePopup(filter);
-                        }}>i</b>
-                      </div>}
-                      {activePopup === filter && (
-                        <div className="filter-popup">
-                           <span dangerouslySetInnerHTML={{__html: getPopupContent(filter)}}></span>
-                        </div>
-                      )}
-                  </div>
-                ))}
-                {filterData.priceRange.length > 0 &&
+              {availableFilter.map((filter) => (
+                <div key={filter} className="filter-dropdown">
+                  <button
+                    className={`filter-button ${openFilter === filter ? 'active' : ''}`}
+                    onClick={() => toggleFilter(filter)}
+                  >
+                    <div className="filter-label">{filter.charAt(0).toUpperCase() + filter.slice(1)}</div>
+                    <ChevronDown size={16} />
+                    {activeFilters[filter].length > 0 && (
+                      <div className="filter-count">{activeFilters[filter].length}</div>
+                    )}
+                  </button>
+                  {(configAppData.show_filter_info === "true") && (filter === 'price' || filter === 'metalType' || filter === 'shapes') &&
+                    <div className={filter === 'shapes' ? "shape-info1" : filter === 'price' ? "empty-options" : "border--round"}>
+                      <b className="filter--hover-icon" onClick={(e) => {
+                        e.stopPropagation();
+                        handleInfoClick(filter);
+                      }}>i</b>
+                    </div>
+                  }
+                </div>
+              ))}
+              {filterData.priceRange.length > 0 &&
                 <div className="filter-dropdown">
                   <button
                     className={`filter-button ${openFilter === 'price' ? 'active' : ''}`}
@@ -238,21 +233,17 @@ const SettingsFilterPanel = ({
                     <div className="filter-label">Price</div>
                     <ChevronDown size={16} />
                   </button>
-                  {configAppData.show_filter_info ==="true" &&
-                      <div className={ "empty-options" }>
-                        <b className="filter--hover-icon" onClick={(e) => {
-                          e.stopPropagation();
-                          togglePopup('price');
-                        }}>i</b>
-                      </div>}
-                      {activePopup === 'price' && (
-                        <div className="filter-popup">
-                          {getPopupContent('price')}
-                        </div>
-                      )}
+                  {configAppData.show_filter_info === "true" &&
+                    <div className="empty-options">
+                      <b className="filter--hover-icon" onClick={(e) => {
+                        e.stopPropagation();
+                        handleInfoClick('price');
+                      }}>i</b>
+                    </div>
+                  }
                 </div>
-                }
-              </div>
+              }
+            </div>
               {filterData.priceRange.length > 0 &&
               <div className="actions13">
                 <button className="button30" onClick={saveFilters}>
@@ -286,6 +277,10 @@ const SettingsFilterPanel = ({
             </div>
           </div>
         </div>
+        <div className="filters-label searchView">{showFilterDetails}</div>
+      {popupContent && (
+        <PopupAlert content={popupContent} onClose={closePopup} />
+      )}
       </div>
       {openFilter && (
         <div className="filter-options-container">
