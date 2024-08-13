@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import Header from "../components/Header";
 import { Link, useNavigate, useParams,useLocation } from "react-router-dom";
 import DiamondNavigation from "../components/diamond-navigation";
@@ -49,6 +49,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
   const [isInHouseOrVirtualOrAll,setIsInHouseOrVirtualOrAll] = useState('all');
   const [showFilterDetails,setShowFilterDetails] = useState('');
   const location = useLocation(); 
+  const scrollRef = useRef(null)
   const [selectedFilters, setSelectedFilters] = useState({ shape:  [],
     carat:  [],
     cut: [],
@@ -194,9 +195,10 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
             if(res.diamondList ) {                
               setDiamond(res.diamondList);  
               setTotalProducts(res.count);        
-              setIsDiamondLoaded(true);
+             
               setShowLoading(false);
-            }              
+            }      
+            setIsDiamondLoaded(true);        
         } catch (err) {
             console.error("Error fetching diamond  data:", error);
             setError("Failed to fetch diamond  data. Please try again later.");    
@@ -209,7 +211,9 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
   }, [ currentPage, itemsPerPage, sortOrder, selectedFilters,advancedFilters,orderDirection,isInHouseOrVirtualOrAll]);
 
   const handlePageChange = (pageNumber) => {
+
     setCurrentPage(pageNumber);
+     scrollRef.current.scrollIntoView();
   };
 
   const handleItemsPerPageChange = (number) => {
@@ -306,7 +310,9 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
       <DiamondNavigation diamondNavigation={diamondNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown} configAppData={configAppData}/>
       {isDiamondFilterLoaded ? 
       isDiamondFilterLoaded &&
-      <DiamondFilter 
+      <div ref={scrollRef}><DiamondFilter 
+      
+      
        filterData={filterData}
        selectedFilters={selectedFilters}
        isGridView={isGridView}
@@ -337,13 +343,14 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
        isInHouseOrVirtualOrAll={isInHouseOrVirtualOrAll}
        setIsInHouseOrVirtualOrAll={setIsInHouseOrVirtualOrAll}
        showFilterDetails={showFilterDetails}
-       />
+       /></div>
        : (
         <SkeletonFilterPanel />
       )}
       
       { isDiamondLoaded ?(
       <>{
+        diamond.length===0 ? <div className='items'>No Diamond Found</div> :
       isGridView ?
       <div className="list2">
       {

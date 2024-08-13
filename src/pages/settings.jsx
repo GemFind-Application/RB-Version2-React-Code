@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useContext} from 'react';
+import React, { useState, useEffect ,useContext,useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Settingsbreadcrumb from "../components/Settingsbreadcrumb";
 import SettingsFilterPanel from "../components/SettingsFilterPanel";
@@ -48,7 +48,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
   const [showFilterDetails,setShowFilterDetails] = useState('');
   const [openFilter, setOpenFilter] = useState(null);
   let storedData = JSON.parse(localStorage.getItem('activeFilters')); 
-
+  const scrollRef = useRef(null)
   const [activeFilters, setActiveFilters] = useState({
     collections: storedData ? storedData.collections.length > 0 ? storedData.collections:[]:[],
     metalType: storedData ? storedData.metalType.length > 0 ?storedData.metalType:[]:[],
@@ -99,8 +99,10 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
     }
   };
   const showVirtualTryOnIframe = (stockNumber)=>{
-    //console.log("here")
+    console.log("here")
+    console.log(stockNumber)
     let url = `https://cdn.camweara.com/gemfind/index_client.php?company_name=Gemfind&ringbuilder=1&skus=${stockNumber}&buynow=0`;
+    console.log(url)
     setShowVirtualTryOn(true);
     setShowVirtualTryOnUrl(url)
   }
@@ -151,6 +153,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
   //setIsLabGrown
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+    scrollRef.current.scrollIntoView();
   };
 
   const handleItemsPerPageChange = (number) => {
@@ -211,12 +214,12 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
   if (error) {
     return <ShowError error={error}/>;
   }
-console.log("===="+loading + isProductLoaded)
+//console.log("===="+loading + isProductLoaded)
   return (
     <div className="settings">       
       <Header   />
       <Settingsbreadcrumb configAppData={configAppData}/>
-      <div className="settingsfilter-wrapper">
+      <div className="settingsfilter-wrapper" ref={scrollRef}>
         {filterData && isSettingFilterLoaded ? (
         
           <SettingsFilterPanel 
@@ -247,7 +250,7 @@ console.log("===="+loading + isProductLoaded)
           <SkeletonFilterPanel />
         )}
       </div>
-      <div className="setting-product-list">
+      <div className="setting-product-list" >
         {!loading && isProductLoaded ? (
            products.length===0 ? <div>No Settings Found</div> : 
            products.map(product => (

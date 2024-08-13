@@ -105,6 +105,13 @@ const PaginationPanel = ({
         </div>
         {totalItems>0&& 
         <div className="pages1">
+           <div 
+            className="page-number-icons-wrapper"
+            onClick={() => onPageChange(1)}
+          >
+            <img className="page-number-icons" alt="Previous" src={`${imageUrl}`+"/double-arrow-left.png"} />
+         
+          </div>
           <div 
             className="page-number-icons-wrapper"
             onClick={() => onPageChange(Math.max(1, currentPage - 1))}
@@ -117,6 +124,11 @@ const PaginationPanel = ({
             onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
           >
             <img className="instance-item" alt="Next" src={`${imageUrl}`+"/vector-2-12.svg" }/>
+          </div> <div 
+            className="page-number-icons-wrapper"
+            onClick={() => onPageChange(totalPages)}
+          >
+            <img className="page-number-icons" alt="Last" src={`${imageUrl}`+"/double-arrow-right.png"} />
           </div>
         </div>
         }

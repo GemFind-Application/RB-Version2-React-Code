@@ -529,7 +529,7 @@ return null;*/
         >
         <DropHintPopup
             diamondId={diamondDetail.diamondId}
-            diamondurl={shopUrl+location.pathname}
+            diamondurl={window.location.href}
             shopurl={shopUrl}
             configAppData={configAppData}
             diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
@@ -545,7 +545,7 @@ return null;*/
         >
          <ScheduleViewingPopup
             diamondId={diamondDetail.diamondId}
-            diamondurl={shopUrl+location.pathname}
+            diamondurl={window.location.href}
             shopurl={shopUrl}
             configAppData={configAppData}
             diamondDetail={diamondDetail}
@@ -566,7 +566,7 @@ return null;*/
           configAppData={configAppData}
           onClose={() => setIsRequestInfoOpen(false)}
           diamondId={diamondDetail.diamondId}
-          diamondurl={shopUrl+location.pathname}
+          diamondurl={window.location.href}
           shopurl={shopUrl}
           setShowLoading={setShowLoading}
           diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
@@ -584,7 +584,7 @@ return null;*/
           configAppData={configAppData}
           setShowLoading={setShowLoading}
           diamondId={diamondDetail.diamondId}
-          diamondurl={shopUrl+location.pathname}
+          diamondurl={window.location.href}
           shopurl={shopUrl}
           diamondtype={diamondDetail.isLabCreated===true?'labcreated':''}
           onClose={() => setIsEmailAFriendOpen(false)} />

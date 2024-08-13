@@ -50,7 +50,7 @@ const SettingsFilterPanel = ({
   const [priceRange, setPriceRange] = useState(filterData.priceRange.length > 0 ?activeFilters.price.length===0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]: [activeFilters.price[0], activeFilters.price[1]]:[]);
   const [availableFilter, setAvailableFilter] = useState([]);   
   const [activePopup, setActivePopup] = useState(null);
-  
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   useEffect(() => {
    // setPriceRange(activeFilters.price || [0, 29678.00]);
     let filterAvailable = [];
@@ -108,8 +108,9 @@ const SettingsFilterPanel = ({
     setActivePopup(activePopup === popup ? null : popup);
   };
   const getPopupContent = (filterType) => { 
+    console.log(filterType)
     const contents = {
-      shapes: "",
+      shapes : '<p>A diamond’s shape is not the same as a diamond’s cut. The shape refers to the general outline of the stone, and not its light refractive qualities. Look for a shape that best suits the ring setting you have chosen, as well as the recipient’s preference and personality. Here are some of the more common shapes that '+window.location.origin+' offers:</p><div class="popup-Diamond-Table" style="height:160px;"><ol class="list-unstyled"><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/round.png" alt="round"></span><span>Round</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/asscher.png" alt="asscher"></span><span>Asscher</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/marquise.png" alt="marquise"></span><span>Marquise</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/oval.png" alt="oval"></span><span>Oval</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/cushion.png" alt="cushion"></span><span>Cushion</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/radiant.png" alt="radiant"></span><span>Radiant</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/pear-v2.png" alt="pear"></span><span>Pear</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/emerald.png" alt="emerald"></span><span>Emerald</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/heart.png" alt="heart_tn"></span><span>Heart</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/princess.png" alt="princess"></span><span>Princess</span></li></ol></div>',
       price: "This refer to different type of Price to filter and select the appropriate ring as per your requirements. Look for best suit price of your chosen ring.",
       metalType: "This refer to different type of Metal Type to filter and select the appropriate ring as per your requirements. Look for a metal type best suit of your chosen ring.",
       collections: "",
@@ -214,7 +215,7 @@ const SettingsFilterPanel = ({
                         <div className="filter-count">{activeFilters[filter].length}</div>
                       )}
                     </button>
-                    {(configAppData.show_filter_info ==="true") && (filter === 'price' || filter === 'metalType') &&
+                    {(configAppData.show_filter_info ==="true") && (filter === 'price' || filter === 'metalType'||filter==='shapes') &&
                       <div className={filter === 'shape' ? "shape-info1" : filter === 'price' ? "empty-options" : "border--round"}>
                         <b className="filter--hover-icon" onClick={(e) => {
                           e.stopPropagation();
@@ -223,7 +224,7 @@ const SettingsFilterPanel = ({
                       </div>}
                       {activePopup === filter && (
                         <div className="filter-popup">
-                          {getPopupContent(filter)}
+                           <span dangerouslySetInnerHTML={{__html: getPopupContent(filter)}}></span>
                         </div>
                       )}
                   </div>

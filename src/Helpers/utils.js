@@ -20,7 +20,7 @@ function getUrl(metalType,name,settingId,page=""){
 function truncateString  (string)  {
   let truncatedString=string;
   if (string.length > 20) {
-    truncatedString = `${string.slice(0, 20)} ...`;
+    //truncatedString = `${string.slice(0, 20)} ...`;
     return truncatedString
   } else {
     

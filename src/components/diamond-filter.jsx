@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
+import PropTypes, { array } from "prop-types";
 import { Search, ChevronDown, BookmarkMinus, RotateCcw, X } from 'lucide-react';
 import MultiRangeSlider from "./MultiRangeSlider";
-import { debounce } from "lodash";
+import { debounce, split } from "lodash";
 import "./frame-component2.css";
 import { utils } from "../Helpers";
 const DiamondFilter = ({ className = "",
@@ -50,7 +50,7 @@ const DiamondFilter = ({ className = "",
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const [availableFilter, setAvailableFilter] = useState(['shape', 'price', 'carat', 'cut', 'colour', 'clarity']);
   const [searchQuery, setSearchQuery] = useState(selectedFilters.search ? selectedFilters.search != "" ? selectedFilters.search : '' : '');
- 
+ //console.log(advancedFilters)
   useEffect(() => {
     if(filterData.diamondColorRange){
       setAvailableFilter(['shape', 'price', 'carat', 'diamondColorRange','intensity' ,'clarity'])
@@ -77,7 +77,7 @@ const DiamondFilter = ({ className = "",
   const togglePopup = (popup) => {
     setActivePopup(activePopup === popup ? null : popup);
   };
-
+console.log(activePopup)
   const handlePriceChange = ({ min, max }) => {
     setPriceRange([min, max]);
     // setPriceRange(newRange);
@@ -172,18 +172,21 @@ const DiamondFilter = ({ className = "",
   };
   // POpup content of filters
   const getPopupContent = (filterType) => {
+    console.log(filterType)
     const contents = {
-      shape: "Diamond shapes affect brilliance and price. Popular shapes include round, princess, and oval.",
-      price: "Price is influenced by the 4Cs: Cut, Clarity, Color, and Carat weight.",
-      carat: "Carat is a measure of a diamond's weight. 1 carat equals 0.2 grams.",
-      cut: "Cut determines how well a diamond interacts with light, affecting its sparkle.",
-      colour: "Diamond color is graded from D (colorless) to Z (light yellow or brown).",
-      clarity: "Clarity refers to the absence of inclusions and blemishes in a diamond.",
-      polish: "Polish refers to the smoothness of the diamond's surface.",
-      depth: "Depth percentage is the height of a diamond from the culet to the table, divided by its average girdle diameter.",
-      table: "Table percentage is the width of the diamond's table expressed as a percentage of its average diameter.",
-      fluorescence: "Fluorescence is the visible light some diamonds emit when exposed to UV rays.",
-      symmetry: "Symmetry refers to the alignment and proportion of a diamond's facets.",
+      intensity:'The main color, and if there is a secondary color, together define the color tone, however the strength of color is defined by the intensity level. The intensity level can be anywhere from a very soft shade to a very strong shade, and the stronger the shade the more valuable the diamond.',
+      shape : '<p>A diamond’s shape is not the same as a diamond’s cut. The shape refers to the general outline of the stone, and not its light refractive qualities. Look for a shape that best suits the ring setting you have chosen, as well as the recipient’s preference and personality. Here are some of the more common shapes that '+window.location.origin+' offers:</p><div class="popup-Diamond-Table" style="height:160px;"><ol class="list-unstyled"><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/round.png" alt="round"></span><span>Round</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/asscher.png" alt="asscher"></span><span>Asscher</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/marquise.png" alt="marquise"></span><span>Marquise</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/oval.png" alt="oval"></span><span>Oval</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/cushion.png" alt="cushion"></span><span>Cushion</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/radiant.png" alt="radiant"></span><span>Radiant</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/pear-v2.png" alt="pear"></span><span>Pear</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/emerald.png" alt="emerald"></span><span>Emerald</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/heart.png" alt="heart_tn"></span><span>Heart</span></li><li><span class="popup-Dimond-Sketch"><img src="'+imageUrl+'/princess.png" alt="princess"></span><span>Princess</span></li></ol></div>',
+      price: "This refer to different type of Price to filter and select the appropriate ring as per your requirements. Look for a best suit Price of your chosen ring.",
+      colour: '<p>The color scale measures the degree of colorlessness in a diamond. D is the highest and most  colorless grade, but also the most expensive. To get the most value for your budget, look for an eye colorless stone. For most diamonds, this is in the F-H range.</p><img src="'+imageUrl+'/color.jpg" alt="Color">',
+      carat: '<p>Carat is a unit of measurement to determine a diamond’s weight. Typically, a higher carat weight means a larger looking diamond, but that is not always the case. Look for the mm measurements of the diamond to determine its visible size.</p><img src="'+imageUrl+'/carat.jpg" alt="Carat">',
+      cut: '<p>Not to be confused with shape, a diamond’s cut rating tells you how well its proportions interact with light. By evaluating the angles and proportions of the diamond, the cut grade is designed to tell you how sparkly and brilliant your stone is. Cut grading is usually not available for fancy shapes (any shape that is not round), because the mathematical formula that determines light return becomes less reliable when different length to width ratios are factored in.</p>',
+      diamondColorRange: '<p>The color scale measures the degree of colorlessness in a diamond. D is the highest and most  colorless grade, but also the most expensive. To get the most value for your budget, look for an eye colorless stone. For most diamonds, this is in the F-H range.</p><img src="'+imageUrl+'/color.jpg" alt="Color">',
+      clarity: "<p>A diamond’s clarity refers to the tiny traces of natural elements that are trapped inside the stone. 99% of diamonds contain inclusions or flaws. You do not need a flawless diamond - they are very rare and expensive - but you want to look for one that is perfect to the naked eye. Depending on the shape of the diamond, the sweet spot for clarity is usually between VVS2 to SI1.</p>",
+      polish: "<p>Polish describes how smooth the surface of a diamond is. Aim for an Excellent or Very Good polish rating.</p>",
+      depth: "<p>Depth percentage is the height of the diamond measured from the culet to the table, divided by the width of the diamond. The lower the depth %, the larger the diamond will appear (given the same weight), but if this number is too low then the brilliance of the diamond will be sacrificed. The depth percentage is one of the elements that determines the Cut grading.  </p>",
+      table: "<p>Table percentage is the width of a diamond’s largest facet (the table) divided by its overall width. It tells you how big the “face” of a diamond is.</p>",
+      fluorescence: "<p>Fluorescence tells you how a diamond responds to ultraviolet light - does it glow under a black light? Diamonds with no fluorescence are generally priced higher on the market, but it is rare for fluorescence to have any visual impact on the diamond; some fluorescence can even enhance the look of the stone.  '+shopname+' recommends searching for diamonds with none to medium fluorescence, and keeping open the option of strong fluorescence for additional value.</p>",
+      symmetry: "<p>Symmetry describes how symmetrical the diamond is cut all the way around, which is a contributing factor to a diamond’s sparkle and brilliance. Aim for an Excellent or Very Good symmetry rating for round brilliant shapes, and Excellent to Good for fancy shapes.</p>",
       certificates: "Diamond certificates are reports created by professional gemologists that verify a diamond's characteristics.",
     };
     return contents[filterType] || "Information not available.";
@@ -328,8 +331,8 @@ if(filter==='intensity'){
                         }}>i</b>
                       </div>}
                       {activePopup === filter && (
-                        <div className="filter-popup">
-                          {getPopupContent(filter)}
+                        <div className="filter-popup" >
+                          <span dangerouslySetInnerHTML={{__html: getPopupContent(filter)}}></span>
                         </div>
                       )}
                     </div>
@@ -379,7 +382,9 @@ if(filter==='intensity'){
                 </div>
               </div>
             </div>
-            {activeDropdown && (
+            {activeDropdown && (<>
+            {(activeDropdown === 'cut'||activeDropdown === 'colour'||activeDropdown === 'clarity')&&
+              <div>From - to</div>}
               <div className="filter-options-container">
                 <div className="dropdown-content">
                   {activeDropdown === 'sort' && (
@@ -389,14 +394,15 @@ if(filter==='intensity'){
                       </div>
                     ))
                   )}
+                  
                   {activeDropdown === 'shape' && (
                     filterData.shapes.map(shape => (
-                      <div className="dropdown-btns" key={shape.shapeName}>
+                      <div  key={shape.shapeName}><img src={shape.shapeImage}></img>
                         {selectedSettingShape!="" ?
                           
-                          <button className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} >{shape.shapeName}</button>
+                          <p className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} >{shape.shapeName}</p>
                         :
-                        <button className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('shape', shape.shapeName)}>{shape.shapeName}</button>
+                        <p className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('shape', shape.shapeName)}>{shape.shapeName}</p>
                         }
                         </div>
                     ))
@@ -423,11 +429,13 @@ if(filter==='intensity'){
                     </div>
                   )}
                   {(activeDropdown === 'cut' && filterData.cutRange && filterData.cutRange.length > 0) && (
-                    filterData.cutRange.map(cut => (
+                    <>
+                    {filterData.cutRange.map(cut => (
                       <div className="dropdown-btns" key={cut.cutId}>
                         <button className={`option--btn ${selectedFilters.cut.includes(cut.cutId) ? 'active--item' : ''}`} onClick={() => handleFilterChange('cut', cut.cutId)}>{cut.cutName}</button>
                       </div>
-                    ))
+                    ))}
+                    </>
                   )}
                   {(activeDropdown === 'colour' &&  filterData.colorRange && filterData.colorRange.length > 0)  && (
                     filterData.colorRange.map(colour => (
@@ -460,7 +468,7 @@ if(filter==='intensity'){
                   
                 </div>
                
-              </div>
+              </div></>
             )}
           </div>
         </div>
@@ -479,7 +487,14 @@ if(filter==='intensity'){
             <div className="filter--content_dropdown">
               <div className="flex-advanced-filter">
                 <div className="advanced-filter-group">
-                  <h4>Polish</h4>
+                  <h4>Polish
+                    {configAppData.show_filter_info ==="true" &&
+                      <div className="shape-info1" style={{position:'relative'}}>
+                        <b className="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          togglePopup('polish');
+                        }}>i</b>
+                      </div>}</h4>
                   <div className="group-inner">
                     {filterData.polishRange.map(polish => (
                       <div className="dropdown-btns" key={polish.polishId}>
@@ -495,7 +510,13 @@ if(filter==='intensity'){
                 </div>
                 <div className="advanced--price-sliders">
                   <div className="advanced-filter-group">
-                    <h4>Depth</h4>
+                    <h4>Depth</h4>{configAppData.show_filter_info ==="true" &&
+                      <div className="shape-info1" style={{position:'relative'}}>
+                        <b className="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          togglePopup('depth');
+                        }}>i</b>
+                      </div>}
                     <MultiRangeSlider
                         min={parseFloat(filterData.depthRange[0].minDepth)}
                         max={parseFloat(filterData.depthRange[0].maxDepth)}
@@ -507,7 +528,13 @@ if(filter==='intensity'){
                   </div>
 
                   <div className="advanced-filter-group">
-                    <h4>Table</h4>
+                    <h4>Table</h4>{configAppData.show_filter_info ==="true" &&
+                      <div className="shape-info1" style={{position:'relative'}}>
+                        <b className="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          togglePopup('table');
+                        }}>i</b>
+                      </div>}
                     <MultiRangeSlider
                         min={parseFloat(filterData.tableRange[0].minTable)}
                         max={parseFloat(filterData.tableRange[0].maxTable)}
@@ -521,7 +548,13 @@ if(filter==='intensity'){
               </div>
               <div className="flex-advanced-filter">
                 <div className="advanced-filter-group">
-                  <h4>Fluorescence</h4>
+                  <h4>Fluorescence</h4>{configAppData.show_filter_info ==="true" &&
+                      <div className="shape-info1" style={{position:'relative'}}>
+                        <b className="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          togglePopup('fluorescence');
+                        }}>i</b>
+                      </div>}
                   <div className="group-inner">
                     {filterData.fluorescenceRange.map(fluorescence => (
                       <div className="dropdown-btns" key={fluorescence.fluorescenceId}>
@@ -536,7 +569,13 @@ if(filter==='intensity'){
                   </div>
                 </div>
                 <div className="advanced-filter-group">
-                  <h4>Symmetry</h4>
+                  <h4>Symmetry</h4>{configAppData.show_filter_info ==="true" &&
+                      <div className="shape-info1" style={{position:'relative'}}>
+                        <b className="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          togglePopup('symmetry');
+                        }}>i</b>
+                      </div>}
                   <div className="group-inner">
                     {filterData.symmetryRange.map(symmetry => (
                       <div className="dropdown-btns" key={symmetry.symmetryId}>
@@ -574,7 +613,12 @@ if(filter==='intensity'){
                 </div>
               </div>
             </div>
-            
+            {(activePopup === 'polish' ||  activePopup === 'depth' || activePopup === 'table'||activePopup === 'symmetry' ||activePopup === 'fluorescence' )&& (
+                        <div className="filter-popup" >
+                          <span dangerouslySetInnerHTML={{__html: getPopupContent(activePopup)}}></span>
+                        </div>
+            )}
+        
           </div>
         )}
       </div>

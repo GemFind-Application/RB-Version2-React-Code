@@ -132,7 +132,8 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'PolishId='+option.polish;    
   }
-  if(option.certificates && option.certificates!==undefined &&  option.certificates!=""&&option.isLabGrown===true){
+  console.log(option)
+  if(option.certificates && option.certificates!==undefined &&  option.certificates!=""){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'Certificate='+option.certificates;    
   }

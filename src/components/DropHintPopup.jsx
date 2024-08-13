@@ -15,6 +15,7 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diam
   shopurl: shopurl,
   
 }
+console.log("ringurl=="+ringurl)
 if(settingId&&settingId!==""){
     formDataValue.settingid = settingId;
     formDataValue.ringurl=ringurl;

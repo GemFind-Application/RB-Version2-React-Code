@@ -72,6 +72,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   const settingUrl = `${import.meta.env.VITE_SETTINGS_DETAIL_PAGE}`;
   const [error, setError] = useState(null); 
   //console.log(shopUrl+location.pathname)
+  //console.log(window.location)
   //const [selectedRingSize,setSelectedRingSize]= useState('');
   useEffect(() => {
    
@@ -668,7 +669,7 @@ if (error) {
         >
           <DropHintPopup
             settingId={product.settingId}
-            ringurl={shopUrl + location.pathname}
+            ringurl={window.location.href}
             shopurl={shopUrl}
             isLabSetting={product.isLabSetting}
             configAppData={configAppData}
@@ -685,7 +686,7 @@ if (error) {
             settingId={product.settingId}
             SettingDetails={product}
             configAppData={configAppData}
-            ringurl={shopUrl+location.pathname}
+            ringurl={window.location.href}
             shopurl={shopUrl}
             isLabSetting={product.isLabSetting}
             onClose={() => setIsScheduleViewingOpen(false)}
@@ -703,7 +704,7 @@ if (error) {
           onClose={() => setIsRequestInfoOpen(false)}
           settingId={product.settingId}
           configAppData={configAppData}
-          ringurl={shopUrl+location.pathname}
+          ringurl={window.location.href}
           shopurl={shopUrl}
           isLabSetting={product.isLabSetting}
           setShowLoading={setShowLoading}
@@ -718,7 +719,7 @@ if (error) {
           <EmailFriendPopup 
           configAppData={configAppData}
           settingId={product.settingId}
-          ringurl={shopUrl+location.pathname}
+          ringurl={window.location.href}
           shopurl={shopUrl}
           isLabSetting={product.isLabSetting}
           onClose={() => setIsEmailAFriendOpen(false)} 
