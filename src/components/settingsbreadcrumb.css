@@ -229,6 +229,7 @@
   padding: 13px 30px;
   color: var(--grey);
   cursor: pointer;
+  position: relative;
 }
 
 .mined-lab-wrapper {

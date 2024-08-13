@@ -217,7 +217,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
 //console.log("===="+loading + isProductLoaded)
   return (
     <div className="settings">       
-      <Header   />
+      {/* <Header   /> */}
       <Settingsbreadcrumb configAppData={configAppData}/>
       <div className="settingsfilter-wrapper" ref={scrollRef}>
         {filterData && isSettingFilterLoaded ? (
