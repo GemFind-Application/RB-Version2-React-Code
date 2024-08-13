@@ -96,6 +96,7 @@
   color: var(--black);
   font-family: var(--font-inter);
 }
+.filter-popup::before {height: 0;width: 0;}
 .price18 {
   flex: 0.7921;
   border-radius: var(--br-21xl);
@@ -111,6 +112,10 @@
   min-width: 85px;
   min-height: 40px;
   color: var(--white);
+}
+.empty-row b {
+  z-index: 99;
+  cursor: pointer;
 }
 .lab-growned1 {
   position: relative;
@@ -154,7 +159,8 @@
   min-height: 40px;
 }
 .type1 {
-  width: 420px;
+  max-width: 420px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -165,6 +171,7 @@
   font-size: var(--body-14-reg-size);
   color: var(--grey);
   font-family: var(--body-14-reg);
+  position: relative;
 }
 .frame-parent8 {
   display: flex;
