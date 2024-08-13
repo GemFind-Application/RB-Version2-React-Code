@@ -28,7 +28,7 @@
   border-radius: var(--br-base);
 }
 .step-items {
-  flex: 1;
+  flex: 0 0  auto;
   border-radius: var(--br-base);
   background-color: var(--beige-00);
   border: 1px dashed var(--beige-04);
@@ -39,7 +39,6 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--padding-3xl) var(--padding-5xl);
-  min-width: 236px;
   gap: var(--gap-xl);
   cursor: pointer;
   text-align: left;

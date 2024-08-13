@@ -50,7 +50,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--gap-3xs);
   font-size: var(--body-14-reg-size);
   color: var(--grey);
   font-family: var(--body-14-reg);
@@ -263,10 +262,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--padding-xl);
+  padding: 0;
   width: 100%;
   position: relative;
-  margin-top: 25px;
+  margin-top: 10px;
 }
 
 .filter-options-fullwidth {
@@ -277,6 +276,13 @@
   width: 100%;
 }
 
+.diamond .no-appearance {
+  margin: 0;
+  padding: 0;
+}
+.diamond .settings-sort {
+  gap: 0;
+}
 
 @media screen and (max-width: 1275px) {
   .settings-founded {

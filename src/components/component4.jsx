@@ -11,7 +11,7 @@ const Component4 = ({ className = "" }) => {
   }, [navigate]);
 
   return (
-    <div className={`div93 ${className}`} onClick={onContainerClick}>
+    <div className={`div93 headergroup-nav ${className}`} onClick={onContainerClick}>
       <div className="inner1">
         <div className="step-1-group">
           <b className="step-11">Step 1</b>

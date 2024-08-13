@@ -44,8 +44,9 @@
   position: relative;
   display: inline-block;
   /* font-size: 20px; */
-   font-size: 14px; 
+  font-size: 17px; 
   margin: 0;
+  letter-spacing: 0;
 }
 
 .video-icon3 {
@@ -85,7 +86,7 @@
   align-self: stretch;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   gap: var(--gap-8xs);
   font-size: var(--h3-size);

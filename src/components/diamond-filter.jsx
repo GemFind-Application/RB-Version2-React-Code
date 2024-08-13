@@ -286,13 +286,14 @@ if(filter==='intensity'){
                   {availableFilter.map((filter) => (
                     <div key={filter} className="filter--val" onClick={() => toggleDropdown(filter)}>
                       <div className={filter === 'shape' ? "shape-option" : ""}>
+                        <div className={filter === 'shape' ? "shape5 diamondfilterShape" : filter === 'price' ? "price23 diamondfilterShape" : filter === 'carat diamondfilterShape' ? "carat4 diamondfilterShape" : filter === 'cut' ? "cut10 diamondfilterShape" : filter === 'colour' ? "filters7 diamondfilterShape" : "clarity10 diamondfilterShape" }>
                         {<img onClick={()=>resetThisFilter(filter)}className="icon--close" alt="" src={`${imageUrl}`+"/vector2.svg"} />}
-                        <div className={filter === 'shape' ? "shape5" : filter === 'price' ? "price23" : filter === 'carat' ? "carat4" : filter === 'cut' ? "cut10" : filter === 'colour' ? "filters7" : "clarity10"}>
-                          
-                          {filter!=='diamondColorRange'?filter.charAt(0).toUpperCase() + filter.slice(1):'color'.charAt(0).toUpperCase() + 'color'.slice(1)}
+                          <span>{filter!=='diamondColorRange'?filter.charAt(0).toUpperCase() + filter.slice(1):'color'.charAt(0).toUpperCase() + 'color'.slice(1)}</span>
+                          <img className="show-inner" alt="" src={`${imageUrl}`+"/vector-21.svg"} />
                         </div>
+                        
                       </div>
-                      <img className="show-inner" alt="" src={`${imageUrl}`+"/vector-21.svg"} />
+                      
                       {filter === 'shape' && (
                         <div className="shape-placeholder">
                           <b className="placeholder1">{selectedFilters.shape.length}</b>

@@ -14,11 +14,10 @@
 }
 
 .SettingsFilterPanel .list-header {
-  width: 1680px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
   gap: var(--gap-9xl);
   max-width: 100%;
 }

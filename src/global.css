@@ -347,6 +347,19 @@ select.select--outline option {
   text-decoration: none;
 }
 
+body .headergroup-nav {
+  flex: 0 0 auto;
+}
+
+.mined-lab-wrapper:empty,
+.settingsfilter-wrapper:empty {
+  display: none;
+}
+
+body .settingsfilter-wrapper {
+  padding-bottom: 10px;
+}
+
 
 /* Responsive utilities */
 @media (max-width: 640px) {

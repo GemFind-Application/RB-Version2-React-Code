@@ -4,7 +4,7 @@ import "./component1.css";
 const Component1 = ({ className = "", onContainerClick1 }) => {
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
-    <div className={`div96 ${className}`} onClick={onContainerClick1}>
+    <div className={`div96 headergroup-nav ${className}`} onClick={onContainerClick1}>
       <div className="inner3">
         <div className="step-3-group">
           <b className="step-31">Step 3</b>
