@@ -120,7 +120,7 @@
   width: 52px;
   position: relative;
   border-radius: var(--br-base);
-  background-color: var(--accent);
+  /*background-color: var(--accent);*/
   border: 1px solid var(--beige-03);
   box-sizing: border-box;
   overflow: hidden;
@@ -131,7 +131,7 @@
   flex: 0 0  auto;
   border-radius: var(--br-base);
   background-color: var(--beige-01);
-  border: 1px solid var(--beige-05);
+  border: 1px solid var(--border-color);
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
@@ -210,7 +210,7 @@
 
 .mined-settings.active,
 .lab-settings.active {
-  background-color: var(--accent);
+  background-color: var(--menus-background);
   color: var(--white);
 } 
 

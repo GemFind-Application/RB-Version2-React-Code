@@ -71,7 +71,7 @@
 }
 
 .drop-hint-popup button {
-  background-color: #a67f78;
+  background-color: var(--accent);
   color: white;
   border: none;
   border-radius: 40px;

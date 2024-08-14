@@ -5,6 +5,7 @@ import { Search, ChevronDown, BookmarkMinus, RotateCcw, X } from 'lucide-react';
 import MultiRangeSlider from "./MultiRangeSlider";
 import { debounce, split } from "lodash";
 import "./frame-component2.css";
+import PopupAlert from './PopupAlert';
 import { utils } from "../Helpers";
 const DiamondFilter = ({ className = "",
   onItemsPerPageChange,
@@ -48,6 +49,7 @@ const DiamondFilter = ({ className = "",
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
   const [sortBy, setSortBy] = useState("Clarity"); 
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
+  const [popupContent, setPopupContent] = useState(null);
   const [availableFilter, setAvailableFilter] = useState(['shape', 'price', 'carat', 'cut', 'colour', 'clarity']);
   const [searchQuery, setSearchQuery] = useState(selectedFilters.search ? selectedFilters.search != "" ? selectedFilters.search : '' : '');
  //console.log(advancedFilters)
@@ -131,7 +133,14 @@ console.log(activePopup)
     debounce(handleSetDepthRange, 500),
     [advancedFilters],
   );
-
+ // popup - use this for setting the content
+ const handleInfoClick = (filterType) => {
+  const content = getPopupContent(filterType);
+  setPopupContent(content);
+};
+const closePopup = () => {
+  setPopupContent(null);
+};
   const handleFilterChange = (filterType, value) => {
     if(filterType==='clarity'){
       setClaritySelected(true)
@@ -329,13 +338,10 @@ if(filter==='intensity'){
                         <b className="filter--hover-icon" onClick={(e) => {
                           e.stopPropagation();
                           togglePopup(filter);
+                          handleInfoClick(filter)
                         }}>i</b>
                       </div>}
-                      {activePopup === filter && (
-                        <div className="filter-popup" >
-                          <span dangerouslySetInnerHTML={{__html: getPopupContent(filter)}}></span>
-                        </div>
-                      )}
+                     
                     </div>
                   ))}
                   <div className="filter--reset">
@@ -350,7 +356,7 @@ if(filter==='intensity'){
                       </div>
                       <div className="reset--filter" onClick={confirmReset}>
                         <button className="reset--diamond_filter">
-                          <img className="vector-icon26" alt="" src={`${imageUrl}`+"/vector-5.svg"} />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
                         </button>
                       </div>
                     </div>
@@ -383,6 +389,9 @@ if(filter==='intensity'){
                 </div>
               </div>
             </div>
+            {popupContent && (
+        <PopupAlert content={popupContent} onClose={closePopup} />
+      )}
             {activeDropdown && (<>
             {(activeDropdown === 'cut'||activeDropdown === 'colour'||activeDropdown === 'clarity')&&
               <div>From - to</div>}
@@ -583,11 +592,7 @@ if(filter==='intensity'){
                 </div>
               </div>
             </div>
-            {(activePopup === 'polish' ||  activePopup === 'depth' || activePopup === 'table'||activePopup === 'symmetry' ||activePopup === 'fluorescence' )&& (
-                        <div className="filter-popup" >
-                          <span dangerouslySetInnerHTML={{__html: getPopupContent(activePopup)}}></span>
-                        </div>
-            )}
+          
         
           </div>
         )}

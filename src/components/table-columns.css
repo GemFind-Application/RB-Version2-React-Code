@@ -5,7 +5,7 @@
 }
 .name {
   align-self: stretch;
-  background-color: var(--beige-00);
+  background-color: var(--beige-01);
   border-top: 1px solid var(--stroke);
   border-bottom: 1px solid var(--stroke);
   display: flex;

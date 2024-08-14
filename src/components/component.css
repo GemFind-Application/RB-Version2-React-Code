@@ -37,7 +37,7 @@
   flex: 1;
   border-radius: var(--br-base);
   background-color: var(--beige-01);
-  border: 1px solid var(--beige-05);
+  border: 1px solid var(--border-color);
   box-sizing: border-box;
   overflow: hidden;
   display: flex;

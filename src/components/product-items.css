@@ -105,7 +105,7 @@
 .virtual-try-on1 {
   position: relative;
   display: inline-block;
-  color: var(--accent);
+  color: var(--link-color);
   width: 100%;
   flex-shrink: 0;
   outline: none;
@@ -113,6 +113,10 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+}
+.virtual-try-on1:hover {
+  color: var(--over-effect);
+  
 }
 
 .product-footer {

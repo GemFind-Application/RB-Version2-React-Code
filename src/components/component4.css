@@ -54,7 +54,7 @@
   top: -9.3px;
   right: -8px;
   border-radius: var(--br-xl);
-  background-color: var(--accent);
+  background-color: var(--beige-05);
   border: 1px solid var(--white);
   box-sizing: border-box;
   width: 24px;
@@ -92,7 +92,7 @@
   cursor: pointer;
   text-align: left;
   font-size: var(--sub-size);
-  color: var(--accent);
+  /* color: var(--accent); */
   font-family: var(--body-14-reg);
 }
 

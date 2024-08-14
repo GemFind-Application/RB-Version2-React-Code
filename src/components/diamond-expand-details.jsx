@@ -23,7 +23,7 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
   return (
     <div className={`diamond-details ${className}`}>
       <section className="dd-gallery">
-        <ImageGallery items={images} showPlayButton={false} showNav={false} onErrorImageURL={imageUrl+'/no-image.jpg'}/>
+        <ImageGallery items={images} showPlayButton={false} showThumbnails={false} showFullscreenButton={false} showNav={false} onErrorImageURL={imageUrl+'/no-image.jpg'}/>
       </section>
       <section className="content2">
         <div className="top2">

@@ -117,6 +117,8 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
     }
   };
   useEffect(() => {
+    
+    window.scrollTo(0, 0);
     handleVideoIconClick(diamondIdToShow)
     fetchProductDetails(diamondIdToShow,isLabGrown);
     //fetchPrintDoc(diamondIdToShow,isLabGrown)
@@ -266,8 +268,7 @@ return null;*/
 
     
      //const res = await diamondService.addTocart(diamondDetail.diamondId,isLabGrown); 
-     const addtocartPrefix = `${import.meta.env.VITE_ADD_TO_CART_PREFIX}`;   
-     console.log("response addcart")
+     const addtocartPrefix = `${import.meta.env.VITE_ADD_TO_CART_PREFIX}`;  
      let formData = new FormData();
      const requestOptions = {
       method: 'POST', 
@@ -332,8 +333,8 @@ return null;*/
                       <div className="dealer__info">
                         <span>{`Internal Use Only: `}</span>
                         <div className="dealer-info3" onClick={() => setIsDealerInfoOpen(true)}>
-                          Dealer Info
-                          <svg width="14" height="14" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          Dealer Info 
+                          <svg width="14" height="14" style={{marginLeft:'5px' , marginTop: '3px'}} viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M16.5 10.2001V15.9688C16.4984 16.4407 16.3102 16.8928 15.9765 17.2265C15.6428 17.5602 15.1907 17.7484 14.7188 17.7501H2.03125C1.55934 17.7484 1.10723 17.5602 0.773536 17.2265C0.439843 16.8928 0.251647 16.4407 0.25 15.9688V3.28131C0.251647 2.8094 0.439843 2.35729 0.773536 2.0236C1.10723 1.6899 1.55934 1.50171 2.03125 1.50006H7.8C7.96576 1.50006 8.12473 1.56591 8.24194 1.68312C8.35915 1.80033 8.425 1.9593 8.425 2.12506C8.425 2.29082 8.35915 2.44979 8.24194 2.567C8.12473 2.68421 7.96576 2.75006 7.8 2.75006H2.03125C1.89035 2.75006 1.75523 2.80603 1.6556 2.90566C1.55597 3.00529 1.5 3.14041 1.5 3.28131V15.9688C1.5 16.1097 1.55597 16.2448 1.6556 16.3445C1.75523 16.4441 1.89035 16.5001 2.03125 16.5001H14.7188C14.8596 16.5001 14.9948 16.4441 15.0944 16.3445C15.194 16.2448 15.25 16.1097 15.25 15.9688V10.2001C15.25 10.0343 15.3158 9.87533 15.4331 9.75812C15.5503 9.64091 15.7092 9.57506 15.875 9.57506C16.0408 9.57506 16.1997 9.64091 16.3169 9.75812C16.4342 9.87533 16.5 10.0343 16.5 10.2001ZM17.125 0.250061H12.125C11.9592 0.250061 11.8003 0.315909 11.6831 0.433119C11.5658 0.55033 11.5 0.709301 11.5 0.875061C11.5 1.04082 11.5658 1.19979 11.6831 1.317C11.8003 1.43421 11.9592 1.50006 12.125 1.50006H15.6187L8.55625 8.55631C8.49767 8.61441 8.45117 8.68354 8.41944 8.7597C8.38771 8.83586 8.37138 8.91755 8.37138 9.00006C8.37138 9.08257 8.38771 9.16426 8.41944 9.24042C8.45117 9.31658 8.49767 9.38571 8.55625 9.44381C8.61435 9.50239 8.68348 9.54889 8.75964 9.58062C8.8358 9.61235 8.91749 9.62868 9 9.62868C9.08251 9.62868 9.1642 9.61235 9.24036 9.58062C9.31652 9.54889 9.38565 9.50239 9.44375 9.44381L16.5 2.38131V5.87506C16.5 6.04082 16.5658 6.19979 16.6831 6.317C16.8003 6.43421 16.9592 6.50006 17.125 6.50006C17.2908 6.50006 17.4497 6.43421 17.5669 6.317C17.6842 6.19979 17.75 6.04082 17.75 5.87506V0.875061C17.75 0.709301 17.6842 0.55033 17.5669 0.433119C17.4497 0.315909 17.2908 0.250061 17.125 0.250061Z" fill="#4B5ADE" />
                           </svg>
                         </div>
@@ -379,7 +380,7 @@ return null;*/
                         <div className="header-items3">
                           <div className="diamond-grading-report">Diamond Grading Report:
                           {(!additionOptionSetting.show_Certificate_in_Diamond_Search && diamondDetail.certificateUrl!="") ?
-                            <a  onClick={openUrl}> View</a>
+                            <a  onClick={openUrl} className={'diamondGradingReport'}> View</a>
                             :<b > Not Available</b>
                           }
                           </div>

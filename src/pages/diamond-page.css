@@ -156,8 +156,69 @@
   justify-content: flex-start;
   padding: var(--padding-6xs) 0px 0px;
 }
+.main .share2 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0px var(--padding-241xl) 0px 0px;
+  gap: var(--gap-5xs);
+}
+.main .button15 {
+  cursor: pointer;
+  border: 1px solid var(--accent);
+  padding: var(--padding-5xs) var(--padding-12xl);
+  background-color: transparent;
+  border-radius: var(--br-37xl);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-3xs);
+}
+.main .button15:hover {
+  background-color: var(--color-rosybrown-200);
+  border: 1px solid var(--over-effect);
+  box-sizing: border-box;
+}
+.main .button16 {
+  cursor: pointer;
+  border: 1px solid var(--accent);
+  padding: var(--padding-3xs) var(--padding-12xl);
+  background-color: transparent;
+  border-radius: var(--br-37xl);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-3xs);
+}
+.main .button16:hover {
+  background-color: var(--color-rosybrown-200);
+  border: 1px solid var(--over-effect);
+  box-sizing: border-box;
+}
+.dealer-info3{
+  color:var(--color-mediumslateblue);
+}
+.dealer-info3:hover{
+  color:var(--over-effect)
+}
 .back-to-all {
   position: relative;
+}
+.bread1 .back-to-all{
+  color:var(--link-color)
+}
+.diamondGradingReport{
+  color:var(--link-color)
+}
+.diamondGradingReport:hover{
+  color:var(--over-effect)
+}
+.bread1 .back-to-all:hover{
+  color:var(--over-effect)
 }
 .bread1 {
   display: flex;
@@ -399,7 +460,7 @@
   justify-content: flex-start;
   padding: var(--padding-10xs-5) 0px 0px;
   text-align: center;
-  color: var(--color-mediumslateblue);
+  color: var(--bluecolor);
 }
 .specs-header {
   display: flex;
@@ -408,7 +469,7 @@
   justify-content: flex-start;
   gap: 11.5px;
   max-width: 100%;
-  color: var(--accent);
+   color: var(--textcolor); 
 }
 .specs-details {
   flex: 1;
@@ -885,7 +946,7 @@
   max-width: 100%;
   text-align: left;
   font-size: var(--body-14-reg-size);
-  color: var(--accent);
+  color: var(--textcolor);
   font-family: var(--body-14-reg);
 }
 .main {

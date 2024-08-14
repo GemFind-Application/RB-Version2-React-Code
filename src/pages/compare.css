@@ -13,6 +13,13 @@
 }
 .back-to-diamond {
   position: relative;
+  
+}
+.backlink{
+  color:var(--link-color)
+}
+.backlink:hover{
+  color:var(--over-effect)
 }
 .no--compare, .no--compare-container {
   display: flex;
@@ -99,7 +106,7 @@
 .compare {
   width: 100%;
   position: relative;
-  background-color: var(--white);
+  /*background-color: var(--white);*/
   overflow: hidden;
   display: flex;
   flex-direction: column;

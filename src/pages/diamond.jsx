@@ -72,7 +72,8 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
         setError("Failed to fetch diamond navigation. Please try again later.");       
       }
     }
-    localStorage.removeItem('selectedDiamond');
+    localStorage.removeItem('selectedDiamond');    
+    window.scrollTo(0, 0);
     setIsDiamondLoaded(false); 
     setIsDiamondFilterLoaded(false)
     fetchDiamondNavigation();

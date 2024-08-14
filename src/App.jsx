@@ -42,6 +42,7 @@ function App() {
   const [isconfigLoaded,setIsConfigLoaded] = useState(false);
   const [shopUrl,setShopUrl]=useState('');
   const [error,setError]=useState('');
+  const [documentLoaded,setDocumentLoaded]=useState(false);
   const navigate = useNavigate();
   const shopUrlforEmail = `${import.meta.env.VITE_RING_URL_EXT}`;
   //console.log(window.location)
@@ -190,7 +191,6 @@ function App() {
     let title = "";
     let metaDescription = "";
     let newPathName = pathname.split('/');
-    window.scrollTo(0, 0);
     switch (newPathName[1]) {
       case "/":
         title = configAppData.ring_meta_title
@@ -292,7 +292,7 @@ function App() {
     console.log(loading)
   return (   
     <div>      
-    <ThemeSetup styleDataDynamic={styleDataDynamic} />    
+    <ThemeSetup styleDataDynamic={styleDataDynamic} documentLoaded={documentLoaded} />    
     {loading && isStyleLoaded &&  isconfigLoaded &&   
     <Routes>
       <Route path="/" element={
@@ -303,6 +303,7 @@ function App() {
           setIsLabGrown={setIsLabGrown} 
           isLabGrown={isLabGrown} 
           setShowLoading={setShowLoading}
+          setDocumentLoaded={setDocumentLoaded}
         />} 
       />
       <Route path="/settings" element={
@@ -313,6 +314,7 @@ function App() {
           setIsLabGrown={setIsLabGrown} 
           isLabGrown={isLabGrown}
           setShowLoading={setShowLoading}
+          setDocumentLoaded={setDocumentLoaded}
         />} 
       />   
       <Route path="/settings/islabsettings/1" element={
@@ -323,6 +325,7 @@ function App() {
         setIsLabGrown={setIsLabGrown} 
         isLabGrown={isLabGrown}
         setShowLoading={setShowLoading}
+        setDocumentLoaded={setDocumentLoaded}
       />} 
       />     
       <Route path="/settings/view/path/:settingId"  element={
@@ -334,6 +337,7 @@ function App() {
           isLabGrown={isLabGrown} 
           settingNavigationData={settingNavigation}
           setShowLoading={setShowLoading}
+          setDocumentLoaded={setDocumentLoaded}
         />}
       />
       <Route path="/diamondtools/compare/" element={

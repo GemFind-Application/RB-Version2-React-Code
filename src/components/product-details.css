@@ -31,7 +31,7 @@
   justify-content: flex-start;
   padding: var(--padding-base) 0px 0px;
   font-size: var(--body-14-reg-size);
-  color: var(--accent);
+  color: var(--textcolor);
   font-family: var(--body-14-reg);
 }
 .line-div {
@@ -213,7 +213,7 @@
   font-size: var(--body-14-reg-size);
   display: inline-block;
   font-family: var(--body-14-reg);
-  color: var(--accent);
+  color: var(--textcolor);
   text-align: left;
   min-width: 35px;
   white-space: nowrap;
@@ -306,7 +306,7 @@
   font-size: var(--body-14-reg-size);
   display: inline-block;
   font-family: var(--body-14-reg);
-  color: var(--accent);
+  color: var(--textcolor);
   text-align: left;
   min-width: 65px;
   white-space: nowrap;
@@ -505,6 +505,7 @@
   min-width: 281px;
   white-space: nowrap;
   max-width: 100%;
+  cursor: pointer;
 }
 .virtual-try-on {
   position: relative;
@@ -526,6 +527,7 @@
   white-space: nowrap;
   max-width: 100%;
   color: var(--accent);
+  cursor: pointer;
 }
 .cart-buttons {
   align-self: stretch;
@@ -669,7 +671,7 @@
   width: 100%;
   text-align: center;
   font-size: var(--body-14-reg-size);
-  color: var(--accent);
+  color: var(--textcolor);
   font-family: var(--body-14-reg);
   text-align: left;
 }

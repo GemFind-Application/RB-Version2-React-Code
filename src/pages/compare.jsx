@@ -32,7 +32,8 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
         setError("Failed to fetch diamond details. Please try again later.");
     }
   };
-  useEffect(() => {
+  useEffect(() => {    
+    window.scrollTo(0, 0);
     localStorage.setItem('diamondIdsToCompare',JSON.stringify(compareDiamondsId))
     fetchDiamondDetails(compareDiamondsId,isLabGrown);
   }, [compareDiamondsId]);
@@ -51,7 +52,7 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
             <div className="bread-inner">
               <img className="frame-child" alt="" src={`${imageUrl}`+"/vector-11.svg"} />
             </div>
-            <b className="back-to-diamond">Back to Diamond List</b>
+            <b className="back-to-diamond backlink">Back to Diamond List</b>
           </div>
         </div>
         <FrameComponent5 

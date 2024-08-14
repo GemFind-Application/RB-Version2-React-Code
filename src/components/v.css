@@ -46,7 +46,7 @@
 .image10 {
   align-self: stretch;
   border-radius: var(--br-xs);
-  background-color: var(--beige-00);
+  background-color: var(--beige-01);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -68,7 +68,7 @@
   font-size: var(--body-14-reg-size);
   display: inline-block;
   font-family: var(--body-14-reg);
-  color: var(--accent);
+  color: var(--textcolor);
   min-width: 65px;
   white-space: nowrap;
 }

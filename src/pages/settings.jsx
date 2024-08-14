@@ -21,7 +21,7 @@ const SkeletonProductItem = () => (
   </div>
 );
 
-const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,className,setShowLoading}) => {
+const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,className,setShowLoading,setDocumentLoaded}) => {
   const dealerIdShop = useContext(ConfigContext);
   const [showVirtualTryOn, setShowVirtualTryOn] = useState(false);
   const [showVirtualTryOnUrl, setShowVirtualTryOnUrl] = useState('');
@@ -60,7 +60,8 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
   const navigate = useNavigate();
   useEffect(() => {
    // setIsLabGrown(false);
-    localStorage.removeItem('selectedRing');
+    localStorage.removeItem('selectedRing');    
+    window.scrollTo(0, 0);
   }, []);
   const fetchProducts = async (page, pageSize, isLab, sort, filters) => {
     //setLoading(true);   
@@ -144,6 +145,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
     } 
     setIsSettingFilterLoaded(false);
     setIsProductLoaded(false);
+    setDocumentLoaded(true)
    fetchSelectedDiamondDetail(isLabGrown)
   },[])
   useEffect(() => {

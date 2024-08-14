@@ -66,19 +66,22 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
     }
   };
    useEffect(() => {
-    setShowLoading(true)
+  
     let selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));   
     if(selectedRingSetting) {
+      
       if(selectedRingSetting.settingId &&  selectedRingSetting.settingId!=""){
+        setShowLoading(true)
         setSettingId(selectedRingSetting.settingId);
         setSelectedRingSize(selectedRingSetting.ringSize);
         fetchSettingDetails(selectedRingSetting.settingId);  
-        setShowLoading(false)    
+        //setShowLoading(false)    
       }
     }
     let selecteddiamond = JSON.parse(localStorage.getItem('selectedDiamond'));
     if(selecteddiamond) {
       if(selecteddiamond.diamondId &&  selecteddiamond.diamondId!=""){
+        setShowLoading(true)
         setDiamondId(selecteddiamond.diamondId);
         fetchDiamondDetails(selecteddiamond.diamondId,isLabGrown);
         //setShowLoading(false)

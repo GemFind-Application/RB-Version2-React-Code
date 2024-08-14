@@ -7,12 +7,13 @@ import Component1 from "./component1";
 import PropTypes from "prop-types";
 import "./frame-component1.css";
 import "./frame-component2.css";
+import PopupAlert from './PopupAlert';
 const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLabGrown,configAppData}) => {
- 
+  const [popupContent, setPopupContent] = useState(null);
   const navigate = useNavigate();
   const [activePopup, setActivePopup] = useState(null);
   const onContainer2Click = useCallback(() => {
-    navigate("/complete");
+    navigate("/diamondtools/completering");
   }, []);
   const handleLabGrownToggle = (value) => {
     if(value === 'Lab Grown'){
@@ -26,6 +27,15 @@ const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLab
     }
    
   };
+  // popup - use this for setting the content
+ const handleInfoClick = (e,filterType) => {
+  e.stopPropagation();
+  const content = getPopupContent(filterType);
+  setPopupContent(content);
+};
+const closePopup = () => {
+  setPopupContent(null);
+};
   const togglePopup = (popup) => {
     setActivePopup(activePopup === popup ? null : popup);
   };
@@ -72,16 +82,13 @@ const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLab
                     <b className="i10" onClick={(e) => {
                       e.stopPropagation();
                       togglePopup('mined');
+                      handleInfoClick(e,'mined')
                     }}>i</b>
                   </div>
                   }
                 </div>
                 }
-                 {activePopup == 'mined' && (
-                  <div className="filter-popup">
-                 {getPopupContent('mined')}
-                  </div>
-                )}
+              
                 {(diamondNavigation.navLabGrown && diamondNavigation.navLabGrown!==null) &&
                 <div className={isLabGrown===true?'price18':'price19'} onClick={()=>handleLabGrownToggle(diamondNavigation.navLabGrown)}>
                   <div className="lab-growned1">{diamondNavigation.navLabGrown}</div>
@@ -90,15 +97,12 @@ const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLab
                     <b className="i10" onClick={(e) => {
                       e.stopPropagation();
                       togglePopup('labgrown');
+                      handleInfoClick(e,'labgrown')
                     }}>i</b>
                   </div>}
                 </div>
                 }
-                {activePopup == 'labgrown' && (
-                  <div className="filter-popup">
-                 {getPopupContent('labgrown')}
-                  </div>
-                )}
+               
                 {(diamondNavigation.navFancyColored && diamondNavigation.navFancyColored!==null) &&
                 <div className={isLabGrown==='fancy'?'price18':'price19'} onClick={()=>handleLabGrownToggle(diamondNavigation.navFancyColored)}>
                   <div className="fancy-colour1">{diamondNavigation.navFancyColored}</div>
@@ -108,15 +112,14 @@ const FrameComponent1 = ({ className = "" ,diamondNavigation,setIsLabGrown,isLab
                     <b className="i10" onClick={(e) => {
                       e.stopPropagation();
                       togglePopup('fancy');
+                      handleInfoClick(e,'fancy')
                     }}>i</b>
                   </div>}
                 </div>
                 }
-                {activePopup == 'fancy' && (
-                  <div className="filter-popup">
-                  {getPopupContent('fancy')}
-                  </div>
-                )}
+                  {popupContent && (
+        <PopupAlert content={popupContent} onClose={closePopup} />
+      )}
               </div>
             </div>
             <div className="frame-wrapper1">

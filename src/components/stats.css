@@ -18,6 +18,10 @@
   padding: var(--padding-6xs-5) 0px 0px;
   cursor: pointer;
 }
+.drop-a-hint-wrapper:hover {
+  color:var(--over-effect);
+
+}
 .stat-items {
   margin: 0 !important;
   display: flex;
@@ -87,6 +91,6 @@
   gap: var(--gap-5xl);
   text-align: center;
   font-size: var(--body-14-reg-size);
-  color: var(--accent);
+  color: var(--link-color);
   font-family: var(--body-14-reg);
 }

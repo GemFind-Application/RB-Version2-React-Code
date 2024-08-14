@@ -100,7 +100,7 @@
 .price18 {
   flex: 0 0 auto;
   border-radius: var(--br-21xl);
-  background-color: var(--accent);
+  background-color: var(--menus-background);
   display: flex;
   flex-direction: row;
   align-items: center;

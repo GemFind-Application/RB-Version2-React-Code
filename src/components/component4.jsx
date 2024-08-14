@@ -21,9 +21,9 @@ const Component4 = ({ className = "" }) => {
       <div className="step-images">
         <img className="image-10-icon3" alt="" src={`${imageUrl}`+"/image-10@2x.png"} />
         <img className="image-9-icon12" alt="" src={`${imageUrl}`+"/image-9@2x.png"} />
-        <div className="div94">
+        {<div className="div94">
           <img className="group-icon5" alt="" src={`${imageUrl}`+"/group1.svg"} />
-        </div>
+        </div>}
       </div>
     </div>
   );

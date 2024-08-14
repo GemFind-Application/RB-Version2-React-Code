@@ -36,7 +36,7 @@
   }
   
   .slider__range {
-    background-color: var(--accent);
+    background-color: var(--slider-color);
     z-index: 2;
   }
   
@@ -90,7 +90,7 @@
   
   /* For Chrome browsers */
   body .thumb::-webkit-slider-thumb {
-    background-color: var(--accent);
+    background-color: var(--slider-thumb);
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -103,7 +103,7 @@
   
   /* For Firefox browsers */
   body .thumb::-moz-range-thumb {
-    background-color: var(--accent);
+    background-color: var(--slider-thumb);
     border: none;
     border-radius: 50%;
     cursor: pointer;

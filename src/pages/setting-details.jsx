@@ -30,7 +30,7 @@ import { ConfigContext } from "../components/Context"
 import { utils } from "../Helpers";
 import ShowError from "../components/ShowError";
 import VideoTryOn from "../components/VideoTryOn";
-const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData,setIsLabGrown, setShowLoading}) => {
+const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData,setIsLabGrown, setShowLoading,setDocumentLoaded}) => {
   const dealerIdShop = useContext(ConfigContext);
   const { settingId } = useParams();
   const navigate = useNavigate();
@@ -102,7 +102,10 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
       }
     }
     //localStorage.removeItem('selectedDiamond');
+    
+    window.scrollTo(0, 0);
     fetchDiamondNavigation();
+    setDocumentLoaded(true)
   },[])
   const fetchProductDetails = async (settingId) => {
     try {

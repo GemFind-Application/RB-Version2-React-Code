@@ -426,6 +426,7 @@
   outline: none;
   border: none;
   cursor: pointer;
+  color:var(--accent)
 }
 .diamond-filters {
   display: flex;
