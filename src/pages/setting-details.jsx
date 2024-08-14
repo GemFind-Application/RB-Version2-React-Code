@@ -30,6 +30,8 @@ import { ConfigContext } from "../components/Context"
 import { utils } from "../Helpers";
 import ShowError from "../components/ShowError";
 import VideoTryOn from "../components/VideoTryOn";
+import Settingsbreadcrumb from "../components/Settingsbreadcrumb";
+
 const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData,setIsLabGrown, setShowLoading,setDocumentLoaded}) => {
   const dealerIdShop = useContext(ConfigContext);
   const { settingId } = useParams();
@@ -305,6 +307,12 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
       thumbnail: product.mainImageURL,
     });
   }
+
+  const updatedConfigAppData = {
+    ...configAppData,
+    navStandard: configAppData.navStandard || "Mined",
+    navLabGrown: configAppData.navLabGrown || "Lab Grown",
+  };
  
 //console.log(uniqueDiamondShape)
 if (error) {
@@ -314,6 +322,11 @@ if (error) {
     <>
       <div className="setting-page">
         <main className="main1">
+        <Settingsbreadcrumb 
+        configAppData={updatedConfigAppData}
+        isLabGrown={isLabGrown}
+        setIsLabGrown={setIsLabGrown}
+      />
           <section className="bread-crumbs-container">
             <div className="bread-crumbs">
               <div className="bread-crumb">

@@ -35,7 +35,7 @@
   }
   
   .popupalert .popup-close:hover {
-    color: #333;
+    color: var(--popup-text-color);
   }
   
   .popupalert .popup-body {
@@ -47,6 +47,9 @@
   .popupalert .popup-body p {
     margin-bottom: 10px;
     line-height: 1.5;
+    font-size: 14px;
+    color: var(--popup-text-color);
+    font-family: inherit;
   }
   
   .popupalert .popup-body .popup-Diamond-Table {

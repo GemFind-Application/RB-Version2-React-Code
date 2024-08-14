@@ -136,42 +136,7 @@ const SettingsFilterPanel = ({
  
   return (
     <div className={`SettingsFilterPanel ${className}`}>
-      <div className="settingsfilter-wrapper">
-        <div className="mined-lab-wrapper">
-          {settingNavigation.navStandard && 
-            <div className={`mined-settings ${!isLabGrown ? 'active' : ''}`} 
-                onClick={() => handleLabGrownToggle(false)}>
-              <div className={`mined2`}>
-                {settingNavigation.navStandard}
-              </div>
-              {(configAppData.show_filter_info === "true") &&
-                <div className="empty-row">
-                  <b className="filter--hover-icon" onClick={(e) => {
-                    e.stopPropagation();
-                    handleInfoClick('mined');
-                  }}>i</b>
-                </div>
-              }
-            </div>
-          }
-          {settingNavigation.navLabGrown && 
-            <div className={`lab-settings ${isLabGrown ? 'active' : ''}`} 
-                onClick={() => handleLabGrownToggle(true)}>
-              <div className={`lab-growned2`}>
-                {settingNavigation.navLabGrown}
-              </div>
-              {(configAppData.show_filter_info === "true") &&
-                <div className="empty-row">
-                  <b className="filter--hover-icon" onClick={(e) => {
-                    e.stopPropagation();
-                    handleInfoClick('labgrown');
-                  }}>i</b>
-                </div>
-              }
-            </div>
-          }
-        </div>
-      </div>
+
       <div className="list-header">
         <div className="settingfilter-top">
           <b className="settings-founded">{totalSettings || 0} Settings Found</b>

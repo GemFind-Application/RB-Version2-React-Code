@@ -1,6 +1,15 @@
 .settings > div {
   padding: 0 20px;
 }
+
+/* .settings .settingsfilter-wrapper .list-header {
+  padding: 0 20px;
+} */
+
+.settings .settingsfilter-wrapper.wrapper-main {
+  padding: 0;
+}
+
 .settings .settings-founded,  .settings .filters-setting {
   padding-left: 10px;
 }

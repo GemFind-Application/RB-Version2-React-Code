@@ -216,11 +216,22 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
   if (error) {
     return <ShowError error={error}/>;
   }
+
+  const updatedConfigAppData = {
+    ...configAppData,
+    navStandard: configAppData.navStandard || "Mined",
+    navLabGrown: configAppData.navLabGrown || "Lab Grown",
+  };
+
 //console.log("===="+loading + isProductLoaded)
   return (
     <div className="settings">       
-     
-      <Settingsbreadcrumb configAppData={configAppData}/>
+      <Settingsbreadcrumb 
+        configAppData={updatedConfigAppData}
+        isLabGrown={isLabGrown}
+        setIsLabGrown={setIsLabGrown}
+        className={className}
+      />
       <div className="settingsfilter-wrapper" ref={scrollRef}>
         {filterData && isSettingFilterLoaded ? (
         

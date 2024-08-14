@@ -83,6 +83,7 @@
   font-size: var(--body-14-reg-size);
   color: var(--grey);
   font-family: var(--body-14-reg);
+  padding: 4px 0 0;
 }
 
 .SettingsFilterPanel .mid2 {

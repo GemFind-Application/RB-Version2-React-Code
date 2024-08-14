@@ -155,7 +155,7 @@
   padding: var(--padding-xl) 0px;
   box-sizing: border-box;
   gap: var(--gap-5xl);
-  flex: 1;
+  /* flex: 1; */
 }
 
 .steps-details {
@@ -171,6 +171,7 @@
   align-items: center;
   justify-content: space-between;
   max-width: 100%;
+  width: 100%;
   gap: 40px;
 }
 
@@ -183,8 +184,13 @@
 
 .i22 {
   position: relative;
-  display: inline-block;
-  min-width: 3px;
+  width: 10px;
+  z-index: 999999;
+  height: 10px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .separator {
@@ -269,7 +275,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: var(--padding-2xl) var(--padding-2xl) var(--padding-2xl);
+  padding: 40px;
   box-sizing: border-box;
   gap: 30px;
   max-width: 100%;

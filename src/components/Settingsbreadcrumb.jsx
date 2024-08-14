@@ -1,24 +1,62 @@
-import { useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import StepItems from "./step-items";
 import PropTypes from "prop-types";
+import PopupAlert from "./PopupAlert";  
 import "./settingsbreadcrumb.css";
 
-const Settingsbreadcrumb = ({ className = "" ,configAppData}) => {
+const Settingsbreadcrumb = ({ className = "", configAppData, isLabGrown, setIsLabGrown }) => {
+  const [popupContent, setPopupContent] = useState(null);
   const navigate = useNavigate();
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
+
+  useEffect(() => {
+    // console.log("Settingsbreadcrumb mounted");
+    // console.log("configAppData:", configAppData);
+    // console.log("isLabGrown:", isLabGrown);
+  }, [configAppData, isLabGrown]);
 
   const onStepItemsContainer1Click = useCallback(() => {
     navigate("/diamondtools");
   }, [navigate]);
-  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
+
+  const handleLabGrownToggle = (value) => {
+    // console.log("handleLabGrownToggle called with value:", value);
+    setIsLabGrown(value);
+  };
+
+  // popup content for lab and mined
+  const getPopupContent = (filterType) => {
+    const contents = {
+      mined: "<p>Formed over billions of years, natural diamonds are mined from the earth. Diamonds are the hardest mineral on earth, which makes them an ideal material for daily wear over a lifetime. Our natural diamonds are conflict-free and GIA certified.</p>",
+      labgrown: "<p>Lab-grown diamonds are created in a lab by replicating the high heat and high pressure environment that causes a natural diamond to form. They are compositionally identical to natural mined diamonds (hardness, density, light refraction, etc), and the two look exactly the same. A lab-grown diamond is an attractive alternative for those seeking a product with less environmental footprint.</p>",
+    };
+    return contents[filterType] || "Information not available.";
+  };
+
+  const handleInfoClick = (filterType) => {
+    // console.log(`Show info for ${filterType}`);
+    const content = getPopupContent(filterType);
+    setPopupContent(content);
+  };
+
+  const closePopup = () => {
+    setPopupContent(null);
+  };
+
+  // Debugging
+  // console.log("Rendering Settingsbreadcrumb");
+  // console.log("navStandard:", configAppData.navStandard);
+  // console.log("navLabGrown:", configAppData.navLabGrown);
+  
   return (
-    <div className={`settingsfilter-wrapper ${className}`}>
+    <div className={`settingsfilter-wrapper wrapper-main ${className}`}>
       <div className="settingsfilter-container">
         <div className="settings-breadcrumb">
           <div className="home3">Home</div>
-          <img className="bread-child" alt="" src={`${imageUrl}`+"/vector-12.svg"} />
+          <img className="bread-child" alt="" src={`${imageUrl}/vector-12.svg`} />
           <div className="create-ring3">Create Ring</div>
-          <img className="bread-child" alt="" src={`${imageUrl}`+"/vector-23.svg"} />
+          <img className="bread-child" alt="" src={`${imageUrl}/vector-23.svg`} />
           <b className="choose-setting2">Choose Setting</b>
         </div>
         <div className="settings-panel-wrapper">
@@ -27,7 +65,51 @@ const Settingsbreadcrumb = ({ className = "" ,configAppData}) => {
               <b className="settings1">SETTINGS</b>
               <b className="create-your-own3">Create your own ring</b>
               <div className="settings-desc">
-               {configAppData.announcement_text}
+                {configAppData.announcement_text}
+              </div>
+              <div className="mined-lab-wrapper">
+                {configAppData.navStandard && (
+                  <div 
+                    className={`mined-settings ${!isLabGrown ? 'active' : ''}`} 
+                    onClick={() => handleLabGrownToggle(false)}
+                  >
+                    <div className="mined2">{configAppData.navStandard}</div>
+                    {configAppData.show_filter_info === "true" && (
+                      <div className="separator">
+                        <b 
+                          className="i22" 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleInfoClick('mined');
+                          }}
+                        >
+                          i
+                        </b>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {configAppData.navLabGrown && (
+                  <div 
+                    className={`lab-settings ${isLabGrown ? 'active' : ''}`} 
+                    onClick={() => handleLabGrownToggle(true)}
+                  >
+                    <div className="lab-growned2">{configAppData.navLabGrown}</div>
+                    {configAppData.show_filter_info === "true" && (
+                      <div className="separator">
+                        <b 
+                          className="i22" 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleInfoClick('labgrown');
+                          }}
+                        >
+                          i
+                        </b>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
             <div className="settings-steps">
@@ -40,9 +122,9 @@ const Settingsbreadcrumb = ({ className = "" ,configAppData}) => {
                   <img
                     className="image-9-icon14"
                     alt=""
-                    src={`${configAppData.imageUrl}`+"/image-9@2x.png"}
+                    src={`${configAppData.imageUrl}/image-9@2x.png`}
                   />
-                  <img className="frame-icon5" alt="" src={`${imageUrl}`+"/frame2.svg"} />
+                  <img className="frame-icon5" alt="" src={`${imageUrl}/frame2.svg`} />
                 </div>
               </div>
               <StepItems
@@ -58,28 +140,26 @@ const Settingsbreadcrumb = ({ className = "" ,configAppData}) => {
               />
             </div>
           </div>
-          {/* <div className="mined-lab-wrapper">
-            <div className="mined-settings">
-              <div className="mined2">Mined</div>
-              <div className="separator">
-                <b className="i22">i</b>
-              </div>
-            </div>
-            <div className="lab-settings">
-              <div className="lab-growned2">Lab Growned</div>
-              <div className="separator">
-                <b className="i22">i</b>
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
+      {popupContent && (
+        <PopupAlert content={popupContent} onClose={closePopup} />
+      )}
     </div>
   );
 };
 
 Settingsbreadcrumb.propTypes = {
   className: PropTypes.string,
+  configAppData: PropTypes.shape({
+    announcement_text: PropTypes.string,
+    navStandard: PropTypes.string,
+    navLabGrown: PropTypes.string,
+    show_filter_info: PropTypes.string,
+    imageUrl: PropTypes.string,
+  }).isRequired,
+  isLabGrown: PropTypes.bool.isRequired,
+  setIsLabGrown: PropTypes.func.isRequired,
 };
 
 export default Settingsbreadcrumb;
