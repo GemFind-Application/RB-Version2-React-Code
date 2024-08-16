@@ -50,7 +50,7 @@
   font-size: 38px;
   line-height: 110%;
   font-family: var(--h4);
-  color: var(--black);
+  color: var(--backgroundtext);
 }
 
 .settings-desc {
@@ -58,7 +58,7 @@
   position: relative;
   font-size: var(--body-14-reg-size);
   font-weight: 500;
-  color: var(--grey);
+  color: var(--notselectedmenucolor);
 }
 
 .h16 {
@@ -78,6 +78,7 @@
   text-transform: uppercase;
   display: inline-block;
   min-width: 44px;
+  color:var(--accent)
 }
 
 .step-title {
@@ -85,7 +86,7 @@
   font-size: var(--h4-size);
   line-height: 120%;
   font-family: var(--h4);
-  color: var(--black);
+  color: var(--backgroundtext);
 }
 
 .settings-steps-details {
@@ -217,7 +218,7 @@
 .mined-settings.active,
 .lab-settings.active {
   background-color: var(--menus-background);
-  color: var(--white);
+  color: var(--backgroundmenutext);
 } 
 
 .lab-growned2 {
@@ -232,7 +233,7 @@
   border-radius: var(--br-21xl);
   border: 1px solid var(--beige-04);
   padding: 13px 30px;
-  color: var(--grey);
+  color: var(--notselectedmenucolor);
   cursor: pointer;
   position: relative;
 }

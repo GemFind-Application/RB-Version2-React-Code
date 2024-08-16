@@ -78,6 +78,7 @@ function App() {
         enable_hint:true,
         dealerid:1089,
         products_pp:48,       
+        font_family:'Arial',
         shop:'https://gemfind-product-demo-10.myshopify.com/'
       }
       setShopUrl(data.shop+shopUrlforEmail)
@@ -112,6 +113,7 @@ function App() {
             callToActionButton :res.button,
             background :res.background,
             slider_barmakian : res.slider,
+            backgroundText:res.backgroundText,
             //callToActionButton_color:res[0][0].callToActionButton[0].color2 && res[0][0].callToActionButton[0].color2!==""?res[0][0].callToActionButton[0].color2:res[0][0].callToActionButton[0].color1,
             //link_color:res[0][0].linkColor[0].color2 && res[0][0].linkColor[0].color2!==""?res[0][0].linkColor[0].color2:res[0][0].linkColor[0].color1,
             //hoverEffect_color:res[0][0].hoverEffect[0].color2 && res[0][0].hoverEffect[0].color2!==""?res[0][0].hoverEffect[0].color2:res[0][0].hoverEffect[0].color1,
@@ -292,7 +294,7 @@ function App() {
     console.log(loading)
   return (   
     <div>      
-    <ThemeSetup styleDataDynamic={styleDataDynamic} documentLoaded={documentLoaded} />    
+    <ThemeSetup styleDataDynamic={styleDataDynamic} documentLoaded={documentLoaded} configAppData={configAppData}/>    
     {loading && isStyleLoaded &&  isconfigLoaded &&   
     <Routes>
       <Route path="/" element={

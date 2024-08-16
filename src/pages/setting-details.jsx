@@ -30,11 +30,14 @@ import { ConfigContext } from "../components/Context"
 import { utils } from "../Helpers";
 import ShowError from "../components/ShowError";
 import VideoTryOn from "../components/VideoTryOn";
+import VideoPopup from "../components/VideoPopup";
 import Settingsbreadcrumb from "../components/Settingsbreadcrumb";
 
 const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData,setIsLabGrown, setShowLoading,setDocumentLoaded}) => {
   const dealerIdShop = useContext(ConfigContext);
   const { settingId } = useParams();
+  const [showVideoPopup, setShowVideoPopup] = useState(false);
+  const [videoUrl, setVideoUrl] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
   const [showVirtualTryOn, setShowVirtualTryOn] = useState(false);
@@ -109,6 +112,25 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
     fetchDiamondNavigation();
     setDocumentLoaded(true)
   },[])
+  const handleVideoIconClick = async(settingId) => {
+    console.log(settingId)
+    setShowVideoPopup(false)
+    try {     
+      const res = await settingService.getSettingVideoUrl(settingId);  
+      if(res)     {
+        if(res.showVideo !== false){
+          setVideoUrl(res.videoURL);         
+          setShowVideoPopup(true);          
+        }else{
+          setShowVideoPopup(false);
+        }        
+      }   
+    }
+    catch (error) {
+      console.error("Error fetching video url:", error);
+      setError("Failed to fetch video data. Please try again later.");
+    }  
+  };
   const fetchProductDetails = async (settingId) => {
     try {
       setShowLoading(true)
@@ -322,11 +344,7 @@ if (error) {
     <>
       <div className="setting-page">
         <main className="main1">
-        <Settingsbreadcrumb 
-        configAppData={updatedConfigAppData}
-        isLabGrown={isLabGrown}
-        setIsLabGrown={setIsLabGrown}
-      />
+       
           <section className="bread-crumbs-container">
             <div className="bread-crumbs">
               <div className="bread-crumb">
@@ -340,6 +358,13 @@ if (error) {
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
                       <ImageGallery items={images} showPlayButton={false} showNav={false}    onErrorImageURL={imageUrl+'/no-image.jpg'}/>
+                      <div 
+                      className="ring-items__item-video" 
+                      productid={product.settingId}
+                      onClick={()=>handleVideoIconClick(product.settingId)}
+                    >
+                    {(product.videoURL&&product.videoURL!="") && <img className="video-icon3" alt="" src={`${imageUrl}`+"/video.svg" }/>}
+                    </div>
                     </div>               
                   </div>
                 </div>
@@ -395,7 +420,7 @@ if (error) {
                           </div>*/}
                           <div className="ships2" onClick={() => setIsRingSpecsOpen(true)}>
                             <div className="shipping-header">
-                              <div className="ring-specifications">Ring Specifications</div>
+                              <div className="ring-specifications">Ring Details</div>
                             </div>
                             <img className="group-icon2" loading="lazy" alt="" src={`${imageUrl}`+"/group.svg" }/>
                           </div>
@@ -594,7 +619,10 @@ if (error) {
                           </div>
                         )}
                       </div>
-                      <div className="filter-opened7">
+                      {showVideoPopup && (
+                         <VideoPopup videoURL={product.videoURL} onClose={() => setShowVideoPopup(false)} />
+                      )}
+                          <div className="filter-opened7">
                             <div className="select-side-stone"></div>
                             <div className="diamond-type-filter">{configAppData.announcement_text_rbdetail}</div></div>
                       <div className="filter-opened7">
@@ -616,8 +644,8 @@ if (error) {
                       </button>
                         }
                         {configAppData.display_tryon=="1" &&
-                        <button className="button-fav1" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.styleNumber))}>                        
-                           <b>Virtual Try On</b>
+                        <button className="button-fav1 button15" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.styleNumber))}>                        
+                           <b class='share3'> Virtual Try On</b>
                         </button>}
                       </div>
 

@@ -27,7 +27,7 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
       </section>
       <section className="content2">
         <div className="top2">
-          <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.carat} CARATH</h3>
+          <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.carat} CARAT</h3>
           <div className="stats">
             <div className="spec-labels">
               <div className="stock-number">Stock Number:</div>

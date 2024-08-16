@@ -350,7 +350,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
       
       { isDiamondLoaded ?(
       <>{
-        diamond.length===0 ? <div className='items'>No Diamond Found</div> :
+        diamond.length===0 ? <div className='itemnofound'>No Diamond Found</div> :
       isGridView ?
       <div className="list2">
       {

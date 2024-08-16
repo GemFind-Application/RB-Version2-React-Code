@@ -17,7 +17,7 @@ import { diamondService } from "../Services";
 import { utils } from "../Helpers";
 import VideoTryOn from "../components/VideoTryOn";
 import { useNavigate } from 'react-router-dom';
-const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ringSize,configAppData,formSetting,additionOptionSetting }) => {
+const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ringSize,configAppData,formSetting,additionOptionSetting ,setShowLoading}) => {
   
   const [isSettingDetailsOpen, setSettingDetailsOpen] = useState(false);
   const [isDiamondDetailsOpen, setDiamondDetailsOpen] = useState(false);
@@ -110,10 +110,12 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
     }
      const ext = `${import.meta.env.VITE_SHOP_EXTENSION}`;
     const addtocartUrl = window.location.origin+ext;
+    setShowLoading(true);
     let  url=addtocartUrl+"/"+completePurchase+'/'+diamondDetail.diamondId+"/"+settingDetail.settingId;
      fetch(url,requestOptions)
       .then(function(response) {
         console.log(response);
+        setShowLoading(false)
         if(response.status===200){
           localStorage.removeItem('selectedDiamond');
           localStorage.removeItem('selectedRing');
@@ -247,7 +249,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
                   <div className="div69">
                     <div className="payment-info">
                       <b className="complete-ring-title">
-                      {diamondDetail.shape!=""?diamondDetail.shape:''} { ' '} {diamondDetail.caratWeight!=""?diamondDetail.caratWeight:''} {'CARATH'}
+                      {diamondDetail.shape!=""?diamondDetail.shape:''} { ' '} {diamondDetail.caratWeight!=""?diamondDetail.caratWeight:''} {'CARAT'}
                       </b>
                       <div className="id-3832123223">
                         

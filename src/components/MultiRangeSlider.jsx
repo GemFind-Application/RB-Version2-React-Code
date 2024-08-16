@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './MultiRangeSlider.css';
 import { utils } from "../Helpers";
-const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent}) => {
-
+import Nouislider from "nouislider-react";
+import "nouislider/distribute/nouislider.css";
+const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent,step}) => {
+console.log("value of step=="+step)
   const [minVal, setMinVal] = useState(parseFloat(value[0]));
   const [maxVal, setMaxVal] = useState(parseFloat(value[1]));
   const [minD, setMinD] = useState(min);
@@ -19,7 +21,7 @@ const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent})
   );
 
   useEffect(() => {
-    if (minValRef.current) {
+    /*if (minValRef.current) {
       const minPercent = getPercent(minVal);
       const maxPercent = getPercent(maxVal);
       if (range.current) {
@@ -27,62 +29,101 @@ const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent})
         range.current.style.left = `${minPercent}%`;
         range.current.style.width = `${maxPercent - minPercent}%`;
       }
-    }
-  }, [minVal, maxVal, getPercent]);
+    }*/
+  }, []);
 
   useEffect(() => {
     setMinVal(parseFloat(value[0]));
     setMaxVal(parseFloat(value[1]));
-    setMinD(min);
-    setMaxD(max)
+   // setMinD(min);
+    //setMaxD(max)
     //onChange({ min: minVal, max: maxVal });
-  }, [value,min,max]);
+  }, [value]);
 
   const handleMinChange = (event) => {
-    const value = Math.min(Number(event.target.value), maxVal - 1);
-    setMinVal(value);
-    event.target.value = value.toString();
-    onChange({ min: value, max: maxVal });
+   // const value = Math.min(Number(event.target.value), maxVal - 1);
+    setMinVal(event.target.value);
+   // event.target.value = value.toString();
+    //onChange({ min: Number(event.target.value), max: maxVal });
   };
 
   const handleMaxChange = (event) => {
-    const value = Math.max(Number(event.target.value), minVal + 1);
-    setMaxVal(value);
-    event.target.value = value.toString();    
-    onChange({ min: minVal, max: value });
+  
+    if(Number.isInteger(Number(event.target.value)) &&
+    event.target.value >= 0 &&
+      event.target.value <= Number(max)){
+ //   if(Number.isInteger(event.target.value)){
+      setMaxVal(event.target.value);
+    }else{
+
+    }
+    console.log("handlemaxchange")
+    console.log(event)
+  //  const value = Math.max(Number(event.target.value), minVal + 1);
+   
+   // event.target.value = value.toString();   */ 
+    //onChange({ min: minVal, max: Number(event.target.value) });
   };
-
+  const rangeSelectorprops = (newValue) => {
+    console.log(newValue)
+    setMaxVal(Number(newValue[0]));
+   setMinVal(Number(newValue[1]));
+    onChange({min:Number(newValue[0]),max:Number(newValue[1])})
+  
+  };
+  const callAction=()=>{
+    onChange({min:Number(minVal),max:Number(maxVal)})
+  }
+ // onBlur={callAction}
   return (
-    <div className="container">
-      <input
-        type="range"
-        min={minD}
-        max={maxD}
-        value={minVal}
-        ref={minValRef}
-        onChange={handleMinChange}
-        className={classnames('thumb thumb--zindex-3', {
-          'thumb--zindex-5': minVal > max - 100,
-        })}
-        id='rangestart'
-      />
-      <input
-        type="range"
-        min={minD}
-        max={maxD}
-        value={maxVal}
-        ref={maxValRef}
-        onChange={handleMaxChange}
-        className="thumb thumb--zindex-4"
-        id="rangeend"
-      />
+    <div className="container" style={{width:'50%'}}>
+      {step==1 ?
+     <Nouislider
+              connect
+              behaviour={"tap"}
+              start={[
+                minVal,maxVal
+              ]}    
+              step={1}          
+              range={{
+                min:parseFloat(min),
+                max: parseFloat(max),
+              }}
+              onChange={rangeSelectorprops}
+            />: <Nouislider
+            connect
+            behaviour={"tap"}
+            start={[
+              minVal,maxVal
+            ]}    
+            tooltips={true}      
+            range={{
+              min:parseFloat(min),
+              max: parseFloat(max),
+            }}
+            onChange={rangeSelectorprops}
+          />
+            }
+          <div>
+          {isPrice?'$':''}
+          <input
+                type="text"
+                value={step?Number(minVal):minVal}
+                onChange={(e)=>handleMinChange(e)}
+                onBlur={callAction}
+                className="slider__left-value"
+              />{showPercent?'%':''}
+              {isPrice?'$':''}
+              <input
+                type="text"
+              
+                value={step?Number(maxVal):maxVal}
+                onChange={(e)=>handleMaxChange(e)}
+                onBlur={callAction}
+                className="slider__right-value"
+                />{showPercent?'%':''}
+          </div>
 
-      <div className="slider">
-        <div className="slider__track"></div>
-        <div ref={range} className="slider__range"></div>
-        <div className="slider__left-value">{isPrice ? '$'+  utils.numberWithCommas(minVal):showPercent ?minVal+"%":minVal}</div>
-        <div className="slider__right-value">{isPrice ? '$'+  utils.numberWithCommas(maxVal):showPercent ?maxVal+"%":maxVal}</div>
-      </div>
     </div>
   );
 };

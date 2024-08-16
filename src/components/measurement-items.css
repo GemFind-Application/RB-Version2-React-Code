@@ -42,7 +42,7 @@
   min-width: 192px;
   text-align: center;
   font-size: var(--h4-size);
-  color: var(--black);
+  color: var(--backgroundtext);
   font-family: var(--h4);
 }
 

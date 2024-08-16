@@ -5,6 +5,8 @@ import './SettingsFilterPanel.css';
 import MultiRangeSlider from './MultiRangeSlider';
 import PopupAlert from './PopupAlert';
 import { debounce } from "lodash";
+import Nouislider from "nouislider-react";
+import "nouislider/distribute/nouislider.css";
 const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive,selectedDiamondShape,filterType}) => (
   <>
  {((!isActive&&isCollectionisActive && isCollectionisActive==0)|| (selectedDiamondShape!=""&&filterType==='shapes')) ?
@@ -89,10 +91,13 @@ const SettingsFilterPanel = ({
       price: [min, max]
     });
   };*/
-  //console.log(configAppData)
-  const handlePriceChange = ({ min, max }) => {    
+  //console.log(configAppData
+  const handlePriceChange = ({ min, max }) => {   
+    console.log(min);
+    console.log(max) 
     setPriceRange([min, max]);  
-    handleDebounce({min,max});
+    applyFilters({ ...activeFilters, price: [min,max] });
+    //handleDebounce({min,max});
   };
 
   const handleLabGrownToggle = (value) => {
@@ -100,13 +105,13 @@ const SettingsFilterPanel = ({
   };
    // memoize the callback with useCallback
   // we need it since it's a dependency in useMemo below
-  const handleSetTimeRange = (value) => {     
+ /* const handleSetTimeRange = (value) => {     
     applyFilters({ ...activeFilters, price: [value.min,value.max] });
   };
   const handleDebounce = useCallback(
     debounce(handleSetTimeRange, 500),
     [activeFilters],
-  ); 
+  ); */
 
   // const togglePopup = (popup) => {
   //   setActivePopup(activePopup === popup ? null : popup);
@@ -285,10 +290,14 @@ const SettingsFilterPanel = ({
                 max={parseFloat(filterData.priceRange[0].maxPrice)}
                 onChange={handlePriceChange}
                 value={priceRange}
+                step={'stepby1'}
               />
+              
             </div>
+            
           )}
         </div>
+        
       )}
       <div className="filters-label searchView">{showFilterDetails}</div>
     </div>

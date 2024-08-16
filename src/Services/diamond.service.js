@@ -104,7 +104,7 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'DID='+option.searchDiamond;    
   }
-  if(option.OrderBy ){
+  if(option.orderBy ){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'OrderBy='+option.orderBy+"&OrderType="+option.orderDirection  ; 
   }

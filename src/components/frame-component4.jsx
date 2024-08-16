@@ -17,7 +17,7 @@ const FrameComponent4 = ({ className = "",configAppData }) => {
   return (
     <div className={`home-content-wrapper ${className}`}>
       <div className="home-content">
-        <div className="home-buttons">
+        {/*<div className="home-buttons">
           <div className="home">Home</div>
           <div className="home-buttons-inner">
             <img className="frame-child1" alt="" src={`${imageUrl}`+"/vector-12.svg" }/>
@@ -27,7 +27,7 @@ const FrameComponent4 = ({ className = "",configAppData }) => {
             <img className="frame-child1" alt="" src={`${imageUrl}`+"/vector-23.svg"} />
           </div>
           <b className="complete-ring">Complete Ring</b>
-        </div>
+        </div>*/}
         <div className="complete-ring-parent">
           <b className="complete-ring1">Complete Ring</b>
           <div className="create-ring-description-parent">

@@ -52,13 +52,13 @@ const Settingsbreadcrumb = ({ className = "", configAppData, isLabGrown, setIsLa
   return (
     <div className={`settingsfilter-wrapper wrapper-main ${className}`}>
       <div className="settingsfilter-container">
-        <div className="settings-breadcrumb">
+        {/*<div className="settings-breadcrumb">
           <div className="home3">Home</div>
           <img className="bread-child" alt="" src={`${imageUrl}/vector-12.svg`} />
           <div className="create-ring3">Create Ring</div>
           <img className="bread-child" alt="" src={`${imageUrl}/vector-23.svg`} />
           <b className="choose-setting2">Choose Setting</b>
-        </div>
+        </div>*/}
         <div className="settings-panel-wrapper">
           <div className="settings-panel">
             <div className="h16">

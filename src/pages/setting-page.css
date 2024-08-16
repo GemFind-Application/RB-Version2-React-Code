@@ -335,7 +335,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-xs);
-  color: var(--black);
+  color: var(--backgroundtext);
 }
 .main1 .bread-crumb {
   flex: 1;
@@ -380,7 +380,7 @@
   width: 1px;
   height: 12px;
   position: relative;
-  border-right: 1px solid var(--beige-04);
+  border-right: 1px solid var(--sepratorcolor);
   box-sizing: border-box;
 }
 .main1 .spec-items1 {
@@ -1331,6 +1331,7 @@
   min-width: 250px;
   white-space: nowrap;
   max-width: 100%;
+  color:var(--accent)
 }
 .main1 .button-fav1:hover {
   background-color: var(--color-rosybrown-200);

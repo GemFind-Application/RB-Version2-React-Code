@@ -125,7 +125,7 @@
 .stats-values {
   position: relative;
   display: inline-block;
-  color: var(--black);
+  color: var(--backgroundtext);
   min-width: 9px;
 }
 .stats-elements {
@@ -246,6 +246,7 @@
   position: relative;
   display: inline-block;
   min-width: 107px;
+  cursor: pointer;
 }
 .edit-child {
   height: 12px;
@@ -318,7 +319,7 @@
   justify-content: center;
   gap: var(--gap-xs);
   font-size: var(--h4-size);
-  color: var(--black);
+  color: var(--backgroundtext);
   font-family: var(--h4);
 }
 .this-excellent-cut {
@@ -335,7 +336,7 @@
 .gia1 {
   position: relative;
   display: inline-block;
-  color: var(--black);
+  color: var(--backgroundtext);
   min-width: 24px;
 }
 .cut6 {
@@ -347,7 +348,7 @@
 .excellent4 {
   position: relative;
   display: inline-block;
-  color: var(--black);
+  color: var(--backgroundtext);
   min-width: 63px;
 }
 .color2 {
@@ -365,7 +366,7 @@
 .i13 {
   position: relative;
   display: inline-block;
-  color: var(--black);
+  color: var(--backgroundtext);
   min-width: 11px;
 }
 .stats11 {
@@ -384,6 +385,7 @@
   position: relative;
   display: inline-block;
   min-width: 116px;
+  cursor: pointer;
 }
 .edit1 {
   display: flex;
@@ -391,7 +393,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: var(--gap-3xs);
-  color: var(--black);
+  color: var(--backgroundtext);
 }
 .div67 {
   flex: 1;
@@ -433,7 +435,7 @@
   gap: var(--gap-5xl);
   max-width: 100%;
   font-size: var(--h4-size);
-  color: var(--black);
+  color: var(--backgroundtext);
   font-family: var(--h4);
 }
 .stats-parent {
@@ -528,6 +530,11 @@
   max-width: 100%;
   color: var(--accent);
   cursor: pointer;
+}
+.button22:hover {
+  background-color: var(--color-rosybrown-200);
+  border: 1px solid var(--over-effect);
+  box-sizing: border-box;
 }
 .cart-buttons {
   align-self: stretch;

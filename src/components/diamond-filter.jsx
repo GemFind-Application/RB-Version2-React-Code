@@ -235,7 +235,7 @@ if(filter==='intensity'){
         <div className="top-group">
           <div className="top14">
             <div className="compare--diamond-header">
-              <b className="diamonds-founded2"> {/* set diamond found here */} {utils.numberWithCommas(totalProducts)} Diamonds Founded</b>
+              <b className="diamonds-founded2"> {/* set diamond found here */} {utils.numberWithCommas(totalProducts)} Diamonds Found</b>
               <div className="comp2" onClick={onCompareContainerClick}>
                 <div className="compare-diamonds3">Compare Diamonds</div>
                 <div className="empty-button">
@@ -296,19 +296,21 @@ if(filter==='intensity'){
                     <div key={filter} className="filter--val" onClick={() => toggleDropdown(filter)}>
                       <div className={filter === 'shape' ? "shape-option" : ""}>
                         <div className={filter === 'shape' ? "shape5 diamondfilterShape" : filter === 'price' ? "price23 diamondfilterShape" : filter === 'carat diamondfilterShape' ? "carat4 diamondfilterShape" : filter === 'cut' ? "cut10 diamondfilterShape" : filter === 'colour' ? "filters7 diamondfilterShape" : "clarity10 diamondfilterShape" }>
-                        {<img onClick={()=>resetThisFilter(filter)}className="icon--close" alt="" src={`${imageUrl}`+"/vector2.svg"} />}
+                        {
+                          
+                          <img onClick={()=>resetThisFilter(filter)}className="icon--close" alt="" src={`${imageUrl}`+"/vector2.svg"} />}
                           <span>{filter!=='diamondColorRange'?filter.charAt(0).toUpperCase() + filter.slice(1):'color'.charAt(0).toUpperCase() + 'color'.slice(1)}</span>
                           <img className="show-inner" alt="" src={`${imageUrl}`+"/vector-21.svg"} />
                         </div>
                         
                       </div>
                       
-                      {filter === 'shape' && (
+                      {(filter === 'shape' &&selectedFilters.shape.length>0)&& (
                         <div className="shape-placeholder">
                           <b className="placeholder1">{selectedFilters.shape.length}</b>
                         </div>
                       )}
-                      {filter === 'cut' && (
+                      {(filter === 'cut' && selectedFilters.cut.length>0)&&(
                         <div className="shape-placeholder">
                           <b className="placeholder1">{selectedFilters.cut.length}</b>
                         </div>
@@ -424,6 +426,8 @@ if(filter==='intensity'){
                         max={parseFloat(filterData.priceRange[0].maxPrice)}
                         onChange={handlePriceChange}
                         value={priceRange}
+                        price={true}
+                        step={1}
                       />
                     </div>
                   )}
@@ -435,6 +439,7 @@ if(filter==='intensity'){
                         onChange={handleCaratChange}
                         value={caratRange}
                         isPrice={false}
+                        step={0}
                       />
                     </div>
                   )}
@@ -521,6 +526,7 @@ if(filter==='intensity'){
                         value={depthRange}
                         isPrice={false}
                         showPercent={true}
+                        step={1}
                       />
                   </div>
 
@@ -533,6 +539,7 @@ if(filter==='intensity'){
                         value={tableRange}
                         isPrice={false}
                         showPercent={true}
+                        step={1}
                       />
                   </div>
                 </div>

@@ -52,7 +52,7 @@ const closePopup = () => {
   return (
     <div className={`wrapper3 ${className}`}>
       <div className="diamond-nav-container">
-        <div className="home-group">
+        {/*<div className="home-group">
           <div className="home2">Home</div>
           <div className="home-buttons1">
             <img className="icons" alt="" src={`${imageUrl}`+"/vector-12.svg"} />
@@ -62,7 +62,7 @@ const closePopup = () => {
             <img className="icons" alt="" src={`${imageUrl}`+"/vector-23.svg" }/>
           </div>
           <b className="choose-diamond3">Choose Diamond</b>
-        </div>
+        </div>*/}
         <div className="diamonds-group">
           <b className="diamonds1">Diamonds</b>
           <div className="frame-parent7">

@@ -81,8 +81,9 @@
   font-size: var(--h4-size);
   line-height: 120%;
   font-family: var(--h4);
-  color: var(--black);
+  color: var(--backgroundtext);
 }
+
 .step-1-parent {
   display: flex;
   flex-direction: column;
@@ -245,7 +246,7 @@
   max-width: 100%;
   gap: var(--gap-xl);
   font-size: var(--h1-size);
-  color: var(--black);
+  color: var(--backgroundtext);
   font-family: var(--h4);
 }
 .complete-ring-parent {

@@ -20,7 +20,7 @@
 }
 
 .ring__items .btn__outer a {
-  color: #fff;
+  color:#fff;
   font-weight: 600;
   text-decoration: none;
   text-transform: uppercase;
@@ -180,7 +180,7 @@
   gap: var(--gap-9xl);
   text-align: left;
   font-size: var(--buttom-size);
-  color: var(--black);
+  color: var(--backgroundtext);
   font-family: var(--body-14-reg);
 }
 

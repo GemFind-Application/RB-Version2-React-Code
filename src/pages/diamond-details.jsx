@@ -266,7 +266,7 @@ if (request.status === 200) {
 }
 return null;*/
 
-    
+setShowLoading(true);
      //const res = await diamondService.addTocart(diamondDetail.diamondId,isLabGrown); 
      const addtocartPrefix = `${import.meta.env.VITE_ADD_TO_CART_PREFIX}`;  
      let formData = new FormData();
@@ -280,6 +280,7 @@ return null;*/
      fetch(url,requestOptions)
       .then(function(response) {
         console.log(response);
+        setShowLoading(false)
         if(response.status===200){
           console.log(response.url);
           localStorage.removeItem('selectedDiamond')
@@ -347,11 +348,12 @@ return null;*/
                 <div className="specs-container">
                   <div className="specs-content">
                     <div className="specs-details">
-                      <div className="id-383212322">{ additionOptionSetting.show_In_House_Diamonds_First ?
+                      {diamondDetail.stockNumber!==""&&
+                      <div className="id-383212322">{ (additionOptionSetting.show_In_House_Diamonds_First) ?
                        "Stock Number: "+diamondDetail.stockNumber:
-                        "SKU#: "+diamondDetail.diamondId}</div>
+                        "SKU#: "+diamondDetail.diamondId}</div>}
                       <h1 className="princess-1001-carath">
-                      {diamondDetail.shape} {' '}{diamondDetail.caratWeight} CARATH
+                      {diamondDetail.shape} {' '}{diamondDetail.caratWeight} CARAT
                       </h1>
                       <div className="specs-header">
                         <div className="header-items">
@@ -363,7 +365,7 @@ return null;*/
                         <div className="ships" onClick={openDiamondDetails}>
                           <div className="header-items">
                             <div className="back-to-all">
-                              Diamond Specifications
+                              Diamond Details
                             </div>
                           </div>
                           <img

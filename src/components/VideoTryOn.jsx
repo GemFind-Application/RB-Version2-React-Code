@@ -12,7 +12,7 @@ window.onmessage = function (event) {
   
   
   <div className="video-popup-overlay" onClick={onClose} >{src!==""&&
-          <div className="video-popup-content" onClick={(e) => e.stopPropagation()}  style={{height:'70%',width:'70%',overflow:'hidden'}}
+          <div className="video-popup-content" onClick={(e) => e.stopPropagation()}  style={{height:'75%',width:'75%',overflow:'hidden'}}
               >
                 
           <iframe

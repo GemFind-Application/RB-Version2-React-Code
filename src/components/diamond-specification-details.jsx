@@ -27,7 +27,7 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
         <button className="close-button" onClick={onClose}>×</button>
       <section className="content2">
         <div className="top2">
-          <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.caratWeight} CARATH</h3>
+          <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.caratWeight} CARAT</h3>
           <div className="stats">
             <div className="spec-labels">
               <div className="stock-number">{"Stock Number"}:</div>

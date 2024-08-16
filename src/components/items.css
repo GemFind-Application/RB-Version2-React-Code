@@ -3,6 +3,7 @@
   line-height: 120%;
   display: inline-block;
   flex-shrink: 0;
+  font-size: var(--font-size-lgi);
 }
 .product-name {
   max-width: 230px;
@@ -83,7 +84,7 @@
 .vs2-excellent {
   position: relative;
   display: inline-block;
-  color: var(--grey);
+  color: var(--backgroundmenutextdiamond);
   min-width: 97px;
 }
 .down {
@@ -178,7 +179,7 @@
   max-width: 100%;
   text-align: left;
   font-size: var(--h3-size);
-  color: var(--black);
+  color: var(--backgroundtext);
   font-family: var(--h4);
 }
 

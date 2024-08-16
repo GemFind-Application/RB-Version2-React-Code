@@ -56,7 +56,7 @@
   font-size: var(--body-14-reg-size);
   font-weight: 500;
   font-family: var(--body-14-reg);
-  color: var(--grey);
+  color: var(--notselectedmenucolor);
 }
 .create-your-own-ring-group {
   align-self: stretch;
@@ -114,7 +114,7 @@ body .empty-row .i10 {
   box-sizing: border-box;
   position: relative;
   gap: var(--gap-xs);
-  color: var(--white);
+  color: var(--backgroundmenutext);
 }
 .empty-row b {
   z-index: 99;
@@ -138,6 +138,7 @@ body .empty-row .i10 {
   padding: 10px 20px;
   position: relative;
   gap: var(--gap-xs);
+  color:var(--notselectedmenucolor)
 }
 .fancy-colour1 {
   position: relative;
@@ -211,7 +212,7 @@ body .empty-row .i10 {
   max-width: 100%;
   gap: var(--gap-xl);
   font-size: var(--h1-size);
-  color: var(--black);
+  color: var(--backgroundtext);
   font-family: var(--h4);
 }
 .diamonds-group {

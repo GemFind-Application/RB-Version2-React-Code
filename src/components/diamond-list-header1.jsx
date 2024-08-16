@@ -53,7 +53,7 @@ const DiamondListHeader1 = ({ className = "", diamond ,isLabGrown ,configAppData
         <div className="diamond-details4">
           <img className="image-icon4" alt="" src={diamond.biggerDiamondimage} />
           <div className="name2">
-            <b className="princess-1001-carath3">{diamond.shape} {' '}{diamond.carat} CARATH</b>
+            <b className="princess-1001-carath3">{diamond.shape} {' '}{diamond.carat} CARAT</b>
             <b className="diamond-weight-type"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b>
           </div>
         </div>

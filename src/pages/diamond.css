@@ -25,6 +25,28 @@
   line-height: normal;
   letter-spacing: normal;
 }
+.itemnofound{
+flex: 1 1 315px;
+margin: 0 auto;
+width: 100%;
+
+
+overflow: hidden;
+flex-shrink: 0;
+/* display: flex; */
+flex-direction: column;
+align-items: flex-start;
+justify-content: flex-start;
+padding: var(--padding-13xl) var(--padding-xl) var(--padding-33xl-3)
+  var(--padding-5xl);
+box-sizing: border-box;
+gap: var(--gap-45xl-3);
+max-width: 100%;
+text-align: left;
+font-size: var(--h3-size);
+color: #000;
+font-family: var(--h4);
+}
 
 @media screen and (max-width: 825px) {
   .list2 {

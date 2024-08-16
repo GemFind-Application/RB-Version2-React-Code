@@ -4,7 +4,7 @@ import './SkeletonFilterPanel.css';
 const SkeletonFilterPanel = () => {
   return (
     <div className="SettingsFilterPanel skeleton">
-      <div className="settingsfilter-wrapper">
+      {/*<div className="settingsfilter-wrapper">
         <div className="mined-lab-wrapper">
           <div className="mined-settings">
             <div className="mined2 skeleton-box"></div>
@@ -15,7 +15,7 @@ const SkeletonFilterPanel = () => {
             <div className="separator"><b className="i22">i</b></div>
           </div>
         </div>
-      </div>
+      </div>*/}
       <div className="list-header">
         <div className="settingfilter-top">
           <b className="settings-founded skeleton-line"></b>

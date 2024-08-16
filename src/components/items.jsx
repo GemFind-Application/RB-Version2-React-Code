@@ -51,7 +51,7 @@ useEffect(() => {
       <div className="product-card">
         <div className="product-info1">
           <div className="product-name">
-            <b className="princess-1001-carath5">{diamond.shape} {' '}{diamond.carat} CARATH</b>
+            <b className="princess-1001-carath5">{diamond.shape} {' '}{diamond.carat} CARAT</b>
           </div>
           <div className="actions10">
             {(diamond.hasVideo)&&

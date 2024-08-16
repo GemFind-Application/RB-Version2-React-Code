@@ -46,6 +46,11 @@
   --over-effect:#836a5d;
   --grey: #6a655e;
   --textcolor: #836a5d;
+  --notselectedmenucolor:#6a655e;
+  --sepratorcolor:#dccac1;
+  --backgroundtext:#262523;
+  --backgroundmenutext:#fff;
+  --backgroundmenutextdiamond:##6a655e;
   --note-container:#f8f4f2;
   --bluecolor:#4b5ade;
   --color-lightgray-100: #dbd4d1;
@@ -370,7 +375,9 @@ body .settingsfilter-wrapper {
   padding-bottom: 10px;
 }
 
-
+.image-gallery-thumbnail.active, .image-gallery-thumbnail:focus{
+  border:1px solid #337ab7
+}
 /* Responsive utilities */
 @media (max-width: 640px) {
   .sm\:flex-col {

@@ -31,7 +31,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
     } catch (error) {
       console.error("Error fetching product details:", error);
       setError("Error fetching product details")
-      setShowLoading(false)
+      //setShowLoading(false)
     }
   };
   const fetchSettingDetails = async (settingId) => {
@@ -57,7 +57,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
         }        
         setImages(images);
         setIssettingLoaded(true);
-        setShowLoading(false)
+        //setShowLoading(false)
       }     
     } catch (error) {
       console.error("Error fetching product details:", error);
@@ -89,6 +89,13 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
     }
     //setIsSettingAnDiamondIdLoaded(true)
   }, []); 
+  useEffect(() => {
+  if(issettingLoaded&&isDiamondLoaded){
+    setShowLoading(false);
+  }
+   
+    //setIsSettingAnDiamondIdLoaded(true)
+  }, [issettingLoaded,isDiamondLoaded]); 
   if (error) {
     return <ShowError error={error}/>;
   }
@@ -107,7 +114,7 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
             </div>               
           </div>
         </div>        
-        <ProductDetails shopUrl={shopUrl} additionOptionSetting={additionOptionSetting} formSetting={formSetting} settingDetail={settingDetail} diamondDetail={diamondDetail} ringSize={selectedRingSize} configAppData={configAppData}/>
+        <ProductDetails setShowLoading={setShowLoading} shopUrl={shopUrl} additionOptionSetting={additionOptionSetting} formSetting={formSetting} settingDetail={settingDetail} diamondDetail={diamondDetail} ringSize={selectedRingSize} configAppData={configAppData}/>
         </>
        :<>
         <div className="complete-inner">
