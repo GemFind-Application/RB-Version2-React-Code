@@ -1,143 +1,148 @@
 .ring-specs-popup {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 24px;
-  max-width: 600px !important;
-  width: 100%;
+	background-color: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+	padding: 24px;
+	max-width: 600px !important;
+	width: 100%;
 }
 
 .ring-specs-popup .popup-content {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: flex-start;
-  height: auto;
-  position: relative;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: flex-start;
+	height: auto;
+	position: relative;
 }
 
-.ring-specs-popup .popup-content > * {
-  flex: 1;
+.ring-specs-popup .popup-content>* {
+	flex: 1;
 }
 
 .settings_info.flex,
 .diamonds_info.flex {
-  justify-content: flex-start;
-  width: 100%;
+	justify-content: flex-start;
+	width: 100%;
 }
 
 .diamonds_info.flex {
-  width: auto;
+	width: auto;
 }
 
 .can-be-set-with {
-  display: flex;
-  flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .settings_info.flex p {
-  flex: 1 1 auto;
+	flex: 1 1 auto;
 }
 
 .ring-specs-popup h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	color: #333;
 }
 
 .ring-specs-popup .spec-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 12px;
-  font-size: 14px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 12px;
+	font-size: 14px;
 }
 
 .ring-specs-popup .spec-label {
-  color: #666;
+	color: #666;
 }
 
 .ring-specs-popup .spec-value {
-  font-weight: bold;
-  color: #333;
+	font-weight: bold;
+	color: #333;
 }
 
 .ring-specs-popup .section-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 24px;
-  margin-bottom: 16px;
-  color: #333;
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: 24px;
+	margin-bottom: 16px;
+	color: #333;
 }
 
 .ring-specs-popup .diamond-shapes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 16px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-top: 16px;
 }
 
 .ring-specs-popup .diamond-shape {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #e0e0e0;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	width: 40px;
+	height: 40px;
+	border: 1px solid #e0e0e0;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.ring-specs-popup .setting-details {
+	border-radius: 0;
 }
 
 .ring-specs-popup .diamond-shape img {
-  width: 24px;
-  height: 24px;
+	width: 24px;
+	height: 24px;
 }
 
 .ring-specs-popup .close-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #999;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	color: #999;
 }
 
 .hr {
-  background: #3c2a2a00;
-  width: 100%;
-  opacity: 0.2;
+	background: #3c2a2a00;
+	width: 100%;
+	opacity: 0.2;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
-.canbesetwithspace{
-  margin-top: 6px;
-  margin-left: 6px;
+.canbesetwithspace {
+	margin-top: 6px;
+	margin-left: 6px;
 }
 /* Responsive adjustments */
 @media (max-width: 480px) {
-  .ring-specs-popup {
-    padding: 16px;
-  }
+	.ring-specs-popup {
+		padding: 16px;
+	}
 
-  .ring-specs-popup h2 {
-    font-size: 20px;
-  }
+	.ring-specs-popup h2 {
+		font-size: 20px;
+	}
 
-  .ring-specs-popup .spec-row {
-    font-size: 13px;
-  }
+	.ring-specs-popup .spec-row {
+		font-size: 13px;
+	}
 
-  .ring-specs-popup .section-title {
-    font-size: 16px;
-  }
+	.ring-specs-popup .section-title {
+		font-size: 16px;
+	}
 
-  .ring-specs-popup .diamond-shape {
-    width: 36px;
-    height: 36px;
-  }
+	.ring-specs-popup .diamond-shape {
+		width: 36px;
+		height: 36px;
+	}
 
-  .ring-specs-popup .diamond-shape img {
-    width: 20px;
-    height: 20px;
-  }
+	.ring-specs-popup .diamond-shape img {
+		width: 20px;
+		height: 20px;
+	}
 }
