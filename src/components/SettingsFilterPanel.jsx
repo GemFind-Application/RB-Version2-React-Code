@@ -62,7 +62,9 @@ const SettingsFilterPanel = ({
     let filterAvailable = [];
     filterData.collections.length>0 && filterAvailable.push('collections');  
     filterData.metalType.length>0 && filterAvailable.push('metalType');  
-    filterData.shapes.length>0 && filterAvailable.push('shapes');
+    if(filterData.showDiamondShape===true){
+      filterData.shapes.length>0 && filterAvailable.push('shapes');
+    }
     setSearchQuery(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
     setAvailableFilter(filterAvailable)
    // setOpenFilter(openFilter!=="" ? null : filter);
@@ -272,7 +274,7 @@ const SettingsFilterPanel = ({
               onClick={() => toggleFilterOption('metalType', metal.metalType)}
             />
           ))}
-          {openFilter === 'shapes' && filterData.shapes && filterData.shapes.map(shape => (
+          {(openFilter === 'shapes' && filterData.shapes && filterData.showDiamondShape===true) && filterData.shapes.map(shape => (
             <FilterOption
               key={shape.shapeName}
               label={shape.shapeName}
