@@ -1,126 +1,129 @@
 .drop-hint-popup {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 24px;
-  max-width: 600px !important;
-  width: 100%;
-  font-family: inherit;
-  position: relative;
+	background-color: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+	padding: 24px;
+	max-width: 600px !important;
+	width: 100%;
+	font-family: inherit;
+	position: relative;
 }
 
 .drop-hint-popup h2 {
-  padding: 0px;
-  margin: 0;
+	padding: 0px;
+	margin: 0;
 }
 
 .popup-content {
-  position: relative;
+	position: relative;
 }
 
 .drop-hint-popup hr.hr {
-  color: #EEEDEC;
-  opacity: 0.2;
-  margin-top: 10px;
-  margin-bottom: 30px;
-  height: 1px;
+	color: #EEEDEC;
+	opacity: 0.2;
+	margin-top: 10px;
+	margin-bottom: 30px;
+	height: 1px;
 }
 
 .form-group {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
+	display: flex;
+	gap: 20px;
+	margin-bottom: 20px;
 }
 
-.form-group input, .form-group textarea {
-  border: 1px solid #E4E3E1;
-  border-radius: 40px;
-  font-family: inherit;
-  font-size: 14px;
+.form-group input,
+.form-group textarea {
+	border: 1px solid #E4E3E1;
+	border-radius: 40px;
+	font-family: inherit;
+	font-size: 14px;
 }
-
 .form-group input {
-  height: 40px;
-  padding: 0 10px;
-  width: 100%;
+	height: 40px;
+	padding: 0 10px;
+	width: 100%;
+}
+.drop-hint-popup .form-group.input-group input {
+	width: 50%;
 }
 
 .form-group textarea {
-  min-height: 125px;
-  padding-top: 20px;
-  padding-left: 20px;
+	min-height: 125px;
+	padding-top: 20px;
+	padding-left: 20px;
 }
 
 .flex-col {
-  flex-direction: column;
+	flex-direction: column;
 }
 
 .flex-50 {
-  display: flex;
+	display: flex;
 }
 
-.drop-hint-popup .gift-deadline  {
-  flex: 1 1 50%;
+.drop-hint-popup .gift-deadline {
+	flex: 1;
 }
 
 .drop-hint-popup .gift-deadline .calendar-icon {
-  width: 20px;
-  height: 20px;
-  margin-left: 8px;
-  border-radius: 40px;
+	width: 20px;
+	height: 20px;
+	margin-left: 8px;
+	border-radius: 40px;
 }
 
 .drop-hint-popup button {
-  background-color: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 40px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  width: 100%;
-  transition: background-color 0.3s ease;
-  flex: 1 1 50%;
-  font-family: Manrope;
+	background-color: var(--accent);
+	color: white;
+	border: none;
+	border-radius: 40px;
+	padding: 12px 24px;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	width: 100%;
+	transition: background-color 0.3s ease;
+	flex: 1 1 50%;
+	font-family: Manrope;
 }
 
 .drop-hint-popup .close-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #ccc;
-  border: 1px solid;
-  border-radius: 50%;
-  width: 36px;
-  padding: 0px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	color: #ccc;
+	border: 1px solid;
+	border-radius: 50%;
+	width: 36px;
+	padding: 0px;
 }
 
 /* FORM ERRORS */
 .drop-hint-popup .error {
-  border: 1px solid red;
+	border: 1px solid red;
 }
 
 .drop-hint-popup .error::placeholder {
-  color: red;
+	color: red;
 }
 
 .drop-hint-popup .error:-ms-input-placeholder {
-  color: red;
+	color: red;
 }
 
 .drop-hint-popup .error::-ms-input-placeholder {
-  color: red;
+	color: red;
 }
 
 .drop-hint-popup input[type="date"].error::-webkit-datetime-edit {
-  color: red;
+	color: red;
 }
 
 .drop-hint-popup input[type="date"].error::-moz-placeholder {
-  color: red;
+	color: red;
 }
