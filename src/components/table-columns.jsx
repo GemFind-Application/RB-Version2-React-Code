@@ -5,7 +5,7 @@ import {utils} from "../Helpers/utils"
 const ShowValue = ({value,keyOfObject})=>{
 
   if(keyOfObject==='table' || keyOfObject==='depth'){
-    return value[keyOfObject]!==""?value[keyOfObject]+"%":"-";
+    return value[keyOfObject]!==""&&value[keyOfObject]!==undefined?value[keyOfObject]+"%":"-";
   }
   if(keyOfObject==='price'){
     let  showP = value.fltPrice ?      
