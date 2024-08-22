@@ -32,6 +32,7 @@
     background-color: var(--accent);
     margin: 0;
     padding: 4px;
+    line-height: 1;
   }
   
   .popupalert .popup-close:hover {

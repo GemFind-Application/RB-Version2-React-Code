@@ -175,9 +175,9 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: var(--padding-13xl) var(--padding-5xl) var(--padding-5xl);
+  padding: var(--padding-5xl) var(--padding-5xl) var(--padding-5xl);
   box-sizing: border-box;
-  gap: var(--gap-9xl);
+  gap: var(--gap-mini);
   text-align: left;
   font-size: var(--buttom-size);
   color: var(--backgroundtext);

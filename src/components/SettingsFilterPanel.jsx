@@ -12,14 +12,14 @@ const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive,sel
  {((!isActive&&isCollectionisActive && isCollectionisActive==0)|| (selectedDiamondShape!=""&&filterType==='shapes')) ?
   <div className={`filter-option noCursor ${selectedDiamondShape ? 'active spaceInbetween' : ''}`} >
     {isActive && <X size={10} />}
-    {icon && <img src={icon} alt={label} className="filter-option-icon" />}
-    <span>{label}</span>
+    <span className="filter-img">{icon && <img src={icon} alt={label} className="filter-option-icon" />}</span>
+    <span className="fitler-label">{label}</span>
   </div>
   :
   <div    className={`filter-option ${isActive ? 'active' : ''}`}      onClick={onClick}>
       {isActive && <X size={10} />}
-      {icon && <img src={icon} alt={label} className="filter-option-icon" />}
-      <span>{label}</span>
+      <span className="filter-img">{icon && <img src={icon} alt={label} className="filter-option-icon" />}</span>
+      <span className="fitler-label">{label}</span>
     </div>
     }
     </>
@@ -192,6 +192,9 @@ const SettingsFilterPanel = ({
                       }}>i</b>
                     </div>
                   }
+                  <div className="shape-placeholder">
+                          <b className="placeholder1">2</b>
+                        </div>
                 </div>
               ))}
               {filterData.priceRange.length > 0 &&
