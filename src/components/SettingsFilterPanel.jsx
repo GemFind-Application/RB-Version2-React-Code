@@ -7,19 +7,21 @@ import PopupAlert from './PopupAlert';
 import { debounce } from "lodash";
 import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
-const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive,selectedDiamondShape,filterType}) => (
+const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
+const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive,selectedDiamondShape,filterType}) => (  
   <>
+
  {((!isActive&&isCollectionisActive && isCollectionisActive==0)|| (selectedDiamondShape!=""&&filterType==='shapes')) ?
   <div className={`filter-option noCursor ${selectedDiamondShape ? 'active spaceInbetween' : ''}`} >
     {isActive && <X size={10} />}
-    <span className="filter-img">{icon && <img src={icon} alt={label} className="filter-option-icon" />}</span>
+    <span className="filter-img">{icon && <img rc={`${imageUrl+"/"+icon}`}  alt={label} className="filter-option-icon" />}</span>
     <span className="fitler-label">{label}</span>
   </div>
   :
   <div    className={`filter-option ${isActive ? 'active' : ''}`}      onClick={onClick}>
       {isActive && <X size={10} />}
-      <span className="filter-img">{icon && <img src={icon} alt={label} className="filter-option-icon" />}</span>
-      <span className="fitler-label">{label}</span>
+      {icon && <span class="filter-svg"><img  src={`${imageUrl+"/"+icon}`} alt={label} className="filter-option-icon" /></span>}
+      <span>{label}</span>
     </div>
     }
     </>
@@ -62,9 +64,9 @@ const SettingsFilterPanel = ({
     let filterAvailable = [];
     filterData.collections.length>0 && filterAvailable.push('collections');  
     filterData.metalType.length>0 && filterAvailable.push('metalType');  
-    if(filterData.showDiamondShape===true){
+    //if(filterData.showDiamondShape===true){
       filterData.shapes.length>0 && filterAvailable.push('shapes');
-    }
+    //}
     setSearchQuery(activeFilters.search ? activeFilters.search!=""? activeFilters.search: '':'');
     setAvailableFilter(filterAvailable)
    // setOpenFilter(openFilter!=="" ? null : filter);
@@ -182,9 +184,7 @@ const SettingsFilterPanel = ({
                   >
                     <div className="filter-label">{filter.charAt(0).toUpperCase() + filter.slice(1)}</div>
                     <ChevronDown size={16} />
-                    {activeFilters[filter].length > 0 && (
-                      <div className="filter-count">{activeFilters[filter].length}</div>
-                    )}
+                   
                   </button>
                   {(configAppData.show_filter_info === "true") && (filter === 'price' || filter === 'metalType' || filter === 'shapes') &&
                     <div className={filter === 'shapes' ? "shape-info1" : filter === 'price' ? "empty-options" : "border--round"}>
@@ -194,9 +194,10 @@ const SettingsFilterPanel = ({
                       }}>i</b>
                     </div>
                   }
+                  {activeFilters[filter].length > 0 && (
                   <div className="shape-placeholder">
-                          <b className="placeholder1">2</b>
-                        </div>
+                          <b className="placeholder1">{activeFilters[filter].length}</b>
+                        </div>  )}
                 </div>
               ))}
               {filterData.priceRange.length > 0 &&
@@ -262,8 +263,8 @@ const SettingsFilterPanel = ({
           {openFilter === 'collections' && filterData.collections && filterData.collections.map(collection => (
             <FilterOption
               key={collection.collectionName}
-              label={collection.collectionName}
-              icon={collection.collectionImage}
+              label={collection.collectionName}              
+              icon={"f_"+(collection.collectionName).toLowerCase()+".svg"}
               isActive={activeFilters.collections.includes(collection.collectionName)}
               onClick={() => toggleFilterOption('collections', collection.collectionName)}
               isCollectionisActive={collection.isActive}
@@ -277,11 +278,11 @@ const SettingsFilterPanel = ({
               onClick={() => toggleFilterOption('metalType', metal.metalType)}
             />
           ))}
-          {(openFilter === 'shapes' && filterData.shapes && filterData.showDiamondShape===true) && filterData.shapes.map(shape => (
+          {(openFilter === 'shapes' && filterData.shapes ) && filterData.shapes.map(shape => (
             <FilterOption
               key={shape.shapeName}
               label={shape.shapeName}
-              icon={shape.shapeImage}
+              icon={"f_"+(shape.shapeName).toLowerCase()+".svg"}
               isActive={activeFilters.shapes.includes(shape.shapeName)}
               onClick={() => toggleFilterOption('shapes', shape.shapeName)}
               selectedDiamondShape={selectedDiamondShape}

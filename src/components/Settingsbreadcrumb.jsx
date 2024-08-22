@@ -122,7 +122,7 @@ const Settingsbreadcrumb = ({ className = "", configAppData, isLabGrown, setIsLa
                   <img
                     className="image-9-icon14"
                     alt=""
-                    src={`${configAppData.imageUrl}/image-9@2x.png`}
+                    src={`${imageUrl}/image-9@2x.png`}
                   />
                   <img className="frame-icon5" alt="" src={`${imageUrl}/frame2.svg`} />
                 </div>
