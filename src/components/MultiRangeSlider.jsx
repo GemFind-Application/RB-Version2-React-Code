@@ -76,7 +76,7 @@ console.log("value of step=="+step)
   }
  // onBlur={callAction}
   return (
-    <div className="container" style={{width:'50%'}}>
+    <div className="container price_slider_box" style={{width:'50%'}}>
       {step==1 ?
      <Nouislider
               connect
@@ -105,7 +105,7 @@ console.log("value of step=="+step)
           />
             }
           <div>
-          {isPrice?'$':''}
+          {isPrice?'':''}
           <input
                 type="text"
                 value={step?Number(minVal):minVal}
@@ -113,7 +113,7 @@ console.log("value of step=="+step)
                 onBlur={callAction}
                 className="slider__left-value"
               />{showPercent?'%':''}
-              {isPrice?'$':''}
+              {isPrice?'':''}
               <input
                 type="text"
               

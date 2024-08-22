@@ -56,6 +56,7 @@
   --color-lightgray-100: #dbd4d1;
   --color-lightgray-200: #d4d4d4;
   --beige-04: #dccac1;
+  --colorbeige: #dccac1;
   --color-lightgray-300: rgba(212, 212, 212, 0.09);
   --beige-00: #fbf9f8;
   --color-snow-100: rgba(251, 249, 248, 0.7);
@@ -372,7 +373,7 @@ body .headergroup-nav {
 }
 
 body .settingsfilter-wrapper {
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
 }
 
 .image-gallery-thumbnail.active, .image-gallery-thumbnail:focus{
@@ -391,7 +392,7 @@ body .settingsfilter-wrapper {
   }
   .portalPopupOverlay {
     overflow-y: scroll;
-    margin: 20px 0;
+    /* margin: 20px 0; */
   }
 }
 

@@ -1,441 +1,500 @@
 .SettingsFilterPanel {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0px var(--padding-xl);
-  box-sizing: border-box;
-  max-width: 100%;
-  text-align: center;
-  font-size: var(--h2-size);
-  color: var(--black);
-  font-family: var(--h4);
+	align-self: stretch;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	padding: 0px var(--padding-11xl);
+	box-sizing: border-box;
+	max-width: 100%;
+	text-align: center;
+	font-size: var(--h2-size);
+	color: var(--black);
+	font-family: var(--h4);
 }
 
 .SettingsFilterPanel .list-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--gap-9xl);
-  max-width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: var(--gap-9xl);
+	max-width: 100%;
 }
 
 .SettingsFilterPanel .settingfilter-top {
-  align-self: stretch;
-  border-bottom: 1px solid var(--stroke);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0px 0px var(--padding-lg);
-  gap: var(--gap-xl);
-  max-width: 100%;
+	align-self: stretch;
+	border-bottom: 1px solid var(--stroke);
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--padding-lg) 0px;
+	gap: var(--gap-xl);
+	max-width: 100%;
 }
 
 .SettingsFilterPanel .settings-founded {
-  position: relative;
-  line-height: 110%;
-  display: inline-block;
-  max-width: 100%;
+	position: relative;
+	line-height: 110%;
+	display: inline-block;
+	max-width: 100%;
 }
 
 .SettingsFilterPanel .settings-sort,
 .SettingsFilterPanel .settings-sort-page {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-3xs);
-  font-size: var(--body-14-reg-size);
-  color: var(--grey);
-  font-family: var(--body-14-reg);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	gap: var(--gap-3xs);
+	font-size: var(--body-14-reg-size);
+	color: var(--grey);
+	font-family: var(--body-14-reg);
 }
 
 .SettingsFilterPanel .settings-sort {
-  gap: var(--gap-6xl);
+	gap: var(--gap-6xl);
 }
 
 .SettingsFilterPanel .sort-by4,
 .SettingsFilterPanel .show7 {
-  position: relative;
-  display: inline-block;
-  min-width: 50px;
+	position: relative;
+	display: inline-block;
+	min-width: 50px;
 }
 
 .SettingsFilterPanel .low-to-high,
 .SettingsFilterPanel .per-page3 {
-  position: relative;
-  display: inline-block;
-  color: var(--black);
-  min-width: 79px;
+	position: relative;
+	display: inline-block;
+	color: var(--black);
+	min-width: 79px;
 }
 
 .SettingsFilterPanel .filters-setting {
-  align-self: stretch;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  max-width: 100%;
-  font-size: var(--body-14-reg-size);
-  color: var(--grey);
-  font-family: var(--body-14-reg);
-  padding: 4px 0 0;
+	align-self: stretch;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	max-width: 100%;
+	font-size: var(--body-14-reg-size);
+	color: var(--grey);
+	font-family: var(--body-14-reg);
+	padding: 4px 0 0;
 }
 
 .SettingsFilterPanel .mid2 {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: var(--padding-11xs-5) 0px;
-  box-sizing: border-box;
-  max-width: 100%;
-  gap: var(--gap-xl);
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-between;
+	padding: var(--padding-11xs-5) 0px;
+	box-sizing: border-box;
+	max-width: 100%;
+	gap: var(--gap-xl);
 }
 
 .SettingsFilterPanel .filters9,
 .SettingsFilterPanel .filter-container {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-base);
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	gap: var(--gap-base);
 }
 
 .SettingsFilterPanel .filters9 {
-  max-width: 740px;
-  width: 100%;
+	max-width: 740px;
+	width: 100%;
 }
 
 .SettingsFilterPanel .filters-wrapper1 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-2xs-5) 0px 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	padding: var(--padding-2xs-5) 0px 0px;
 }
 
 .SettingsFilterPanel .filters-label {
-  font-weight: 500;
-  color: var(--grey);
+	font-weight: 500;
+	color: var(--grey);
 }
 
 .SettingsFilterPanel .filter-dropdown {
-  position: relative;
+	position: relative;
 }
 
 .SettingsFilterPanel .filter-button {
-  border-radius: var(--br-21xl);
-  border: 1px solid var(--beige-04);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: var(--padding-4xs) var(--padding-lgi);
-  gap: var(--gap-xs);
-  cursor: pointer;
-  background: none;
-  font-size: var(--body-14-reg-size);
-  color: var (--black);
-  position: relative;
+	border-radius: var(--br-21xl);
+	border: 1px solid var(--colorbeige);
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: var(--padding-4xs) var(--padding-lgi);
+	gap: var(--gap-xs);
+	cursor: pointer;
+	background: none;
+	font-size: var(--body-14-reg-size);
+	color: var (--black);
+	position: relative;
 }
 
 .SettingsFilterPanel .filter-button.SettingsFilterPanel .active {
-  border-color: var(--accent);
+	border-color: var(--accent);
 }
 
 .SettingsFilterPanel .filter-label {
-  font-weight: 500;
+	font-weight: 500;
+	color: #6A665E;
 }
 
 .SettingsFilterPanel .filter-count {
-  position: absolute;
-  top: -11.SettingsFilterPanel .5px;
-  right: -11px;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background-color: var(--accent);
-  border: 1px solid var(--white);
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--white);
-  font-size: 12px;
-  font-weight: bold;
+	position: absolute;
+	top: -11.SettingsFilterPanel .5px;
+	right: -11px;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background-color: var(--accent);
+	border: 1px solid var(--white);
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--white);
+	font-size: 12px;
+	font-weight: bold;
 }
 
 .SettingsFilterPanel .filter-options {
-  background-color: var(--white);
-  margin-top: 5px;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row !important;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
+	background-color: var(--white);
+	margin-top: 5px;
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
 }
 
 .SettingsFilterPanel .filter-option {
-  padding: var(--padding-3xs) var(--padding-xs);
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	padding: var(--padding-3xs) var(--padding-xs);
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .SettingsFilterPanel .filter-option:hover {
-  background-color: var(--beige-01);
+	/* background-color: var(--beige-01); */
 }
 
 .SettingsFilterPanel .filter-option.SettingsFilterPanel .active {
-  background-color: var(--beige-02);
-  font-weight: 500;
-  display: flex;
+	background-color: var(--beige-02);
+	font-weight: 500;
+	display: flex;
 }
 
 .SettingsFilterPanel .actions13 {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0px 0px 0px var(--padding-5xs);
-  gap: var(--gap-lgi);
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	padding: 0px 0px 0px var(--padding-5xs);
+	gap: var(--gap-lgi);
 }
 
 .SettingsFilterPanel .button30,
 .SettingsFilterPanel .button31 {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
 }
 
 .SettingsFilterPanel .button30 {
-  background-color: var(--accent);
-  color: var(--white);
-  border: none;
+	background-color: var(--accent);
+	color: var(--white);
+	border: none;
 }
 
 .SettingsFilterPanel .button31 {
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+	background: none;
+	border: 1px solid var(--accent);
+	color: var(--accent);
 }
 
 .SettingsFilterPanel .search6 {
-  max-width: 350px;
-  border-radius: var(--br-21xl);
-  border: 1px solid var(--stroke);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: var(--padding-4xs) var(--padding-xl);
-  gap: var(--gap-3xs);
-  width: 100%;
+	max-width: 350px;
+	border-radius: var(--br-21xl);
+	border: 1px solid var(--stroke);
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	padding: var(--padding-4xs) var(--padding-xl);
+	gap: var(--gap-3xs);
+	width: 100%;
 }
-
+.SettingsFilterPanel .search6 .search-input {
+	line-height: 1;
+}
 .SettingsFilterPanel .search7 {
-  border: none;
-  outline: none;
-  font-size: var(--body-14-reg-size);
-  color: var(--black);
-  background: none;
-  flex: 1;
+	border: none;
+	outline: none;
+	font-size: var(--body-14-reg-size);
+	color: var(--black);
+	background: none;
+	flex: 1;
 }
 
 .SettingsFilterPanel .filter-options-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: var(--padding-xl);
-  width: 100%;
-  position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	padding: var(--padding-xl) 0;
+	width: 100%;
+	position: relative;
 }
 
 .SettingsFilterPanel .filter-options-fullwidth {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: var(--gap-base);
-  width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: var(--gap-base);
+	width: 100%;
 }
 
 
 @media screen and (max-width: 1275px) {
-  .SettingsFilterPanel .settings-founded {
-    font-size: var(--font-size-7xl);
-    line-height: 28px;
-  }
+	.SettingsFilterPanel .settings-founded {
+		font-size: var(--font-size-7xl);
+		line-height: 28px;
+	}
 
-  .SettingsFilterPanel .settingfilter-top {
-    flex-wrap: wrap;
-  }
+	.SettingsFilterPanel .settingfilter-top {
+		flex-wrap: wrap;
+	}
 
-  .SettingsFilterPanel .filters9 {
-    flex-wrap: wrap;
-  }
+	.SettingsFilterPanel .filters9 {
+		flex-wrap: wrap;
+	}
 }
 
 @media screen and (max-width: 825px) {
-  .SettingsFilterPanel .settings-founded {
-    font-size: var(--font-size-lgi);
-    line-height: 21px;
-  }
+	.SettingsFilterPanel .settings-founded {
+		font-size: var(--font-size-lgi);
+		line-height: 21px;
+	}
+	.SettingsFilterPanel .settings-sort {
+		gap: 0;
+		justify-content: space-between;
+		width: 100%;
+	}
+	.SettingsFilterPanel .settings-sort-page {
+		gap: 0;
+	}
+	.SettingsFilterPanel .settings-sort .no-appearance,
+	.SettingsFilterPanel .settings-sort-page .no-appearance {
+		padding: 0 var(--padding-5xs);
+        margin-right: 0;
+        border-radius: 0;
+        background-position-y: 5px;
+	}
 
-  .SettingsFilterPanel .filter-container {
-    flex-wrap: wrap;
-  }
+	.SettingsFilterPanel .filter-container {
+		flex-wrap: wrap;
+	}
+	.SettingsFilterPanel .filters9 {
+		position: relative;
+	}
+	.SettingsFilterPanel .actions13 {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.SettingsFilterPanel .filters-wrapper1 {
+		margin-bottom: 15px;
+	}
 }
 
 @media screen and (max-width: 450px) {
-  .SettingsFilterPanel .mid2 {
-    flex-wrap: wrap;
-  }
+	.SettingsFilterPanel .mid2 {
+		flex-wrap: wrap;
+	}
 }
 
 .SettingsFilterPanel .filter-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap-base);
-  width: 100%;
-  position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--gap-base);
+	width: 100%;
+	position: relative;
 }
-
+.SettingsFilterPanel .filter-container::before {
+    content: "";
+    background-color: #E4E3E1;
+    display: inline-block;
+    height: 30px;
+    width: 1px;
+    position: absolute;
+    right: 0;
+    top: 6px;
+}
 .SettingsFilterPanel .filter-dropdown {
-  position: relative;
+	position: relative;
 }
 
 .SettingsFilterPanel .filter-option {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding: var(--padding-3xs);
-  cursor: pointer;
-  /* width: 80px;
-  height: 80px; */
-  border-radius: var(--br-xs);
-  flex-wrap: nowrap;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	padding: var(--padding-3xs);
+	cursor: pointer;
+	border-radius: var(--br-base);
+	flex-wrap: nowrap;
 }
-
-.SettingsFilterPanel .filter-option:hover {
-  background-color: var(--beige-01);
+.SettingsFilterPanel .filter-option img {
+	background-color: var(--beige-01);
+    border-radius: 16px;
+}
+.SettingsFilterPanel .filter-option:hover img {
+	background-color: var(--beige-02);
 }
 
 .SettingsFilterPanel .filter-option.SettingsFilterPanel .active {
-  background-color: var(--beige-02);
+	background-color: var(--beige-02);
 }
 
 .SettingsFilterPanel .filter-option-icon {
-  width: 60px;
-  height: auto;
-  margin-bottom: var(--padding-3xs);
+	width: 64px;
+	height: auto;
+	margin-bottom: var(--padding-3xs);
 }
 
 .SettingsFilterPanel .price-slider {
-  width: 100%;
-  padding: var(--padding-xs);
+	width: 100%;
+	padding: var(--padding-xs);
 }
-.SettingsFilterPanel .noCursor{
-  cursor:default;
+.SettingsFilterPanel .noCursor {
+	cursor: default;
 }
-.SettingsFilterPanel .spaceInbetween{
-  margin-right: 5px;
-  margin-left: 5px;
+.SettingsFilterPanel .spaceInbetween {
+	margin-right: 5px;
+	margin-left: 5px;
 }
 .SettingsFilterPanel .price-slider input[type="range"] {
-  width: 100%;
-  margin-bottom: var(--padding-3xs);
+	width: 100%;
+	margin-bottom: var(--padding-3xs);
 }
 
 .SettingsFilterPanel .price-range {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .SettingsFilterPanel .actions13 {
-  display: flex;
-  gap: var(--gap-3xs);
+	display: flex;
+	gap: var(--gap-3xs);
 }
 
 .SettingsFilterPanel .filter-option span {
-  font-size: 14px;
-  color: #6A665E;
-  font-family: 'manrope', sans-serif;
+	font-size: 14px;
+	color: #6A665E;
+	font-family: 'manrope', sans-serif;
 }
 
 .SettingsFilterPanel .filter-option svg {
-  width: 40px;
-  height: 40px;
+	width: 40px;
+	height: 40px;
 }
 
 .SettingsFilterPanel .filter-option.SettingsFilterPanel .active svg:first-child {
-  width: 20px;
-  height: 20px;
-  margin-bottom: 10px;
+	width: 20px;
+	height: 20px;
+	margin-bottom: 10px;
 }
 
 /* FILTER INFO i */
 .SettingsFilterPanel .filter-info {
-  position: relative;
-  display: inline-block;
-  margin-left: 5px;
-  cursor: pointer;
+	position: relative;
+	display: inline-block;
+	margin-left: 5px;
+	cursor: pointer;
 }
 
 .SettingsFilterPanel .filter-info-popup {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.SettingsFilterPanel .1);
-  z-index: 1;
-  width: 300px;
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: white;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.SettingsFilterPanel .1);
+	z-index: 1;
+	width: 300px;
 }
 
 .SettingsFilterPanel .active__filter {
-  background-color: var(--accent);
-  color: var(--white);
-  padding: var(--gap-smi);
-  border-radius: 60px;
-  width: 100%;
-  cursor: pointer;
+	background-color: var(--accent);
+	color: var(--white);
+	padding: var(--gap-smi);
+	border-radius: 60px;
+	width: 100%;
+	cursor: pointer;
 }
 
 /* POPUP ALERT */
 .info-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  margin-left: 8px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background-color: #f0f0f0;
+	cursor: pointer;
+	margin-left: 8px;
 }
 
 .info-icon b {
-  font-size: 12px;
-  color: #666;
-  font-style: italic;
+	font-size: 12px;
+	color: #666;
+	font-style: italic;
+}
+
+.noUi-horizontal .noUi-tooltip {
+	display: none !important;
+}
+.slider__left-value, .slider__right-value {
+	color: #262523 !important;
+	background-color: transparent;
+	-webkit-appearance: none;
+}
+.slider__left-value:focus-visible, .slider__right-value:focus-visible {
+	border: 0 none;
+	border-radius: 0;
+	outline: 0 none;
+}
+.slider__left-value {
+	left: 5px !important;
+}
+.slider__right-value {
+	right: -45px;
 }

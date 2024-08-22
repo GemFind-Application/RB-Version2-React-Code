@@ -1720,10 +1720,15 @@
 	}
 
 	.main1 .share2 {
-		padding-right: var(--padding-xl);
+		padding: 0;
 		box-sizing: border-box;
 	}
-
+	.main1 .share2 a {
+		width: 48%;
+	}
+	.main1 .share2 a button {
+		width: 100%;
+	}
 	.main1 .info-wrapper {
 		gap: var(--gap-base);
 	}

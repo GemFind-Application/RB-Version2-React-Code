@@ -1,167 +1,194 @@
 .results2 {
-  position: relative;
-  display: inline-block;
-  min-width: 49px;
+	position: relative;
+	display: inline-block;
+	min-width: 49px;
 }
 .total-results {
-  position: relative;
-  display: inline-block;
-  color: var(--black);
-  text-align: center;
-  min-width: 55px;
+	position: relative;
+	display: inline-block;
+	color: var(--black);
+	text-align: center;
+	min-width: 55px;
 }
 .pagination-results {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-9xs);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-9xs);
 }
 .page-number-icons {
-  width: 13px;
-  height: 13px;
-  position: relative;
-  object-fit: contain;
+	width: 13px;
+	height: 13px;
+	position: relative;
+	object-fit: contain;
 }
 .page-number-icons-wrapper {
-  border-radius: var(--br-5xs);
-  border: 1px solid var(--beige-04);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--padding-xs) var(--padding-sm);
-  height: 32px;
-  cursor: pointer;
-}
-.link_pagination {
-  position: relative;
-  display: inline-block;
-  min-width: 7px;
-  cursor: pointer;
+	border-radius: var(--br-5xs);
+	border: 1px solid #DCCAC1;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
 }
 .wrapper5 {
-  flex: 1;
-  border-radius: var(--br-5xs);
-  background-color: var(--beige-04);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 15px;
-  color: var(--link);
+	/* flex: 1;
+	border-radius: var(--br-5xs);
+	background-color: var(--beige-04);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 5px 15px;
+	color: var(--link); */
 }
 
 .inactive_pagination {
-  position: relative;
-  display: inline-block;
-  min-width: 8px;
-  cursor: pointer;
+	position: relative;
+    min-width: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-color: #FBF9F8;
+    color: #6A665E;
+    font-weight: normal;
+    font-size: 14px;
+}
+.link_pagination {
+	position: relative;
+    min-width: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-color: #DCCAC1;
+    color: #836A5D;
+    font-weight: bold;
+    font-size: 14px;
+}
+.page-number-icons-wrapper:hover,
+.inactive_pagination:hover {
+	background-color: #DCCAC1;
+    color: #836A5D;
 }
 .wrapper6 {
-  border-radius: var(--br-5xs);
-  /*background-color: var(--beige-00);*/
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--padding-6xs-5) var(--padding-xs);
-}
-.wrapper6:hover ,.page-number-icons-wrapper:hover {
-  background-color: var(--over-effect);
-
+	/* border-radius: var(--br-5xs);
+	background-color: var(--beige-00);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: var(--padding-6xs-5) var(--padding-xs); */
 }
 .div114 {
-  height: 19px;
-  position: relative;
-  display: inline-block;
+	height: 19px;
+	position: relative;
+	display: inline-block;
 }
 .wrapper7 {
-  align-self: stretch;
-  width: 32px;
-  border-radius: var(--br-5xs);
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+	display: none;
+	/* align-self: stretch;
+	width: 32px;
+	border-radius: var(--br-5xs);
+	flex-direction: column;
+	align-items: center;
+	justify-content: center; */
 }
 .wrapper9 {
-  align-self: stretch;
-  width: 32px;
-  border-radius: var(--br-5xs);
-  background-color: var(--beige-00);
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+	display: none;
+	/* align-self: stretch;
+	width: 32px;
+	border-radius: var(--br-5xs);
+	background-color: var(--beige-00);
+	flex-direction: column;
+	align-items: center;
+	justify-content: center; */
 }
 .instance-item {
-  width: 13px;
-  height: 13px;
-  position: relative;
+	width: 13px;
+	height: 13px;
+	position: relative;
 }
 .pages1 {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-5xs);
-  text-align: center;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	gap: var(--gap-5xs);
+	text-align: center;
 }
 .pagination-container {
-  align-self: stretch;
-  border-top: 1px solid var(--stroke);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--padding-sm) 50px var(--padding-base);
-  gap: var(--gap-xl);
+	align-self: stretch;
+	border-top: 1px solid var(--stroke);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--padding-sm) var(--padding-11xl) var(--padding-base);
+	gap: var(--gap-xl);
 }
 .gemfind-app-store5 {
-  position: relative;
+	position: relative;
+	font-size: 14px;
 }
 .pagination7 {
-  align-self: stretch;
-  border-top: 1px solid var(--stroke);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-  padding: var(--padding-3xs) var(--padding-xl) var(--padding-xs);
+	align-self: stretch;
+	border-top: 1px solid var(--stroke);
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: center;
+	padding: var(--padding-3xs) var(--padding-xl) var(--padding-xs);
 }
 .pagination-panel {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  text-align: left;
-  font-size: var(--body-14-reg-size);
-  color: var(--grey);
-  font-family: var(--body-14-reg);
-  max-width: 1680px;
-  width: 100%;
-  margin: 0 auto;
+	align-self: stretch;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	text-align: left;
+	font-size: var(--body-14-reg-size);
+	color: var(--grey);
+	font-family: var(--body-14-reg);
+	/* max-width: 1680px; */
+	width: 100%;
+	margin: 30px auto 0;
 }
 
-.settings > div.pagination-panel {
-  padding: 0;
+.settings>div.pagination-panel {
+	padding: 0;
 }
 
 @media screen and (max-width: 1275px) {
-  .pagination-container {
-    flex-wrap: wrap;
-    padding-left: var(--padding-41xl);
-    padding-right: var(--padding-41xl);
-    box-sizing: border-box;
-  }
+	.pagination-container {
+		flex-wrap: wrap;
+		padding-left: var(--padding-41xl);
+		padding-right: var(--padding-41xl);
+		box-sizing: border-box;
+	}
 }
 @media screen and (max-width: 825px) {
-  .pagination-container {
-    padding-left: var(--padding-xl);
-    padding-right: var(--padding-xl);
-    box-sizing: border-box;
-  }
+	.pagination-container {
+		padding-left: var(--padding-xl);
+        padding-right: var(--padding-xl);
+        box-sizing: border-box;
+        flex-direction: column-reverse;
+        justify-content: center;
+	}
+	.gemfind-app-store5 {
+		text-align: center;
+	}
 }
