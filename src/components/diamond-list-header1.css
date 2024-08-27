@@ -262,7 +262,8 @@
   cursor: pointer;
 }
 .diamond-list-header {
-  width: 1680px;
+  /* width: 1680px; */
+  width: 100%;
   border-radius: var(--br-xl);
   background-color: var(--beige-00);
   display: flex;
