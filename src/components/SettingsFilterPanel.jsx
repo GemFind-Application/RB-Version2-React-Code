@@ -14,7 +14,7 @@ const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive,sel
  {((!isActive&&isCollectionisActive && isCollectionisActive==0)|| (selectedDiamondShape!=""&&filterType==='shapes')) ?
   <div className={`filter-option noCursor ${selectedDiamondShape ? 'active spaceInbetween' : ''}`} >
     {isActive && <X size={10} />}
-    <span className="filter-img">{icon && <img rc={`${imageUrl+"/"+icon}`}  alt={label} className="filter-option-icon" />}</span>
+    <span className="filter-img">{icon && <img src={`${imageUrl+"/"+icon}`}  alt={label} className="filter-option-icon" />}</span>
     <span className="fitler-label">{label}</span>
   </div>
   :
@@ -26,7 +26,41 @@ const FilterOption = ({ label, icon, isActive, onClick ,isCollectionisActive,sel
     }
     </>
 );
+const FilterOptionCollection = ({ label, icon, isActive, onClick ,isCollectionisActive,selectedDiamondShape,filterType}) => (  
+  <>
 
+ {((!isActive&&isCollectionisActive && isCollectionisActive==0)|| (selectedDiamondShape!=""&&filterType==='shapes')) ?
+  <div className={`filter-option noCursor ${selectedDiamondShape ? 'active spaceInbetween' : ''}`} >
+    {isActive && <X size={10} />}
+    <span className="filter-img">{icon && <img src={icon} alt={label} className="filter-option-icon" />}</span>
+    <span className="fitler-label">{label}</span>
+  </div>
+  :
+  <div    className={`filter-option ${isActive ? 'active' : ''}`}      onClick={onClick}>
+      {isActive && <X size={10} />}
+      {icon && <span class="filter-svg"><img  src={icon} alt={label} className="filter-option-icon" /></span>}
+      <span>{label}</span>
+    </div>
+    }
+    </>
+);
+const FilterOptionMetal = ({ label, icon, isActive, onClick ,isCollectionisActive,selectedDiamondShape,filterType}) => (  
+  <>
+
+<div
+      key={label}
+      className={`metal-type ${isActive ? 'active' : ''}`}
+      onClick={onClick}
+    >{isActive && <X size={20} />}
+      <div className={`metal-icon ${label?label.toLowerCase():''} `}>
+        <div className="ring"></div>
+      </div>
+      <span className={`metal-name ${isActive  ? 'selected' : ''}`}>
+        {label}
+      </span>
+    </div>
+    </>
+);
 const SettingsFilterPanel = ({ 
   className, 
   filterData, 
@@ -261,17 +295,17 @@ const SettingsFilterPanel = ({
       {openFilter && (
         <div className="filter-options-container">
           {openFilter === 'collections' && filterData.collections && filterData.collections.map(collection => (
-            <FilterOption
+            <FilterOptionCollection
               key={collection.collectionName}
               label={collection.collectionName}              
-              icon={"f_"+(collection.collectionName).toLowerCase()+".svg"}
+              icon={collection.collectionImage}
               isActive={activeFilters.collections.includes(collection.collectionName)}
               onClick={() => toggleFilterOption('collections', collection.collectionName)}
               isCollectionisActive={collection.isActive}
             />
           ))}
           {openFilter === 'metalType' && filterData.metalType && filterData.metalType.length>0 && filterData.metalType.map(metal => (
-            <FilterOption
+            <FilterOptionMetal
               key={metal.metalType}
               label={metal.metalType}
               isActive={activeFilters.metalType.includes(metal.metalType)}

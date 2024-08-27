@@ -409,7 +409,7 @@ if(filter==='intensity'){
                   
                   {activeDropdown === 'shape' && (
                     filterData.shapes.map(shape => (
-                      <div  key={shape.shapeName}><img src={shape.shapeImage}></img>
+                      <div  key={shape.shapeName}><img src={`${imageUrl+"/"+"f_"+(shape.shapeName).toLowerCase()+".svg"}`}></img>
                         {selectedSettingShape!="" ?
                           
                           <p className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} >{shape.shapeName}</p>
