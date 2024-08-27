@@ -15,8 +15,8 @@
 
 :root {
   /* fonts */
-  --body-14-reg: 'Manrope', sans-serif;;
-  --h4: "Libre Baskerville", sans-serif;;
+  --body-14-reg: 'Manrope', sans-serif;
+  --h4: "Libre Baskerville", sans-serif;
   --font-inter: 'Inter', sans-serif;
   --font-acumin-pro: 'Acumin Pro', sans-serif;
 
@@ -204,7 +204,7 @@
 }
 
 body {
-  font-family: var(--body-14-reg);
+  font-family: 'Manrope', sans-serif;
   margin: 0;
   padding: 0;
   font-size: 16px;
