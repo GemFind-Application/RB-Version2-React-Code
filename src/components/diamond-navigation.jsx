@@ -50,7 +50,7 @@ const closePopup = () => {
     return contents[filterType] || "Information not available.";
   };
   return (
-    <div className={`wrapper3 ${className}`}>
+    <div className={`diamondfilet-wrapper ${className}`}>
       <div className="diamond-nav-container">
         {/*<div className="home-group">
           <div className="home2">Home</div>

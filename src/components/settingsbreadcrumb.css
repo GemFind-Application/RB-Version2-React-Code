@@ -47,7 +47,7 @@
 .create-your-own3 {
 	align-self: stretch;
 	position: relative;
-	font-size: 38px;
+	font-size: 44px;
 	line-height: 110%;
 	font-family: var(--h4);
 	color: var(--backgroundtext);
@@ -87,6 +87,7 @@
 	line-height: 120%;
 	font-family: var(--h4);
 	color: var(--backgroundtext);
+	font-weight: 700;
 }
 
 .settings-steps-details {
@@ -355,7 +356,7 @@
 	}
 
 	.step-items1 {
-		flex-wrap: wrap;
+		/* flex-wrap: wrap; */
 	}
 
 	.settingsfilter-wrapper {

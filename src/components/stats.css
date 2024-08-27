@@ -86,7 +86,7 @@
 	flex-wrap: wrap;
 	align-items: flex-start;
 	justify-content: flex-start;
-	padding: var(--padding-5xl) 0px 0px;
+	padding: var(--padding-5xl) 0px;
 	position: relative;
 	gap: var(--gap-5xl);
 	text-align: center;

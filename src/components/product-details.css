@@ -684,14 +684,21 @@
 }
 
 .image-container {
-  max-width: 560px !important;
+  /* max-width: 560px !important; */
   width: 100%;
 }
 
 .plp-image-gallery {
-  margin: 20px;
+  width: 100%;
 }
-
+.image-gallery-slide-wrapper {
+  background-color: #FBF9F8;
+  padding: 20px;
+}
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  max-height: inherit !important;
+    /* width: auto; */
+}
 @media screen and (max-width: 1275px) {
   .engagement-ring {
     font-size: var(--font-size-7xl);

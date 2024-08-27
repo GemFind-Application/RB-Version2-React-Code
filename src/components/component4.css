@@ -12,6 +12,7 @@
   line-height: 120%;
   font-family: var(--h4);
   color: var(--backgroundtext);
+  font-weight: 700;
 }
 .step-1-group {
   display: flex;

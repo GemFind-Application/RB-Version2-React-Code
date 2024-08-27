@@ -288,6 +288,7 @@ if(filter==='intensity'){
           <div className="filters-wrapper">
             <div className="mid1">
               <div className="diamond-filters">
+                <div className="filter3445">
                 <div className="filters-frame">
                   <div className="filters7">Filters:</div>
                 </div>
@@ -363,6 +364,7 @@ if(filter==='intensity'){
                       </div>
                     </div>
                   </div>
+                </div>
                 </div>
                 <div className="div103">
                   <div className="search4 search-products">
