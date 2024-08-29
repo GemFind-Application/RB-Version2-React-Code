@@ -588,6 +588,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-xs);
+  margin-top: 20px;
 }
 .advances1 {
   align-self: stretch;
@@ -752,6 +753,16 @@
 .advanced-filter-group h4 {
   margin-bottom: 10px;
   text-align: left;
+  position: relative;
+
+}
+.advanced-filter-group h4 .border--round {
+  background-color: #c9aea1;
+  position: relative;
+  display: inline-block;
+  left: -5px;
+  top: -8px;
+  padding: 0;
 }
 .flex-advanced-filter {
   display: flex;

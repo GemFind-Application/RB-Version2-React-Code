@@ -104,24 +104,29 @@ console.log("value of step=="+step)
             onChange={rangeSelectorprops}
           />
             }
-          <div>
+          <div className='sliderValues'>
           {isPrice?'':''}
+          <div className="sliderValues1">
           <input
                 type="text"
                 value={step?Number(minVal):minVal}
                 onChange={(e)=>handleMinChange(e)}
                 onBlur={callAction}
                 className="slider__left-value"
-              />{showPercent?'%':''}
+              /><span>{showPercent?'%':''}</span>
               {isPrice?'':''}
-              <input
+              
+          </div>
+          <div className="sliderValues2">
+          <input
                 type="text"
               
                 value={step?Number(maxVal):maxVal}
                 onChange={(e)=>handleMaxChange(e)}
                 onBlur={callAction}
                 className="slider__right-value"
-                />{showPercent?'%':''}
+                /><span>{showPercent?'%':''}</span>
+            </div>
           </div>
 
     </div>

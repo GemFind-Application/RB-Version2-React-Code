@@ -400,25 +400,24 @@ if(filter==='intensity'){
             {(activeDropdown === 'cut'||activeDropdown === 'colour'||activeDropdown === 'clarity')&&
               <div>From - to</div>}
               <div className="filter-options-container">
+                {activeDropdown === 'shape' && (
+                    filterData.shapes.map(shape => (
+                      <div className="dfilter-option"  key={shape.shapeName}><span class="filter-svg"><img alt={shape.shapeName} className="filter-option-icon" src={`${imageUrl+"/"+"f_"+(shape.shapeName).toLowerCase()+".svg"}`}></img></span>
+                        {selectedSettingShape!="" ?
+                          
+                          <p className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} >{shape.shapeName}</p>
+                        :
+                        <span className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('shape', shape.shapeName)}>{shape.shapeName}</span>
+                        }
+                        </div>
+                    ))
+                  )}
                 <div className="dropdown-content">
                   {activeDropdown === 'sort' && (
                     ['Price', 'Carat', 'Cut', 'Clarity'].map(option => (
                       <div className="dropdown-btns" key={option}>
                         <button className={`option--btn ${sortBy === option ? 'active--item' : ''}`} onClick={() => handleSortChange(option)}>{option}</button>
                       </div>
-                    ))
-                  )}
-                  
-                  {activeDropdown === 'shape' && (
-                    filterData.shapes.map(shape => (
-                      <div  key={shape.shapeName}><img src={`${imageUrl+"/"+"f_"+(shape.shapeName).toLowerCase()+".svg"}`}></img>
-                        {selectedSettingShape!="" ?
-                          
-                          <p className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} >{shape.shapeName}</p>
-                        :
-                        <p className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('shape', shape.shapeName)}>{shape.shapeName}</p>
-                        }
-                        </div>
                     ))
                   )}
                   {activeDropdown === 'price' && (
@@ -492,7 +491,7 @@ if(filter==='intensity'){
         
         {/* Advanced filters for diamond */}
         <div className="advances1">
-          <div className="adv2" onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}>
+          <div className="" onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}>
             <b className="advanced-filters2">Advanced Filters</b>
             <div className="adv-child">
               <img className="frame-child6" alt="" src={`${imageUrl}`+"/vector-24.svg"} />
@@ -504,7 +503,7 @@ if(filter==='intensity'){
             <div className="filter--content_dropdown">
               <div className="flex-advanced-filter">
                 <div className="advanced-filter-group">
-                  <h4>Polish</h4>
+                  <h4>Polish <span class="border--round"><b class="filter--hover-icon">i</b></span></h4>
                   <div className="group-inner">
                     {filterData.polishRange.map(polish => (
                       <div className="dropdown-btns" key={polish.polishId}>
