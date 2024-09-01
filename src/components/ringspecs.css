@@ -42,7 +42,7 @@
 	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 20px;
-	color: #262523;
+	color: var(--black);
 	margin: 0;
 }
 .ring-specs-popup .popup-content .content2 {

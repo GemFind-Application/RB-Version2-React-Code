@@ -14,11 +14,13 @@ const StepItems = ({
       className={`step-items ${className}`}
       onClick={onStepItemsContainerClick}
     >
-      <div className="div107">
+      <div className="steps-details">
         <b className="step-22">{step2}</b>
         <b className="step-title">{chooseDiamond}</b>
       </div>
-      <img className="icon4" alt="" src={imageUrl+prop} />
+      <div className="div109">
+        <img className="icon4" alt="" src={imageUrl+prop} />
+      </div>
     </div>
   );
 };

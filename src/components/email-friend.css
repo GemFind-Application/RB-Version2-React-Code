@@ -1,21 +1,21 @@
 .EmailFriendPopup-overlay {
-    background-color: #ffffff;
+    /* background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     padding: 24px 24px 35px;
     max-width: 600px !important;
     width: 100%;
-    font-family: var(--body-14-reg);
+    font-family: var(--body-14-reg); */
   }
   
   .EmailFriendPopup-overlay .popup-content {
-    max-width: 600px;
+    /* max-width: 600px;
     margin: 0 auto;
     position: relative;
-    padding: 20px 0;
+    padding: 20px 0; */
   }
   
-  .EmailFriendPopup-overlay h2 {
+ /*  .EmailFriendPopup-overlay h2 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 8px;
@@ -55,34 +55,34 @@
 
   .EmailFriendPopup-overlay .request_infocta {
     padding-top: 15px;
-  }
+  } */
   
   .EmailFriendPopup-overlay .availability {
-    display: flex;
+    /* display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 5px;
+    margin-bottom: 5px; */
   }
   
   .EmailFriendPopup-overlay .availability label {
-    margin-right: 12px;
+   /*  margin-right: 12px;
     color: #666;
-    font-size: 14px;
+    font-size: 14px; */
   }
   
   .EmailFriendPopup-overlay .availability input {
-    flex-grow: 1;
-    margin-bottom: 0;
+    /* flex-grow: 1;
+    margin-bottom: 0; */
   }
   
   .EmailFriendPopup-overlay .calendar-icon {
-    width: 20px;
-    height: 20px;
-    margin-left: 8px;
+   /*  width: 20px; */
+   /*  height: 20px; */
+   /*  margin-left: 8px; */
   }
   
   .EmailFriendPopup-overlay .submit-button {
-    background-color: var(--accent);
+    /* background-color: var(--accent);
     color: white;
     border: none;
     border-radius: 50px !important;
@@ -92,14 +92,14 @@
     font-weight: 600;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; */
   }
   .EmailFriendPopup-overlay .submit-button:hover {
-    background-color: var(--grey);
+    /* background-color: var(--grey); */
   }
   
   .cancel-button {
-    background-color: transparent;
+    /* background-color: transparent;
     border: 1px solid var(--accent);;
     color: #000;
     border-radius: 50px;
@@ -109,20 +109,20 @@
     font-weight: 500;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; */
   }
 
   .cancel-button:hover {
-    background-color: #836A5D;
-    color: white;
+   /*  background-color: #836A5D;
+    color: white; */
   }
 
   .EmailFriendPopup-overlay .request-button:hover {
-    background-color: #8e6962;
+    /* background-color: #8e6962; */
   }
   
   .EmailFriendPopup-overlay .close-button {
-    position: absolute;
+   /*  position: absolute;
     top: 0;
     right: 0;
     background: none;
@@ -131,7 +131,7 @@
     cursor: pointer;
     color: #999;
     border: 1px solid #ccc;
-    border-radius: 50%;
+    border-radius: 50%; */
   }
   
   .availability_container {

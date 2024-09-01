@@ -11,18 +11,16 @@ const Component4 = ({ className = "" }) => {
   }, [navigate]);
 
   return (
-    <div className={`div93 headergroup-nav ${className}`} onClick={onContainerClick}>
-      <div className="inner1">
-        <div className="step-1-group">
-          <b className="step-11">Step 1</b>
-          <b className="choose-setting1">Choose Setting</b>
-        </div>
+    <div className={`div93 step-items ${className}`} onClick={onContainerClick}>
+      <div className="steps-details">
+          <b className="step-12">Step 1</b>
+          <b className="step-title">Choose Setting</b>
       </div>
-      <div className="step-images">
-        <img className="image-10-icon3" alt="" src={`${imageUrl}`+"/image-10@2x.png"} />
-        <img className="image-9-icon12" alt="" src={`${imageUrl}`+"/image-9@2x.png"} />
-        {<div className="div94">
-          <img className="group-icon5" alt="" src={`${imageUrl}`+"/group1.svg"} />
+      <div className="div57">
+        <img className="image-10-icon" alt="" src={`${imageUrl}`+"/image-10@2x.png"} />
+        <img className="image-9-icon11" alt="" src={`${imageUrl}`+"/image-9@2x.png"} />
+        {<div className="div58">
+          <img className="group-icon3" alt="" src={`${imageUrl}`+"/group1.svg"} />
         </div>}
       </div>
     </div>

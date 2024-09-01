@@ -153,6 +153,11 @@ background-color: var(--slider-color);
     pointer-events: all;
     position: relative;
   }
+
+  body .noUi-horizontal, body .noUi-handle {
+   /*  right: 0 !important;
+    top: 0 !important; */
+  }
 .advanced-filter-group .container.price_slider_box {
   position: relative;
   margin-top: 20px;

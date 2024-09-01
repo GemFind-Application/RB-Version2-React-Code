@@ -1,5 +1,5 @@
 .list2 {
-	padding: 30px;
+/* 	padding: 30px;
 	box-sizing: border-box;
 	position: relative;
 	width: 100%;
@@ -7,7 +7,7 @@
 	grid-template-columns: repeat(5, minmax(0, 1fr));
     display: grid;
     gap: 30px;
-    max-width: inherit;
+    max-width: inherit; */
 }
 .list2 .items {
 	padding: 24px;
@@ -20,7 +20,7 @@
 	padding: 0;
 }
 .diamond {
-	width: 100%;
+/* 	width: 100%;
 	position: relative;
 	background-color: var(--white);
 	overflow: hidden;
@@ -29,7 +29,7 @@
 	align-items: center;
 	justify-content: center;
 	line-height: normal;
-	letter-spacing: normal;
+	letter-spacing: normal; */
 }
 .itemnofound {
 	flex: 1 1 315px;

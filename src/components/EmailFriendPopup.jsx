@@ -135,13 +135,15 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
       {!SendEmail ? (
       <>
         <h2>E-Mail A Friend</h2>
+        <p>Please fill up this form.</p>
+        <hr className="hr" />
         <form onSubmit={handleSubmit}>
         {errorsFromRes!="" &&
           <div>
             <div className='enter-your-password errorText'>{errorsFromRes}</div>      
           </div>
           }
-          <div className="flex basic_info">
+          <div className="rb_grid rb_col2 form-group basic_info">
             <input 
               type="text" 
               name="name" 
@@ -159,7 +161,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
               className={errors.email ? 'error' : ''}
             />
           </div>
-          <div className="flex basic_info">
+          <div className="rb_grid rb_col2 form-group basic_info">
             <input 
               type="text" 
               name="friend_name" 
@@ -177,7 +179,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
               className={errors.friendsemail ? 'error' : ''}
             />
           </div>
-          <div className="flex message_info">
+          <div className="rb_grid rb_col1 form-group message_info">
             <textarea 
               name="message" 
               placeholder={errors.message || "Add a personal message here ..."}

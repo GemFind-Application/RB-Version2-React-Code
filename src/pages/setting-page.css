@@ -349,7 +349,7 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	gap: var(--gap-xs);
-	color: var(--backgroundtext);
+	color: var(--black);
 }
 .main1 .bread-crumb {
 	flex: 1;
@@ -1832,7 +1832,7 @@
 .range20.active,
 .range66.active,
 .main1 .range67.active {
-	background-color: #F4EEEB;
+	background-color: var(--beige-02);
 	font-weight: 600;
 }
 .range10,
@@ -1852,7 +1852,7 @@
 .main1 .metal-type .metal-icon {
 	width: 64px;
 	height: 64px;
-	border: 1px dashed #E7DBD5;
+	border: 1px dashed var(--beige-03);
 	padding: 0;
 	border-radius: 16px;
 }
@@ -1862,12 +1862,12 @@
 	border-radius: 38px;
 }
 .main1 .metal-type.active .metal-icon {
-	background-color: #F4EEEB;
-	border-radius: 1px solid #F4EEEB;
+	background-color: var(--beige-02);
+	border-radius: 1px solid var(--beige-02);
 }
 .main1 .metal-type .metal-name {
 	font-size: 14px;
-	color: #836A5D;
+	color: var(--accent);
 }
 .main1 .metal-type .metal-name.selected {
 	font-weight: bold;

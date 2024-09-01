@@ -142,11 +142,12 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
         <>
         <h2>Request More Information</h2>
         <p>Our specialists will contact you.</p>
+        <hr className="hr" />
         {errorsFromRes!="" &&              
           <div className='enter-your-password errorText'>{errorsFromRes}</div>     
         }
         <form onSubmit={handleSubmit}>
-          <div className="flex basic_info">
+        <div className="rb_grid rb_col2 form-group">
             <input 
               type="text" 
               name="name" 
@@ -164,7 +165,7 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
               className={errors.email ? 'error' : ''}
             />
           </div>
-          <div className="flex phone_info">
+          <div className="rb_grid rb_col1 form-group phone_info">
             <input 
               type="tel" 
               name="phone" 
@@ -174,7 +175,7 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
               className={errors.phoneNumber ? 'error' : ''}
             />
           </div>
-          <div className="flex message_info">
+          <div className="rb_grid rb_col1 form-group message_info">
             <textarea 
               name="hint_message" 
               placeholder={errors.message || "Your Message"}

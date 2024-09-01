@@ -11,7 +11,7 @@
   font-size: var(--h4-size);
   line-height: 120%;
   font-family: var(--h4);
-  color: var(--backgroundtext);
+  color: var(--black);
   font-weight: 700;
 }
 .step-1-group {
@@ -51,7 +51,7 @@
   position: relative;
 }
 .div94 {
-  position: absolute;
+  /* position: absolute;
   top: -9.3px;
   right: -8px;
   border-radius: var(--br-xl);
@@ -64,7 +64,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 1; */
 }
 .step-images {
   height: 53px;
@@ -76,7 +76,7 @@
   box-sizing: border-box;
 }
 .div93 {
-  flex: 1;
+  /* flex: 1;
   border-radius: var(--br-base);
   background-color: var(--beige-00);
   border: 1px dashed var(--beige-04);
@@ -93,10 +93,9 @@
   cursor: pointer;
   text-align: left;
   font-size: var(--sub-size);
-  /* color: var(--accent); */
-  font-family: var(--body-14-reg);
+  
+  font-family: var(--body-14-reg); */
 }
-
 @media screen and (max-width: 825px) {
   .choose-setting1 {
     font-size: var(--buttom-size);

@@ -205,11 +205,12 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
         <>
         <h2>Schedule Viewing</h2> 
         <p>See This Item & More In Our Store.</p>
+        <hr className="hr" />
         {errorsFromRes!="" &&            
           <div className='enter-your-password errorText'>{errorsFromRes}</div>            
         }
         <form onSubmit={handleSubmit}>
-          <div className="flex basic_info">
+          <div className="rb_grid rb_col2 form-group basic_info">
             <input 
               type="text" 
               name="name" 
@@ -227,7 +228,7 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
               className={errors.email ? 'error' : ''}
             />
           </div>
-          <div className="flex phone_info">
+          <div className="rb_grid rb_col1 form-group phone_info">
             <input 
               type="tel" 
               name="phone" 
@@ -237,7 +238,7 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
               className={errors.phoneNumber ? 'error' : ''}
             />
           </div>
-          <div className="flex message_info">
+          <div className="rb_grid rb_col1 form-group message_info">
             <textarea 
               name="hint_message" 
               placeholder={errors.message || "Your Message"}
@@ -247,9 +248,10 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
             ></textarea>
           </div>
           <div className="request_infocta">
-            <div className="select_location">
+            <div className="rb_grid rb_col2 form-group select_location">
                 <div className="flex-col">
-                  <div className="preference_val">
+                  <div className="preference_val twoInOne">
+                  <label for="location">&nbsp; {errors.location && <span className="error-message">{errors.location}</span>}</label>
                     <select
                       name="location"
                       value={formData.location}
@@ -264,10 +266,8 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
                     </select>
                   </div>
                 </div>
-                {errors.location && <span className="error-message">{errors.location}</span>}
-              </div>
-            <div className="flex flex-cta">
-              <div className="availability">
+
+                <div className="availability">
                 <label>When are you available?</label>
                 <div className="preferences">
                   <div className="preference_val">
@@ -302,6 +302,8 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
                   }
               
               </div>
+              </div>
+            <div className="rb_grid rb_col1 form-group flex flex-cta">
                <div className="flex message_info">
                   {configAppData.site_key && configAppData.site_key!=="" && 
                     <div className="gift-deadline">

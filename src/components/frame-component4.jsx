@@ -15,8 +15,8 @@ const FrameComponent4 = ({ className = "",configAppData }) => {
   }, [navigate]);
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
-    <div className={`home-content-wrapper ${className}`}>
-      <div className="home-content">
+    <div className={`settingsfilter-wrapper listtop_w ${className}`}>
+      <div className="settingsfilter-container listtop_c">
         {/*<div className="home-buttons">
           <div className="home">Home</div>
           <div className="home-buttons-inner">
@@ -28,25 +28,24 @@ const FrameComponent4 = ({ className = "",configAppData }) => {
           </div>
           <b className="complete-ring">Complete Ring</b>
         </div>*/}
-        <div className="complete-ring-parent">
-          <b className="complete-ring1">Complete Ring</b>
-          <div className="create-ring-description-parent">
-            <div className="create-ring-description">
-              <b className="create-your-own">Create your own ring</b>
-              <div className="lorem-nisl-fringilla">
+        <div className="settings-panel-wrapper rb_listtop_w1">
+
+          <div className="settings-panel rb_listtop_panel">
+            <div className="h16 rb_setting_b">
+              <b className="settings1 rb_setting_c">Complete Ring</b>
+              <b className="create-your-own3 rb_setting_heading">Create your own ring</b>
+              <div className="settings-desc rb_setting_desc">
               {configAppData.announcement_text}
               </div>
             </div>
-            <div className="steps-content-parent">
+            <div className="settings-steps">
               <div
-                className="steps-content"
+                className="step-items"
                 onClick={onStepsContentContainerClick}
               >
-                <div className="steps-content-inner">
-                  <div className="step-1-parent">
-                    <b className="step-1">Step 1</b>
-                    <b className="choose-setting">Choose Setting</b>
-                  </div>
+                <div className="steps-details">
+                <b className="step-12">Step 1</b>
+                <b className="step-title">Choose Setting</b>
                 </div>
                 <div className="div57">
                   <img
@@ -65,14 +64,14 @@ const FrameComponent4 = ({ className = "",configAppData }) => {
                 </div>
               </div>
               <div
-                className="steps-content1"
+                className="step-items"
                 onClick={onStepsContentContainer1Click}
               >
-                <div className="steps-content-inner">
-                  <div className="step-1-parent">
-                    <b className="step-2">Step 2</b>
-                    <b className="choose-setting">Choose Diamond</b>
-                  </div>
+                <div className="steps-details">
+                  
+                    <b className="step-12">Step 2</b>
+                    <b className="step-title">Choose Diamond</b>
+                  
                 </div>
                 <div className="div57">
                   <img
@@ -85,14 +84,14 @@ const FrameComponent4 = ({ className = "",configAppData }) => {
                   </div>
                 </div>
               </div>
-              <div className="steps-content2">
-                <div className="steps-content-inner">
-                  <div className="step-1-parent">
-                    <b className="step-3">Step 3</b>
-                    <b className="choose-setting">Complete Ring</b>
-                  </div>
+              <div className="step-items step-items1">
+                <div className="steps-details">
+                    <b className="step-12">Step 3</b>
+                    <b className="step-title">Complete Ring</b>
                 </div>
-                <img className="icon" alt="" src={`${imageUrl}`+"/0.svg" }/>
+                <div className="div109">
+                <img className="icon4" alt="" src={`${imageUrl}`+"/0.svg" }/>
+                </div>
               </div>
             </div>
           </div>

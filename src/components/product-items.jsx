@@ -99,7 +99,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
           >
             {(product.videoURL&&product.videoURL!="") && <img className="video-icon3" alt="" src={`${imageUrl}`+"/video.svg" }/>}
           </div>
-          <div className="ring-items__item-wishlist" productid={product.settingId}>
+          <div className="ring-items__item-wishlist no-display" productid={product.settingId}>
             {/*<img className="heart-icon" alt="" src="/heart1.svg" />*/}
           </div>
         </div>
@@ -136,9 +136,8 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
            <button className="virtual-try-on1" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.stockNumber))}>Virtual Try On</button>
             }
           </div>
-          <div className="btn__outer">
-            <Link to={`/${settingUrl}/${viewUrlSetting}`}>View Details</Link>
-          </div>
+          
+            <Link to={`/${settingUrl}/${viewUrlSetting}`} className="btn__outer">View Details</Link>
         </div>
       </div>
       {showVideoPopup && (
