@@ -56,7 +56,11 @@
   color: var(--grey);
   font-family: var(--body-14-reg);
 }
-
+.settings-sort-page .no-appearance {
+  padding: 0 1rem 0 0;
+  background-position: right center;
+  margin-right: 0;
+}
 .settings-sort {
   gap: var(--gap-6xl);
 }
@@ -133,7 +137,7 @@
 .filter-dropdown .border--round,
 .filter-dropdown .shape-info1,
 .filter-dropdown .empty-options {
-  background-color: #C9AEA1;
+  background-color: var(--rb-custom18);
 }
 .filter-button {
   border-radius: var(--br-21xl);

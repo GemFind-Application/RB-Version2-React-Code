@@ -71,6 +71,7 @@
   --l-grey: #b1b0ae;
   --color-mediumslateblue: #4b5ade;
   --popup-text-color: #333;
+  --rb-custom18: #C9AEA1;
 
   /* Gaps */
   --gap-xl: 20px;
@@ -323,7 +324,9 @@ body {
 .overflow-hidden {
   overflow: hidden;
 }
-
+.no-display {
+  display: none;
+}
 .no-appearance {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -372,12 +375,20 @@ body .headergroup-nav {
   display: none;
 }
 
-body .settingsfilter-wrapper {
-  /* padding-bottom: 10px; */
-}
 
 .image-gallery-thumbnail.active, .image-gallery-thumbnail:focus{
   border:1px solid #337ab7
+}
+
+
+.rb_grid {
+  display: grid;
+}
+.rb_col2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.rb_col1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 /* Responsive utilities */
 @media (max-width: 640px) {
@@ -393,6 +404,9 @@ body .settingsfilter-wrapper {
   .portalPopupOverlay {
     overflow-y: scroll;
     /* margin: 20px 0; */
+  }
+  .rb_col2 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
 

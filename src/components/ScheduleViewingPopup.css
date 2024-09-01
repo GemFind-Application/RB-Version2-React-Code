@@ -1,73 +1,12 @@
-.schedule-viewing-popup {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 24px;
-  max-width: 600px !important;
-  width: 100%;
-  font-family: var(--body-14-reg);
-}
-
-.schedule-viewing-popup .popup-content {
-  max-width: 500px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.schedule-viewing-popup h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #333;
-}
-
-.schedule-viewing-popup p {
-  color: #666;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-
-.schedule-viewing-popup input,
-.schedule-viewing-popup textarea,
-.schedule-viewing-popup select {
-  width: 100%;
-  padding: 0 5px;
-  margin-bottom: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 14px;
-  height: 42px;
-  font-family: var(--body-14-reg);
-  color: #6A665E;
-}
-
-.schedule-viewing-popup select {
-  background-color: transparent;
-}
-
-.schedule-viewing-popup textarea {
-  height: 100px;
-  resize: vertical;
-  padding-top: 15px;
-  padding-left: 10px;
-}
-
 .schedule-viewing-popup .availability {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 5px;
 }
-
-.schedule-viewing-popup .availability label {
-  margin-right: 12px;
-  color: #666;
-  font-size: 14px;
-}
-
 .schedule-viewing-popup .availability input {
-  flex-grow: 1;
-  margin-bottom: 0;
+  /* flex-grow: 1;
+  margin-bottom: 0; */
 }
 
 .schedule-viewing-popup .calendar-icon {
@@ -116,7 +55,7 @@
 }
 
 button.submit-button {
-  cursor: pointer;
+  /* cursor: pointer;
   border: none;
   padding: var(--padding-mini) var(--padding-xl);
   background-color: var(--accent);
@@ -134,7 +73,7 @@ button.submit-button {
   font-size: 14px;
   font-weight: 600;
   color: #ffffff;
-  border-radius: 50px;
+  border-radius: 50px; */
 }
 
 .select_location {
@@ -186,4 +125,10 @@ button.submit-button {
 }
 .preference_val .react-datepicker__input-container input.error {
   outline: 1px solid rgb(175, 0, 0);
+}
+
+.react-datepicker__input-container {
+  width: 100%;
+  flex: 1;
+  display: flex;
 }

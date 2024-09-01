@@ -646,7 +646,7 @@
   display: flex;
   /* gap: 25px; */
   margin-bottom: 20px;
-  border: 1px solid #F4EEEB;
+  border: 1px solid var(--beige-02);
   border-radius: 50px;
 }
 
@@ -668,7 +668,7 @@
   cursor: pointer;
 }
 .dropdown-content .option--btn.active--item {
-  background-color: #F4EEEB;
+  background-color: var(--beige-02);
 }
 
 .compare--diamond-header {
@@ -757,7 +757,7 @@
 
 }
 .advanced-filter-group h4 .border--round {
-  background-color: #c9aea1;
+  background-color: var(--beige-05);
   position: relative;
   display: inline-block;
   left: -5px;
@@ -795,7 +795,7 @@
   width: 100%;
   gap: 0;
   margin-bottom: 20px;
-  border: 1px solid #F4EEEB;
+  border: 1px solid var(--beige-02);
   border-radius: 50px;
 }
 .flex-advanced-filter .group-inner .dropdown-btns:first-child .option--btn {
@@ -815,7 +815,7 @@
   cursor: pointer;
 }
 .flex-advanced-filter .group-inner .option--btn.active--item {
-  background-color: #F4EEEB;
+  background-color: var(--beige-02);
 }
 .advanced--price-sliders {
   display: flex;

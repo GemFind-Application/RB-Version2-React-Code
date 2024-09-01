@@ -125,7 +125,7 @@
 .stats-values {
   position: relative;
   display: inline-block;
-  color: var(--backgroundtext);
+  color: var(--black);
   min-width: 9px;
 }
 .stats-elements {
@@ -319,7 +319,7 @@
   justify-content: center;
   gap: var(--gap-xs);
   font-size: var(--h4-size);
-  color: var(--backgroundtext);
+  color: var(--black);
   font-family: var(--h4);
 }
 .this-excellent-cut {
@@ -336,7 +336,7 @@
 .gia1 {
   position: relative;
   display: inline-block;
-  color: var(--backgroundtext);
+  color: var(--black);
   min-width: 24px;
 }
 .cut6 {
@@ -348,7 +348,7 @@
 .excellent4 {
   position: relative;
   display: inline-block;
-  color: var(--backgroundtext);
+  color: var(--black);
   min-width: 63px;
 }
 .color2 {
@@ -366,7 +366,7 @@
 .i13 {
   position: relative;
   display: inline-block;
-  color: var(--backgroundtext);
+  color: var(--black);
   min-width: 11px;
 }
 .stats11 {
@@ -393,7 +393,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: var(--gap-3xs);
-  color: var(--backgroundtext);
+  color: var(--black);
 }
 .div67 {
   flex: 1;
@@ -435,7 +435,7 @@
   gap: var(--gap-5xl);
   max-width: 100%;
   font-size: var(--h4-size);
-  color: var(--backgroundtext);
+  color: var(--black);
   font-family: var(--h4);
 }
 .stats-parent {

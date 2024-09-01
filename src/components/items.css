@@ -191,7 +191,7 @@
 	max-width: 100%;
 	text-align: left;
 	font-size: var(--h3-size);
-	color: var(--backgroundtext);
+	color: var(--black);
 	font-family: var(--h4);
 }
 
@@ -287,7 +287,7 @@
 	line-height: 31px;
 }
 .popup-content {
-	display: flex;
+	/* display: flex;
 	flex-direction: column;
 	align-content: center;
 	justify-content: flex-start;
@@ -297,7 +297,7 @@
 	overflow-y: auto;
 	max-height: calc(100% - 60px);
 	flex-wrap: wrap;
-	gap: 15px;
+	gap: 15px; */
 }
 .detail-row {
 	display: flex;

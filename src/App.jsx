@@ -78,7 +78,7 @@ function App() {
         enable_hint:true,
         dealerid:1089,
         products_pp:48,       
-        font_family:'Arial',
+        font_family:'Manrope',
         shop:'https://gemfind-product-demo-10.myshopify.com/'
       }
       setShopUrl(data.shop+shopUrlforEmail)

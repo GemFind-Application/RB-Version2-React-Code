@@ -1,63 +1,6 @@
-.requestInfopopup-overlay {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 24px;
-  max-width: 600px !important;
-  width: 100% !important;
-  font-family: inherit;
-}
-.portalPopupOverlay > div{
-  max-width: 600px !important;
-  width: 100% !important;
-}
-
-.popup-content {
-  position: relative;
-}
-
-.requestInfopopup-overlay h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 0;
-  color: #333;
-}
-
-.requestInfopopup-overlay p {
-  color: #666;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-
-.requestInfopopup-overlay input,
-.requestInfopopup-overlay textarea {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: inherit;
-}
-
-.requestInfopopup-overlay textarea {
-  height: 100px;
-  resize: vertical;
-}
-
-.request_infocta .availability {
-  margin-bottom: 20px;
-}
-
-.request_infocta .availability label {
-  display: block;
-  margin-bottom: 8px;
-  color: #666;
-}
-
 .request_infocta .preferences {
-  display: flex;
-  gap: 16px;
+/*   display: flex;
+  gap: 16px; */
 }
 
 .request_infocta .preferences label {
@@ -68,38 +11,6 @@
 .request_infocta .preferences input[type="radio"] {
   margin-right: 8px;
   width: auto;
-}
-
-.submit-button {
-  background-color: #8e6962;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  width: 100%;
-  transition: background-color 0.3s ease;
-  text-transform: uppercase;
-  font-family: inherit;
-}
-
-.submit-button:hover {
-  background-color: #73544d;
-}
-
-.close-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #ccc;
-  border: 1px solid;
-  border-radius: 50%;
 }
 
 .flex-cta .availability {
@@ -123,9 +34,9 @@
 }
 
 .requestInfopopup-overlay .preference_val {
-  display: flex;
+/*   display: flex;
   gap: 5px;
-  align-items: flex-start;
+  align-items: flex-start; */
 }
 
 .requestInfopopup-overlay .preference_val label {

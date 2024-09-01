@@ -293,7 +293,7 @@ const SettingsFilterPanel = ({
       )}
       </div>
       {openFilter && (
-        <div className="filter-options-container">
+        <div className={`filter-options-container ${openFilter === 'price' ? 'priceFilterBox' : ''}`}>
           {openFilter === 'collections' && filterData.collections && filterData.collections.map(collection => (
             <FilterOptionCollection
               key={collection.collectionName}

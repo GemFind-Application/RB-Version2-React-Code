@@ -275,7 +275,7 @@
   max-width: 100%;
   text-align: left;
   font-size: var(--body-14-reg-size);
-  color: var(--backgroundtext);
+  color: var(--black);
   font-family: var(--body-14-reg);
 }
 

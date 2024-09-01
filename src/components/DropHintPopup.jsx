@@ -168,9 +168,11 @@ const recaptcha = useRef();
         
         {!hintDropped ? (
           <>
-            <h2>Drop A Hint</h2>
-            <p>Because you deserve this.</p>            
-            <hr className="hr" />
+            
+              <h2>Drop A Hint</h2>
+              <p>Because you deserve this.</p>            
+              <hr className="hr" />
+
             <form onSubmit={handleSubmit}>
               {errorsFromRes!="" &&
               <div className='enter-your-password errorText'>{errorsFromRes}</div>
@@ -180,7 +182,7 @@ const recaptcha = useRef();
                 <input name="ringurl" type="hidden" value={formData.ringurl} />
                 <input name="shopurl" type="hidden" value={formData.shopurl} />
               </div>
-              <div className="input-group form-group">
+              <div className="rb_grid rb_col2 form-group">
                 <input 
                   type="text" 
                   name="name" 
@@ -198,7 +200,7 @@ const recaptcha = useRef();
                   className={errors.email ? 'error' : ''}
                 />
               </div>
-              <div className="input-group form-group">
+              <div className="rb_grid rb_col2 form-group">
                 <input 
                   type="text" 
                   name="recipient_name" 
@@ -216,7 +218,7 @@ const recaptcha = useRef();
                   className={errors.recipientEmail ? 'error' : ''}
                 />
               </div>
-              <div className="form-group flex-col">
+              <div className="rb_grid rb_col1 form-group">
                 <input 
                   type="text" 
                   name="gift_reason" 
@@ -234,9 +236,10 @@ const recaptcha = useRef();
                   className={errors.message ? 'error' : ''}
                 ></textarea>
               </div>          
-              <div className="gift-deadline">
-                <label>Gift deadline:</label> {errors.giftDeadline && <span className="error-message">{errors.giftDeadline}</span>}
-                <div className="input-group form-group flex-50">
+              <div className="rb_grid rb_col2 form-group gift_deadline_box">
+                
+                <div className="gift-deadline twoInOne">
+                <label>Gift deadline:</label>
                   <input 
                     className={`gift-deadline ${errors.giftDeadline ? 'error' : ''}`}
                     type="date" 
@@ -245,8 +248,9 @@ const recaptcha = useRef();
                     onChange={handleInputChange} 
                     min={today}
                   />
-                  <button type="submit" className="submit-button">DROP HINT</button>
+                  {errors.giftDeadline && <span className="error-message">{errors.giftDeadline}</span>}
                 </div>
+                <button type="submit" className="submit-button">DROP HINT</button>
               </div>
               {configAppData.site_key && configAppData.site_key!=="" && 
               <div className="gift-deadline">

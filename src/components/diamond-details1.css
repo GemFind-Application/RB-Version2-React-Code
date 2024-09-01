@@ -213,7 +213,7 @@
   line-height: 120%;
   display: inline-block;
   min-width: 60px;
-  color:var(--backgroundtext)
+  color:var(--black)
 }
 .depth {
   position: relative;

@@ -49,9 +49,9 @@ const Settingsbreadcrumb = ({ className = "", configAppData, isLabGrown, setIsLa
   // console.log("navStandard:", configAppData.navStandard);
   // console.log("navLabGrown:", configAppData.navLabGrown);
   
-  return (
-    <div className={`settingsfilter-wrapper wrapper-main ${className}`}>
-      <div className="settingsfilter-container">
+  return ( 
+    <div className={`settingsfilter-wrapper listtop_w ${className}`}>
+      <div className="settingsfilter-container listtop_c">
         {/*<div className="settings-breadcrumb">
           <div className="home3">Home</div>
           <img className="bread-child" alt="" src={`${imageUrl}/vector-12.svg`} />
@@ -59,15 +59,45 @@ const Settingsbreadcrumb = ({ className = "", configAppData, isLabGrown, setIsLa
           <img className="bread-child" alt="" src={`${imageUrl}/vector-23.svg`} />
           <b className="choose-setting2">Choose Setting</b>
         </div>*/}
-        <div className="settings-panel-wrapper">
-          <div className="settings-panel">
-            <div className="h16">
-              <b className="settings1">SETTINGS</b>
-              <b className="create-your-own3">Create your own ring</b>
-              <div className="settings-desc">
+        <div className="settings-panel-wrapper rb_listtop_w1">
+          <div className="settings-panel rb_listtop_panel">
+            <div className="h16 rb_setting_b">
+              <b className="settings1 rb_setting_c">SETTINGS</b>
+              <b className="create-your-own3 rb_setting_heading">Create your own ring</b>
+              <div className="settings-desc rb_setting_desc">Lorem nisl fringilla magna malesuada egestas dui. Fringilla fermentum fusce interdum nulla velit vestibulum. Pretium iaculis id elementum commodo convallis. A rhoncus malesuada orci aliquam ipsum quis praesent. Egestas molestie nec enim et sem in orci.
                 {configAppData.announcement_text}
               </div>
-              <div className="mined-lab-wrapper">
+            </div>
+            <div className="settings-steps">
+              <div className="step-items1 step-items">
+                <div className="steps-details">
+                  <b className="step-12">Step 1</b>
+                  <b className="step-title">Choose Setting</b>
+                </div>
+                <div className="div109 div1024_ring">
+                  <img
+                    className="image-9-icon14"
+                    alt=""
+                    src={`${imageUrl}/image-9@2x.png`}
+                  />
+                  <img className="frame-icon5" alt="" src={`${imageUrl}/frame2.svg`} />
+                </div>
+              </div>
+              <StepItems
+                step2="Step 2"
+                chooseDiamond="Choose Diamond"
+                prop="/03.svg"
+                onStepItemsContainerClick={onStepItemsContainer1Click}
+              />
+              <StepItems
+                step2="Step 3"
+                chooseDiamond="Complete Ring"
+                prop="/02.svg"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="mined-lab-wrapper">
                 {configAppData.navStandard && (
                   <div 
                     className={`mined-settings ${!isLabGrown ? 'active' : ''}`} 
@@ -111,36 +141,6 @@ const Settingsbreadcrumb = ({ className = "", configAppData, isLabGrown, setIsLa
                   </div>
                 )}
               </div>
-            </div>
-            <div className="settings-steps">
-              <div className="step-items1 step-items">
-                <div className="steps-details">
-                  <b className="step-12">Step 1</b>
-                  <b className="step-title">Choose Setting</b>
-                </div>
-                <div className="div109">
-                  <img
-                    className="image-9-icon14"
-                    alt=""
-                    src={`${imageUrl}/image-9@2x.png`}
-                  />
-                  <img className="frame-icon5" alt="" src={`${imageUrl}/frame2.svg`} />
-                </div>
-              </div>
-              <StepItems
-                step2="Step 2"
-                chooseDiamond="Choose Diamond"
-                prop="/03.svg"
-                onStepItemsContainerClick={onStepItemsContainer1Click}
-              />
-              <StepItems
-                step2="Step 3"
-                chooseDiamond="Complete Ring"
-                prop="/02.svg"
-              />
-            </div>
-          </div>
-        </div>
       </div>
       {popupContent && (
         <PopupAlert content={popupContent} onClose={closePopup} />
