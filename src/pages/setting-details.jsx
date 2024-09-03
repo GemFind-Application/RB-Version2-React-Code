@@ -660,6 +660,7 @@ if (error) {
                     openScheduleViewing={() => setIsScheduleViewingOpen(true)}
                     openRequestInfo={() => setIsRequestInfoOpen(true)}
                     openPrintRequest={() => setIsPrintInfoOpen(true)}
+                    showPrint={false}
                   />
                 </div>
               </div>

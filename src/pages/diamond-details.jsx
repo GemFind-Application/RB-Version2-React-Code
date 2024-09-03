@@ -490,7 +490,8 @@ setShowLoading(true);
                 openDropHint={() => setIsDropHintOpen(true)}
                 openScheduleViewing={() => setIsScheduleViewingOpen(true)}
                 openRequestInfo={() => setIsRequestInfoOpen(true)}
-                diamondContent={diamondContent}/>
+                diamondContent={diamondContent}
+                showPrint={true}/>
               </div>
             </div>
           </section>

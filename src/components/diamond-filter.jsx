@@ -40,6 +40,7 @@ const DiamondFilter = ({ className = "",
   showFilterDetails
 }) => {
   const navigate = useNavigate();
+  console.log(selectedSettingShape)
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activePopup, setActivePopup] = useState(null);
   const [priceRange, setPriceRange] = useState(selectedFilters.price.length === 0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice] : [selectedFilters.price[0], selectedFilters.price[1]]);
@@ -402,14 +403,17 @@ if(filter==='intensity'){
               <div className="filter-options-container">
                 {activeDropdown === 'shape' && (
                     filterData.shapes.map(shape => (
-                      <div className="dfilter-option"  key={shape.shapeName}><span class="filter-svg"><img alt={shape.shapeName} className="filter-option-icon" src={`${imageUrl+"/"+"f_"+(shape.shapeName).toLowerCase()+".svg"}`}></img></span>
-                        {selectedSettingShape!="" ?
-                          
-                          <p className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} >{shape.shapeName}</p>
+                     
+                        selectedSettingShape!="" ?
+                          <div  className="dfilter-option"  key={shape.shapeName}><span class="filter-svg">
+                      <img alt={shape.shapeName} className="filter-option-icon" src={`${imageUrl+"/"+"f_"+(shape.shapeName).toLowerCase()+".svg"}`}></img></span> 
+                          <p className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} >{shape.shapeName}</p></div>
                         :
-                        <span className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} onClick={() => handleFilterChange('shape', shape.shapeName)}>{shape.shapeName}</span>
-                        }
-                        </div>
+                        <div onClick={() => handleFilterChange('shape', shape.shapeName)} className="dfilter-option"  key={shape.shapeName}><span class="filter-svg">
+                      <img alt={shape.shapeName} className="filter-option-icon" src={`${imageUrl+"/"+"f_"+(shape.shapeName).toLowerCase()+".svg"}`}></img></span>
+                        <span className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} >{shape.shapeName}</span></div>
+                        
+                       
                     ))
                   )}
                 <div className="dropdown-content">
@@ -503,7 +507,10 @@ if(filter==='intensity'){
             <div className="filter--content_dropdown">
               <div className="flex-advanced-filter">
                 <div className="advanced-filter-group">
-                  <h4>Polish <span class="border--round"><b class="filter--hover-icon">i</b></span></h4>
+                  <h4>Polish <span class="border--round"><b class="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          handleInfoClick('polish')
+                        }}>i</b></span></h4>
                   <div className="group-inner">
                     {filterData.polishRange.map(polish => (
                       <div className="dropdown-btns" key={polish.polishId}>
@@ -519,7 +526,10 @@ if(filter==='intensity'){
                 </div>
                 <div className="advanced--price-sliders">
                   <div className="advanced-filter-group">
-                    <h4>Depth</h4>
+                    <h4>Depth<span class="border--round"><b class="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          handleInfoClick('depth')
+                        }}>i</b></span></h4>
                     <MultiRangeSlider
                         min={parseFloat(filterData.depthRange[0].minDepth)}
                         max={parseFloat(filterData.depthRange[0].maxDepth)}
@@ -532,7 +542,10 @@ if(filter==='intensity'){
                   </div>
 
                   <div className="advanced-filter-group">
-                    <h4>Table</h4>
+                    <h4>Table<span class="border--round"><b class="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          handleInfoClick('table')
+                        }}>i</b></span></h4>
                     <MultiRangeSlider
                         min={parseFloat(filterData.tableRange[0].minTable)}
                         max={parseFloat(filterData.tableRange[0].maxTable)}
@@ -547,7 +560,10 @@ if(filter==='intensity'){
               </div>
               <div className="flex-advanced-filter">
                 <div className="advanced-filter-group">
-                  <h4>Fluorescence</h4>
+                  <h4>Fluorescence<span class="border--round"><b class="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          handleInfoClick('fluorescence')
+                        }}>i</b></span></h4>
                   <div className="group-inner">
                     {filterData.fluorescenceRange.map(fluorescence => (
                       <div className="dropdown-btns" key={fluorescence.fluorescenceId}>
@@ -562,7 +578,10 @@ if(filter==='intensity'){
                   </div>
                 </div>
                 <div className="advanced-filter-group">
-                  <h4>Symmetry</h4>
+                  <h4>Symmetry<span class="border--round"><b class="filter--hover-icon" onClick={(e) => {
+                          e.stopPropagation();
+                          handleInfoClick('symmetry')
+                        }}>i</b></span></h4>
                   <div className="group-inner">
                     {filterData.symmetryRange.map(symmetry => (
                       <div className="dropdown-btns" key={symmetry.symmetryId}>

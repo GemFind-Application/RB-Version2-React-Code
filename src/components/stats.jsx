@@ -25,7 +25,8 @@ const Stats = ({
   openScheduleViewing, 
   openRequestInfo ,
   openPrintRequest,
-  diamondContent
+  diamondContent,
+  showPrint
 }) => {
   //console.log('here 1')
   //console.log(diamondContent)
@@ -68,6 +69,7 @@ const Stats = ({
         </div>
       </div>
       }
+      {showPrint && showPrint!==false &&
       <div className="stat-items3" onClick={openPrintRequest}>
             <div>
             { <div style={{display:'none'}}> <ComponentToPrint ref={componentRef} data={[diamondContent?diamondContent:'']} /></div> }
@@ -77,6 +79,7 @@ const Stats = ({
             </div>
         </div>
       </div>
+      }
     </div>
   );
 };
