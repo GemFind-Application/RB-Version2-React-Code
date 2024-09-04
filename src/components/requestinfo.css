@@ -1,8 +1,11 @@
-.request_infocta .preferences {
-/*   display: flex;
-  gap: 16px; */
+.requestInfopopup-overlay .request_infocta .preferences {
+  display: flex;
+  gap: 16px;
 }
-
+.request_infocta .schduleb .preferences {
+  display: inline;
+  gap: 0;
+}
 .request_infocta .preferences label {
   display: flex;
   align-items: center;
@@ -34,9 +37,9 @@
 }
 
 .requestInfopopup-overlay .preference_val {
-/*   display: flex;
+  display: flex;
   gap: 5px;
-  align-items: flex-start; */
+  align-items: flex-start;
 }
 
 .requestInfopopup-overlay .preference_val label {

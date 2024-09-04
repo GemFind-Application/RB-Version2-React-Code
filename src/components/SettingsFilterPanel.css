@@ -18,7 +18,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: var(--gap-9xl);
+	gap: var(--gap-11xl);
 	max-width: 100%;
 }
 
@@ -30,8 +30,8 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	padding: var(--padding-lg) 0px;
-	gap: var(--gap-xl);
+	padding: var(--padding-11xl) 0px;
+	gap: var(--gap-11xl);
 	max-width: 100%;
 }
 
@@ -83,7 +83,6 @@
 	font-size: var(--body-14-reg-size);
 	color: var(--grey);
 	font-family: var(--body-14-reg);
-	padding: 4px 0 0;
 }
 
 .SettingsFilterPanel .mid2 {
@@ -92,10 +91,10 @@
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: space-between;
-	padding: var(--padding-11xs-5) 0px;
 	box-sizing: border-box;
 	max-width: 100%;
 	gap: var(--gap-xl);
+	padding: 0;
 }
 
 .SettingsFilterPanel .filters9,
@@ -276,9 +275,11 @@
 	/* padding: var(--padding-xl) 0; */
 	width: 100%;
 	position: relative;
+	/* margin-bottom: 55px; */
+}
+.filter-options-container.priceFilterBox {
 	margin-bottom: 55px;
 }
-
 .SettingsFilterPanel .filter-options-fullwidth {
 	display: flex;
 	flex-direction: row;
@@ -303,14 +304,14 @@
 }
 .SettingsFilterPanel .metal-type {
 	display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--gap-9xs);
-    color: var(--black);
-    margin-right: 25px;
-    cursor: pointer;
-    text-align: center;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: var(--gap-9xs);
+	color: var(--black);
+	margin-right: 25px;
+	cursor: pointer;
+	text-align: center;
 }
 .SettingsFilterPanel .metal-type .metal-name {
 	font-size: 14px;
@@ -318,7 +319,7 @@
 }
 .SettingsFilterPanel .metal-type .metal-icon .ring {
 	width: 38px;
-    height: 38px;
+	height: 38px;
 	border-radius: 38px;
 }
 .SettingsFilterPanel .metal-type.active .metal-icon {
@@ -342,14 +343,14 @@
 	box-shadow: 0 0 0 1px #D7BF79, 0 0 0 4px #E4E3E1, 0 0 0 6px #D7BF79;
 }
 .filter-options-container .dfilter-option {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 var(--padding-3xs);
-    cursor: pointer;
-    border-radius: var(--br-base);
-    flex-wrap: nowrap;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	padding: 0 var(--padding-3xs);
+	cursor: pointer;
+	border-radius: var(--br-base);
+	flex-wrap: nowrap;
 	position: relative;
 }
 .filter-options-container .dfilter-option span {
@@ -357,21 +358,21 @@
 	color: #6a665e;
 }
 .filter-options-container .dfilter-option span.filter-svg {
-    width: 64px;
-    height: 64px;
-    background-color: var(--beige-01);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 16px;
-    margin-bottom: 10px;
+	width: 64px;
+	height: 64px;
+	background-color: var(--beige-01);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 16px;
+	margin-bottom: 10px;
 }
 .filter-options-container .dfilter-option span.filter-svg img {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-    margin: 0;
-    border-radius: 0;
+	width: 45px;
+	height: 45px;
+	object-fit: contain;
+	margin: 0;
+	border-radius: 0;
 }
 @media screen and (max-width: 1275px) {
 	.SettingsFilterPanel .settings-founded {
@@ -404,16 +405,26 @@
 	.SettingsFilterPanel .settings-sort .no-appearance,
 	.SettingsFilterPanel .settings-sort-page .no-appearance {
 		padding: 0 var(--padding-5xs);
-        margin-right: 0;
-        border-radius: 0;
-        background-position-y: 5px;
+		margin-right: 0;
+		border-radius: 0;
+		background-position-y: 5px;
 	}
 
 	.SettingsFilterPanel .filter-container {
 		flex-wrap: wrap;
 	}
+	.SettingsFilterPanel .filter-container::before {
+		display: none !important;
+	}
 	.SettingsFilterPanel .filters9 {
 		position: relative;
+	}
+	.SettingsFilterPanel .mid2 {
+		display: block;
+	}
+	.SettingsFilterPanel .search6 {
+		max-width: inherit;
+		margin-top: 20px;
 	}
 	.SettingsFilterPanel .actions13 {
 		position: absolute;
@@ -439,14 +450,14 @@
 	position: relative;
 }
 .SettingsFilterPanel .filter-container::before {
-    content: "";
-    background-color: #E4E3E1;
-    display: inline-block;
-    height: 30px;
-    width: 1px;
-    position: absolute;
-    right: 0;
-    top: 6px;
+	content: "";
+	background-color: #E4E3E1;
+	display: inline-block;
+	height: 30px;
+	width: 1px;
+	position: absolute;
+	right: 0;
+	top: 6px;
 }
 .SettingsFilterPanel .filter-dropdown {
 	position: relative;
@@ -463,7 +474,7 @@
 	flex-wrap: nowrap;
 }
 .SettingsFilterPanel .filter-option img {
-/* 	background-color: var(--beige-01);
+	/* 	background-color: var(--beige-01);
     border-radius: 16px; */
 }
 
@@ -511,22 +522,22 @@
 }
 .SettingsFilterPanel .filter-option span.filter-svg {
 	width: 64px;
-    height: 64px;
-    background-color: var(--beige-01);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 16px;
+	height: 64px;
+	background-color: var(--beige-01);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 16px;
 	margin-bottom: 10px;
 }
 .SettingsFilterPanel .filter-option svg {
-    position: absolute;
-    left: 5px;
-    top: 0;
-    background-color: #c9aea1;
-    border-radius: 50%;
-    fill: #FFF !important;
-    border: 2px solid #FFF;
+	position: absolute;
+	left: 5px;
+	top: 0;
+	background-color: #c9aea1;
+	border-radius: 50%;
+	fill: #FFF !important;
+	border: 2px solid #FFF;
 }
 .SettingsFilterPanel .filter-option.active {
 	background-color: transparent;
@@ -536,11 +547,11 @@
 	background-color: var(--beige-02);
 }
 .SettingsFilterPanel .filter-option span.filter-svg img {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-    margin: 0;
-    border-radius: 0;
+	width: 45px;
+	height: 45px;
+	object-fit: contain;
+	margin: 0;
+	border-radius: 0;
 }
 .SettingsFilterPanel .filter-option svg {
 	width: 40px;
@@ -606,12 +617,14 @@
 .noUi-horizontal .noUi-tooltip {
 	display: none !important;
 }
-.slider__left-value, .slider__right-value {
+.slider__left-value,
+.slider__right-value {
 	color: #262523 !important;
 	background-color: transparent;
 	-webkit-appearance: none;
 }
-.slider__left-value:focus-visible, .slider__right-value:focus-visible {
+.slider__left-value:focus-visible,
+.slider__right-value:focus-visible {
 	border: 0 none;
 	border-radius: 0;
 	outline: 0 none;

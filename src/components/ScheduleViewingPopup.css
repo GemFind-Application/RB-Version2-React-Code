@@ -79,7 +79,9 @@ button.submit-button {
 .select_location {
   margin-bottom: 20px;
 }
-
+.rb_grid.rb_col2.form-group.select_location {
+  align-items: self-end;
+}
 .flex-cta .request_infocta .availability label {
   margin-bottom: 0 ;
 }

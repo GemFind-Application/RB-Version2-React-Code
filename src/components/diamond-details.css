@@ -11,7 +11,7 @@
   position: relative;
   font-weight: 500;
   display: inline-block;
-  min-width: 98px;
+  /* min-width: 98px; */
 }
 .attribute-value {
   text-decoration: none;
@@ -71,7 +71,7 @@
   position: relative;
   font-weight: 500;
   display: inline-block;
-  min-width: 91px;
+  /* min-width: 91px; */
 }
 .b7 {
   position: relative;

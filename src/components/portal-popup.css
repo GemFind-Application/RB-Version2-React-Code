@@ -82,7 +82,7 @@
 	max-width: 500px !important;
 }
 .portalPopupOverlay .rb_grid {
-	gap: 20;
+	/* gap: 20; */
 }
 .portalPopupOverlay .form-group {
 	margin-bottom: 20px;

@@ -31,7 +31,7 @@
   font-weight: 700;
   color: var(--black);
   display: inline-block;
-  min-width: 74px;
+  /* min-width: 74px; */
 }
 .spec-labels {
   border-radius: var(--br-base);

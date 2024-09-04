@@ -8,14 +8,15 @@
     width: 100%;
   }
  
-  @media(min-width: 970px) {
+  @media(min-width: 992px) {
     .container  {
         min-width: 420px;
     }
     .advanced--price-sliders {
-      min-width: auto;
+      /* min-width: auto;
       width: 100%;
-      flex-direction: column;
+      flex-direction: column; */
+      justify-content: space-around;
     }
   }
   
