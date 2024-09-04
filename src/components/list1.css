@@ -1,21 +1,29 @@
 .list5 {
-  align-self: stretch;
-  overflow: hidden;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: var(--padding-11xl);
+  padding: var(--padding-mini) var(--padding-11xl);
   box-sizing: border-box;
-  gap: var(--gap-5xl);
-  /* max-width: 1680px; */
+  gap: var(--gap-11xl) var(--gap-mini);
   width: 100%;
   margin: 0 auto;
   text-align: left;
   font-size: var(--body-14-reg-size);
   color: var(--black);
   font-family: var(--body-14-reg);
+}
+.list5 .diamond-details {
+  padding: 0;
+}
+.list5 .diamond-expand-detail-wrapper {
+  padding-top: 20px;
+  border-top: 1px solid #e8e4e2;
+  margin-top: 15px;
+}
+.list5 .diamond-details .image-gallery-slide-wrapper {
+  padding: 0;
 }
 
 @media screen and (max-width: 1275px) {

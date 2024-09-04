@@ -267,7 +267,7 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
                   </div>
                 </div>
 
-                <div className="availability">
+                <div className="availability schduleb">
                 <label>When are you available?</label>
                 <div className="preferences">
                   <div className="preference_val">

@@ -265,7 +265,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
       </div>
       <div className="setting-product-list" >
         {!loading && isProductLoaded ? (
-           products.length===0 ? <div>No Settings Found</div> : 
+           products.length===0 ? <div className='no-setting-found'>No Settings Found</div> : 
            products.map(product => (
             <ProductItems 
               configAppData ={configAppData}

@@ -495,7 +495,7 @@ if(filter==='intensity'){
         
         {/* Advanced filters for diamond */}
         <div className="advances1">
-          <div className="" onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}>
+          <div className="advances2" onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}>
             <b className="advanced-filters2">Advanced Filters</b>
             <div className="adv-child">
               <img className="frame-child6" alt="" src={`${imageUrl}`+"/vector-24.svg"} />
