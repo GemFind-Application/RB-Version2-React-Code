@@ -104,8 +104,10 @@ function App() {
     async function fetchStyleData(id){
       try {
         const res = await appService.getStyleData(id);  
-        if(res) {                
-          setStyleData(res);        
+        console.log("res")
+        console.log(res);
+        if(res!==null) {                
+          setStyleData(res);  
           let styleDataObj = {
             hoverEffect : res.hover ? res.hover : '',
             columnHeaderAccent :res.header,
@@ -119,9 +121,10 @@ function App() {
             //hoverEffect_color:res[0][0].hoverEffect[0].color2 && res[0][0].hoverEffect[0].color2!==""?res[0][0].hoverEffect[0].color2:res[0][0].hoverEffect[0].color1,
             //columnHeaderAccent_color:res[0][0].columnHeaderAccent[0].color2 && res[0][0].columnHeaderAccent[0].color2!==""?res[0][0].columnHeaderAccent[0].color2:res[0][0].columnHeaderAccent[0].color1,
           }         
-          setStyleDataDynamic(styleDataObj);
+          setStyleDataDynamic(styleDataObj);          
+        } else{
           setIsStyleLoaded(true);
-        }       
+        }   
       } catch (err) {  
         console.error("Error fetching style details:", err);  
         setError("Failed to fetch products. Please try again later.");    
@@ -292,6 +295,8 @@ function App() {
       return <ShowError error={error}/>;
     }
     console.log(loading)
+    console.log(isStyleLoaded)
+    console.log(isconfigLoaded)
   return (   
     <div>      
     <ThemeSetup styleDataDynamic={styleDataDynamic} documentLoaded={documentLoaded} configAppData={configAppData}/>    
