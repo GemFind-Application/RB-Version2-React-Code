@@ -102,25 +102,26 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
   return (
     <div className="complete">
       <FrameComponent4 configAppData={configAppData}/>
-      <div className="complete-inner">
-        <div className="frame-parent">
+      <div className="pdp_container">
+        <div className="pdp_content">
         {(settingId && diamondId) ?
         (issettingLoaded && isDiamondLoaded) &&
         <>
+        <div className="pdp_image_item">
         <div className="image-container">
           <div className="plp-image-gallery">
             <div className="image-wrapper">
               <ImageGallery items={images} showPlayButton={false} showNav={false}  onErrorImageURL={imageUrl+'/no-image.jpg'}/>
             </div>               
           </div>
-        </div>        
+        </div>      
+        </div>  
         <ProductDetails setShowLoading={setShowLoading} shopUrl={shopUrl} additionOptionSetting={additionOptionSetting} formSetting={formSetting} settingDetail={settingDetail} diamondDetail={diamondDetail} ringSize={selectedRingSize} configAppData={configAppData}/>
         </>
        :<>
-        <div className="complete-inner">
-        <div className="frame-parent">
+        
+        <div className="message-info">
             <div>Please select Ring and Diamond First</div>
-        </div>
         </div>
        </> 
       }

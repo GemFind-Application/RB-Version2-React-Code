@@ -195,11 +195,10 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
               </div>
               }
           </div>         
-          <div className="request_infocta">
-            <div className="flex flex-cta">
-              <button type="button" className="cancel-button" onClick={onClose}>Cancel</button>
-              <button type="submit" className="submit-button">Send To Friend</button>
-            </div>
+          <div className="rb_grid rb_col2 form-group request_infocta flex">
+            <button type="button" className="cancel-button" onClick={onClose}>Cancel</button>
+            <button type="submit" className="submit-button">Send To Friend</button>
+            <div className="flex flex-cta"></div>
           </div>
         </form>
         </>

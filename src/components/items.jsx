@@ -58,7 +58,7 @@ useEffect(() => {
             <div className="actions11"
                  id={diamond.diamondId}
                  onClick={handleVideoIconClick}>
-              <img className="video-icon2" alt="" src={`${imageUrl}`+"/video.svg"} />
+              <img className="video-icon2" width="24" height="16" alt="" src={`${imageUrl}`+"/video.svg"} />
             </div>
             }
             {/* Compare icons */}

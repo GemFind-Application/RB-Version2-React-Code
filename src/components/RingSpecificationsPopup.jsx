@@ -5,20 +5,19 @@ const RingSpecificationsPopup = ({ product, onClose,configAppData }) => {
   return (
     <div className="popup-overlay ring-specs-popup">
       <div className="popup-content">
-        <h2>Setting Details</h2>
         <button className="close-button" onClick={onClose}>×</button>
+        <h2>Setting Details</h2>
+        <hr className='hr' />
         <div className="setting-details">
-          <div className="settings_info flex">
+          <div className="settings_info">
             <p>Setting Number: <b>{product.styleNumber? product.styleNumber:''}</b></p>
             <p>Price: <b><ShowCostInCard settingDetailForCost={product} configAppData={configAppData}></ShowCostInCard></b></p>
             <p>Metal Type: <b>{product.metalType}</b></p>
           </div>
-          <hr className='hr' />
-
           {product.sideDiamondDetail && (
             <div className="side-diamond-details">
               <h3>Side Diamond Details</h3>
-              <div className="diamonds_info flex">
+              <div className="diamonds_info">
                 <p>Number of Diamonds: <b>{product.sideDiamondDetail.noOfDiamonds ? product.sideDiamondDetail.noOfDiamonds:'-'}</b></p>
                 <p>Cut: <b>{product.sideDiamondDetail.diamondCut ? product.sideDiamondDetail.diamondCut:'-'}</b></p>
                 <p>Minimum Carat Weight (ct.tw.): <b>{product.sideDiamondDetail.minimumCaratWeight ? product.sideDiamondDetail.minimumCaratWeight:'-'}</b></p>
@@ -29,7 +28,7 @@ const RingSpecificationsPopup = ({ product, onClose,configAppData }) => {
              product.sideDiamondDetail1.map((item,index) => {
             return <div className="side-diamond-details" key={index}>
               {index===0 && <h3>Side Diamond Details</h3>}
-              <div className="diamonds_info flex">
+              <div className="diamonds_info">
                 <p>Number of Diamonds {index+1}: <b>{item.noOfDiamonds ? item.noOfDiamonds:'-'}</b></p>
                 <p>Cut {index+1}: <b>{item.diamondCut?item.diamondCut:'-'}</b></p>
                 <p>Minimum Carat Weight (ct.tw.) {index+1}: <b>{item.minimumCaratWeight?item.minimumCaratWeight:'-'}</b></p>
@@ -39,24 +38,23 @@ const RingSpecificationsPopup = ({ product, onClose,configAppData }) => {
             </div>
              })
           )}
-        </div>
-        <hr className='hr' />
-        <div className="can-be-set-with">
-          <h3>Can be set with:</h3>
           <div className="can-be-set-with">
+          <div>Can be set with:</div>
+          <div className="can-be-set-with-box">
             {product.centerStoneFit && 
             product.centerStoneFit.split(",").map((item,index) => {
               return (    
               <>   
-                <div className="diamonds_info flex canbesetwithspace" key={'canbesetwith_'+index}>
+                <div className="canbesetwithspace" key={'canbesetwith_'+index}>
                   <p>{item}  -  </p>
                   <p>&nbsp; </p>
-                  <p> {product.centerStoneMinCarat?product.centerStoneMinCarat:'-'} - {product.centerStoneMaxCarat?product.centerStoneMaxCarat:'-'} </p>              
+                  <b> {product.centerStoneMinCarat?product.centerStoneMinCarat:'-'} - {product.centerStoneMaxCarat?product.centerStoneMaxCarat:'-'} </b>              
                 </div>
               </>)
             })}  
           </div>
           {/* Diamond shape icons */}
+        </div>
         </div>
       </div>
     </div>

@@ -50,6 +50,7 @@
     font-size: 14px;
     color: #b9a9a1;
     border: 0;
+    font-family: var(--body-14-reg);
   }
   body .noUi-horizontal .noUi-handle{
     height:18px;

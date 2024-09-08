@@ -344,16 +344,15 @@ if (error) {
     <>
       <div className="setting-page">
         <main className="main1">
-       
-          <section className="bread-crumbs-container">
-            <div className="bread-crumbs">
-              <div className="bread-crumb">
-                <div className="back-link-container" onClick={onBreadContainerClick}>
-                  <div className="back-link-container">
-                    <img className="back-link-icon" alt="" src={`${imageUrl}`+"/vector-11.svg" }/>
-                  </div>
-                  <b className="select-side-stone">Back to All Settings</b>
-                </div>                
+          <div className="bread1" onClick={onBreadContainerClick}>
+            <div className="breadcrumb-item">
+              <img className="breadcrumb-separator-icon" alt="" src={`${imageUrl}`+"/vector-11.svg" }/>
+            </div>
+            <b className="back-to-all">Back to All Settings</b>
+          </div>
+          <section className="bread-crumbs-container pdp_container">
+            <div className="bread-crumbs pdp_content">
+              <div className="pdp_image_item">
                 <div className="image-container">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
@@ -370,14 +369,12 @@ if (error) {
                 </div>
                 <div className="note-container-parent">
                   <div className="note-container">
-                    <div className="note-wrapper">
                       <div className="note-content">
                         <b className="note">Note:</b>
                         <div className="all-metal-color">
                           All metal color images may not be available.
                         </div>
                       </div>
-                    </div>
                   </div>
                   {product.internalUselink &&
                     <div className="link1">
@@ -394,7 +391,7 @@ if (error) {
                   }
                 </div>               
               </div>
-              <div className="product-info-container-wrapper">
+              <div className="product-info-container-wrapper pdp_info_item">
                 <div className="product-info-container">
                   <div className="info-wrapper">
                     <div className="info-content">
@@ -632,20 +629,20 @@ if (error) {
                     <div className="actions1">
                       <div className="buttons1">
                         {/* submit the form */}
-                        {/* <button type="submit" className="submitring_product" onClick={onButtonClick}>
+                        {/* <button type="submit" className="button52" onClick={onButtonClick}>
                           <b className="select-485">Select - {product.currencySymbol}{product.cost}</b>
                         </button> */}
                         {isDiamondSelectedFirst==false ?
-                        <button type="button" className="submitring_product" onClick={selectRingSetting} >
+                        <button type="button" className="button52" onClick={selectRingSetting} >
                           <b className="select-485">Add Your Diamond - <ShowCostInCard settingDetailForCost={product} configAppData={{configAppData}}></ShowCostInCard></b>
                         </button>:
-                        <button type="button" className="submitring_product" onClick={selectRingSetting} >
+                        <button type="button" className="button52" onClick={selectRingSetting} >
                         <b className="select-485">Complete Your Ring - Select - <ShowCostInCard settingDetailForCost={product} configAppData={{configAppData}}></ShowCostInCard></b>
                       </button>
                         }
                         {configAppData.display_tryon=="1" &&
-                        <button className="button-fav1 button15" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.styleNumber))}>                        
-                           <b class='share3'> Virtual Try On</b>
+                        <button className="button52_b" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.styleNumber))}>                        
+                           <b> Virtual Try On</b>
                         </button>}
                       </div>
 

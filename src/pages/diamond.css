@@ -19,6 +19,10 @@
 .list2 .image-wrapper1 {
 	padding: 0;
 }
+.pdp_image_item .image-wrapper .video-popup-content.embed-responsive {
+	overflow: auto;
+	aspect-ratio: 4/3;
+}
 .diamond {
 /* 	width: 100%;
 	position: relative;

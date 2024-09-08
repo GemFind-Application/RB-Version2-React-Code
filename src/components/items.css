@@ -59,12 +59,13 @@
 	justify-content: flex-end;
 }
 .product-info1 {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
-	row-gap: 20px;
-	width: 100%;
+	align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--gap-8xs);
+    font-size: var(--h3-size);
+    font-family: var(--h4);
 }
 .image-9-icon13 {
 	height: auto;
@@ -227,6 +228,7 @@
 	cursor: pointer;
 	display: flex;
 	align-items: center;
+	flex: none;
 }
 
 .diamond-details-popup {
@@ -238,9 +240,23 @@
 	background-color: #FBF9F8;
 	border-radius: 12px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	overflow: hidden;
+	overflow: auto;
 	height: 100%;
-	padding: 5px;
+	padding: 0;
+}
+.diamond-details-popup::-webkit-scrollbar {
+	width: 8px;
+}
+.diamond-details-popup::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+.diamond-details-popup::-webkit-scrollbar-thumb {
+	background: var(--accent);
+}
+.diamond-details-popup .popup-content {
+    padding: 10px 15px;
+    font-family: var(--body-14-reg);
+    line-height: 1;
 }
 .popup-header {
 	display: flex;
@@ -249,6 +265,34 @@
 	padding: 10px;
 	background-color: #fff;
 	border-bottom: 1px solid #E0E0E0;
+}
+.diamond-details-popup .popup-header {
+    padding: 10px 15px;
+    font-family: var(--body-14-reg);
+	background-color: transparent;
+
+}
+.diamond-details-popup .popup-header .close-button {
+	background: transparent;
+    border: none;
+    border-radius: 0;
+    width: 25px;
+    height: 30px;
+    font-size: 25px;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    line-height: 17px;
+    padding: 0;
+}
+.diamond-details-popup .popup-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    text-transform: unset;
+    letter-spacing: 0;
 }
 .popup-header h2 {
 	margin: 0;
@@ -268,10 +312,6 @@
 	display: flex;
 	justify-content: center;
 	line-height: 31px;
-}
-.diamond-details-popup .popup-header {
-	background-color: transparent;
-    padding: 10px 20px 10px;
 }
 .diamond-details-popup .close-button {
 	background: #F0EDE9;
@@ -300,11 +340,12 @@
 	gap: 15px; */
 }
 .detail-row {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 12px;
-	font-size: 14px;
-	gap: 5px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    gap: 5px;
+    border-bottom: 1px dashed #efefef;
+    padding: 7px 0;
 }
 .detail-label {
 	color: #6A665E;
