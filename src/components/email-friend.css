@@ -1,33 +1,29 @@
 .EmailFriendPopup-overlay {
-    /* background-color: #ffffff;
+	/* background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     padding: 24px 24px 35px;
     max-width: 600px !important;
     width: 100%;
     font-family: var(--body-14-reg); */
-  }
-  
-  .EmailFriendPopup-overlay .popup-content {
-    /* max-width: 600px;
+}
+.EmailFriendPopup-overlay .popup-content {
+	/* max-width: 600px;
     margin: 0 auto;
     position: relative;
     padding: 20px 0; */
-  }
-  
- /*  .EmailFriendPopup-overlay h2 {
+}
+/*  .EmailFriendPopup-overlay h2 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 8px;
     color: #333;
   }
-  
   .EmailFriendPopup-overlay p {
     color: #666;
     margin-bottom: 20px;
     font-size: 14px;
   }
-  
   .EmailFriendPopup-overlay input,
   .EmailFriendPopup-overlay textarea,
   .EmailFriendPopup-overlay select {
@@ -41,48 +37,40 @@
     font-family: var(--body-14-reg);
     color: #6A665E;
   }
-  
   .EmailFriendPopup-overlay select {
     background-color: transparent;
   }
-  
   .EmailFriendPopup-overlay textarea {
     height: 100px;
     resize: vertical;
     padding-top: 15px;
     padding-left: 10px;
   }
-
   .EmailFriendPopup-overlay .request_infocta {
     padding-top: 15px;
   } */
-  
-  .EmailFriendPopup-overlay .availability {
-    /* display: flex;
+.EmailFriendPopup-overlay .availability {
+	/* display: flex;
     align-items: center;
     justify-content: flex-start;
     margin-bottom: 5px; */
-  }
-  
-  .EmailFriendPopup-overlay .availability label {
-   /*  margin-right: 12px;
+}
+.EmailFriendPopup-overlay .availability label {
+	/*  margin-right: 12px;
     color: #666;
     font-size: 14px; */
-  }
-  
-  .EmailFriendPopup-overlay .availability input {
-    /* flex-grow: 1;
+}
+.EmailFriendPopup-overlay .availability input {
+	/* flex-grow: 1;
     margin-bottom: 0; */
-  }
-  
-  .EmailFriendPopup-overlay .calendar-icon {
-   /*  width: 20px; */
-   /*  height: 20px; */
-   /*  margin-left: 8px; */
-  }
-  
-  .EmailFriendPopup-overlay .submit-button {
-    /* background-color: var(--accent);
+}
+.EmailFriendPopup-overlay .calendar-icon {
+	/*  width: 20px; */
+	/*  height: 20px; */
+	/*  margin-left: 8px; */
+}
+.EmailFriendPopup-overlay .submit-button {
+	/* background-color: var(--accent);
     color: white;
     border: none;
     border-radius: 50px !important;
@@ -93,13 +81,12 @@
     cursor: pointer;
     width: 100%;
     transition: background-color 0.3s ease; */
-  }
-  .EmailFriendPopup-overlay .submit-button:hover {
-    /* background-color: var(--grey); */
-  }
-  
-  .cancel-button {
-    /* background-color: transparent;
+}
+.EmailFriendPopup-overlay .submit-button:hover {
+	/* background-color: var(--grey); */
+}
+.cancel-button {
+	/* background-color: transparent;
     border: 1px solid var(--accent);;
     color: #000;
     border-radius: 50px;
@@ -110,19 +97,16 @@
     cursor: pointer;
     width: 100%;
     transition: background-color 0.3s ease; */
-  }
-
-  .cancel-button:hover {
-   /*  background-color: #836A5D;
+}
+.cancel-button:hover {
+	/*  background-color: #836A5D;
     color: white; */
-  }
-
-  .EmailFriendPopup-overlay .request-button:hover {
-    /* background-color: #8e6962; */
-  }
-  
-  .EmailFriendPopup-overlay .close-button {
-   /*  position: absolute;
+}
+.EmailFriendPopup-overlay .request-button:hover {
+	/* background-color: #8e6962; */
+}
+.EmailFriendPopup-overlay .close-button {
+	/*  position: absolute;
     top: 0;
     right: 0;
     background: none;
@@ -132,65 +116,74 @@
     color: #999;
     border: 1px solid #ccc;
     border-radius: 50%; */
-  }
-  
-  .availability_container {
-    align-items: baseline;
-    gap: 10px;
-  }
-  
-  .availability_container > * {
-    flex: 1;
-  }
-  
-  .availability_container button {
-    cursor: pointer;
-    border: none;
-    padding: var(--padding-mini) var(--padding-xl);
-    background-color: var(--accent);
-    flex: 1;
-    border-radius: var(--br-37xl);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    min-width: 250px;
-    white-space: nowrap;
-    max-width: 100%;
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: 600;
-    color: #ffffff;
-  }
-  
-  /* VALIDATION CSS STYLES */
-  .error {
-    border: 1px solid rgb(175, 0, 0);;
-  }
-  
-  .error::placeholder {
-    color: rgb(175, 0, 0);;
-  }
-  
-  .error:-ms-input-placeholder {
-    color: rgb(175, 0, 0);;
-  }
-  
-  .error::-ms-input-placeholder {
-    color: rgb(175, 0, 0);;
-  }
-  
-  .error-message {
-    color: rgb(175, 0, 0);
-    font-size: 0.8em;
-    margin-top: 5px;
-  }
-  
-  .error-radio {
-    color: rgb(175, 0, 0);
-  }
-  
-  .error:focus {
-    outline: 1px solid rgb(175, 0, 0);
-  }
+}
+.availability_container {
+	align-items: baseline;
+	gap: 10px;
+}
+.availability_container>* {
+	flex: 1;
+}
+.availability_container button {
+	cursor: pointer;
+	border: none;
+	padding: var(--padding-mini) var(--padding-xl);
+	background-color: var(--accent);
+	flex: 1;
+	border-radius: var(--br-37xl);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	min-width: 250px;
+	white-space: nowrap;
+	max-width: 100%;
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 600;
+	color: #ffffff;
+}
+/* VALIDATION CSS STYLES */
+.error {
+	border: 1px solid rgb(175, 0, 0);
+	;
+}
+.error::placeholder {
+	color: rgb(175, 0, 0);
+	;
+}
+.error:-ms-input-placeholder {
+	color: rgb(175, 0, 0);
+	;
+}
+.error::-ms-input-placeholder {
+	color: rgb(175, 0, 0);
+	;
+}
+.error-message {
+	color: rgb(175, 0, 0);
+	font-size: 0.8em;
+	margin-top: 5px;
+}
+.error-radio {
+	color: rgb(175, 0, 0);
+}
+.error:focus {
+	outline: 1px solid rgb(175, 0, 0);
+}
+@media screen and (max-width: 825px) {
+	.requestInfopopup-overlay .request_infocta .flex.flex-cta {
+		display: block;
+	}
+	.requestInfopopup-overlay .request_infocta button.submit-button {
+		margin-top: 15px;
+		width: 100%;
+	}
+	.requestInfopopup-overlay .preference_val.twoInOne label {
+		display: none;
+	}
+	.rb_grid.rb_col2.form-group.request_infocta.flex {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}

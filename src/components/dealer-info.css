@@ -1,33 +1,33 @@
 .dealer-info1 {
-  margin: 0;
+/*   margin: 0;
   align-self: stretch;
   position: relative;
   font-size: inherit;
   line-height: 120%;
   font-weight: 700;
-  font-family: inherit;
+  font-family: inherit; */
 }
 .enter-your-password {
-  align-self: stretch;
+/*   align-self: stretch;
   position: relative;
   font-size: var(--body-14-reg-size);
   font-family: var(--body-14-reg);
-  color: var(--grey);
+  color: var(--grey); */
 }
 .h11 {
-  align-self: stretch;
+  /* align-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: var(--gap-5xs);
+  gap: var(--gap-5xs); */
 }
 .dealerinfores {
   /*flex-direction: row;*/
   flex:1 1 calc(49% - var(--gap-5xs))
 }
 .your-gemfind-password {
-  width: 151px;
+  /* width: 151px;
   border: none;
   outline: none;
   font-family: var(--body-14-reg);
@@ -38,21 +38,15 @@
   color: var(--grey);
   text-align: center;
   display: inline-block;
-  padding: 0;
+  padding: 0; */
 }
 .drop4 {
-  max-width: 250px;
   width: 100%;
+  max-width: inherit;
+  display: flex;
+  align-items: center;
 }
 .drop4 input {
-  border-radius: var(--br-21xl);
-  border: 1px solid var(--stroke);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 20px;
   width: 100%;
 }
 .submit {
@@ -83,7 +77,7 @@
   background-color: var(--color-rosybrown-100);
 }
 .inputs1 {
-  align-self: stretch;
+/*   align-self: stretch;
   border-top: 1px solid var(--divider);
   display: flex;
   flex-direction: row;
@@ -91,7 +85,7 @@
   align-items: center;
   justify-content: flex-start;
   padding: var(--padding-3xl) 0px 0px;
-  gap: var(--gap-5xl);
+  gap: var(--gap-5xl); */
 }
 .fw-600{
   font-weight:600;
@@ -101,16 +95,16 @@
   min-width:100%;
 }
 .top3 {
-  align-self: stretch;
+  width: 100%;
+  /* align-self: stretch;
   display: flex;
-  /*flex-direction: column;*/
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--gap-5xl);
-  flex-wrap:wrap;
+  flex-wrap:wrap; */
 }
 .content3 {
-  position: absolute;
+/*   position: absolute;
   top: 39.5px;
   left: calc(50% - 268px);
   width: 536px;
@@ -122,46 +116,34 @@
   text-align: left;
   font-size: var(--h4-size);
   color: var(--black);
-  font-family: var(--h4);
+  font-family: var(--h4); */
 }
 .close-icon2 {
-  position: absolute;
+  /* position: absolute;
   top: 20px;
   right: 20px;
   width: 32px;
   height: 32px;
   overflow: hidden;
-  z-index: 1;
+  z-index: 1; */
 }
 .dealer-info {
-  width: 100%;
+/*   width: 100%;
   height: 223px;
   position: relative;
   border-radius: var(--br-base);
   background-color: var(--white);
   overflow: hidden;
   line-height: normal;
-  letter-spacing: normal;
+  letter-spacing: normal; */
 }
 
 .content3:has(.success-message) .top3{
-  display: flex;
+/*   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: row; */
 }
 
 .dealerinfo-label {
   font-weight: bold;
-}
-
-@media screen and (max-width: 825px) {
-  .dealer-info1 {
-    font-size: var(--buttom-size);
-    line-height: 19px;
-  }
-
-  .dealer-info {
-    height: auto;
-    min-height: 223;
-  }
 }

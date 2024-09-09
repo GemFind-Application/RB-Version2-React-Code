@@ -27,9 +27,9 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
         <button className="close-button" onClick={onClose}>×</button>
       <section className="content2">
         <div className="top2">
-          <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.caratWeight} CARAT</h3>
+          <p className="diamond-details1">{diamond.shape} {' '}{diamond.caratWeight} CARAT</p>
           <div className="stats">
-            <div className="spec-labels">
+            <div className="spec-labels1">
               <div className="stock-number">{"Stock Number"}:</div>
               <a className="spec-values">{ additionOptionSetting.show_In_House_Diamonds_First ?
                        diamond.stockNumber:
@@ -40,7 +40,7 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
               <b className="b1"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b>
             </div>
             { additionOptionSetting.show_In_House_Diamonds_Column_with_SKU && 
-              <div className="spec-labels">
+              <div className="spec-labels1">
                 <div className="price4">In House:</div>
                 <b className="b1">{diamond.txtinhouse && diamond.txtinhouse ==true ? diamond.txtinhouse : '-'}</b>
               </div>

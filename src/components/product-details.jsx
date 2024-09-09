@@ -172,18 +172,19 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
               <b className="engagement-ring">{settingDetail.settingName?settingDetail.settingName:''}</b>
               <div className="wrapper2">
                 <b className="b20"><ShowCostInCard settingDetailForCost={settingDetail} configAppData={configAppData}> </ShowCostInCard></b>
-              </div>
-              <div className="line-wrapper">
-                <div className="line-div" />
+                <div className="line-wrapper">
+                  <div className="line-div" />
+                </div>
+                <div className="carat-weight-labels">
+                  <div className="the-total-carat">The total carat weight:</div>
+                </div>
+                <div className="carat-weight-labels1">
+                  <b className="ct1"> {diamondDetail.caratWeight? diamondDetail.caratWeight+'ct':'-'}  </b>
+                </div>
               </div>
             </div>
           </div>
-          <div className="carat-weight-labels">
-            <div className="the-total-carat">The total carat weight:</div>
-          </div>
-          <div className="carat-weight-labels1">
-            <b className="ct1"> {diamondDetail.caratWeight? diamondDetail.caratWeight+'ct':'-'}  </b>
-          </div>
+
         </div>
         <div className="stats-parent">
           <div className="stats10">
@@ -320,13 +321,13 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
         <div className="payment-options">
           <div className="cart-buttons">
             {settingDetail.rbEcommerce && diamondDetail.dsEcommerce &&
-            <div className="button21">
+            <div className="button52">
               <b className="add-to-cart" onClick={()=>addToCart(diamondDetail,settingDetail)}>Add to cart - <ShowTotalPrice configAppData={configAppData} settingDetailForCost={settingDetail} diamondDetail={diamondDetail}></ShowTotalPrice></b>
             </div>
             }
             {configAppData.display_tryon =="1" &&
            
-               <button className="button22" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(settingDetail.styleNumber))}>                        
+               <button className="button52_b" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(settingDetail.styleNumber))}>                        
                            <b>Virtual Try On</b>
                         </button>
             }

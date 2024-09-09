@@ -278,7 +278,7 @@
 	/* margin-bottom: 55px; */
 }
 .filter-options-container.priceFilterBox {
-	margin-bottom: 55px;
+	margin-bottom: 40px;
 }
 .SettingsFilterPanel .filter-options-fullwidth {
 	display: flex;
@@ -316,6 +316,7 @@
 .SettingsFilterPanel .metal-type .metal-name {
 	font-size: 14px;
 	color: var(--accent);
+	font-family: var(--body-14-reg);
 }
 .SettingsFilterPanel .metal-type .metal-icon .ring {
 	width: 38px;
@@ -375,6 +376,10 @@
 	border-radius: 0;
 }
 @media screen and (max-width: 1275px) {
+	.SettingsFilterPanel {
+		padding-left: var(--padding-xl) !important;
+        padding-right: var(--padding-xl) !important;
+	}
 	.SettingsFilterPanel .settings-founded {
 		font-size: var(--font-size-7xl);
 		line-height: 28px;
@@ -411,7 +416,8 @@
 	}
 
 	.SettingsFilterPanel .filter-container {
-		flex-wrap: wrap;
+		/* flex-wrap: wrap; */
+		padding-right: 0 !important;
 	}
 	.SettingsFilterPanel .filter-container::before {
 		display: none !important;
@@ -448,6 +454,8 @@
 	gap: var(--gap-base);
 	width: 100%;
 	position: relative;
+	padding-right: 30px;
+	width: auto;
 }
 .SettingsFilterPanel .filter-container::before {
 	content: "";

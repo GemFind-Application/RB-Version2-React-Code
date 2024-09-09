@@ -59,7 +59,7 @@
 .settings-sort-page .no-appearance {
   padding: 0 1rem 0 0;
   background-position: right center;
-  margin-right: 0;
+  /* margin-right: 0; */
 }
 .settings-sort {
   gap: var(--gap-6xl);
@@ -69,7 +69,7 @@
 .show7 {
   position: relative;
   display: inline-block;
-  min-width: 50px;
+  /* min-width: 50px; */
 }
 
 .low-to-high,
@@ -286,8 +286,8 @@
 }
 
 .diamond .no-appearance {
-  margin: 0;
-  padding: 0;
+  /* margin: 0;
+  padding: 0; */
 }
 .diamond .settings-sort {
   gap: 0;

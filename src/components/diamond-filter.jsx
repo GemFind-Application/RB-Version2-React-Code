@@ -355,7 +355,7 @@ if(filter==='intensity'){
                     <div className="diamond-save-reset" >
                       <div className="save--filter" onClick={saveFilters}>
                         <button className="save--diamond_filter">
-                          <img className="icons3" alt="" src={`${imageUrl}`+"/vector-4.svg"} />
+                          <img className="icons3" width="14" height="15" alt="save--diamond_filter" src={`${imageUrl}`+"/vector-4.svg"} />
                         </button>
                       </div>
                       <div className="reset--filter" onClick={confirmReset}>
@@ -400,7 +400,7 @@ if(filter==='intensity'){
             {activeDropdown && (<>
             {(activeDropdown === 'cut'||activeDropdown === 'colour'||activeDropdown === 'clarity')&&
               <div>From - to</div>}
-              <div className="filter-options-container">
+              <div className={`filter-options-container ${activeDropdown === 'price' || activeDropdown === 'carat' ? 'priceFilterBox' : ''}`}>
                 {activeDropdown === 'shape' && (
                     filterData.shapes.map(shape => (
                      

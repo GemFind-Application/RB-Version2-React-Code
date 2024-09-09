@@ -23,7 +23,7 @@
   position: relative;
   font-weight: 500;
   display: inline-block;
-  min-width: 98px;
+  /* min-width: 98px; */
 }
 .spec-values {
   text-decoration: none;
@@ -34,12 +34,12 @@
   /* min-width: 74px; */
 }
 .spec-labels {
-  border-radius: var(--br-base);
+  /* border-radius: var(--br-base);
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: var(--gap-10xs);
+  gap: var(--gap-10xs); */
 }
 .price4 {
   position: relative;
@@ -55,12 +55,8 @@
   white-space: nowrap;
 }
 .spec-labels1 {
-  border-radius: var(--br-base);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-9xs);
+  display: inline-block;
+  margin: 0 20px 10px 0;
 }
 .price-per-carat {
   text-decoration: none;
@@ -178,20 +174,12 @@
   min-width: 93px;
 }
 .stats {
-  align-self: stretch;
   border-top: 1px solid var(--divider);
   box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-5xl) var(--padding-35xl) 0px 0px;
-  gap: var(--gap-5xl);
-  text-align: center;
   font-size: var(--body-14-reg-size);
   color: var(--grey);
   font-family: var(--body-14-reg);
+  padding-top: var(--padding-11xl);
 }
 .top2 {
   align-self: stretch;
@@ -312,9 +300,9 @@
   justify-content: flex-start;
   gap: var(--gap-13xl);
   text-align: left;
-  font-size: var(--h4-size);
+  /* font-size: var(--h4-size); */
   color: var(--black);
-  font-family: var(--h4);
+  /* font-family: var(--h4); */
 }
 .close-icon1 {
   position: absolute;

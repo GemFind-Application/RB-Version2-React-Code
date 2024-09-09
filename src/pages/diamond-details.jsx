@@ -178,8 +178,9 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
   }, [navigate]);
   const renderVideo = (item) => {
     return (
-      <div className="video-popup-content" >
+      <div className="video-popup-content embed-responsive" >
       <iframe
+          className="embed-responsive-4by3"
           title={item.embedUrl}       
           height={'100%'}
           width={'100%'}        
@@ -306,12 +307,8 @@ setShowLoading(true);
   return (
     <>
       <div className="diamond-page">
-        <main className="main">
-          <section className="product">
-            <div className="product-details">
-              <div className="product-info">
-                <div className="breadcrumb">
-                  <div className="bread1" onClick={onBreadContainerClick}>
+        <main className="main main1">
+        <div className="bread1" onClick={onBreadContainerClick}>
                     <div className="breadcrumb-item">
                       <img
                         className="breadcrumb-separator-icon"
@@ -322,7 +319,10 @@ setShowLoading(true);
                     </div>
                     <b className="back-to-all">Back to All Diamonds</b>
                   </div>
-                  <div className="product-gallery">
+          <section className="product pdp_container">
+            <div className="product-details pdp_content">
+              <div className="product-info pdp_image_item">
+                  <div className="image-container">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
                       <ImageGallery items={images} autoPlay={false} showPlayButton={false} showNav={false}  onErrorImageURL={imageUrl+'/no-image.jpg'}/>
@@ -330,6 +330,7 @@ setShowLoading(true);
                   </div>
                 </div>
                 {diamondDetail.internalUselink &&
+                  <div className="note-container-parent">
                     <div className="link1">
                       <div className="dealer__info">
                         <span>{`Internal Use Only: `}</span>
@@ -341,18 +342,19 @@ setShowLoading(true);
                         </div>
                       </div>
                     </div>
+                    </div>
                   }
-                </div>
+                
               </div>
-              <div className="specifications">
+              <div className="specifications pdp_info_item">
                 <div className="specs-container">
                   <div className="specs-content">
                     <div className="specs-details">
                       {diamondDetail.stockNumber!==""&&
-                      <div className="id-383212322">{ (additionOptionSetting.show_In_House_Diamonds_First) ?
+                      <div className="id-3832123221">{ (additionOptionSetting.show_In_House_Diamonds_First) ?
                        "Stock Number: "+diamondDetail.stockNumber:
                         "SKU#: "+diamondDetail.diamondId}</div>}
-                      <h1 className="princess-1001-carath">
+                      <h1 className="product--title">
                       {diamondDetail.shape} {' '}{diamondDetail.caratWeight} CARAT
                       </h1>
                       <div className="specs-header">
@@ -409,36 +411,36 @@ setShowLoading(true);
                   </div>
                   <div className="stats5">
                     <div className="summary-items">
-                      <div className="shape1">Shape:</div>
-                      <b className="princess">{diamondDetail.shape}</b>
+                      <div className="shape1 si_label">Shape:</div>
+                      <b className="princess si_value">{diamondDetail.shape}</b>
                     </div>
-                    <div className="summary-items1">
-                      <div className="carat">Carat:</div>
-                      <b className="b11">{diamondDetail.caratWeight!="" ? diamondDetail.caratWeight:'-'}</b>
+                    <div className="summary-items">
+                      <div className="carat si_label">Carat:</div>
+                      <b className="b11 si_value">{diamondDetail.caratWeight!="" ? diamondDetail.caratWeight:'-'}</b>
                     </div>
-                    <div className="summary-items2">
-                      <div className="colour">Colour:</div>
-                      <b className="d">{diamondDetail.color!="" ? diamondDetail.color:'-'}</b>
+                    <div className="summary-items">
+                      <div className="colour si_label">Colour:</div>
+                      <b className="d si_value">{diamondDetail.color!="" ? diamondDetail.color:'-'}</b>
                     </div>
-                    <div className="summary-items3">
-                      <div className="clarity2">Clarity:</div>
-                      <b className="vvs1">{diamondDetail.clarity!="" ? diamondDetail.clarity:'-'}</b>
+                    <div className="summary-items">
+                      <div className="clarity2 si_label">Clarity:</div>
+                      <b className="vvs1 si_value">{diamondDetail.clarity!="" ? diamondDetail.clarity:'-'}</b>
                     </div>
-                    <div className="summary-items4">
-                      <div className="cut3">Cut:</div>
-                      <b className="very-good2">{diamondDetail.cut!="" ? diamondDetail.cut:'-'}</b>
+                    <div className="summary-items">
+                      <div className="cut3 si_label">Cut:</div>
+                      <b className="very-good2 si_value">{diamondDetail.cut!="" ? diamondDetail.cut:'-'}</b>
                     </div>
-                    <div className="summary-items5">
-                      <div className="clarity2">Polish :</div>
-                      <b className="very-good2">{diamondDetail.polish!="" ? diamondDetail.polish:'-'}</b>
+                    <div className="summary-items">
+                      <div className="clarity2 si_label">Polish :</div>
+                      <b className="very-good2 si_value">{diamondDetail.polish!="" ? diamondDetail.polish:'-'}</b>
                     </div>
-                    <div className="summary-items6">
-                      <div className="symmetry2">Symmetry:</div>
-                      <b className="very-good2">{diamondDetail.symmetry!="" ? diamondDetail.symmetry:'-'}</b>
+                    <div className="summary-items">
+                      <div className="symmetry2 si_label">Symmetry:</div>
+                      <b className="very-good2 si_value">{diamondDetail.symmetry!="" ? diamondDetail.symmetry:'-'}</b>
                     </div>
-                    <div className="summary-items7">
-                      <div className="intensity">Intensity:</div>
-                      <b className="b12">{diamondDetail.fancyColorIntensity!="" ? diamondDetail.fancyColorIntensity:'-'}</b>
+                    <div className="summary-items">
+                      <div className="intensity si_label">Intensity:</div>
+                      <b className="b12 si_value">{diamondDetail.fancyColorIntensity!="" ? diamondDetail.fancyColorIntensity:'-'}</b>
                     </div>
                   </div>
                   <div className="number2">
@@ -464,11 +466,11 @@ setShowLoading(true);
                 <div className="actions">
                   <div className="buttons">
                     <div className="primary-buttons">
-                    <div className="button9" onClick={()=>addToCart(diamondDetail)}>
+                    <div className="button52" onClick={()=>addToCart(diamondDetail)}>
                        <b className="select-363440">Add To Cart</b>
                      </div>
                     {isSettingSelected===true ?
-                      <div className="button9" onClick={()=>onButtonContainerClick(diamondDetail)}>
+                      <div className="button52_b" onClick={()=>onButtonContainerClick(diamondDetail)}>
                         <b className="select-363440">Complete Your Ring - <ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamondDetail}></ShowCostInCardDiamond></b>
                       </div> :
                        <div className="button9" onClick={()=>selectSetting(diamondDetail)}>

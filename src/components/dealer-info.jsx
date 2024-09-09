@@ -73,8 +73,10 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
   };
 //console.log(error)
   return (
-    <div className={`dealer-info ${className}`}>
-      <section className="content3">
+    <div className={`dealer-info popup-overlay ${className}`}>
+      <section className="popup-content">
+        <button className="close-button" onClick={onClose}>×</button>
+        
         <div className="top3">
           {error !== "" &&
             <div className='enter-your-password errorText'>{error}</div>
@@ -82,12 +84,11 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
           {!isSuccess ? (
             <>
               <div className="h11">
-                <h3 className="dealer-info1">Dealer Info</h3>
-                <div className="enter-your-password">
-                  Enter your password to continue
-                </div>
+                <h2>Dealer Info</h2>
+                <p className="enter-your-password">Enter your password to continue</p>
               </div>
-              <div className="inputs1">
+              <hr className='hr' />
+              <div className="rb_grid rb_col2 form-group">
                 <div className="drop4">
                   <input
                     className={`your-gemfind-password ${error ? 'error' : ''}`}
@@ -230,13 +231,6 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
           )}
         </div>
       </section>
-      <img
-        className="close-icon2"
-        loading="lazy"
-        alt=""
-        src={`${imageUrl}`+"/close.svg"}
-        onClick={onClose}
-      />
     </div>
   );
 };
