@@ -360,7 +360,9 @@ body .empty-row .i10 {
 	/* .frame-wrapper1 {
 		min-width: 100%;
 	} */
-
+	.price18, .price19 {
+		padding: 8px 16px;
+	}
 	.diamond-nav-container {
 		gap: var(--gap-17xl);
 		padding-left: var(--padding-41xl);

@@ -409,8 +409,10 @@ body .headergroup-nav {
 	max-width: 100%;
 	cursor: pointer;
 	line-height: 20px;
+	font-family: var(--body-14-reg);
 	font-size: var(--buttom-size);
 	font-weight: 700;
+	text-transform: uppercase;
 }
 .button52_b {
 	flex: 1;
@@ -443,7 +445,30 @@ body .headergroup-nav {
 .button52_b b {
 	font-weight: 700;
 }
-
+.success-message button {
+	flex: 1;
+	border-radius: var(--br-37xl);
+	background-color: var(--accent);
+	border: 1px solid var(--accent);
+	color: #fff;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: var(--padding-mini) var(--padding-xl);
+	box-sizing: border-box;
+	white-space: nowrap;
+	max-width: 100%;
+	cursor: pointer;
+	line-height: 20px;
+	font-size: var(--buttom-size);
+	font-weight: 700;
+	text-transform: uppercase;
+	padding: 0 20px;
+	height: 40px;
+	margin-top: 20px;
+	font-family: var(--body-14-reg);
+}
 /* Responsive utilities */
 @media (max-width: 640px) {
 	.sm\:flex-col {

@@ -229,7 +229,7 @@
 }
 @media screen and (max-width: 1275px) {
 	.create-your-own3 {
-		font-size: var(--font-size-16xl);
+		font-size: var(--h2-size);
 		line-height: 39px;
 	}
 }

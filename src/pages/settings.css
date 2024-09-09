@@ -96,6 +96,8 @@
 	.setting-product-list,
 	.list2 {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
+		padding: 20px;
+		gap: var(--gap-xl);
 	}
 	.step-title {
 		font-size: var(--buttom-size);

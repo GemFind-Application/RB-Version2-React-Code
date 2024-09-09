@@ -79,7 +79,7 @@
 @media screen and (min-width: 992px) and (max-width: 1440px) {
 	.settings-steps {
 		display: flex;
-		gap: 30px;
+		gap: 25px;
 		margin-bottom: 30px;
 	}
 }
