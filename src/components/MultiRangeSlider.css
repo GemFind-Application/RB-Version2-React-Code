@@ -163,6 +163,8 @@ background-color: var(--slider-color);
 .advanced-filter-group .container.price_slider_box {
   position: relative;
   margin-top: 20px;
+  width: 100% !important;
+  min-width: 100%;
 }
 .advanced-filter-group .container.price_slider_box .sliderValues {
   margin-top: 10px;

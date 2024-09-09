@@ -245,7 +245,7 @@ if(filter==='intensity'){
               </div>
             </div>
             <div className="settings-sort">
-            <div className="settings-sort-page">
+            <div className="settings-sort-page view_sde">
                 <div className="sort-by4">View:</div>
                 <select className='no-appearance' value={isInHouseOrVirtualOrAll} onChange={(e) => setIsInHouseOrVirtualOrAll(e.target.value)}>
                   <option value="all">All</option>
@@ -253,7 +253,7 @@ if(filter==='intensity'){
                   <option value="virtual">Virtual</option>                 
                    </select> 
               </div>
-              <div className="settings-sort-page">
+              <div className="settings-sort-page sortby_sde">
                 <div className="sort-by4">Sort by:</div>
                 <select className='no-appearance' value={sortOrder} onChange={(e) => onSortOrderChange(e.target.value)}>
                   <option value="Cut">Shape</option>
@@ -272,10 +272,12 @@ if(filter==='intensity'){
                   <option value="Certificate">Certificate</option> 
                   <option value="FltPrice">Price</option>
                 </select>
+                <div className="sortOrder">
+                {orderDirection==='ASC' && <a onClick={()=>setOrderDirection('DESC')} ><img title='DESC' className={'imgDescAsc'} src={`${imageUrl}`+"/downarrow_dir.png"}></img></a>}
+                {orderDirection==='DESC' &&<a onClick={()=>setOrderDirection('ASC')}><img className={'imgDescAsc'} title="ASC" src={`${imageUrl}`+"/uparrow_dir.png"}/></a>}
+                </div>
               </div>
-              <div className="settings-sort-page"> {orderDirection==='ASC' && <a onClick={()=>setOrderDirection('DESC')} ><img title='DESC' className={'imgDescAsc'} src={`${imageUrl}`+"/downarrow_dir.png"}></img></a>}
-              {orderDirection==='DESC' &&<a onClick={()=>setOrderDirection('ASC')}><img className={'imgDescAsc'} title="ASC" src={`${imageUrl}`+"/uparrow_dir.png"}/></a>}</div>
-              <div className="settings-sort-page">
+              <div className="settings-sort-page show_sde">
                 <div className="show7">Show:</div>
                 <select className='no-appearance' value={itemsPerPage} onChange={(e) => onItemsPerPageChange(Number(e.target.value))}>
                   <option value={8}>8 per Page</option>
@@ -399,7 +401,7 @@ if(filter==='intensity'){
       )}
             {activeDropdown && (<>
             {(activeDropdown === 'cut'||activeDropdown === 'colour'||activeDropdown === 'clarity')&&
-              <div>From - to</div>}
+              <div className='fromto'>From - to</div>}
               <div className={`filter-options-container ${activeDropdown === 'price' || activeDropdown === 'carat' ? 'priceFilterBox' : ''}`}>
                 {activeDropdown === 'shape' && (
                     filterData.shapes.map(shape => (

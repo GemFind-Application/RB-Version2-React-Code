@@ -56,6 +56,28 @@
   color: var(--grey);
   font-family: var(--body-14-reg);
 }
+.settings-sort-page.view_sde select {
+  margin: 0 10px 0 5px;
+  width: 54px;
+}
+.settings-sort-page.sortby_sde {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+.settings-sort-page.sortby_sde select {
+  margin: 0 5px;
+  width: 54px;
+}
+.settings-sort-page.sortby_sde .sortOrder {
+  line-height: 1;
+}
+.settings-sort-page.sortby_sde .sortOrder a {
+  line-height: 1;
+}
+.settings-sort-page.sortby_sde .sortOrder img {
+  height: 18px;
+}
 .settings-sort-page .no-appearance {
   padding: 0 1rem 0 0;
   background-position: right center;
@@ -316,6 +338,9 @@
 
   .filter-container {
     flex-wrap: wrap;
+  }
+  .settings-sort-page.sortby_sde select {
+    width: 80px;
   }
 }
 

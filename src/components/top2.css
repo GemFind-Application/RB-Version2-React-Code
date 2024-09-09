@@ -75,6 +75,10 @@
   position: relative;
   line-height: 17px;
 }
+.side-diamond-details h3 {
+  font-size: 18px;
+  letter-spacing: 0;
+}
 .number-of-diamonds {
   position: relative;
   font-weight: 500;
