@@ -35,6 +35,7 @@ function getSettingDetail(settingId,dealerId,isLabGrown) {
 }
 //get all settings
 function getAllSettings(option,dealerId) {  
+  //console.log(option)
   let queryParam = getQueryParam(option);
   return fetchWrapper.get(`${baseUrl}/GetMountingList?DealerId=${dealerId}${queryParam}`);
 }
@@ -92,7 +93,6 @@ function requestMoreInfo(formData,sendRequest,apiCall){
 }
 //set parameters for setting
 function getQueryParam(option){
-  //console.log(option)
   let filterString = "";
   if(option.pageSize && option.pageSize!==undefined){   
     filterString = 'pageSize='+option.pageSize;    
@@ -110,8 +110,7 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'OrderBy='+option.orderBy  ; 
   }
-  if(option.priceMin && option.priceMax){
-
+  if(option.priceMin!=="" && option.priceMax!==""){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'priceMin='+option.priceMin+"&priceMax="+option.priceMax  ;  
     //console.log(filterString)
