@@ -62,12 +62,19 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
     }else{
       if( diamondDetail.retailerInfo.addressList){
         const locationIdObject = diamondDetail.retailerInfo.addressList.filter(item=>item.locationName===formData.location); 
-         
-        if(locationIdObject.length > 0){
-          const timedetail = diamondDetail.retailerInfo.timingList.filter(item=>item.locationID==locationIdObject[0].locationID);
-          setTimeArray(timedetail)
-          setFormData({...formData,avail_date:null,appnt_time:null})
-        }
+         console.log(locationIdObject.length)
+         if(locationIdObject.length!=0) {
+          if(locationIdObject.length > 0){
+            const timedetail = diamondDetail.retailerInfo.timingList.filter(item=>item.locationID==locationIdObject[0].locationID);
+            setTimeArray(timedetail)
+            setFormData({...formData,avail_date:null,appnt_time:null})
+          }
+         }else{
+          setErrors({ ...errors, ['location']: 'Please selcet location first' });
+          //document.getElementsByName('location');
+
+         }
+       
       } 
     }
    
@@ -86,6 +93,12 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
     }
     fetchToken()
    }, [errorsFromRes]);
+   const checklocation = () =>{
+console.log(formData)
+    if(formData.location===""){
+      alert("fdgd")
+    }
+   }
   const handleInputChange = (e) => {
    
     const { name, value } = e.target;
@@ -114,9 +127,14 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
   }
   
   const handleDateChange = (date) => {
+    console.log("formdata");
+    if(formData.location==""){
+     (document.getElementsByName('location')[0].focus());
+    }else{    
     const start = new Date(date);
     const end = new Date(date);
-    const isStoreClose = ('storeClosed'+start.toLocaleString('en-US', { weekday: 'short' }))
+    const isStoreClose = ('storeClosed'+start.toLocaleString('en-US', { weekday: 'short' }));
+    
     if(timearray[0][isStoreClose]=="" && timearray.length > 0){     
       const dayArray = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
       let startDay =convertTime12to24(timearray[0][(dayArray[date.getDay()])+'Start']);
@@ -141,7 +159,7 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
    // setFormData({ ...formData, appnt_time: date.toLocaleTimeString() });
     if (errors.preference) {
       setErrors({ ...errors, preference: '' });
-    }
+    }}
   };
 
   const validateForm = () => {
