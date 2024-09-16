@@ -67,6 +67,7 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
         setDiamondDetail(res);
         setIsAllDiamondDetailsLoaded(true);
         setShowLoading(false);
+        handleVideoIconClick(diamondIdToShow)
       }     
     } catch (error) {
       console.error("Error fetching product details:", error);
@@ -119,8 +120,9 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
   useEffect(() => {
     
     window.scrollTo(0, 0);
-    handleVideoIconClick(diamondIdToShow)
+    
     fetchProductDetails(diamondIdToShow,isLabGrown);
+
     //fetchPrintDoc(diamondIdToShow,isLabGrown)
   }, [diamondId]);
   useEffect(() => {
