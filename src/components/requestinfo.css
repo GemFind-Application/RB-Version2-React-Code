@@ -28,7 +28,7 @@
 }
 
 .flex-cta button {
-  height: 52px;
+  /* height: 52px; */
   flex: 1;
 }
 
@@ -84,4 +84,13 @@
 
 input.error, textarea.error {
   border: 1px solid #b00;
+}
+
+@media screen and (max-width: 825px) {
+  .flex-cta button {
+    width: 100%;
+  }
+  .requestInfopopup-overlay .flex-cta button {
+    margin-top: 20px;
+  }
 }

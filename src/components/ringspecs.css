@@ -46,6 +46,9 @@
 	color: var(--black);
 	margin-top: 0;
 }
+.ring-specs-popup .setting-details p:last-child {
+	margin-right: 0;
+}
 .ring-specs-popup .setting-details .can-be-set-with {
 	display: flex;
 	flex-wrap: wrap;

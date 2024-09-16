@@ -311,15 +311,16 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
                     </div>
                   }
               </div>
-              <button type="submit" className="submit-button">Request</button>
+              <button type="submit" className="button52">Request</button>
             </div>
           </div>
         </form>
         </>
         ) : (
           <div className="success-message">
-            <h2>Scheduled View!</h2>
-            <p> <p>{scheduleViewingMessage}</p></p>
+            <h2>Request Sent!</h2>
+            <p>&nbsp;</p>
+            <p>{scheduleViewingMessage}</p>
           </div>
         )}
       </div>

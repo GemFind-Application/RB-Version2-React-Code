@@ -83,7 +83,7 @@ const FrameComponent7 = ({ className = "" }) => {
                     </div>
                   </div>
                   <div className="price16">
-                    <div className="filters4">Colour</div>
+                    <div className="filters4">Color</div>
                     <img className="sort-child" alt="" src="/vector-21.svg" />
                     <div className="div75">
                       <b className="i4">i</b>
