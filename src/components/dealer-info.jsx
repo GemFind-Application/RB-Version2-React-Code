@@ -93,7 +93,7 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
                   <input
                     className={`your-gemfind-password ${error ? 'error' : ''}`}
                     name="dealer-password"
-                    placeholder={error || "Your Gemfind Password"}
+                    placeholder={error || "Your GemFind Password"}
                     type="password"
                     value={password}
                     onChange={(e) => {

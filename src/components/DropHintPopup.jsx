@@ -250,7 +250,7 @@ const recaptcha = useRef();
                   />
                   {errors.giftDeadline && <span className="error-message">{errors.giftDeadline}</span>}
                 </div>
-                <button type="submit" className="submit-button">DROP HINT</button>
+                <button type="submit" className="button52">DROP HINT</button>
               </div>
               {configAppData.site_key && configAppData.site_key!=="" && 
               <div className="gift-deadline">
@@ -262,6 +262,7 @@ const recaptcha = useRef();
         ) : (
           <div className="success-message">
             <h2>Hint Dropped!</h2>
+            <p>&nbsp;</p>
             <p>{hintDroppedMessage}</p>
           </div>
         )}

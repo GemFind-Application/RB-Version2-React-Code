@@ -793,6 +793,11 @@
 	flex: 1 1 50%;
 	width: 50%;
 }
+.flex-advanced-filter .advanced-filter-group {
+    max-width: 50%;
+    flex: 0 0 50%;
+    width: 100%;
+}
 .dropdown-btns {
 	flex: 1 0 auto;
 }
@@ -866,6 +871,10 @@ div.diamondfilterShape {
 	}
 }
 @media screen and (max-width: 1280px) {
+	.flex-advanced-filter .advanced-filter-group {
+		max-width: inherit;
+		flex-basis: 0 0 100%;
+	}
 	.diamond-filters {
 		flex-direction: column;
 	}
