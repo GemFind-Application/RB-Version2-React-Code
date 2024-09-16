@@ -26,16 +26,16 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
         <ImageGallery items={images} showPlayButton={false} showThumbnails={false} showFullscreenButton={false} showNav={false} onErrorImageURL={imageUrl+'/no-image.jpg'}/>
       </section>
       <section className="content2">
-        <div className="top2">
-          <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.carat} CARAT</h3>
-          <div className="stats">
-            <div className="spec-labels">
-              <div className="stock-number">Stock Number:</div>
-              <a className="spec-values">{diamond.sku || '-'}</a>
+        <div className="top2 tre343">
+            <h3 className="diamond-details1">{diamond.shape} {' '}{diamond.carat} CARAT</h3>
+          <div className="dd342">
+                <div className="price4 no-display">Price:</div>
+                <b className="b1"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b>
             </div>
+          <div className="stats">
             <div className="spec-labels1">
-              <div className="price4">Price:</div>
-              <b className="b1"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b>
+                <div className="stock-number">Stock Number:</div>
+                <a className="spec-values">{diamond.sku || '-'}</a>
             </div>
             <div className="spec-labels1">
               <a className="price-per-carat">Price Per Carat:</a>

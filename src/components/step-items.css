@@ -61,6 +61,14 @@
     border: 1px solid var(--border-color);
     background-color: var(--beige-01);
 }
+@media screen and (min-width: 1441px) and (max-width: 1599px) { 
+	.settings-steps {
+		flex-wrap: wrap;
+	}
+	.step-items {
+		width: auto;
+	}
+}
 @media screen and (min-width: 1441px) {
 	.settings-steps {
 		display: flex;

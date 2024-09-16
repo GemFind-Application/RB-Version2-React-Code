@@ -13,7 +13,7 @@ export default function  AlertPopUp  ({onClose,message,title,onClick})  {
           
       >
          {message!=="" ?
-        <div className="popup-overlay drop-hint-popup ">
+        <div className="popup-overlay drop-hint-popup resetPopup">
           <div className="popup-content">
            
            

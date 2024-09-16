@@ -221,7 +221,7 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
                 </div>
                 {errors.preference && <span className="error-message">{errors.preference}</span>}
               </div>
-              <button type="submit" className="submit-button">Request</button>
+              <button type="submit" className="button52">Request</button>
             </div>
           </div>
         </form>
@@ -229,6 +229,7 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
         ) : (
           <div className="success-message">
             <h2>Request Sent!!</h2>
+            <p>&nbsp;</p>
             <p>{requestInfoMessage}</p>
           </div>
         )}

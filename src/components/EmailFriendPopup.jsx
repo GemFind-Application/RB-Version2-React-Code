@@ -196,8 +196,8 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
               }
           </div>         
           <div className="rb_grid rb_col2 form-group request_infocta flex">
-            <button type="button" className="cancel-button" onClick={onClose}>Cancel</button>
-            <button type="submit" className="submit-button">Send To Friend</button>
+            <button type="button" className="button52_b" onClick={onClose}>Cancel</button>
+            <button type="submit" className="button52">Send To Friend</button>
             <div className="flex flex-cta"></div>
           </div>
         </form>
@@ -205,6 +205,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
         ) : (
           <div className="success-message">
             <h2>Email sent!</h2>
+            <p>&nbsp;</p>
             <p>{sendFriendMessage}</p>
           </div>
         )}

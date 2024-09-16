@@ -47,7 +47,7 @@
 	justify-content: flex-start;
 	padding: var(--padding-13xl) var(--padding-xl) var(--padding-33xl-3) var(--padding-5xl);
 	box-sizing: border-box;
-	gap: var(--gap-45xl-3);
+	gap: var(--gap-45xl);
 	max-width: 100%;
 	text-align: left;
 	font-size: var(--h3-size);

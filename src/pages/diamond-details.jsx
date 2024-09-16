@@ -473,7 +473,7 @@ setShowLoading(true);
                       <div className="button52_b" onClick={()=>onButtonContainerClick(diamondDetail)}>
                         <b className="select-363440">Complete Your Ring - <ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamondDetail}></ShowCostInCardDiamond></b>
                       </div> :
-                       <div className="button9" onClick={()=>selectSetting(diamondDetail)}>
+                       <div className="button52_b" onClick={()=>selectSetting(diamondDetail)}>
                        <b className="select-363440">Add Your Setting</b>
                      </div>}
 
