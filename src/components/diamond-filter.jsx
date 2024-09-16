@@ -303,7 +303,7 @@ if(filter==='intensity'){
                         {
                           
                           <img onClick={()=>resetThisFilter(filter)}className="icon--close" alt="" src={`${imageUrl}`+"/vector2.svg"} />}
-                          <span>{filter!=='diamondColorRange'?filter.charAt(0).toUpperCase() + filter.slice(1):'color'.charAt(0).toUpperCase() + 'color'.slice(1)}</span>
+                          <span>{filter!=='diamondColorRange'? filter==='colour'?'Color':filter.charAt(0).toUpperCase() + filter.slice(1):'color'.charAt(0).toUpperCase() + 'color'.slice(1)}</span>
                           <img className="show-inner" alt="" src={`${imageUrl}`+"/vector-21.svg"} />
                         </div>
                         
