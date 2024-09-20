@@ -656,6 +656,20 @@
 	max-height: inherit !important;
 	/* width: auto; */
 }
+.image-gallery-content.image-gallery-thumbnails-bottom.fullscreen {
+	height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.image-gallery-content.image-gallery-thumbnails-bottom.fullscreen .image-gallery-slide .image-gallery-image {
+	width: auto;
+}
+.image-gallery-content.image-gallery-thumbnails-bottom.fullscreen .image-gallery-slide-wrapper {
+	height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 @media screen and (max-width: 1440px) {
 	.engagement-ring-parent {
 		flex-direction: column;

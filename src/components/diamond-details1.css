@@ -240,8 +240,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: var(--padding-3xl) var(--padding-45xl) var(--padding-3xl)
-    var(--padding-5xl);
+  padding: var(--padding-3xl);
   gap: var(--gap-base);
 }
 .b4 {
@@ -269,6 +268,9 @@
   padding: var(--padding-3xl) var(--padding-68xl) var(--padding-3xl)
     var(--padding-5xl);
   gap: var(--gap-base);
+}
+.measurement-labels1 .table {
+  margin: 0;
 }
 .x371x232 {
   position: relative;

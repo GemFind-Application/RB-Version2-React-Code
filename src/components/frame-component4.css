@@ -138,6 +138,7 @@
 .div57 {
 	height: 52px;
 	width: 52px;
+	min-width: 52px;
 	position: relative;
 	border-radius: var(--br-base);
 	background-color: var(--beige-02);

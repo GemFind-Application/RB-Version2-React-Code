@@ -222,7 +222,7 @@ console.log(formData)
         {!ScheduleViewing ? (
         <>
         <h2>Schedule Viewing</h2> 
-        <p>See This Item & More In Our Store.</p>
+        <p>See this item & more in our store.</p>
         <hr className="hr" />
         {errorsFromRes!="" &&            
           <div className='enter-your-password errorText'>{errorsFromRes}</div>            
@@ -300,27 +300,30 @@ console.log(formData)
                     />
                   </div>
                 </div>
-
-                {
-               
-                (availableTimeArray.length > 0) &&
-                  <div className="preference_val">
-                    <select
-                      name="appnt_time"
-                      value={formData.appnt_time}
-                      onChange={(e)=>{handleInputChange(e)}}
-                      className={errors.appnt_time ? 'error' : 'no-appearance select--outline'}
-                      placeholder='Select Time'
-                    >                      
-                      {availableTimeArray.map((time, index) => (
-                        <option key={index} value={time}>{time}</option>
-                      ))}
-                    </select>
-                  </div>
-                  }
+              </div>
+              </div>
               
-              </div>
-              </div>
+              {
+               
+               (availableTimeArray.length > 0) &&
+               <div className="rb_grid rb_col1 form-group flex flex-cta">
+                 <div className="preference_val">
+                   <select
+                     name="appnt_time"
+                     value={formData.appnt_time}
+                     onChange={(e)=>{handleInputChange(e)}}
+                     className={errors.appnt_time ? 'error' : 'no-appearance select--outline'}
+                     placeholder='Select Time'
+                   >                      
+                     {availableTimeArray.map((time, index) => (
+                       <option key={index} value={time}>{time}</option>
+                     ))}
+                   </select>
+                 </div>
+                 </div>
+                 }
+
+
             <div className="rb_grid rb_col1 form-group flex flex-cta">
                <div className="flex message_info">
                   {configAppData.site_key && configAppData.site_key!=="" && 

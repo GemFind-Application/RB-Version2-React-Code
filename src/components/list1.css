@@ -22,6 +22,14 @@
   border-top: 1px solid var(--boderColor10);
   margin-top: 15px;
 }
+.list5 .diamond-expand-detail-wrapper .diamond-details .buttons {
+  padding: var(--padding-11xl) 0 0;
+  border-top: 1px solid var(--stroke);
+  border-bottom: 0 none;
+}
+.list5 .diamond-expand-detail-wrapper .diamond-details b {
+  color: inherit;
+}
 .list5 .diamond-details .image-gallery-slide-wrapper {
   padding: 0;
 }

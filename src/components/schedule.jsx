@@ -22,7 +22,7 @@ const Schedule = ({ className = "" }) => {
           <div className="top4">
             <div className="h12">
               <h3 className="schedule-viewing">Schedule Viewing</h3>
-              <div className="see-this-item">{`See This Item & More In Our Store`}</div>
+              <div className="see-this-item">{`See this item & more in our store`}</div>
             </div>
             <div className="inputs2">
               <div className="contact-form">

@@ -216,6 +216,7 @@
 	font-size: var(--body-14-reg-size);
 	color: var(--black);
 	position: relative;
+	flex-grow: 0;
 }
 .filter--val .border--round,
 .filter--val .empty-options,
@@ -662,6 +663,11 @@
 	height: 40px;
 	padding: 0;
 }
+.search-products input:focus-visible {
+    outline: 0 none;
+    border: 0 none;
+    box-shadow: 0 0 0 transparent;
+}
 .dropdown-content {
 	display: flex;
 	/* gap: 25px; */
@@ -870,7 +876,13 @@ div.diamondfilterShape {
 		display: none;
 	}
 }
+@media screen and (max-width: 1380px) {
+	div.diamondfilterShape {
+		gap: 4px;
+	}
+}
 @media screen and (max-width: 1280px) {
+	
 	.flex-advanced-filter .advanced-filter-group {
 		max-width: inherit;
 		flex-basis: 0 0 100%;
@@ -953,7 +965,7 @@ div.diamondfilterShape {
 	.filters-wrapper .dropdown-content .dropdown-btns .option--btn {
 		font-size: var(--body-14-reg-size);
 		width: 100%;
-		border-bottom: 1px solid #EEEDEC;
+		border-bottom: 1px solid var(--divider);
 		border-radius: 0;
 		line-height: 51px;
 		padding: 0;
@@ -1023,7 +1035,7 @@ div.diamondfilterShape {
 	.flex-advanced-filter .group-inner .dropdown-btns .option--btn {
 		font-size: var(--body-14-reg-size);
 		width: 100%;
-		border-bottom: 1px solid #EEEDEC;
+		border-bottom: 1px solid var(--divider);
 		border-radius: 0;
 		line-height: 51px;
 		padding: 0;

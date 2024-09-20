@@ -60,12 +60,12 @@
 }
 .product-info1 {
 	align-self: stretch;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: var(--gap-8xs);
-    font-size: var(--h3-size);
-    font-family: var(--h4);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: var(--gap-8xs);
+	font-size: var(--h3-size);
+	font-family: var(--h4);
 }
 .image-9-icon13 {
 	height: auto;
@@ -79,26 +79,20 @@
 .empty3 {
 	position: relative;
 	display: inline-block;
-	min-width: 65px;
 	white-space: nowrap;
+	font-family: var(--body-14-reg);
+	font-size: var(--body-14-reg-size);
+	font-weight: 700;
+	color: var(--black);
 }
 .vs2-excellent {
 	position: relative;
 	display: inline-block;
-	color: var(--backgroundmenutextdiamond);
-	min-width: 97px;
-}
-.down {
-	margin: 15px 0 0 !important;
-	/* position: absolute; */
-	bottom: -12.3px;
-	left: -8px;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: flex-start;
-	gap: var(--gap-5xs);
-	z-index: 1;
+	color: var(--grey);
+	white-space: nowrap;
+	font-family: var(--body-14-reg);
+	font-size: var(--body-14-reg-size);
+	font-weight: 700;
 }
 .actions10 {
 	display: flex;
@@ -137,15 +131,15 @@
 	max-width: 100%;
 }
 .diamond_item--link {
-    display: flex;
-    color: #fff;
-    line-height: 1;
-    align-items: center;
-    font-weight: 600;
-    text-decoration: none;
-    text-transform: uppercase;
-    align-self: center;
-    font-size: 14px;
+	display: flex;
+	color: #fff;
+	line-height: 1;
+	align-items: center;
+	font-weight: 600;
+	text-decoration: none;
+	text-transform: uppercase;
+	align-self: center;
+	font-size: 14px;
 }
 .button29 {
 	align-self: stretch;
@@ -168,7 +162,7 @@
 .button29:hover {
 	background-color: transparent;
 	color: var(--accent);
-    border: 1px solid var(--accent);
+	border: 1px solid var(--accent);
 }
 .button29:hover .diamond_item--link {
 	color: var(--accent);
@@ -253,9 +247,9 @@
 	background: var(--accent);
 }
 .diamond-details-popup .popup-content {
-    padding: 10px 15px;
-    font-family: var(--body-14-reg);
-    line-height: 1;
+	padding: 10px 15px;
+	font-family: var(--body-14-reg);
+	line-height: 1;
 }
 .popup-header {
 	display: flex;
@@ -266,32 +260,32 @@
 	border-bottom: 1px solid #E0E0E0;
 }
 .diamond-details-popup .popup-header {
-    padding: 10px 15px;
-    font-family: var(--body-14-reg);
+	padding: 10px 15px;
+	font-family: var(--body-14-reg);
 	background-color: transparent;
 
 }
 .diamond-details-popup .popup-header .close-button {
 	background: transparent;
-    border: none;
-    border-radius: 0;
-    width: 25px;
-    height: 30px;
-    font-size: 25px;
-    color: #666;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    line-height: 17px;
-    padding: 0;
+	border: none;
+	border-radius: 0;
+	width: 25px;
+	height: 30px;
+	font-size: 25px;
+	color: #666;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	line-height: 17px;
+	padding: 0;
 }
 .diamond-details-popup .popup-header h2 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-    color: #333;
-    text-transform: unset;
-    letter-spacing: 0;
+	margin: 0;
+	font-size: 18px;
+	font-weight: 700;
+	color: #333;
+	text-transform: unset;
+	letter-spacing: 0;
 }
 .popup-header h2 {
 	margin: 0;
@@ -339,12 +333,12 @@
 	gap: 15px; */
 }
 .detail-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    gap: 5px;
-    border-bottom: 1px dashed #efefef;
-    padding: 7px 0;
+	display: flex;
+	justify-content: space-between;
+	font-size: 14px;
+	gap: 5px;
+	border-bottom: 1px dashed #efefef;
+	padding: 7px 0;
 }
 .detail-label {
 	color: #6A665E;
@@ -352,4 +346,70 @@
 .detail-value {
 	font-weight: bold;
 	color: #333;
+}
+
+@media screen and (min-width: 1276px) {
+	.paction {
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+		margin-top: 20px;
+	}
+	.paction .button40 {
+		position: absolute;
+		overflow: hidden;
+		top: 0;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		opacity: 0;
+		transform: translateY(50px);
+		transition: opacity 0.5s, transform 0.5s;
+	}
+	.ring__items.product-items:hover .paction .button40,
+	.list2 .items:hover .paction .button40 {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	.ring__items.product-items:not(:hover) .button40,
+	.list2 .items:not(:hover) .button40 {
+		opacity: 0;
+		transform: translateY(50px);
+	}
+	.paction .down {
+		width: 100%;
+		height: 52px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+		gap: var(--gap-5xs);
+		z-index: 1;
+		transform: translateY(0);
+		transition: opacity 0.5s, transform 0.5s;
+	}
+	.ring__items.product-items:hover .paction .down,
+	.list2 .items:hover .paction .down {
+		opacity: 0;
+		transform: translateY(50px);
+	}
+}
+@media screen and (max-width: 1275px) {
+	.paction {	
+		position: relative;
+		width: 100%;
+		margin-top: 15px;
+	}
+	.paction .down {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+		gap: var(--gap-5xs);
+		z-index: 1;
+	}
+	.paction .button40 {
+		margin-top: 15px;
+	}
 }
