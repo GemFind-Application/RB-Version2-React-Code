@@ -66,7 +66,7 @@
     content: none;
   }
   body .noUi-handle{
-    border: 1px solid #D9D9D9;
+    border: 1px solid var(--border-color);
     border-radius: 70px;
     background: var(--slider-color);
   }

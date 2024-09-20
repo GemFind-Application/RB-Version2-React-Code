@@ -118,6 +118,7 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
             </div>
           </div>
         </div>
+        <div class="buttons"><div class="primary-buttons"><div class="button52">Select - &nbsp;<b class="select-363440"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b></div><div class="button52_b"><b class="select-363440">View Details</b></div></div></div>
       </section>
     </div>
   );

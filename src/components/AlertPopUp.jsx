@@ -20,7 +20,7 @@ export default function  AlertPopUp  ({onClose,message,title,onClick})  {
             <button  onClick={onClose} className="close-button" >×</button>   
             <div className="success-message">
               <h2>{title}</h2>
-              <p>{message}</p>
+              <p className="text-left">{message}</p>
                 {title==='Reset'&& <button onClick={onClick}>Reset</button> }          
             </div>
           </div>

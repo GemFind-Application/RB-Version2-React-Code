@@ -1,149 +1,77 @@
-.dealer-info1 {
-/*   margin: 0;
-  align-self: stretch;
-  position: relative;
-  font-size: inherit;
-  line-height: 120%;
-  font-weight: 700;
-  font-family: inherit; */
-}
-.enter-your-password {
-/*   align-self: stretch;
-  position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
-  color: var(--grey); */
-}
-.h11 {
-  /* align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-5xs); */
-}
-.dealerinfores {
-  /*flex-direction: row;*/
-  flex:1 1 calc(49% - var(--gap-5xs))
-}
-.your-gemfind-password {
-  /* width: 151px;
-  border: none;
-  outline: none;
-  font-family: var(--body-14-reg);
-  font-size: var(--body-14-reg-size);
-  background-color: transparent;
-  height: 19px;
-  position: relative;
-  color: var(--grey);
-  text-align: center;
-  display: inline-block;
-  padding: 0; */
-}
 .drop4 {
-  width: 100%;
-  max-width: inherit;
-  display: flex;
-  align-items: center;
+	width: 100%;
+	max-width: inherit;
+	display: flex;
+	align-items: center;
 }
 .drop4 input {
-  width: 100%;
+	width: 100%;
 }
 .submit {
-  position: relative;
-  font-size: var(--buttom-size);
-  text-transform: uppercase;
-  display: inline-block;
-  font-family: var(--body-14-reg);
-  color: var(--white);
-  text-align: left;
-  min-width: 61px;
+	position: relative;
+	font-size: var(--buttom-size);
+	text-transform: uppercase;
+	display: inline-block;
+	font-family: var(--body-14-reg);
+	color: var(--white);
+	text-align: left;
+	min-width: 61px;
 }
 .button4 {
-  cursor: pointer;
-  border: none;
-  padding: var(--padding-mini) var(--padding-xl);
-  background-color: var(--accent);
-  flex: 1;
-  border-radius: var(--br-37xl);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  min-width: 170px;
+	cursor: pointer;
+	border: none;
+	padding: var(--padding-mini) var(--padding-xl);
+	background-color: var(--accent);
+	flex: 1;
+	border-radius: var(--br-37xl);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	min-width: 170px;
 }
 .button4:hover {
-  background-color: var(--color-rosybrown-100);
+	background-color: var(--color-rosybrown-100);
 }
-.inputs1 {
-/*   align-self: stretch;
-  border-top: 1px solid var(--divider);
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  padding: var(--padding-3xl) 0px 0px;
-  gap: var(--gap-5xl); */
+.fw-600 {
+	font-weight: 600;
 }
-.fw-600{
-  font-weight:600;
-}
-.errorText{
-  color:red;
-  min-width:100%;
+.errorText {
+	color: red;
+	min-width: 100%;
 }
 .top3 {
-  width: 100%;
-  /* align-self: stretch;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--gap-5xl);
-  flex-wrap:wrap; */
-}
-.content3 {
-/*   position: absolute;
-  top: 39.5px;
-  left: calc(50% - 268px);
-  width: 536px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  max-width: 100%;
-  text-align: left;
-  font-size: var(--h4-size);
-  color: var(--black);
-  font-family: var(--h4); */
-}
-.close-icon2 {
-  /* position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 32px;
-  height: 32px;
-  overflow: hidden;
-  z-index: 1; */
-}
-.dealer-info {
-/*   width: 100%;
-  height: 223px;
-  position: relative;
-  border-radius: var(--br-base);
-  background-color: var(--white);
-  overflow: hidden;
-  line-height: normal;
-  letter-spacing: normal; */
-}
-
-.content3:has(.success-message) .top3{
-/*   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row; */
+	width: 100%;
 }
 
 .dealerinfo-label {
-  font-weight: bold;
+	font-weight: bold;
+}
+.dealer-info .h11 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.h11.dealerinfores {
+    display: flex;
+    justify-content: space-between;
+}
+.vendorInfo.success-message h2 {
+	margin-bottom: 20px !important;
+    text-align: center;
+}
+.h11.dealerinfores:nth-child(2n) {
+	background-color: #FAFAFA;
+}
+.h11.dealerinfores > div {
+    width: 50%;
+    padding: 5px 6px;
+	font-size: 14px;
+    border-top: 1px solid var(--boderColor10);
+	font-size: var(--body-14-reg);
+	word-wrap: break-word;
+}
+.h11.dealerinfores:last-child > div {
+	border-bottom: 1px solid var(--boderColor10);
 }

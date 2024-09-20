@@ -121,6 +121,9 @@ button.submit-button {
   width: 100%;
 }
 
+.preference_val select.no-appearance.select--outline {
+  margin-right: 0;
+}
 .preference_val .react-datepicker__input-container input {
   width: 100%;
   border-radius: 50px;

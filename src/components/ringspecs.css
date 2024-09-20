@@ -6,7 +6,7 @@
 }
 .settings_info {
 	width: 100%;
-	border-bottom: 1px solid #EEEDEC;
+	border-bottom: 1px solid var(--divider);
 	padding: 0 0 var(--padding-xl);
 }
 .ring-specs-popup h3 {

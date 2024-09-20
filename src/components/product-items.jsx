@@ -128,16 +128,17 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
             <img className="image-9-icon15" alt={product.name} src={product.imageUrl} />
             /* )*/}
           </div>
-          <div className="product-footer">
+          <div className="paction">
+            <div className="down">
             {product.showPrice && (
-              <b className="b38"> <ShowCostInCard settingDetailForCost={product} configAppData={configAppData}></ShowCostInCard> </b>
+              <b className="empty3"> <ShowCostInCard settingDetailForCost={product} configAppData={configAppData}></ShowCostInCard> </b>
             )}
             {configAppData.display_tryon=="1" &&            
            <button className="virtual-try-on1" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.stockNumber))}>Virtual Try On</button>
             }
+            </div>
+            <Link to={`/${settingUrl}/${viewUrlSetting}`} className="diamond_item--link button40">View Details</Link>
           </div>
-          
-            <Link to={`/${settingUrl}/${viewUrlSetting}`} className="btn__outer">View Details</Link>
         </div>
       </div>
       {showVideoPopup && (

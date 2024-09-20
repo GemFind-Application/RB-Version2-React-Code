@@ -110,7 +110,7 @@
 	position: relative;
 	display: inline-block;
 	color: var(--link-color);
-	width: 100%;
+	/* width: 100%; */
 	flex-shrink: 0;
 	outline: none;
 	font-weight: 700;

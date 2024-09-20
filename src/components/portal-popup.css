@@ -85,8 +85,9 @@
 	font-size: var(--body-14-reg-size);
 }
 .portalPopupOverlay .popup-content hr.hr {
-	border-color: #EEEDEC;
-	/* opacity: 1; */
+	border-color: var(--divider);
+	background-color: var(--divider);
+	opacity: 1;
 	margin-top: 5px;
 	margin-bottom: 15px;
 	height: 1px;
@@ -204,8 +205,9 @@
 	color: red;
 }
 .rb_grid.rb_col2.form-group.gift_deadline_box {
-    align-items: end;
+    /* align-items: end; */
 }
+.rb_grid.rb_col2.form-group.gift_deadline_box .button52,
 .gift_deadline_box .submit-button {
 	/* height: 52px; */
 	margin-top: 12px;
@@ -231,6 +233,9 @@
 .portalPopupOverlay .popup-content .success-message p {
 	text-align: center;
 	font-size: 14px;
+}
+.portalPopupOverlay .popup-content .success-message p.text-left {
+	text-align: left;
 }
 @media screen and (max-width: 825px) {
 	.portalPopupOverlay .popup-content .success-message h2 {
