@@ -40,7 +40,6 @@ const DiamondFilter = ({ className = "",
   showFilterDetails
 }) => {
   const navigate = useNavigate();
-  console.log(selectedSettingShape)
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [activePopup, setActivePopup] = useState(null);
   const [priceRange, setPriceRange] = useState(selectedFilters.price.length === 0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice] : [selectedFilters.price[0], selectedFilters.price[1]]);

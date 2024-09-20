@@ -44,7 +44,7 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
           password: password,
           settingId: settingId,
           isLabSetting: isLabSetting,
-          shopurl: shopurl
+          shopurl: 'gemfind-demo-store-18.myshopify.com'
         }
         page = "setting";
       }
@@ -55,15 +55,25 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
       });
       setShowLoading(true)
       const res = await settingService.validateDealerPassword(formDataVal, page);
-      
-      if (res.output.status === 2) {
-        setError(res.output.msg);
+      if(res){
+        if (res.output.status === 2) {
+          setError(res.output.msg);
+        }
+        if (res.output.status === 1) {
+          setDealerInfoAuthMessage(res.output.msg);
+          setDealerInfo(res.output.dealerInfo);
+          setIsSuccess(true);
+        }
+      }else{
+
+        if (res === null || res==="") {
+          //setDealerInfoAuthMessage(res.output.msg);
+          //setDealerInfo(res.output.dealerInfo);
+          //setIsSuccess(true);
+          setError("Something went wrong pls try again later");
+        }
       }
-      if (res.output.status === 1) {
-        setDealerInfoAuthMessage(res.output.msg);
-        setDealerInfo(res.output.dealerInfo);
-        setIsSuccess(true);
-      }
+     
       setShowLoading(false)
     } catch (error) {
       setShowLoading(false)

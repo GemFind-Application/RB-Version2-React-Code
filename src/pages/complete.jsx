@@ -23,7 +23,8 @@ const Complete = ({configAppData,formSetting,additionOptionSetting,shopUrl,isLab
  // const [isSettingAnDiamondIdLoaded, setIsSettingAnDiamondIdLoaded] = useState(false);
   const fetchDiamondDetails = async (diamondId,isLabGrown) => {
     try {
-      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown,configAppData.dealerid);      
+      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown,configAppData.dealerid);  
+      console.log(res)    
       if(res) {
         setDiamondDetail(res);  
         setIsDiamondLoaded(true);

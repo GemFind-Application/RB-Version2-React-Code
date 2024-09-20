@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState ,useEffect} from "react";
 import PropTypes from "prop-types";
 import "./diamond-details1.css";
 import ImageGallery from 'react-image-gallery';
 import ShowCostInCardDiamond from "./showCostInCardDiamond";
+import { useNavigate, useParams } from "react-router-dom";
 import ShowFltCostInCardDiamond from "./ShowFltCostInCardDiamond";
-
-const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
+import { utils } from "../Helpers";
+const DiamondExpandDetail = ({ className = "", diamond,configAppData ,getdiamondDetail,isLabGrown}) => {
+  const navigate = useNavigate();
   const images = [];
+  const [isSettingSelected, setIsSettingSelected] = useState(false);
   // if (diamond.diamondImage) {
   //   images.push({
   //     original: diamond.diamondImage,
@@ -19,6 +22,51 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
       thumbnail: diamond.biggerDiamondimage,
     });
   }
+  const getdiamondDetailUrl = ()=>{
+    const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
+    return  ("/"+ diamondDetailUrl+"/"+utils.getDiamondViewUrl(diamond,isLabGrown))
+  }
+  const onButtonContainerClick = (diamondDetail) => {
+   
+    let isJsonString = utils.isJsonString(configAppData.settings_carat_ranges);
+   let  diamondDetailurl = getdiamondDetailUrl();
+    
+    if(configAppData.settings_carat_ranges && isJsonString){
+     let caratWeight = diamondDetail.caratWeight;
+     let convertStringToArray = JSON.parse(configAppData.settings_carat_ranges);
+     
+     let appConfigWeight =  convertStringToArray[caratWeight];
+     localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondDetail.diamondId,caratDetail:appConfigWeight,diamondUrl:diamondDetailurl}));
+    }else{     
+      let appConfigWeight =  (Number(diamondDetail.caratWeight) - 0.1).toFixed(2)+"-"+ (Number(diamondDetail.caratWeight)+0.1).toFixed(2);
+      //console.log(appConfigWeight)
+      localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondDetail.diamondId,caratDetail:appConfigWeight,diamondUrl:diamondDetailurl}));
+    }
+   // localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondIdToShow}));
+    navigate("/diamondtools/completering");
+  };
+  const selectSetting = (diamondDetail) => { 
+    let  diamondDetailurl = getdiamondDetailUrl();
+    if(configAppData.settings_carat_ranges){
+      let caratWeight = diamondDetail.caratWeight;
+      let appConfigWeight =  configAppData.settings_carat_ranges[caratWeight];
+      localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondDetail.diamondId,caratDetail:appConfigWeight,caratWeight:caratWeight,diamondUrl:diamondDetailurl}));
+     }else{
+      let caratWeight = diamondDetail.caratWeight;
+       let appConfigWeight =  (Number(diamondDetail.caratWeight) - 0.1).toFixed(2)+"-"+ (Number(diamondDetail.caratWeight)+0.1).toFixed(2);
+       //console.log(appConfigWeight)
+       localStorage.setItem('selectedDiamond', JSON.stringify({diamondId:diamondDetail.diamondId,caratDetail:appConfigWeight,caratWeight:caratWeight,diamondUrl:diamondDetailurl}));
+     }
+    navigate("/settings");
+  }
+  useEffect(() => {
+    let selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));
+    if(selectedRingSetting) {
+    if(selectedRingSetting.settingId &&  selectedRingSetting.settingId!=""){
+      setIsSettingSelected(true)
+    }}
+   
+  }, []);
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
     <div className={`diamond-details ${className}`}>
@@ -117,8 +165,18 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData }) => {
               <div className="measurement">Measurement</div>
             </div>
           </div>
+          
         </div>
-        <div class="buttons"><div class="primary-buttons"><div class="button52">Select - &nbsp;<b class="select-363440"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b></div><div class="button52_b"><b class="select-363440">View Details</b></div></div></div>
+        <div class="buttons" >
+          <div class="primary-buttons">
+          {isSettingSelected===true ?
+            <div class="button52" onClick={()=>onButtonContainerClick(diamond)}>
+              Select - &nbsp;<b class="select-363440"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond>
+              </b>
+            </div>:
+            <div class="button52" onClick={()=>selectSetting(diamond)}>Add Your Setting<b class="select-363440"></b></div>
+            }            
+        <div class="button52_b" onClick={getdiamondDetail}><b class="select-363440">View Details</b></div></div></div>
       </section>
     </div>
   );

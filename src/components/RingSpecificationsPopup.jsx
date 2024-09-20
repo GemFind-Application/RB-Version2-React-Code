@@ -2,6 +2,7 @@ import React from 'react';
 import "./ringspecs.css"
 import ShowCostInCard from './showCostInCard';
 const RingSpecificationsPopup = ({ product, onClose,configAppData }) => {
+  const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   return (
     <div className="popup-overlay ring-specs-popup">
       <div className="popup-content">
@@ -46,7 +47,7 @@ const RingSpecificationsPopup = ({ product, onClose,configAppData }) => {
               return (    
               <>   
                 <div className="canbesetwithspace" key={'canbesetwith_'+index}>
-                  <p>{item}  -  </p>
+                  <p><img src={`${imageUrl+"/"+"f_"+(item).toLowerCase()+".svg"}`}></img>{item} </p>
                   <p>&nbsp; </p>
                   <b> {product.centerStoneMinCarat?product.centerStoneMinCarat:'-'} - {product.centerStoneMaxCarat?product.centerStoneMaxCarat:'-'} </b>              
                 </div>

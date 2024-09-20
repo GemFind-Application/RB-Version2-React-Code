@@ -48,9 +48,9 @@ const DiamondListHeader1 = ({ className = "", diamond ,isLabGrown ,configAppData
     navigate("/"+ diamondDetailUrl+"/"+utils.getDiamondViewUrl(diamond,isLabGrown))
   }
   return (
-    <div className={`diamond-list-header ${className}`} onClick={getdiamondDetail}>
+    <div className={`diamond-list-header ${className}`} >
       <div className="diamond-card-details"  >
-        <div className="diamond-details4">
+        <div className="diamond-details4" onClick={getdiamondDetail}>
           <img className="image-icon4" alt="" src={diamond.biggerDiamondimage} />
           <div className="name2">
             <b className="princess-1001-carath3">{diamond.shape} {' '}{diamond.carat} CARAT</b>
@@ -162,7 +162,7 @@ const DiamondListHeader1 = ({ className = "", diamond ,isLabGrown ,configAppData
       {/* show the DiamondExpandDetail */}
       {isExpanded && (
         <div className="diamond-expand-detail-wrapper">
-          <DiamondExpandDetail configAppData={configAppData} diamond={diamond} />
+          <DiamondExpandDetail configAppData={configAppData} diamond={diamond} getdiamondDetail={getdiamondDetail} isLabGrown={isLabGrown}/>
         </div>
       )}
        {(showVideoPopup && videoUrl!="")  && (

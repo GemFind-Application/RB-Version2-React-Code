@@ -6,6 +6,7 @@ const apiurlForForms=`${import.meta.env.VITE_APP_FORM_API_URL}`;
 const videoUrl= `${import.meta.env.VITE_APP_API_VIDEOURL}`;
 const ext = `${import.meta.env.VITE_SHOP_EXTENSION}`;
 const addtocartUrl = window.location.origin+ext;
+
 //const apiurlForForms=`${import.meta.env.VITE_APP_FORM_API_URL}`;
 export const settingService = {  
   getSettingFilters,
@@ -97,7 +98,7 @@ function getQueryParam(option){
   if(option.pageSize && option.pageSize!==undefined){   
     filterString = 'pageSize='+option.pageSize;    
   }
-  //console.log(filterString)
+  console.log(filterString)
   if(option.pageNumber && option.pageNumber!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'pageNumber='+option.pageNumber;    
@@ -110,7 +111,7 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'OrderBy='+option.orderBy  ; 
   }
-  if(option.priceMin!=="" && option.priceMax!==""){
+  if(option.priceMin!=="" && option.priceMin!==undefined && option.priceMax!=="" && option.priceMax!==undefined){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'priceMin='+option.priceMin+"&priceMax="+option.priceMax  ;  
     //console.log(filterString)
