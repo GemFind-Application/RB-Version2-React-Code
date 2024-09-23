@@ -396,7 +396,7 @@
 
 @media screen and (max-width: 825px) {
 	.SettingsFilterPanel .settings-founded {
-		font-size: var(--font-size-lgi);
+		font-size: var(--h5-size);
 		line-height: 21px;
 	}
 	.SettingsFilterPanel .settings-sort {

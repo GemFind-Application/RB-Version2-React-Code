@@ -96,8 +96,9 @@ useEffect(() => {
               <b className="empty3"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b>
               <b className="vs2-excellent">{diamond.clarity} {diamond.polish && diamond.polish != '' && ',' + diamond.polish}</b>
             </div>
-            
-        <Link to={`/${diamondDetailUrl}/${utils.getDiamondViewUrl(diamond,isLabGrown)}`} className="diamond_item--link button40">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>
+            <div className="down2">
+            <Link to={`/${diamondDetailUrl}/${utils.getDiamondViewUrl(diamond,isLabGrown)}`} className="diamond_item--link button40">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>
+            </div>
       </div>
       {(showVideoPopup && videoUrl!="")  && (
         <VideoModal src={videoUrl} onClose={() => setShowVideoPopup(false)} />

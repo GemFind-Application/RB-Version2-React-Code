@@ -63,6 +63,7 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
             />
         {allDiamondDetailsToCompare.length>0 ?
         <>
+        <section className="compareView">
         <section className="table-up">
           {allDiamondDetailsToCompare.map(item=>{
              return  <V
@@ -80,6 +81,7 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
            configAppData={configAppData}
             diamond={allDiamondDetailsToCompare}   
           />    
+        </section>
         </section>
         </>:(
         <div className="no--compare-container">

@@ -88,17 +88,16 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
         <button className="close-button" onClick={onClose}>×</button>
         
         <div className="top3">
-            <div className="h11">
-                <h2>Dealer Info</h2>
-                <p className="enter-your-password">Enter your password to continue</p>
-                <hr className='hr' />
-              </div>
           {error !== "" &&
             <div className='enter-your-password errorText'>{error}</div>
           }
           {!isSuccess ? (
             <>
-
+              <div className="h11 d-flex flex-col">
+                <h2>Dealer Info</h2>
+                <p className="enter-your-password">Enter your password to continue</p>
+              </div>
+              <hr className='hr' />
               <div className="rb_grid rb_col2 form-group">
                 <div className="drop4">
                   <input

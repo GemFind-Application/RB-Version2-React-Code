@@ -344,11 +344,11 @@ if (error) {
     <>
       <div className="setting-page">
         <main className="main1">
-          <div className="bread1" onClick={onBreadContainerClick}>
-            <div className="breadcrumb-item">
+          <div className="bread1">
+            <div className="breadcrumb-item" onClick={onBreadContainerClick}>
               <img className="breadcrumb-separator-icon" alt="" src={`${imageUrl}`+"/vector-11.svg" }/>
+              <b className="back-to-all">Back to All Settings</b>
             </div>
-            <b className="back-to-all">Back to All Settings</b>
           </div>
           <section className="bread-crumbs-container pdp_container">
             <div className="bread-crumbs pdp_content">

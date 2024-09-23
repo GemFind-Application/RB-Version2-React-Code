@@ -310,16 +310,16 @@ setShowLoading(true);
     <>
       <div className="diamond-page">
         <main className="main main1">
-        <div className="bread1" onClick={onBreadContainerClick}>
-                    <div className="breadcrumb-item">
+        <div className="bread1">
+                    <div className="breadcrumb-item" onClick={onBreadContainerClick}>
                       <img
                         className="breadcrumb-separator-icon"
                         loading="lazy"
                         alt=""
                         src={`${imageUrl}`+"/vector-11.svg"}
                       />
+                      <b className="back-to-all">Back to All Diamonds</b>
                     </div>
-                    <b className="back-to-all">Back to All Diamonds</b>
                   </div>
           <section className="product pdp_container">
             <div className="product-details pdp_content">

@@ -630,7 +630,7 @@
 }
 @media screen and (max-width: 450px) {
   .diamonds-founded1 {
-    font-size: var(--font-size-lgi);
+    font-size: var(--h5-size);
     line-height: 21px;
   }
 }
