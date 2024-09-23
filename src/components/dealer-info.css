@@ -50,8 +50,9 @@
 }
 .dealer-info .h11 {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+	margin-bottom: 15px;
+    /* flex-direction: column;
+    gap: 10px; */
 }
 .h11.dealerinfores {
     display: flex;

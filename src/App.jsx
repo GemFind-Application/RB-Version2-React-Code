@@ -122,6 +122,7 @@ function App() {
             //columnHeaderAccent_color:res[0][0].columnHeaderAccent[0].color2 && res[0][0].columnHeaderAccent[0].color2!==""?res[0][0].columnHeaderAccent[0].color2:res[0][0].columnHeaderAccent[0].color1,
           }         
           setStyleDataDynamic(styleDataObj);          
+          setIsStyleLoaded(true);
         } else{
           setIsStyleLoaded(true);
         }   

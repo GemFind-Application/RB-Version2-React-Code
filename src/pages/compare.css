@@ -53,15 +53,16 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: center;
-  padding: 0px var(--padding-xl);
+/*   justify-content: center;
+  padding: 0px var(--padding-xl); */
   row-gap: 20px;
   flex-shrink: 0;
+  align-items: stretch;
 }
 .results1 {
   align-self: stretch;
-  height: 491px;
-  overflow-y: auto;
+  /* height: 491px;
+  overflow-y: auto; */
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -73,9 +74,9 @@
 }
 .empty {
   align-self: stretch;
-  height: 954px;
+  /* height: 954px;
+  overflow: hidden; */
   background-color: var(--white);
-  overflow: hidden;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -116,6 +117,49 @@
   letter-spacing: normal;
 }
 
+.compareView .table-columns {
+  border-bottom: 1px solid var(--stroke);
+  width: 100%;
+  flex-wrap: wrap;
+}
+.compareView .table-up,
+.compareView .results1 {
+  padding: 0;
+}
+@media screen and (min-width: 1600px) {
+  section.compareView {
+    margin: 0 auto;
+    overflow-x: scroll;
+    max-width: 1660px;
+    width: 100%;
+    position: relative;
+  }
+}
+@media screen and (min-width: 375px) and (max-width:1599px) {
+  section.compareView {
+    margin: 0 auto;
+    overflow-x: scroll;
+    max-width: 1200px;
+    width: 100%;
+    position: relative;
+  }
+  section.compareView .name {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+  section.compareView .name > div {
+    left: 20px;
+    position: sticky;
+  }
+  section.compareView .all {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+  section.compareView .table-up {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+}
 @media screen and (max-width: 1575px) {
   .table-up {
     flex-wrap: wrap;
@@ -131,6 +175,9 @@
   }
 }
 @media screen and (max-width: 825px) {
+  .bread-wrapper {
+    justify-content: flex-start;
+  }
   .empty {
     padding-bottom: 20px;
     box-sizing: border-box;

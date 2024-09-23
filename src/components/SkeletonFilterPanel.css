@@ -332,7 +332,7 @@
 
 @media screen and (max-width: 825px) {
   .settings-founded {
-    font-size: var(--font-size-lgi);
+    font-size: var(--h5-size);
     line-height: 21px;
   }
 
@@ -418,7 +418,7 @@
 .filter-option span {
   font-size: 14px;
   color: #6A665E;
-  font-family: 'manrope', sans-serif;
+  font-family: var(--body-14-reg);
 }
 
 .filter-option svg {

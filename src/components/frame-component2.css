@@ -937,7 +937,7 @@ div.diamondfilterShape {
 }
 @media screen and (max-width: 825px) {
 	.frame-child5 {
-		display: none;
+		display: none !important;
 	}
 	.filters-frame {
 		margin-bottom: 30px;
@@ -983,7 +983,7 @@ div.diamondfilterShape {
 		font-weight: bold;
 	}
 	.diamonds-founded2 {
-		font-size: var(--font-size-lgi);
+		font-size: var(--h5-size);
 		line-height: 21px;
 	}
 	.diamond-filters {
@@ -1018,6 +1018,7 @@ div.diamondfilterShape {
 	.flex-advanced-filter .group-inner {
 		display: block;
 		width: 100%;
+		border-radius: 0;
 	}
 	.diamond .settings-sort {
 		width: 100%;
@@ -1032,21 +1033,24 @@ div.diamondfilterShape {
 	.advanced-filters-content .advanced-filter-group {
 		margin-bottom: 40px;
 	}
+	.flex-advanced-filter .group-inner .dropdown-btns {
+		display: inline-block;
+	}
 	.flex-advanced-filter .group-inner .dropdown-btns .option--btn {
 		font-size: var(--body-14-reg-size);
 		width: 100%;
 		border-bottom: 1px solid var(--divider);
 		border-radius: 0;
 		line-height: 51px;
-		padding: 0;
+		padding: 0 15px;
 		letter-spacing: 0.03rem;
 		font-weight: 400;
 	}
 	.flex-advanced-filter .group-inner .dropdown-btns:first-child .option--btn {
-		border-radius: 26px 26px 0 0;
+		border-radius: 0;
 	}
 	.flex-advanced-filter .group-inner .dropdown-btns:last-child .option--btn {
-		border-radius: 0 0 26px 26px;
+		border-radius: 0;
 		border-bottom: 0 none;
 	}
 	.view3.product--view {

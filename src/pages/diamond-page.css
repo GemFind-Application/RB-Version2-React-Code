@@ -143,6 +143,7 @@
   font-family: var(--body-14-reg);
 }
 .breadcrumb-separator-icon {
+  cursor: pointer;
   width: 12px;
   height: 12px;
   position: relative;
@@ -150,23 +151,10 @@
 }
 .breadcrumb-item {
   line-height: 1;
-  /*   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: var(--padding-6xs) 0px 0px; */
-}
-.main .share2 {
-  /*   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: var(--gap-5xs); */
-}
-.main .share2 a,
-.main .share2 b.save2 {
-  /*   font-size: 14px;
-  font-weight: bold;
-  color: var(--accent); */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .main .button15 {
   cursor: pointer;
@@ -210,9 +198,11 @@
 }
 .back-to-all {
   position: relative;
+  cursor: pointer;
 }
 .bread1 .back-to-all {
   color: var(--link-color);
+  cursor: pointer;
   line-height: 1;
 }
 .diamondGradingReport {
@@ -230,7 +220,6 @@
   align-items: baseline;
   justify-content: flex-start;
   gap: var(--gap-xs);
-  cursor: pointer;
   padding: var(--gap-11xl) var(--gap-11xl) 0;
   color: var(--link-color);
   font-size: var(--body-14-reg-size);
@@ -1080,6 +1069,7 @@
   
   .number2 {
     display: flex;
+    align-items: stretch;
     /* flex-wrap: wrap; */
   }
 

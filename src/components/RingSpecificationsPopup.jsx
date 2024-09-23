@@ -40,16 +40,16 @@ const RingSpecificationsPopup = ({ product, onClose,configAppData }) => {
              })
           )}
           <div className="can-be-set-with">
-          <div>Can be set with:</div>
+          <div class="can-be-set-with-title">Can be set with:</div>
           <div className="can-be-set-with-box">
             {product.centerStoneFit && 
             product.centerStoneFit.split(",").map((item,index) => {
               return (    
               <>   
                 <div className="canbesetwithspace" key={'canbesetwith_'+index}>
-                  <p><img src={`${imageUrl+"/"+"f_"+(item).toLowerCase()+".svg"}`}></img>{item} </p>
-                  <p>&nbsp; </p>
-                  <b> {product.centerStoneMinCarat?product.centerStoneMinCarat:'-'} - {product.centerStoneMaxCarat?product.centerStoneMaxCarat:'-'} </b>              
+                  <p><img src={`${imageUrl+"/"+"f_"+(item).toLowerCase()+".svg"}`}></img></p>
+                  <p>{item}</p>
+                  <p> {product.centerStoneMinCarat?product.centerStoneMinCarat:'-'} - {product.centerStoneMaxCarat?product.centerStoneMaxCarat:'-'} </p>
                 </div>
               </>)
             })}  

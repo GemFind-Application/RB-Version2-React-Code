@@ -108,6 +108,7 @@
 }
 .v1 {
   width: 282px;
+  min-width: 274px;
   border-radius: var(--br-9xs) 0px 0px 0px;
   border: 1px solid var(--stroke);
   box-sizing: border-box;
