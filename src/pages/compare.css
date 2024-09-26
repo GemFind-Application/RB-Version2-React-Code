@@ -126,6 +126,9 @@
 .compareView .results1 {
   padding: 0;
 }
+.compareView .all {
+  justify-content: flex-start;
+}
 @media screen and (min-width: 1600px) {
   section.compareView {
     margin: 0 auto;
