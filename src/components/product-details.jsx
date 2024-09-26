@@ -387,7 +387,8 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
             shopurl={shopUrl}
             configAppData={configAppData}
             isLabSetting={settingDetail.isLabSetting}
-            onClose={() => setIsDropHintOpen(false)} />
+            onClose={() => setIsDropHintOpen(false)}
+            setShowLoading={setShowLoading} />
         </PortalPopup>
       )}
       {isScheduleViewingOpen && (
@@ -407,6 +408,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
             shopurl={shopUrl}
             isLabSetting={settingDetail.isLabSetting}
             onClose={() => setIsScheduleViewingOpen(false)}
+            setShowLoading={setShowLoading}
             locations={settingDetail.addressList ? settingDetail.addressList.map(address => address.locationName) : []}
           />
         </PortalPopup>
@@ -424,7 +426,8 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
           diamondurl={diamondUrl}
           ringurl={ringUrl}
           shopurl={shopUrl}
-          isLabSetting={settingDetail.isLabSetting}          
+          isLabSetting={settingDetail.isLabSetting}  
+          setShowLoading={setShowLoading}        
           configAppData={configAppData}
           />
         </PortalPopup>
@@ -441,6 +444,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
           diamondId={diamondDetail.diamondId}
           diamondurl={diamondUrl}
           ringurl={ringUrl}
+          setShowLoading={setShowLoading}
           shopurl={shopUrl}
           isLabSetting={settingDetail.isLabSetting}
           onClose={() => setIsEmailAFriendOpen(false)} 

@@ -122,6 +122,8 @@ const recaptcha = useRef();
   const handleSubmit = async (e) => {
     e.preventDefault();
    // const token = await captchaValue.current.executeAsync();
+   console.log("in formsubmit");
+   console.log(formData)
     if (validateForm()) {   
      // const captchaValue = recaptcha.current
      //setFormData({...formData,'captcha-response': captchaValue})

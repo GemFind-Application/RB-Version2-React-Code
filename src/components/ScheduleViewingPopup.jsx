@@ -62,7 +62,7 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
     }else{
       if( diamondDetail.retailerInfo.addressList){
         const locationIdObject = diamondDetail.retailerInfo.addressList.filter(item=>item.locationName===formData.location); 
-         console.log(locationIdObject.length)
+         //console.log(locationIdObject.length)
          if(locationIdObject.length!=0) {
           if(locationIdObject.length > 0){
             const timedetail = diamondDetail.retailerInfo.timingList.filter(item=>item.locationID==locationIdObject[0].locationID);
@@ -70,7 +70,7 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
             setFormData({...formData,avail_date:null,appnt_time:null})
           }
          }else{
-          setErrors({ ...errors, ['location']: 'Please selcet location first' });
+          //setErrors({ ...errors, ['location']: 'Please selcet location first' });
           //document.getElementsByName('location');
 
          }
@@ -96,7 +96,7 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
    const checklocation = () =>{
 
     if(formData.location===""){
-      alert("fdgd")
+      
     }
    }
   const handleInputChange = (e) => {
@@ -127,9 +127,9 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
   }
   
   const handleDateChange = (date) => {
-    console.log("formdata");
     if(formData.location==""){
      (document.getElementsByName('location')[0].focus());
+     setErrors({ ...errors, ['location']: 'Please selcet location first' });
     }else{    
     const start = new Date(date);
     const end = new Date(date);
