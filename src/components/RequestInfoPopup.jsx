@@ -120,12 +120,17 @@ const RequestInfoPopup = ({ onClose ,settingId, isLabSetting ,ringurl,shopurl,di
       const res = await settingService.requestMoreInfo(formDataVal,sendRequest,apiCall);
       if(res.output.status===2){
         setErrorsFromRes(res.output.msg);
-        recaptcha.current.reset();
+        if(configAppData.site_key&&configAppData.site_key!==""){
+          recaptcha.current.reset();
+          }
        }
        if(res.output.status===1){
         setRequestInfoMessage(res.output.msg)
         setRequestSend(true);
-        recaptcha.current.reset();
+        if(configAppData.site_key&&configAppData.site_key!==""){
+          recaptcha.current.reset();
+          }
+        
        }
        setShowLoading(false)
       //setRequestSend(true); 

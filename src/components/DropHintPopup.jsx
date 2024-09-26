@@ -15,7 +15,7 @@ const DropHintPopup = ({ onClose, settingId, isLabSetting, ringurl, shopurl,diam
   shopurl: shopurl,
   
 }
-console.log("ringurl=="+ringurl)
+//console.log("ringurl=="+ringurl)
 if(settingId&&settingId!==""){
     formDataValue.settingid = settingId;
     formDataValue.ringurl=ringurl;
@@ -144,13 +144,17 @@ const recaptcha = useRef();
        if(res.output.status===2){
         setShowLoading(false)
         setErrorsFromRes(res.output.msg);
-        recaptcha.current.reset();
+        if(configAppData.site_key&&configAppData.site_key!==""){
+          recaptcha.current.reset();
+        }
        }
        if(res.output.status===1){
         setShowLoading(false)
         setHintDroppedMessage(res.output.msg)
         setHintDropped(true);
-        recaptcha.current.reset();
+        if(configAppData.site_key&&configAppData.site_key!==""){
+          recaptcha.current.reset();
+        }
        }
        
       } catch (error) {

@@ -94,7 +94,7 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
     fetchToken()
    }, [errorsFromRes]);
    const checklocation = () =>{
-console.log(formData)
+
     if(formData.location===""){
       alert("fdgd")
     }
@@ -199,15 +199,20 @@ console.log(formData)
         let apiCall = (formData.settingid && formData.diamondId) ? "resultscheview_cr" : "resultscheview";
         const res = await settingService.scheduleViewing(formDataVal,sendRequest,apiCall); 
       if(res.output.status===2){
-        setErrorsFromRes(res.output.msg);
-        recaptcha.current.reset();
-        setShowLoading(false)
+        setErrorsFromRes(res.output.msg);        
+        setShowLoading(false);
+        if(configAppData.site_key&&configAppData.site_key!==""){
+          recaptcha.current.reset();
+        }
        }
        if(res.output.status===1){
         setScheduleViewingMessage(res.output.msg)
         setScheduleViewing(true);
-        recaptcha.current.reset();
-        setShowLoading(false)
+       
+        setShowLoading(false);
+        if(configAppData.site_key&&configAppData.site_key!==""){
+          recaptcha.current.reset();
+        }
        }
       //setScheduleViewing(true);
       // onClose();

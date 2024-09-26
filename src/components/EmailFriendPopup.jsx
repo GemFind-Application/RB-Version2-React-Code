@@ -115,12 +115,19 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
         const res = await settingService.friendsEmail(formDataVal,sendRequest,apiCall); 
       if(res.output.status===2){
         setErrorsFromRes(res.output.msg);
-        recaptcha.current.reset();
+        if(configAppData.site_key&&configAppData.site_key!==""){
+          recaptcha.current.reset();
+        }
+        
        }
        if(res.output.status===1){
-        recaptcha.current.reset();
+      
         setSendFriendMessage(res.output.msg)
         setSendEmail(true);
+        if(configAppData.site_key&&configAppData.site_key!==""){
+           recaptcha.current.reset();
+       }
+
        }
        setShowLoading(false)
       
