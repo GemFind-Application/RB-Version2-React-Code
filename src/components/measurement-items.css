@@ -11,7 +11,7 @@
 	gap: var(--gap-base);
 	text-align: center;
 	font-size: var(--h4-size);
-	color: var(--black);
+	color: var(--backgroundtext);
 	font-family: var(--h4);
 	width: 100%;
 }
@@ -35,7 +35,7 @@
 	position: relative;
 	font-size: var(--body-14-reg-size);
 	font-family: var(--body-14-reg);
-	color: var(--grey);
+	color: var(--backgroundtext);
 	display: inline-block;
 }
 @media screen and (max-width: 825px) {

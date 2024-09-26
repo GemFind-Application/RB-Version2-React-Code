@@ -134,7 +134,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
   const fetchProductDetails = async (settingId) => {
     try {
       setShowLoading(true)
-      const res = await settingService.getSettingDetail(settingId,configAppData.dealerid,isLabGrown); 
+      const res = await settingService.getSettingDetail(settingId,configAppData.dealerid,isLabGrown,configAppData.shop); 
       if(res) {
         if(selectedParam!=""){
         let url =  utils.getUrl(res.metalType,res.settingName,settingId,'details')
@@ -243,10 +243,12 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
       let min_range = ((carat_rang[0]) ? carat_rang[0] : (size - 0.1));
       let max_range = (($carat_rang[1]) ? carat_rang[1] : (size + 0.1));
       let caratWeightDiamond = selecteddiamond.caratWeight;
-
-      if(caratWeightDiamond<min_range || caratWeightDiamond >max_range){
+      if(product.measurement!==""){
+        if(caratWeightDiamond < min_range || caratWeightDiamond >max_range){
         setNotFitMessage("This ring will not properly fit with selected diamond.");
       }
+      }
+      
      } }}    
   }
   const selectByDiamondShape = async (shape) => {

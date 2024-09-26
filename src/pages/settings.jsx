@@ -135,7 +135,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
     const fetchSelectedDiamondDetail= async(isLabGrown) =>{
     let selectedDiamond = JSON.parse(localStorage.getItem('selectedDiamond'));    
     if(selectedDiamond){
-      const resSelectedDiamond = await diamondService.getDiamondDetail(selectedDiamond.diamondId,isLabGrown,configAppData.dealerid);  
+      const resSelectedDiamond = await diamondService.getDiamondDetail(selectedDiamond.diamondId,isLabGrown,configAppData.dealerid,configAppData.shop);  
      let selectedCaratArray = (selectedDiamond.caratDetail.split("-")) 
       setSelectedDiamondCarat(selectedCaratArray);
       if(resSelectedDiamond) {      

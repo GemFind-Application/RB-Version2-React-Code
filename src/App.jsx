@@ -46,6 +46,16 @@ function App() {
   const navigate = useNavigate();
   const shopUrlforEmail = `${import.meta.env.VITE_RING_URL_EXT}`;
   //console.log(window.location)
+  function getSubstringTillCom(url) {
+    const index = url.indexOf(".com");
+    if (index !== -1) {
+      //console.log(url.substring(0, index + 4))
+      return url.substring(0, index + 4); // +4 to include ".com"
+    } else {
+     // console.log(url)
+      return url; // Return the original URL if ".com" is not found
+    }
+  }
   useEffect(() => {
     //functin to get config data from database
     async function fetchConfigSetting(){
@@ -101,11 +111,10 @@ function App() {
 
   useEffect(() => {   
     //function to get style data
-    async function fetchStyleData(id){
+    async function fetchStyleData(id,shop){
       try {
-        const res = await appService.getStyleData(id);  
-        console.log("res")
-        console.log(res);
+        const res = await appService.getStyleData(id,shop);  
+       
         if(res!==null) {                
           setStyleData(res);  
           let styleDataObj = {
@@ -116,6 +125,7 @@ function App() {
             background :res.background,
             slider_barmakian : res.slider,
             backgroundText:res.backgroundText,
+            set_default_view:res.set_default_view
             //callToActionButton_color:res[0][0].callToActionButton[0].color2 && res[0][0].callToActionButton[0].color2!==""?res[0][0].callToActionButton[0].color2:res[0][0].callToActionButton[0].color1,
             //link_color:res[0][0].linkColor[0].color2 && res[0][0].linkColor[0].color2!==""?res[0][0].linkColor[0].color2:res[0][0].linkColor[0].color1,
             //hoverEffect_color:res[0][0].hoverEffect[0].color2 && res[0][0].hoverEffect[0].color2!==""?res[0][0].hoverEffect[0].color2:res[0][0].hoverEffect[0].color1,
@@ -134,7 +144,7 @@ function App() {
     //function to get app setting data
     async function fetchAppSetting(id){
       try {
-        const res = await appService.getAdditionalOption(id);  
+        const res = await appService.getAdditionalOption(id,getSubstringTillCom(configAppData.dealerauthapi)+"/api/RingBuilder");  
         if(res[0]) {                
           setAdditionOptionSetting(res[0][0]);
           setIsAdditionOptionSettingLoaded(true);
@@ -178,7 +188,7 @@ function App() {
     if(configAppData.dealerid!==undefined){
       fetchSettingNavigation(configAppData.dealerid);
       fetchAppSetting(configAppData.dealerid);
-      fetchStyleData(configAppData.dealerid);  
+      fetchStyleData(configAppData.dealerid,configAppData.shop);  
     }
     
    
@@ -295,9 +305,7 @@ function App() {
     if (error) {
       return <ShowError error={error}/>;
     }
-    console.log(loading)
-    console.log(isStyleLoaded)
-    console.log(isconfigLoaded)
+
   return (   
     <div>      
     <ThemeSetup styleDataDynamic={styleDataDynamic} documentLoaded={documentLoaded} configAppData={configAppData}/>    

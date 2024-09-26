@@ -65,6 +65,7 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	gap: var(--gap-xs);
+	color: var(--backgroundmenutext);
 }
 .mined1 {
 	position: relative;
@@ -138,6 +139,7 @@ body .empty-row .i10 {
 	position: relative;
 	display: inline-block;
 	min-width: 84px;
+	color: var(--backgroundtext);
 }
 .price20 {
 	flex: 0.9901;

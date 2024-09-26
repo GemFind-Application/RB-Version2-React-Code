@@ -20,7 +20,7 @@ const Compare = ({compareDiamondsId,removeCompareDiamondIds,configAppData,isLabG
   const fetchDiamondDetails = async (compareDiamondsId,isLabGrown) => {
     try {
         setShowLoading(true)
-        const promises = compareDiamondsId.map((item) => diamondService.getDiamondDetail(item,isLabGrown,configAppData.dealerid));
+        const promises = compareDiamondsId.map((item) => diamondService.getDiamondDetail(item,isLabGrown,configAppData.dealerid,configAppData.shop));
         const diamondDataData = await Promise.all(promises);            
         if(diamondDataData){
           setAllDiamondDetailsToCompare(diamondDataData)

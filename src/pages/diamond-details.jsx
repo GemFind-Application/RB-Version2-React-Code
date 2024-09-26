@@ -17,10 +17,12 @@ import DropHintPopup from "../components/DropHintPopup";
 import ScheduleViewingPopup from "../components/ScheduleViewingPopup";
 import RequestInfoPopup from "../components/RequestInfoPopup";
 import EmailFriendPopup from "../components/EmailFriendPopup";
+import { settingService } from '../Services';
 import ShowError from "../components/ShowError";
 const DiamondPage = ({formSetting,configAppData,additionOptionSetting,shopUrl,isLabGrown, setShowLoading}) => {
   
   const { diamondId } = useParams();
+  const [notFitMessage, setNotFitMessage] = useState([]);
   const [diamondDetail, setDiamondDetail] = useState({});
   const [isDiamondDetailLoaded, setIsAllDiamondDetailsLoaded] = useState(false);
   const [isDealerInfoOpen, setIsDealerInfoOpen] = useState(false);
@@ -61,13 +63,48 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
   const fetchProductDetails = async (diamondId,isLabGrown) => {
     try {
       setShowLoading(true)
+      setNotFitMessage("");
      // console.log("====="+isLabGrown)
-      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown,configAppData.dealerid); 
+      const res = await diamondService.getDiamondDetail(diamondId,isLabGrown,configAppData.dealerid,configAppData.shop); 
       if(res) {
         setDiamondDetail(res);
         setIsAllDiamondDetailsLoaded(true);
         setShowLoading(false);
         handleVideoIconClick(diamondIdToShow)
+        
+        if(res.diamondId) {
+
+          let selectedRingSetting = JSON.parse(localStorage.getItem('selectedRing'));
+          if(selectedRingSetting) {
+            if(selectedRingSetting.settingId &&  selectedRingSetting.settingId!=""){
+              const resSetting = await settingService.getSettingDetail(selectedRingSetting.settingId,configAppData.dealerid,isLabGrown,configAppData.shop);
+
+              if(resSetting) {               
+
+                  let caratMax="";
+                  let caratMin="";
+                  if (resSetting.centerStoneMinCarat > '0.00') {
+                      let tempCaratMin = (resSetting.centerStoneMinCarat * 10) / 100;
+                      caratMin = (resSetting.centerStoneMinCarat - tempCaratMin);
+                  } else {
+                        caratMin = res.caratWeight;
+                  }
+
+                  if (resSetting.centerStoneMaxCarat > '0.00') {
+                    let tempCaratMin = (resSetting.centerStoneMaxCarat * 10) / 100;
+                    caratMax = (resSetting.centerStoneMaxCarat - tempCaratMin);
+                } else {
+                      caratMax = resSetting.centerStoneMaxCarat;
+                }
+                if(res.measurement==""){
+                  if (res.caratWeight > caratMax || res.caratWeight < caratMin) { 
+                    setNotFitMessage("This ring will not properly fit with selected diamond.");
+                  }
+                }
+              }
+            }
+          }
+          } 
       }     
     } catch (error) {
       console.error("Error fetching product details:", error);
@@ -463,7 +500,9 @@ setShowLoading(true);
                       depth="Measurement"
                       propFlex="1"
                     />
+                   
                   </div>
+                  <div className="diamond-type-filter">{notFitMessage}</div>
                 </div>
                 <div className="actions">
                   <div className="buttons">

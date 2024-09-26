@@ -91,7 +91,7 @@
 	font-size: var(--h4-size);
 	line-height: 120%;
 	font-family: var(--h4);
-	color: var(--black);
+	color: var(--backgroundtext);
 	font-weight: 700;
 }
 
@@ -101,6 +101,7 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	gap: var(--gap-9xs);
+	color: var(--backgroundmenutext);
 }
 
 .image-9-icon14 {
@@ -187,6 +188,7 @@
 	display: inline-block;
 	width: max-content;
 	text-align: center;
+	color: var(--notselectedmenucolor);
 }
 
 .lab-settings,
@@ -216,6 +218,12 @@
 
 .lab-settings:has(.active) .lab-settings {
 	background-color: red;
+}
+.create-your-own3 {	
+	color: var(--backgroundtext);
+}
+.settings-desc {	
+	color: var(--notselectedmenucolor);
 }
 @media screen and (min-width: 1370px) and (max-width: 1440px) {
 	.rb_listtop_panel {

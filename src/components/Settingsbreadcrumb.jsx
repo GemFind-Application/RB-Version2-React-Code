@@ -43,7 +43,7 @@ const Settingsbreadcrumb = ({ className = "", configAppData, isLabGrown, setIsLa
   const closePopup = () => {
     setPopupContent(null);
   };
-
+//console.log()
   // Debugging
   // console.log("Rendering Settingsbreadcrumb");
   // console.log("navStandard:", configAppData.navStandard);
@@ -63,7 +63,7 @@ const Settingsbreadcrumb = ({ className = "", configAppData, isLabGrown, setIsLa
           <div className="settings-panel rb_listtop_panel">
             <div className="h16 rb_setting_b">
               <b className="settings1 rb_setting_c">SETTINGS</b>
-              <b className="create-your-own3 rb_setting_heading">Create your own ring</b>
+              <b className="create-your-own3 rb_setting_heading"> {configAppData.shop.replace(".myshopify.com", "") + " - " +"RING BUILDER"}</b>
               <div className="settings-desc rb_setting_desc">Lorem nisl fringilla magna malesuada egestas dui. Fringilla fermentum fusce interdum nulla velit vestibulum. Pretium iaculis id elementum commodo convallis. A rhoncus malesuada orci aliquam ipsum quis praesent. Egestas molestie nec enim et sem in orci.
                 {configAppData.announcement_text}
               </div>

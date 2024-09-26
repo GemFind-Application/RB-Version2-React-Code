@@ -1,12 +1,13 @@
 import { fetchWrapper } from '../Helpers';
 import React, { useState, useEffect ,useContext} from 'react';
 import { ConfigContext } from "../components/Context"
-const baseUrl = `${import.meta.env.VITE_APP_API_URL}`;
+import { appService } from './app.service';
+let baseUrl = `${import.meta.env.VITE_APP_API_URL}`;
 const apiurlForForms=`${import.meta.env.VITE_APP_FORM_API_URL}`;
 const videoUrl= `${import.meta.env.VITE_APP_API_VIDEOURL}`;
 const ext = `${import.meta.env.VITE_SHOP_EXTENSION}`;
 const addtocartUrl = window.location.origin+ext;
-
+//let baseUrl="";
 //const apiurlForForms=`${import.meta.env.VITE_APP_FORM_API_URL}`;
 export const settingService = {  
   getSettingFilters,
@@ -20,23 +21,51 @@ export const settingService = {
   requestMoreInfo,
   getSettingVideoUrl,  
 };
+function getSubstringTillCom(url) {
+  const index = url.indexOf(".com");
+  if (index !== -1) {
+    //console.log(url.substring(0, index + 4))
+    return url.substring(0, index + 4); // +4 to include ".com"
+  } else {
+    //console.log(url)
+    return url; // Return the original URL if ".com" is not found
+  }
+}
+
+
+async function getDomainURL(){
+  try {
+    const res = await appService.getConfigSetting();  
+    if(res) {
+      let data = res.data;       
+      baseUrl=getSubstringTillCom(res.data.dealerauthapi)+"/api/RingBuilder";
+    }       
+  } catch (err) {       
+    //setError("Failed to fetch products. Please try again later.");         
+  }
+}
+getDomainURL();
 //to get all setting filters
 function getSettingFilters(option,dealerId) {  
   let queryParam = getQueryFilterParam(option);
   return fetchWrapper.get(`${baseUrl}/GetFilters?DealerId=${dealerId}${queryParam}`);
 }
+
+
 //to get setting details for particualr setting
-function getSettingDetail(settingId,dealerId,isLabGrown) {
+function getSettingDetail(settingId,dealerId,isLabGrown,shop) {
+
   if(isLabGrown==true){
-    return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetMountingDetail?DealerId=${dealerId}&SID=${settingId}&shop=https://gemfind-product-demo-10.myshopify.com/`);
+    return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetMountingDetail?DealerId=${dealerId}&SID=${settingId}&shop${shop}`);
   }else{
-    return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetMountingDetail?DealerId=${dealerId}&SID=${settingId}&shop=https://gemfind-product-demo-10.myshopify.com/`);
+    return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetMountingDetail?DealerId=${dealerId}&SID=${settingId}&shop=${shop}`);
   }
   
 }
 //get all settings
 function getAllSettings(option,dealerId) {  
   //console.log(option)
+ 
   let queryParam = getQueryParam(option);
   return fetchWrapper.get(`${baseUrl}/GetMountingList?DealerId=${dealerId}${queryParam}`);
 }

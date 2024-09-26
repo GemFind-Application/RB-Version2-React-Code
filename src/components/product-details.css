@@ -121,7 +121,7 @@
 .stats-values {
 	position: relative;
 	display: inline-block;
-	color: var(--black);
+	color: var(--backgroundtext);
 	min-width: 9px;
 }
 .stats-elements {
@@ -200,7 +200,7 @@
 	position: relative;
 	font-size: var(--body-14-reg-size);
 	font-family: var(--body-14-reg);
-	color: var(--grey);
+	color: var(--backgroundtext);
 	display: inline-block;
 	min-width: 88px;
 }
@@ -227,7 +227,7 @@
 	position: relative;
 	font-size: var(--body-14-reg-size);
 	font-family: var(--body-14-reg);
-	color: var(--grey);
+	color: var(--backgroundtext);
 	text-align: left;
 }
 .div64 {
@@ -312,7 +312,7 @@
 	justify-content: center;
 	gap: var(--gap-xs);
 	font-size: var(--h4-size);
-	color: var(--black);
+	color: var(--backgroundtext);
 	font-family: var(--h4);
 }
 .report {
@@ -324,7 +324,7 @@
 .gia1 {
 	position: relative;
 	display: inline-block;
-	color: var(--black);
+	color: var(--backgroundtext);
 	min-width: 24px;
 }
 .cut6 {
@@ -332,6 +332,7 @@
 	font-weight: 500;
 	display: inline-block;
 	min-width: 29px;
+	color: var(--backgroundtext);
 }
 .excellent4 {
 	position: relative;
@@ -354,7 +355,7 @@
 .i13 {
 	position: relative;
 	display: inline-block;
-	color: var(--black);
+	color: var(--backgroundtext);
 	min-width: 11px;
 }
 .stats11 {
@@ -381,7 +382,7 @@
 	align-items: center;
 	justify-content: flex-start;
 	gap: var(--gap-3xs);
-	color: var(--black);
+	color: var(--backgroundtext);
 }
 .div67 {
 	flex: 1;
@@ -390,6 +391,7 @@
 	align-items: flex-start;
 	justify-content: space-between;
 	max-width: 100%;
+	color: var(--backgroundtext);
 }
 .number3 {
 	display: flex;

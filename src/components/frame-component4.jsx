@@ -33,7 +33,7 @@ const FrameComponent4 = ({ className = "",configAppData }) => {
           <div className="settings-panel rb_listtop_panel">
             <div className="h16 rb_setting_b">
               <b className="settings1 rb_setting_c">Complete Ring</b>
-              <b className="create-your-own3 rb_setting_heading">Create your own ring</b>
+              <b className="create-your-own3 rb_setting_heading">{configAppData.shop.replace(".myshopify.com", "") + " - " +"RING BUILDER"}</b>
               <div className="settings-desc rb_setting_desc">
               {configAppData.announcement_text}
               </div>

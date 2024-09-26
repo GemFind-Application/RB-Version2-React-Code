@@ -278,6 +278,7 @@
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
+	border-right: 1px solid var(--sepratorcolor);
 	gap: var(--gap-xl);
 	/* min-width: 536px; */
 	/* max-width: 50%; */
@@ -1474,6 +1475,7 @@
 .image-gallery-thumbnail:focus {
 	border: 8px solid var(--beige-04);
 }
+
 .pdp_image_item .note-container-parent {
 	margin-top: var(--padding-xl);
 	display: flex;
@@ -1481,7 +1483,7 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	gap: var(--gap-xs);
-	color: var(--black);
+	color: var(--backgroundtext);
 }
 .pdp_image_item .note-container {
 	align-self: stretch;
@@ -1500,7 +1502,7 @@
 	justify-content: center;
 	gap: var(--gap-9xs);
 	font-size: var(--body-14-reg-size);
-	color: var(--grey);
+	color: var(--backgroundtext);
 }
 .pdp_image_item .note-content .note {
     padding: 0;

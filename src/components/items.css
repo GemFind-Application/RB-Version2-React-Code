@@ -88,7 +88,7 @@
 .vs2-excellent {
 	position: relative;
 	display: inline-block;
-	color: var(--grey);
+	color: var(--backgroundmenutextdiamond);
 	white-space: nowrap;
 	font-family: var(--body-14-reg);
 	font-size: var(--body-14-reg-size);
