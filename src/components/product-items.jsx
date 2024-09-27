@@ -127,6 +127,12 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
             ) : (*/
             <img className="image-9-icon15" alt={product.name} src={product.imageUrl} />
             /* )*/}
+
+            <ul className="itemHoverImage">
+            <li><img loadig="lazy" src="https://res.cloudinary.com/gemfind/image/fetch/https://www.gemfind.net/jewelryimages/2906/media/productimages/f1619.jpg" alt="" height="75" width="75" /></li>
+              <li><img loadig="lazy" src="https://res.cloudinary.com/gemfind/image/fetch/https://www.gemfind.net/jewelryimages/2906/media/productimages/f1619.jpg" alt="" height="75" width="75" /></li>
+              <li><img loadig="lazy" src="https://res.cloudinary.com/gemfind/image/fetch/https://www.gemfind.net/jewelryimages/2906/media/productimages/f1619.jpg" alt="" height="75" width="75" /></li>
+            </ul>
           </div>
           <div className="paction">
             <div className="down">
