@@ -428,7 +428,7 @@
 }
 @media screen and (max-width: 1275px) {
 	.itemHoverImage {
-		/* margin: 0;
+		 margin: 0;
 		padding: 0;
 		display: flex;
 		align-items: center;
@@ -437,10 +437,10 @@
 		bottom: 10px;
 		z-index: 99;
 		width: 100%;
-		gap: 5px; */
-		display: none;
+		gap: 5px; 
+		
 	}
-/* 	.itemHoverImage li {
+	.itemHoverImage li {
 		cursor: pointer;
 		width: 50px;
 		height: 50px;
@@ -453,7 +453,7 @@
 		height: 48px;
 		object-fit: contain;
 		background-color: #FFF;
-	} */
+	} 
 	.paction {	
 		position: relative;
 		width: 100%;

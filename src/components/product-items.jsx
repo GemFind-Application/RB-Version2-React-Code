@@ -37,8 +37,12 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
   const videoRef = useRef(null);
   const [viewUrlSetting, setViewUrlSetting] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
+  const [countImg,setCountImg]=useState(0);
+  
+  const [imageToShowasMain, setImageToShowasMain] = useState(product.imageUrl);
   const settingUrl = `${import.meta.env.VITE_SETTINGS_DETAIL_PAGE}`;
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
+  const [defaultImg,setdefaultImg]=useState(imageUrl+'/no-image.jpg');
   if (isLoading) {
     return <SkeletonProductItem />;
   }
@@ -87,6 +91,9 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
     }
   };
 
+  const showNewImage=(url)=>{
+    setImageToShowasMain(url);
+  }
   return (
     <div className={`ring__items product-items ${className}`} >
       <div className="ring-items__header">
@@ -125,13 +132,34 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
               </video>
             </video>
             ) : (*/
-            <img className="image-9-icon15" alt={product.name} src={product.imageUrl} />
+            <img className="image-9-icon15" alt={product.name} src={imageToShowasMain} />
             /* )*/}
 
             <ul className="itemHoverImage">
-            <li><img loadig="lazy" src="https://res.cloudinary.com/gemfind/image/fetch/https://www.gemfind.net/jewelryimages/2906/media/productimages/f1619.jpg" alt="" height="75" width="75" /></li>
-              <li><img loadig="lazy" src="https://res.cloudinary.com/gemfind/image/fetch/https://www.gemfind.net/jewelryimages/2906/media/productimages/f1619.jpg" alt="" height="75" width="75" /></li>
-              <li><img loadig="lazy" src="https://res.cloudinary.com/gemfind/image/fetch/https://www.gemfind.net/jewelryimages/2906/media/productimages/f1619.jpg" alt="" height="75" width="75" /></li>
+              <li><img loadig="lazy" src={product.imageUrl} alt="" height="75" width="75" 
+               onMouseEnter={()=>showNewImage(product.imageUrl)}/></li>
+              {
+                product.extraImage &&
+                product.extraImage.length >0 &&
+                product.extraImage.map((item,index)=>{
+                  
+                  
+                  if(index<=2){
+                    return  <li><img loadig="lazy" src={item} alt="" height="75" width="75" 
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src={defaultImg};
+                    }}
+                    
+                    onMouseEnter={()=>showNewImage(item)}  
+                    onMouseLeave={()=>showNewImage(product.imageUrl)}/></li>
+                  }
+                 
+                })
+
+              }
+             
+             
             </ul>
           </div>
           <div className="paction">
