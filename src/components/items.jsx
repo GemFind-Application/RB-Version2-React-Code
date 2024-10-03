@@ -88,11 +88,7 @@ useEffect(() => {
         <div className="image-wrapper1">
           <div className="info-overlay">
             <img className="image-9-icon13" alt="" src={diamond.biggerDiamondimage} />
-            <ul className="itemHoverImage">
-            <li><img loadig="lazy" src="https://res.cloudinary.com/gemfind/image/fetch/https://www.gemfind.net/jewelryimages/2906/media/productimages/f1619.jpg" alt="" height="75" width="75" /></li>
-              <li><img loadig="lazy" src="https://res.cloudinary.com/gemfind/image/fetch/https://www.gemfind.net/jewelryimages/2906/media/productimages/f1619.jpg" alt="" height="75" width="75" /></li>
-              <li><img loadig="lazy" src="https://res.cloudinary.com/gemfind/image/fetch/https://www.gemfind.net/jewelryimages/2906/media/productimages/f1619.jpg" alt="" height="75" width="75" /></li>
-            </ul>
+           
           </div>
         </div>
       </div>
