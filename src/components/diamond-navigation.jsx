@@ -74,7 +74,7 @@ const FrameComponent1 = ({
             <div className="h16 rb_setting_b">
               <b className="settings1 rb_setting_c">Diamonds</b>
               <b className="create-your-own3 rb_setting_heading">
-              {configAppData.shop.replace(".myshopify.com", "") + " - " +"RING BUILDER"}
+              {configAppData.shop_title}
               </b>
               <div className="settings-desc rb_setting_desc">
                 {configAppData.announcement_text}
