@@ -32,7 +32,8 @@ import ShowError from "../components/ShowError";
 import VideoTryOn from "../components/VideoTryOn";
 import VideoPopup from "../components/VideoPopup";
 import Settingsbreadcrumb from "../components/Settingsbreadcrumb";
-
+import { X } from 'lucide-react';
+import '../components/PopupAlert.css';
 const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,configAppData,setIsLabGrown, setShowLoading,setDocumentLoaded}) => {
   const dealerIdShop = useContext(ConfigContext);
   const { settingId } = useParams();
@@ -342,6 +343,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
 if (error) {
   return <ShowError error={error}/>;
 }
+console.log(showVideoPopup)
   return (
     <>
       <div className="setting-page">
@@ -358,13 +360,16 @@ if (error) {
                 <div className="image-container">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
-                      <ImageGallery items={images} showPlayButton={false} showNav={false}    onErrorImageURL={imageUrl+'/no-image.jpg'}/>
+                      {showVideoPopup?<video src={videoUrl}  autoPlay loop></video>:
+                      <ImageGallery items={images} showPlayButton={false} showNav={false}    onErrorImageURL={imageUrl+'/no-image.jpg'}/>}
                       <div 
                       className="ring-items__item-video" 
                       productid={product.settingId}
-                      onClick={()=>handleVideoIconClick(product.settingId)}
+                      
                     >
-                    {(product.videoURL&&product.videoURL!="") && <img className="video-icon3" alt="" src={`${imageUrl}`+"/video.svg" }/>}
+                    {(product.videoURL&&product.videoURL!="") && 
+                    showVideoPopup? <X size={20} onClick={()=>setShowVideoPopup(false)}/>:
+                    <img className="video-icon3" alt="" src={`${imageUrl}`+"/video.svg" } onClick={()=>handleVideoIconClick(product.settingId)}/>}
                     </div>
                     </div>               
                   </div>
@@ -618,9 +623,7 @@ if (error) {
                           </div>
                         )}
                       </div>
-                      {showVideoPopup && (
-                         <VideoPopup videoURL={product.videoURL} onClose={() => setShowVideoPopup(false)} />
-                      )}
+                      
                           <div className="filter-opened7">
                             <div className="select-side-stone"></div>
                             <div className="diamond-type-filter">{configAppData.announcement_text_rbdetail}</div></div>

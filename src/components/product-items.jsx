@@ -160,7 +160,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
             className="productImage"
             onMouseEnter={handleImageHover}
             onMouseLeave={handleImageLeave}
-          >{showVideoPopup? <video src={videoUrl}  autoPlay>
+          >{showVideoPopup? <video src={videoUrl}  autoPlay loop>
           Your browser does not support the video tag.
           </video>:
            
