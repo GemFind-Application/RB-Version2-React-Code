@@ -399,14 +399,6 @@ body .headergroup-nav {
 	font-weight: 700;
 	text-transform: uppercase;
 }
-.button52:hover,
-.button52_b:hover,
-.button52_b:not([disabled]):hover, 
-.button52_b:focus {
-	background-color: var(--beige-05);
-	border-color: var(--beige-05);
-	color: #FFF;
-}
 .button52 b,
 .button52_b b {
 	font-weight: 700;
@@ -427,9 +419,39 @@ body .headergroup-nav {
 	font-size: var(--body-14-reg-size);
 	font-weight: 700;
 	text-transform: uppercase;
-	padding: 0 var(--padding-xl);
-	height: 40px;
+	padding: 9px var(--padding-xl);
 	font-family: var(--body-14-reg);
+}
+.button40_b {
+	flex: 1;
+	border-radius: var(--br-37xl);
+	background-color: transparent;
+	border: 1px solid var(--accent);
+	color: var(--accent);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	white-space: nowrap;
+	max-width: 100%;
+	cursor: pointer;
+	line-height: 20px;
+	font-size: var(--body-14-reg-size);
+	font-weight: 700;
+	text-transform: uppercase;
+	padding: 9px var(--padding-xl);
+	font-family: var(--body-14-reg);
+}
+.button52:hover,
+.button52_b:hover,
+.button52_b:not([disabled]):hover, 
+.button52_b:focus,
+.button40:hover,
+.button40_b:hover,
+.button40_b:not([disabled]):hover, 
+.button40_b:focus {
+	background-color: var(--beige-05);
+	border-color: var(--beige-05);
+	color: #FFF;
 }
 .success-message button {
 	flex: 1;

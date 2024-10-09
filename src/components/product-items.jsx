@@ -174,7 +174,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
             <div className="down2">
             <Link to={`/${settingUrl}/${viewUrlSetting}`} className="diamond_item--link button40">View Details</Link>
             {configAppData.display_tryon=="1" &&            
-           <button className="virtual-try-on1" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.stockNumber))}>Virtual Try On</button>
+           <button className="button40_b" onClick={()=>showVirtualTryOnIframe(utils.getskuForVirtualTryOn(product.stockNumber))}>Virtual Try On</button>
             }
             </div>
           </div>
