@@ -4,7 +4,8 @@ import "./product-items.css";
 import { Link } from "react-router-dom";
 import ShowCostInCard from "./showCostInCard";
 import { utils } from "../Helpers";
-
+import { X } from 'lucide-react';
+import './PopupAlert.css';
 import VideoPopup from "./VideoPopup";
 import { settingService } from "../Services";
 const SkeletonProductItem = () => (
@@ -43,6 +44,8 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
   const settingUrl = `${import.meta.env.VITE_SETTINGS_DETAIL_PAGE}`;
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
   const [defaultImg,setdefaultImg]=useState(imageUrl+'/no-image.jpg');
+  const [imagetoshow,setImagetoshow]=useState(product.imageUrl);
+  //console.log(defaultImg)
   if (isLoading) {
     return <SkeletonProductItem />;
   }
@@ -64,7 +67,10 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
       setError("Failed to fetch video data. Please try again later.");
     }  
   };
- 
+ const closeVideo=(mainImage)=>{
+  setImageToShowasMain(mainImage);         
+  setShowVideoPopup(false);     
+ }
   useEffect(() => {    
     if(product.metalTypes.length > 0){
       let metalTypeForUrl = filterMetalType.length >0? filterMetalType[0] : product.metalTypes[0].metalType;    
@@ -91,9 +97,39 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
     }
   };
 
-  const showNewImage=(url)=>{
-    setImageToShowasMain(url);
+  const showNewImage=(item)=>{
+    const requestOptions = {
+      method: 'GET', 
+    }
+    fetch(item,requestOptions)
+    .then(function (response) {
+      console.log(response)
+      if(response.status==200)
+      {
+        setImageToShowasMain(item);
+      }else{
+        setImageToShowasMain(imageUrl+"/no-image1.jpg");
+      }
+      // The API call was successful!
+      //return response.text();
+    }).then(function (html) {      
+      // Convert the HTML string into a document object
+     // var parser = new DOMParser();
+     // var doc = parser.parseFromString(html, 'text/html');
+    //console.log(doc)
+    //setDiamondContent(html)
+    }).catch(function (err) {
+      // There was an error
+      console.warn('Something went wrong.', err);
+    });
+    //console.log(imagetoshow)
+    //console.log(t);
+    
+   
+    
   }
+
+
   return (
     <div className={`ring__items product-items ${className}`} >
       <div className="ring-items__header">
@@ -102,9 +138,16 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
           <div 
             className="ring-items__item-video" 
             productid={product.settingId}
-            onClick={()=>handleVideoIconClick(product.settingId)}
+            
           >
-            {(product.videoURL&&product.videoURL!="") && <img className="video-icon3" alt="" src={`${imageUrl}`+"/video.svg" }/>}
+            {(product.videoURL&&product.videoURL!="") && 
+            showVideoPopup ?
+            <X size={20} onClick={()=>closeVideo(product.imageUrl)}/>
+           
+          :<img className="video-icon3" onClick={()=>handleVideoIconClick(product.settingId)} alt="" src={  `${imageUrl}`+"/video.svg" }/>
+          }
+
+
           </div>
           <div className="ring-items__item-wishlist no-display" productid={product.settingId}>
             {/*<img className="heart-icon" alt="" src="/heart1.svg" />*/}
@@ -117,23 +160,13 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
             className="productImage"
             onMouseEnter={handleImageHover}
             onMouseLeave={handleImageLeave}
-          >
-            {/*product.videoURL ? (
-              <video 
-                ref={videoRef}
-                className="image-9-icon15" 
-                src={product.videoURL}
-                poster={product.imageUrl}
-                muted
-                loop
-                playsInline
-              >
-                Your browser does not support the video tag.
-              </video>
-            </video>
-            ) : (*/
+          >{showVideoPopup? <video src={videoUrl}  autoPlay>
+          Your browser does not support the video tag.
+          </video>:
+           
             <img className="image-9-icon15" alt={product.name} src={imageToShowasMain} />
-            /* )*/}
+            }
+            
 
             <ul className="itemHoverImage">
               <li><img loadig="lazy" src={product.imageUrl} alt="" height="75" width="75" 
@@ -142,17 +175,24 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
                 product.extraImage &&
                 product.extraImage.length >0 &&
                 product.extraImage.map((item,index)=>{
-                  
-                  
-                  if(index<=2){
-                    return  <li><img loadig="lazy" src={item} alt="" height="75" width="75" 
+                  if(index<=2 ){
+                    return  <li><img loadig="lazy" 
+                    src={item} 
+                    alt="" 
+                    height="75" 
+                    width="75"  
+                    onMouseEnter={()=>{showNewImage(item)}}  
+                    onMouseLeave={()=>showNewImage(product.imageUrl)}
+                    
                     onError={({ currentTarget }) => {
                       currentTarget.onerror = null; // prevents looping
-                      currentTarget.src={defaultImg};
+                      currentTarget.src=imageUrl+"/no-image.jpg";
+                    
+                      //currentTarget.onMouseEnter=null; 
+                      //setImageToShowasMain(imageUrl+"/no-image.jpg")
                     }}
                     
-                    onMouseEnter={()=>showNewImage(item)}  
-                    onMouseLeave={()=>showNewImage(product.imageUrl)}/></li>
+                   /></li>
                   }
                  
                 })
@@ -180,9 +220,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
           </div>
         </div>
       </div>
-      {showVideoPopup && (
-        <VideoPopup videoURL={product.videoURL} onClose={() => setShowVideoPopup(false)} />
-      )}
+    
     </div>
   );
 };
