@@ -160,15 +160,15 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
             className="productImage"
             onMouseEnter={handleImageHover}
             onMouseLeave={handleImageLeave}
-          >{showVideoPopup? <video src={videoUrl}  autoPlay loop>
+          >{showVideoPopup? <div className="videoWrapper"><video src={videoUrl}  autoPlay loop>
           Your browser does not support the video tag.
-          </video>:
+          </video></div>:
            
             <img className="image-9-icon15" alt={product.name} src={imageToShowasMain} />
             }
-            
-
-            <ul className="itemHoverImage">
+          </div>
+          <div className="thumbnailBox">
+          <ul className="itemHoverImage">
               <li><img loadig="lazy" src={product.imageUrl} alt="" height="75" width="75" 
                onMouseEnter={()=>showNewImage(product.imageUrl)}/></li>
               {

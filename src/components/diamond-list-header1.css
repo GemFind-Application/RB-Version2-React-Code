@@ -11,9 +11,9 @@
 }
 .diamond-weight-type {
 	position: relative;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	display: inline-block;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	text-align: center;
 	min-width: 65px;
 	white-space: nowrap;
@@ -274,9 +274,9 @@
 	box-sizing: border-box;
 	max-width: 100%;
 	text-align: left;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--black);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 }
 @media screen and (max-width: 1280px) {
 	.diamond-card-details {

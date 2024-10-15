@@ -12,9 +12,9 @@
 }
 .all-parameters {
   position: relative;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   display: inline-block;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   color: var(--black);
   text-align: center;
   min-width: 99px;
@@ -101,9 +101,9 @@
   gap: var(--gap-xs);
   max-width: 100%;
   text-align: center;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .h14 {
   flex: 1;

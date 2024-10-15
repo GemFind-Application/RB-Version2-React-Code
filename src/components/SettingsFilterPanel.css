@@ -29,7 +29,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
 	padding: var(--padding-11xl) 0px;
 	gap: var(--gap-11xl);
 	max-width: 100%;
@@ -40,6 +40,7 @@
 	line-height: 110%;
 	display: inline-block;
 	max-width: 100%;
+	display: none !important;
 }
 
 .SettingsFilterPanel .settings-sort,
@@ -49,9 +50,9 @@
 	align-items: center;
 	justify-content: flex-start;
 	gap: var(--gap-3xs);
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--grey);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 }
 
 .SettingsFilterPanel .settings-sort {
@@ -80,9 +81,9 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	max-width: 100%;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--grey);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 }
 
 .SettingsFilterPanel .mid2 {
@@ -107,7 +108,7 @@
 }
 
 .SettingsFilterPanel .filters9 {
-	max-width: 740px;
+	max-width: 770px;
 	width: 100%;
 }
 
@@ -141,7 +142,7 @@
 	gap: var(--gap-xs);
 	cursor: pointer;
 	background: none;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var (--black);
 	position: relative;
 }
@@ -259,7 +260,7 @@
 .SettingsFilterPanel .search7 {
 	border: none;
 	outline: none;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--black);
 	background: none;
 	flex: 1;
@@ -272,10 +273,8 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
-	/* padding: var(--padding-xl) 0; */
 	width: 100%;
 	position: relative;
-	/* margin-bottom: 55px; */
 }
 .filter-options-container.priceFilterBox {
 	margin-bottom: 40px;
@@ -291,9 +290,6 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-.SettingsFilterPanel .metal-type {
-	/* max-width: 100px; */
 }
 .SettingsFilterPanel .metal-type .metal-icon {
 	width: 64px;
@@ -316,7 +312,7 @@
 .SettingsFilterPanel .metal-type .metal-name {
 	font-size: 14px;
 	color: var(--accent);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 }
 .SettingsFilterPanel .metal-type .metal-icon .ring {
 	width: 38px;
@@ -413,7 +409,7 @@
 		margin-right: 0;
 		border-radius: 0;
 		background-position-y: 5px;
-		font-size: var(--body-14-reg-size);
+		font-size: var(--body-font-size);
 	}
 
 	.SettingsFilterPanel .filter-container {
@@ -482,15 +478,6 @@
 	border-radius: var(--br-base);
 	flex-wrap: nowrap;
 }
-.SettingsFilterPanel .filter-option img {
-	/* 	background-color: var(--beige-01);
-    border-radius: 16px; */
-}
-
-.SettingsFilterPanel .filter-option.SettingsFilterPanel .active {
-	/* background-color: var(--beige-02); */
-}
-
 .SettingsFilterPanel .filter-option-icon {
 	width: 64px;
 	height: auto;

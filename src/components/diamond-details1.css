@@ -44,7 +44,7 @@
 }
 .dd342 b.b1 {
   font-weight: 700;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--accent);
 }
 .price4 {
@@ -182,9 +182,9 @@
 .stats {
   border-top: 1px solid var(--boderColor10);
   box-sizing: border-box;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   padding-top: var(--padding-11xl);
 }
 .top2 {
@@ -219,8 +219,8 @@
 }
 .depth {
   position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   color: var(--grey);
   display: inline-block;
   min-width: 40px;
@@ -251,8 +251,8 @@
 }
 .table {
   position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   color: var(--grey);
   display: inline-block;
   min-width: 35px;
@@ -278,8 +278,8 @@
 }
 .measurement {
   position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   color: var(--grey);
   display: inline-block;
   min-width: 90px;

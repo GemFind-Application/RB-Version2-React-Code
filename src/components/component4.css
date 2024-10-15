@@ -94,7 +94,7 @@
   text-align: left;
   font-size: var(--sub-size);
   
-  font-family: var(--body-14-reg); */
+  font-family: var(--body-font-family); */
 }
 @media screen and (max-width: 825px) {
   .choose-setting1 {

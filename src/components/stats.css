@@ -1,9 +1,9 @@
 .details4Info {
 	border-top: 1px solid var(--divider);
 	position: relative;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--link-color);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	display: grid;
 	gap: 20px;

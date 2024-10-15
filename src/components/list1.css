@@ -10,9 +10,9 @@
   width: 100%;
   margin: 0 auto;
   text-align: left;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--black);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .list5 .diamond-details {
   /* padding: 0; */

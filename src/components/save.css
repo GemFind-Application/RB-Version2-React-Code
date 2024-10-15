@@ -17,7 +17,7 @@
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--white);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }

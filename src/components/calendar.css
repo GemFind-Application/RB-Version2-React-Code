@@ -360,7 +360,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: 12px 11.3px;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
 }
 .month {
@@ -376,7 +376,7 @@
   text-align: left;
   font-size: var(--m-sub-size);
   color: var(--black);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .calendar {
   width: 367px;

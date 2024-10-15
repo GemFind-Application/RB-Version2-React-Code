@@ -10,8 +10,8 @@
 .see-this-item {
   align-self: stretch;
   position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   color: var(--grey);
 }
 .h12 {
@@ -26,8 +26,8 @@
   width: 69px;
   border: none;
   outline: none;
-  font-family: var(--body-14-reg);
-  font-size: var(--body-14-reg-size);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
   background-color: transparent;
   height: 19px;
   position: relative;
@@ -51,8 +51,8 @@
   width: 66px;
   border: none;
   outline: none;
-  font-family: var(--body-14-reg);
-  font-size: var(--body-14-reg-size);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
   background-color: transparent;
   height: 19px;
   position: relative;
@@ -65,8 +65,8 @@
   width: 127px;
   border: none;
   outline: none;
-  font-family: var(--body-14-reg);
-  font-size: var(--body-14-reg-size);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
   background-color: transparent;
   height: 19px;
   position: relative;
@@ -100,14 +100,14 @@
   align-items: flex-start;
   justify-content: flex-start;
   padding: var(--padding-xl);
-  font-family: var(--body-14-reg);
-  font-size: var(--body-14-reg-size);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
   color: var(--grey);
 }
 .location {
   position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   color: var(--grey);
   text-align: center;
   display: inline-block;
@@ -132,8 +132,8 @@
 }
 .when-are-you {
   position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   color: var(--grey);
   text-align: center;
 }
@@ -141,8 +141,8 @@
   width: 76px;
   border: none;
   outline: none;
-  font-family: var(--body-14-reg);
-  font-size: var(--body-14-reg-size);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
   background-color: transparent;
   height: 19px;
   position: relative;
@@ -185,7 +185,7 @@
   font-size: var(--buttom-size);
   text-transform: uppercase;
   display: inline-block;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   color: var(--white);
   text-align: left;
   min-width: 73px;
