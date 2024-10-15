@@ -246,7 +246,7 @@
 	display: block;
 }
 .productImage video {
-	margin-left: -1px;
+	margin: -1px;
 }
 @media screen and (max-width: 825px) {
 	.product-title {
