@@ -5,7 +5,7 @@
     padding: 24px 24px 35px;
     max-width: 600px !important;
     width: 100%;
-    font-family: var(--body-14-reg); */
+    font-family: var(--body-font-family); */
 }
 .EmailFriendPopup-overlay .popup-content {
 	/* max-width: 600px;
@@ -34,7 +34,7 @@
     border-radius: 8px;
     font-size: 14px;
     height: 42px;
-    font-family: var(--body-14-reg);
+    font-family: var(--body-font-family);
     color: #6A665E;
   }
   .EmailFriendPopup-overlay select {

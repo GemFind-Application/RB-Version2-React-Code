@@ -52,9 +52,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .settings-sort-page.view_sde select {
   margin: 0 10px 0 5px;
@@ -109,9 +109,9 @@
   align-items: flex-start;
   justify-content: flex-start;
   max-width: 100%;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 
 .mid2 {
@@ -173,7 +173,7 @@
   gap: var(--gap-xs);
   cursor: pointer;
   background: none;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var (--black);
   position: relative;
 }
@@ -283,7 +283,7 @@
 .search7 {
   border: none;
   outline: none;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--black);
   background: none;
   flex: 1;
@@ -418,7 +418,7 @@
 .filter-option span {
   font-size: 14px;
   color: #6A665E;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 
 .filter-option svg {

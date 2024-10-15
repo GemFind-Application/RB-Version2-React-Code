@@ -53,9 +53,9 @@
 .lorem-nisl-fringilla1 {
   align-self: stretch;
   position: relative;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   font-weight: 500;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   color: var(--grey);
 }
 .create-your-own-ring-parent {
@@ -120,9 +120,9 @@
   gap: var(--gap-xs);
   max-width: 100%;
   text-align: center;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .frame-parent4 {
   width: 568px;
@@ -199,9 +199,9 @@
   box-sizing: border-box;
   max-width: 100%;
   text-align: left;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--l-grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 
 @media screen and (max-width: 1575px) {

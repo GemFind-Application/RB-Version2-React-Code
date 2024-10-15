@@ -53,9 +53,9 @@
 .lorem-nisl-fringilla2 {
 	align-self: stretch;
 	position: relative;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	font-weight: 500;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	color: var(--notselectedmenucolor);
 }
 .create-your-own-ring-group {
@@ -166,9 +166,9 @@ body .empty-row .i10 {
 	gap: var(--gap-xs);
 	max-width: 100%;
 	text-align: center;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--grey);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	position: relative;
 	margin-top: 15px;
 }
@@ -222,7 +222,7 @@ body .empty-row .i10 {
 	max-width: 100%;
 	font-size: var(--sub-size);
 	color: var(--beige-05);
-	font-family: var(--body-14-reg); */
+	font-family: var(--body-font-family); */
 /* 	display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -264,9 +264,9 @@ body .empty-row .i10 {
 	box-sizing: border-box;
 	max-width: 100%;
 	text-align: left;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--l-grey);
-	font-family: var(--body-14-reg); */
+	font-family: var(--body-font-family); */
 }
 .diamond-nav-container {
 /* 	flex: 0 0 auto;
@@ -292,9 +292,9 @@ body .empty-row .i10 {
 	box-sizing: border-box;
 	max-width: 100%;
 	text-align: left;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--l-grey);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	max-width: 1680px;
 	width: 100%;
 	margin: 0 auto;

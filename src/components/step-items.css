@@ -53,7 +53,7 @@
 	text-align: left;
 	font-size: var(--sub-size);
 	color: var(--beige-05);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	max-width: 310px;
     width: 100%;
 }

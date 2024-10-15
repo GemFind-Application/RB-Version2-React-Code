@@ -23,9 +23,9 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--textcolor);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 }
 .wrapper2 .b20 {
 	position: relative;
@@ -198,17 +198,17 @@
 }
 .id-3832123223 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
-	font-family: var(--body-14-reg);
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
 	color: var(--backgroundtext);
 	display: inline-block;
 	min-width: 88px;
 }
 .b22 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	display: inline-block;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	color: var(--textcolor);
 	text-align: left;
 	min-width: 35px;
@@ -225,8 +225,8 @@
 .this-14k-white { 
 	align-self: stretch;
 	position: relative;
-	font-size: var(--body-14-reg-size);
-	font-family: var(--body-14-reg);
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
 	color: var(--backgroundtext);
 	text-align: left;
 }
@@ -257,8 +257,8 @@
 	align-items: center;
 	justify-content: flex-start;
 	gap: var(--gap-3xs);
-	font-size: var(--body-14-reg-size);
-	font-family: var(--body-14-reg);
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
 }
 .div63 {
 	flex: 1;
@@ -297,9 +297,9 @@
 }
 .b23 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	display: inline-block;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	color: var(--textcolor);
 	text-align: left;
 	min-width: 65px;
@@ -610,7 +610,7 @@
 	position: relative;
 	gap: var(--gap-5xl);
 	text-align: center;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--accent);
 }
 .payment-options {
@@ -636,9 +636,9 @@
 	max-width: 950px;
 	width: 100%;
 	text-align: center;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--textcolor);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	text-align: left;
 }
 

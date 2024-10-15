@@ -11,7 +11,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: var(--padding-mini-5) var(--padding-sm);
+  padding: var(--padding-sm) var(--padding-sm);
 }
 .round1 {
   position: relative;
@@ -26,7 +26,7 @@
   padding: 0px var(--padding-11xs);
   gap: var(--gap-9xs);
   text-align: center;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--black);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }

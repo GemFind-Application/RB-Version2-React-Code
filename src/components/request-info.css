@@ -10,8 +10,8 @@
 .our-specialists-will {
   align-self: stretch;
   position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   color: var(--grey);
 }
 .h1 {
@@ -26,8 +26,8 @@
   width: 69px;
   border: none;
   outline: none;
-  font-family: var(--body-14-reg);
-  font-size: var(--body-14-reg-size);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
   background-color: transparent;
   height: 19px;
   position: relative;
@@ -51,8 +51,8 @@
   width: 66px;
   border: none;
   outline: none;
-  font-family: var(--body-14-reg);
-  font-size: var(--body-14-reg-size);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
   background-color: transparent;
   height: 19px;
   position: relative;
@@ -65,8 +65,8 @@
   width: 127px;
   border: none;
   outline: none;
-  font-family: var(--body-14-reg);
-  font-size: var(--body-14-reg-size);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
   background-color: transparent;
   height: 19px;
   position: relative;
@@ -100,8 +100,8 @@
   align-items: flex-start;
   justify-content: flex-start;
   padding: var(--padding-xl);
-  font-family: var(--body-14-reg);
-  font-size: var(--body-14-reg-size);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
   color: var(--grey);
 }
 .contact-preference {
@@ -158,7 +158,7 @@
   font-size: var(--buttom-size);
   text-transform: uppercase;
   display: inline-block;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   color: var(--white);
   text-align: left;
   min-width: 73px;
@@ -212,9 +212,9 @@
   min-height: 341px;
   max-width: 100%;
   text-align: center;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .top1 {
   align-self: stretch;

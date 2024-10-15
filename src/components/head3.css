@@ -102,9 +102,9 @@
   box-sizing: border-box;
   max-width: 100%;
   text-align: left;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 
 @media screen and (max-width: 1275px) {

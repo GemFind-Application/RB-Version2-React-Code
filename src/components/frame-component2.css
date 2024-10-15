@@ -213,7 +213,7 @@
 	gap: var(--gap-xs);
 	cursor: pointer;
 	background: none;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--black);
 	position: relative;
 	flex-grow: 0;
@@ -638,9 +638,9 @@
 	box-sizing: border-box;
 	max-width: 100%;
 	text-align: center;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--black);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 }
 .diamond-inner .mid1 {
 	margin-bottom: 30px;
@@ -963,7 +963,7 @@ div.diamondfilterShape {
 		min-width: inherit;
 	}
 	.filters-wrapper .dropdown-content .dropdown-btns .option--btn {
-		font-size: var(--body-14-reg-size);
+		font-size: var(--body-font-size);
 		width: 100%;
 		border-bottom: 1px solid var(--divider);
 		border-radius: 0;
@@ -1037,7 +1037,7 @@ div.diamondfilterShape {
 		display: inline-block;
 	}
 	.flex-advanced-filter .group-inner .dropdown-btns .option--btn {
-		font-size: var(--body-14-reg-size);
+		font-size: var(--body-font-size);
 		width: 100%;
 		border-bottom: 1px solid var(--divider);
 		border-radius: 0;

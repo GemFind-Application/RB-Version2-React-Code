@@ -65,9 +65,9 @@
 }
 .empty1 {
   position: relative;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   display: inline-block;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   color: var(--textcolor);
   min-width: 65px;
   white-space: nowrap;
@@ -119,9 +119,9 @@
   padding: var(--padding-base);
   gap: var(--gap-mini);
   text-align: left;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 
 @media screen and (max-width: 1275px) {

@@ -20,9 +20,9 @@
   justify-content: space-between;
   gap: var(--gap-xl);
   text-align: left;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .navigation {
   margin: 0;
@@ -138,9 +138,9 @@
   position: sticky;
   max-width: 100%;
   text-align: center;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--white);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .breadcrumb-separator-icon {
   cursor: pointer;
@@ -222,9 +222,9 @@
   gap: var(--gap-xs);
   padding: var(--gap-11xl) var(--gap-11xl) 0;
   color: var(--link-color);
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   font-weight: 700;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .image-9-icon {
   position: absolute;
@@ -459,7 +459,7 @@
   justify-content: flex-start;
   padding: var(--padding-10xs-5) 0px 0px;
   text-align: center;
-  color: var(--bluecolor);
+  color: var(--color-mediumslateblue);
 }
 .specs-header {
   display: flex;
@@ -718,8 +718,8 @@
   font-weight: 500;
 }
 .summary-items .si_value {
-  font-family: var(--body-14-reg);
-  font-size: var(--body-14-reg-size);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
   font-weight: 700;
   color: var(--black);
 }
@@ -768,7 +768,7 @@
   position: relative;
   font-size: var(--buttom-size);
   text-transform: uppercase;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   color: var(--accent);
   text-align: left;
 }
@@ -821,9 +821,9 @@
 }
 .save1 {
   position: relative;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   display: inline-block;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   color: var(--accent);
   text-align: center;
   min-width: 33px;
@@ -853,9 +853,9 @@
 }
 .post {
   position: relative;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   display: inline-block;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   color: var(--accent);
   text-align: center;
   min-width: 31px;
@@ -884,9 +884,9 @@
 }
 .share1 {
   position: relative;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   display: inline-block;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   color: var(--accent);
   text-align: center;
   min-width: 40px;
@@ -899,9 +899,9 @@
 }
 .like {
   position: relative;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   display: inline-block;
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   color: var(--accent);
   text-align: center;
   min-width: 28px;
@@ -956,9 +956,9 @@
   box-sizing: border-box;
   max-width: 100%;
   text-align: left;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--textcolor);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
   padding: 30px; */
 }
 .main {
@@ -980,9 +980,9 @@
   justify-content: center;
   padding: var(--padding-3xs) var(--padding-xl) var(--padding-xs);
   text-align: left;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .diamond-page {
   width: 100%;

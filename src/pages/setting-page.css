@@ -20,9 +20,9 @@
 	justify-content: space-between;
 	gap: var(--gap-xl);
 	text-align: left;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--grey);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 }
 .main1 .menu-container-wrapper {
 	margin: 0;
@@ -138,9 +138,9 @@
 	position: sticky;
 	max-width: 100%;
 	text-align: center;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--white);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	background-color: #fff;
 }
 .main1 img.round-icon-caret {
@@ -221,7 +221,7 @@
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: flex-start;
-	padding: 0px 0px var(--padding-8xs-3);
+	padding: 0px 0px var(--padding-9xs);
 	box-sizing: border-box;
 	max-width: 100%;
 	color: var(--grey); */
@@ -256,7 +256,7 @@
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: flex-start;
-	padding: 0px 0px var(--padding-8xs-3);
+	padding: 0px 0px var(--padding-9xs);
 	gap: var(--gap-base);
 }
 .main1 .all-metal-typeal-color {
@@ -411,9 +411,9 @@
 }
 .main1 .based-on-1234 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	font-weight: 500;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	color: var(--accent);
 }
 .main1 .rating {
@@ -595,8 +595,8 @@
 }
 .main1 .txt14 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
-	font-family: var(--body-14-reg);
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
 	color: var(--grey);
 	text-align: center;
 	display: inline-block;
@@ -624,8 +624,8 @@
 }
 .main1 .txt15 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
-	font-family: var(--body-14-reg);
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
 	color: var(--grey);
 	text-align: center;
 	display: inline-block;
@@ -671,8 +671,8 @@
 }
 .main1 .txt17 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
-	font-family: var(--body-14-reg);
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
 	color: var(--grey);
 	text-align: center;
 	display: inline-block;
@@ -739,8 +739,8 @@
 }
 .main1 .txt20 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
-	font-family: var(--body-14-reg);
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
 	color: var(--grey);
 	text-align: center;
 	display: inline-block;
@@ -806,9 +806,9 @@
 }
 .main1 .txt23 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	display: inline-block;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	color: var(--black);
 	text-align: left;
 	min-width: 27px;
@@ -835,8 +835,8 @@
 }
 .main1 .txt24 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
-	font-family: var(--body-14-reg);
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
 	color: var(--grey);
 	text-align: center;
 	display: inline-block;
@@ -976,8 +976,8 @@
 }
 .main1 .txt50 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
-	font-family: var(--body-14-reg);
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
 	color: var(--grey);
 	text-align: center;
 	display: inline-block;
@@ -1065,8 +1065,8 @@
 }
 .main1 .txt60 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
-	font-family: var(--body-14-reg);
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
 	color: var(--grey);
 	text-align: center;
 	display: inline-block;
@@ -1147,8 +1147,8 @@
 .main1 .txt66,
 .main1 .txt67 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
-	font-family: var(--body-14-reg);
+	font-size: var(--body-font-size);
+	font-family: var(--body-font-family);
 	color: var(--grey);
 	text-align: center;
 	display: inline-block;
@@ -1186,7 +1186,7 @@
 	font-size: var(--buttom-size);
 	text-transform: uppercase;
 	display: inline-block;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	color: var(--white);
 	text-align: left;
 	min-width: 111px;
@@ -1216,7 +1216,7 @@
 	position: relative;
 	font-size: var(--buttom-size);
 	text-transform: uppercase;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	color: var(--accent);
 	text-align: left;
 }
@@ -1264,9 +1264,9 @@
 }
 .main1 .save2 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	display: inline-block;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	color: var(--accent);
 	text-align: center;
 	min-width: 33px;
@@ -1296,9 +1296,9 @@
 }
 .main1 .post1 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	display: inline-block;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	color: var(--accent);
 	text-align: center;
 	min-width: 31px;
@@ -1327,9 +1327,9 @@
 }
 .main1 .share3 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	display: inline-block;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	color: var(--accent);
 	text-align: center;
 	min-width: 40px;
@@ -1342,9 +1342,9 @@
 }
 .main1 .like1 {
 	position: relative;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	display: inline-block;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	color: var(--accent);
 	text-align: center;
 	min-width: 28px;
@@ -1449,9 +1449,9 @@
 	gap: var(--gap-5xl);
 	max-width: 950px;
 	width: 100%;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--textcolor);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	text-align: left;
 }
 .pdp_image_item .image-gallery-fullscreen-button,
@@ -1501,7 +1501,7 @@
 	align-items: flex-start;
 	justify-content: center;
 	gap: var(--gap-9xs);
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--backgroundtext);
 }
 .pdp_image_item .note-content .note {
@@ -1516,7 +1516,7 @@
 	justify-content: flex-start;
 	gap: var(--gap-9xs);
 	cursor: pointer;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--grey);
 }
 .pdp_image_item .note-container-parent .dealer__info {
@@ -1530,7 +1530,7 @@
 	align-items: center;
 	gap: 6px;
 	color: var(--color-mediumslateblue);
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 }
 .pdp_image_item .note-container-parent .dealer-info3:hover {
 	color: var(--over-effect);
@@ -1594,9 +1594,9 @@
 	line-height: normal;
 	letter-spacing: normal;
 	text-align: left;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--grey);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	flex-wrap: wrap;
 }
 @media screen and (max-width: 1575px) {

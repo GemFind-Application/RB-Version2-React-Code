@@ -11,8 +11,8 @@
 }
 .b26 {
   position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   text-align: center;
   white-space: nowrap;
 }
@@ -172,9 +172,9 @@
   box-sizing: border-box;
   width: 100%;
   text-align: left;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--black);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 
 .diamond-list-header .diamond-card-details,

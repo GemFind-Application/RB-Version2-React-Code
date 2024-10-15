@@ -32,9 +32,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .top12 {
   align-self: stretch;
@@ -98,8 +98,8 @@
   box-sizing: border-box;
   gap: var(--gap-5xs);
   min-height: 88px;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
 }
 .top11 {
   width: 1680px;

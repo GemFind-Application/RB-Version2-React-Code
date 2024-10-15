@@ -5,12 +5,12 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Acumin+Pro:wght@400&display=swap"); */
 :root {
 	/* fonts */
-	--body-14-reg: 'Manrope', sans-serif;
+	--body-font-family: 'Manrope', sans-serif;
 	--h4: "Libre Baskerville", sans-serif;
 	--font-inter: 'Inter', sans-serif;
 	--font-acumin-pro: 'Acumin Pro', sans-serif;
 	/* font sizes */
-	--body-14-reg-size: 14px;
+	--body-font-size: 14px;
 	--h1-size: 44px;
 	--h2-size: 32px;
 	--h3-size: 24px;
@@ -22,9 +22,10 @@
 	--font-size-16xl: 35px;
 	--font-size-7xl: 26px;
 	/* Colors */
-	--white: #fff;
+	--white: #FFFFFF;
+	--black: #262523;
 	--stroke: #e4e3e1;
-	--beige-03: #e7dbd5;
+	
 	--accent: #836a5d;
 	--slider-color: #836a5d;
 	--slider-thumb: #836a5d;
@@ -40,22 +41,23 @@
 	--backgroundmenutext: #fff;
 	--backgroundmenutextdiamond: ##6a655e;
 	--note-container: #f8f4f2;
-	--bluecolor: #4b5ade;
 	--color-lightgray-100: #dbd4d1;
 	--color-lightgray-200: #d4d4d4;
-	--beige-04: #dccac1;
 	--colorbeige: #dccac1;
 	--color-lightgray-300: rgba(212, 212, 212, 0.09);
-	--beige-00: #fbf9f8;
 	--color-snow-100: rgba(251, 249, 248, 0.7);
-	--black: #262523;
+	
 	--color-gray-100: rgba(38, 37, 35, 0.8);
 	--color-rosybrown-100: #9c8578;
 	--color-rosybrown-200: rgba(156, 133, 120, 0.09);
+	--beige-00: #fbf9f8;
 	--beige-01: #f8f4f2;
 	--beige-02: #f4eeeb;
-	--divider: #eeedec;
+	--beige-03: #e7dbd5;
+	--beige-04: #dccac1;
 	--beige-05: #c9aea1;
+	--divider: #eeedec;
+	
 	--l-grey: #b1b0ae;
 	--color-mediumslateblue: #4B5ADE;
 	--popup-text-color: #333;
@@ -122,7 +124,6 @@
 	--padding-4xs: 9px;
 	--padding-2xs: 11px;
 	--padding-mid: 17px;
-	--padding-mini-5: 14.5px;
 	--padding-21xl: 40px;
 	--padding-11xl: 30px;
 	--padding-12xs-5: 0.5px;
@@ -162,13 +163,10 @@
 	--padding-53xl: 72px;
 	--padding-6xl: 25px;
 	--padding-7xl: 26px;
-	--padding-8xs-3: 4.3px;
 	--padding-23xl: 42px;
 	--padding-11xs-5: 1.5px;
 	--padding-27xl: 46px;
-	--padding-33xl-3: 52.3px;
 	--padding-57xl: 76px;
-	--padding-10xs-3: 2.3px;
 	/* Border radiuses */
 	--br-9xs: 4px;
 	--br-5xs: 8px;
@@ -186,7 +184,7 @@
 		0px 5.2px 13px rgba(43, 37, 37, 0.04);
 }
 body {
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	margin: 0;
 	padding: 0;
 	font-size: 16px;
@@ -350,7 +348,7 @@ body .headergroup-nav {
 }
 .message-info {
 	background-color: #fffbcd;
-	font-size: var(--body-14-reg);
+	font-size: var(--body-font-family);
 	width: 100%;
 	padding: var(--padding-xl);
 	border-radius: var(--padding-xs);
@@ -373,7 +371,7 @@ body .headergroup-nav {
 	cursor: pointer;
 	line-height: 20px;
 	height: 52px;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	font-size: var(--buttom-size);
 	font-weight: 700;
 	text-transform: uppercase;
@@ -394,7 +392,7 @@ body .headergroup-nav {
 	max-width: 100%;
 	cursor: pointer;
 	line-height: 20px;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 	font-size: var(--buttom-size);
 	font-weight: 700;
 	text-transform: uppercase;
@@ -416,11 +414,11 @@ body .headergroup-nav {
 	max-width: 100%;
 	cursor: pointer;
 	line-height: 20px;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	font-weight: 700;
 	text-transform: uppercase;
 	padding: 9px var(--padding-xl);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 }
 .button40_b {
 	flex: 1;
@@ -435,11 +433,11 @@ body .headergroup-nav {
 	max-width: 100%;
 	cursor: pointer;
 	line-height: 20px;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	font-weight: 700;
 	text-transform: uppercase;
 	padding: 9px var(--padding-xl);
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 }
 .button52:hover,
 .button52_b:hover,
@@ -475,7 +473,7 @@ body .headergroup-nav {
 	padding: 0 20px;
 	height: 40px;
 	margin-top: 20px;
-	font-family: var(--body-14-reg);
+	font-family: var(--body-font-family);
 }
 .button40:not([disabled]):hover, 
 .button40:focus {

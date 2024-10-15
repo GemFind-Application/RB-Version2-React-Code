@@ -178,9 +178,9 @@
   gap: var(--gap-5xl);
   min-height: 172px;
   text-align: center;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .top7 {
   align-self: stretch;
@@ -205,8 +205,8 @@
 }
 .depth1 {
   position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   color: var(--grey);
   display: inline-block;
   min-width: 40px;
@@ -238,8 +238,8 @@
 }
 .table1 {
   position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   color: var(--grey);
   display: inline-block;
   min-width: 35px;
@@ -262,8 +262,8 @@
 }
 .measurement1 {
   position: relative;
-  font-size: var(--body-14-reg-size);
-  font-family: var(--body-14-reg);
+  font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   color: var(--grey);
   display: inline-block;
   min-width: 90px;

@@ -59,9 +59,9 @@
   padding: var(--padding-3xl) var(--padding-3xl) 0px 0px;
   gap: var(--gap-5xl);
   text-align: center;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .top8 {
   align-self: stretch;
@@ -161,9 +161,9 @@
   padding: var(--padding-3xl) 0px 0px;
   max-width: 100%;
   text-align: center;
-  font-size: var(--body-14-reg-size);
+  font-size: var(--body-font-size);
   color: var(--grey);
-  font-family: var(--body-14-reg);
+  font-family: var(--body-font-family);
 }
 .content8 {
   position: absolute;

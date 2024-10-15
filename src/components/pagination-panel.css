@@ -35,18 +35,6 @@
     height: 32px;
     cursor: pointer;
 }
-.wrapper5 {
-	/* flex: 1;
-	border-radius: var(--br-5xs);
-	background-color: var(--beige-04);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 5px 15px;
-	color: var(--link); */
-}
-
 .inactive_pagination {
 	position: relative;
     min-width: 8px;
@@ -84,15 +72,6 @@
 	background-color: #DCCAC1;
     color: var(--accent);
 }
-.wrapper6 {
-	/* border-radius: var(--br-5xs);
-	background-color: var(--beige-00);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: var(--padding-6xs-5) var(--padding-xs); */
-}
 .div114 {
 	height: 19px;
 	position: relative;
@@ -100,22 +79,9 @@
 }
 .wrapper7 {
 	display: none;
-	/* align-self: stretch;
-	width: 32px;
-	border-radius: var(--br-5xs);
-	flex-direction: column;
-	align-items: center;
-	justify-content: center; */
 }
 .wrapper9 {
 	display: none;
-	/* align-self: stretch;
-	width: 32px;
-	border-radius: var(--br-5xs);
-	background-color: var(--beige-00);
-	flex-direction: column;
-	align-items: center;
-	justify-content: center; */
 }
 .instance-item {
 	width: 13px;
@@ -161,10 +127,9 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	text-align: left;
-	font-size: var(--body-14-reg-size);
+	font-size: var(--body-font-size);
 	color: var(--grey);
-	font-family: var(--body-14-reg);
-	/* max-width: 1680px; */
+	font-family: var(--body-font-family);
 	width: 100%;
 	margin: 30px auto 0;
 }
