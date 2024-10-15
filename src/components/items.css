@@ -359,7 +359,7 @@
 }
 .videoWrapper::before {
 	content: "";
-	background: url("/public/diamond.gif") no-repeat scroll 0 0 transparent;
+	background: url("../diamond.gif") no-repeat scroll 0 0 transparent;
 	display: block;
     width: 100px;
     height: 100px;
