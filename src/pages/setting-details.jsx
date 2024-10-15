@@ -360,7 +360,7 @@ console.log(showVideoPopup)
                 <div className="image-container">
                   <div className="plp-image-gallery">
                     <div className="image-wrapper">
-                      {showVideoPopup?<video src={videoUrl}  autoPlay loop></video>:
+                      {showVideoPopup?<div className="videoBox"><div className="videoWrapper"><video src={videoUrl}  autoPlay loop></video></div></div>:
                       <ImageGallery items={images} showPlayButton={false} showNav={false}    onErrorImageURL={imageUrl+'/no-image.jpg'}/>}
                       <div 
                       className="ring-items__item-video" 
