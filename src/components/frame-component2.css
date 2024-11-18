@@ -804,6 +804,11 @@
     flex: 0 0 50%;
     width: 100%;
 }
+.flex-advanced-filter.certi-full-width .advanced-filter-group {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: inherit;
+}
 .dropdown-btns {
 	flex: 1 0 auto;
 }
@@ -814,6 +819,9 @@
 	margin-bottom: 20px;
 	border: 1px solid var(--beige-02);
 	border-radius: 50px;
+}
+.flex-advanced-filter.certi-full-width .group-inner {
+	width: auto;
 }
 .flex-advanced-filter .group-inner .dropdown-btns:first-child .option--btn {
 	border-top-left-radius: 50px;

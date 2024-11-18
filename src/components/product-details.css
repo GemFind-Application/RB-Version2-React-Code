@@ -157,7 +157,7 @@
 	min-width: 33px;
 }
 .stats-elements2 {
-	width: 167px;
+	/* width: 167px; */
 	border-radius: var(--br-base);
 	display: flex;
 	flex-direction: row;
