@@ -406,13 +406,13 @@ if(filter==='intensity'){
                     filterData.shapes.map(shape => (
                      
                         selectedSettingShape!="" ?
-                          <div  className="dfilter-option"  key={shape.shapeName}><span class="filter-svg">
+                          <div  className={`dfilter-option ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`}  key={shape.shapeName}><span class="filter-svg">
                       <img alt={shape.shapeName} className="filter-option-icon" src={`${imageUrl+"/"+"f_"+(shape.shapeName).toLowerCase()+".svg"}`}></img></span> 
-                          <p className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} >{shape.shapeName}</p></div>
+                          <p className={`option--btn`} >{shape.shapeName}</p></div>
                         :
-                        <div onClick={() => handleFilterChange('shape', shape.shapeName)} className="dfilter-option"  key={shape.shapeName}><span class="filter-svg">
+                        <div onClick={() => handleFilterChange('shape', shape.shapeName)} className={`dfilter-option ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`}  key={shape.shapeName}><span class="filter-svg">
                       <img alt={shape.shapeName} className="filter-option-icon" src={`${imageUrl+"/"+"f_"+(shape.shapeName).toLowerCase()+".svg"}`}></img></span>
-                        <span className={`option--btn ${selectedFilters.shape.includes(shape.shapeName) ? 'active--item' : ''}`} >{shape.shapeName}</span></div>
+                        <span className="option--btn">{shape.shapeName}</span></div>
                         
                        
                     ))
@@ -597,7 +597,7 @@ if(filter==='intensity'){
                   </div>
                 </div>
               </div>
-              <div className="flex-advanced-filter">
+              <div className="flex-advanced-filter certi-full-width">
                 <div className="advanced-filter-group">
                   <h4>Certificates</h4>
                   <div className="group-inner">

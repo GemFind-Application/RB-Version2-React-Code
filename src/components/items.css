@@ -486,6 +486,7 @@
 		width: 100%;
 		margin-top: 10px;
 	}
+	.paction .down .virtual-try-on1,
 	.paction .down2 .virtual-try-on1 {
 		display: none;
 	}

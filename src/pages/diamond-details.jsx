@@ -421,12 +421,12 @@ setShowLoading(true);
                         </div>
                         
                         <div className="header-items3">
-                          <div className="diamond-grading-report">Diamond Grading Report:
-                          {(!additionOptionSetting.show_Certificate_in_Diamond_Search && diamondDetail.certificateUrl!="") ?
-                            <a  onClick={openUrl} className={'diamondGradingReport'}> View</a>
-                            :<b > Not Available</b>
+                          
+                        {(additionOptionSetting.show_Certificate_in_Diamond_Search && diamondDetail.certificateIconUrl!="") &&
+                            <div className="diamond-grading-report">Diamond Grading Report:
+                              <a  onClick={openUrl} className={'diamondGradingReport'}>View</a>
+                            </div>
                           }
-                          </div>
                         </div>
                         
                       </div>

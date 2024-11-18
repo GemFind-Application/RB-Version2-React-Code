@@ -105,19 +105,19 @@ console.log("value of step=="+step)
           />
             }
           <div className='sliderValues'>
-          {isPrice?'':''}
           <div className="sliderValues1">
+          <span className='currencySymbol'>{isPrice?'$':''}</span>
           <input
                 type="text"
                 value={step?Number(minVal):minVal}
                 onChange={(e)=>handleMinChange(e)}
                 onBlur={callAction}
                 className="slider__left-value"
-              /><span>{showPercent?'%':''}</span>
-              {isPrice?'':''}
+              /><span className='percSymbol'>{showPercent?'%':''}</span>
               
           </div>
           <div className="sliderValues2">
+            <span className='currencySymbol'>{isPrice?'$':''}</span>
           <input
                 type="text"
               

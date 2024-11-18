@@ -206,7 +206,8 @@
   line-height: 1;
 }
 .diamondGradingReport {
-  color: var(--link-color)
+  cursor: pointer !important;
+  color: var(--link-color);
 }
 .diamondGradingReport:hover {
   color: var(--over-effect)

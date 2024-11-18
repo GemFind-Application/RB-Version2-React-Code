@@ -196,10 +196,13 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
               <div className="metal-type2">Metal Type:</div>
               <b className="k-rose-gold">{settingDetail.metalType!=""?settingDetail.metalType:''}</b>
             </div>
+            {settingDetail.sideStoneQuality!="" &&
             <div className="stats-elements2">
               <div className="side-stone-quality">Side Stone Quality:</div>
               <b className="i1h1">{settingDetail.sideStoneQuality!=""?settingDetail.sideStoneQuality[0]:''}</b>
             </div>
+            }
+
             <div className="stats-elements">
               <div className="center-stone-sizect">Center Stone Size(Ct.):</div>
               <b className="b21">{settingDetail.centerStoneMinCarat!=""?settingDetail.centerStoneMinCarat+'-'+settingDetail.centerStoneMaxCarat:''}</b>

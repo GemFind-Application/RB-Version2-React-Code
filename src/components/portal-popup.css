@@ -25,7 +25,17 @@
 	height: 100%;
     overflow: auto;
 }
+.portalPopupOverlay .popup-overlay.resetPopup {
+	max-width: 260px !important;
+}
+.portalPopupOverlay .popup-overlay.resetPopup .success-message {
+	text-align: center;
+}
+.portalPopupOverlay .popup-overlay.resetPopup .success-message button {
+	display: inline-block;
+}
 .portalPopupOverlay .popup-overlay.resetPopup .popup-content {
+	display: block;
     flex-direction: inherit;
 }
 .portalPopupOverlay .popup-content {

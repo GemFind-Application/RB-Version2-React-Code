@@ -169,6 +169,22 @@ background-color: var(--slider-color);
 .advanced-filter-group .container.price_slider_box .sliderValues {
   margin-top: 10px;
 }
+.container.price_slider_box .sliderValues .sliderValues1 .currencySymbol {
+  position: absolute;
+  left: 10px;
+  font-size: 14px;
+  bottom: -35px;
+  line-height: 18px;
+  font-family: var(--body-font-family);
+}
+.container.price_slider_box .sliderValues .sliderValues2 .currencySymbol {
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  bottom: -35px;
+  line-height: 18px;
+  font-family: var(--body-font-family);
+}
 .advanced-filter-group .container.price_slider_box .sliderValues2,
 .advanced-filter-group .container.price_slider_box .sliderValues1 {
   position: relative;
@@ -194,4 +210,7 @@ background-color: var(--slider-color);
   right: 0;
   bottom: 0;
   padding: 0;
+}
+.advanced-filter-group .container.price_slider_box span.percSymbol {
+  margin-left: 10px;
 }
