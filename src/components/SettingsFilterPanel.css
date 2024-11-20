@@ -623,6 +623,7 @@
 }
 .slider__left-value,
 .slider__right-value {
+	padding: 0;
 	color: #262523 !important;
 	background-color: transparent;
 	-webkit-appearance: none;

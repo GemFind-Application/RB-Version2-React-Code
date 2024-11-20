@@ -117,6 +117,9 @@ body .empty-row .i10 {
 	background-color: var(--menus-background);
     color: var(--backgroundmenutext);
 }
+.price18 .fancy-colour1 {
+	color: var(--backgroundmenutext);
+}
 .empty-row b {
 	z-index: 99;
 	cursor: pointer;

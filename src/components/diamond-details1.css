@@ -64,6 +64,10 @@
   display: inline-block;
   margin: 0 20px 15px 0;
 }
+.spec-labels1 div.color,
+.spec-labels1 div.clarity {
+  padding-left: 0;
+}
 .price-per-carat {
   text-decoration: none;
   position: relative;

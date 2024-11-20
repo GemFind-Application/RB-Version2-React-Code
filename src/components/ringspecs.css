@@ -38,6 +38,9 @@
 	margin: 0 20px 5px 0;
 	display: inline-block;
 }
+.ring-specs-popup .setting-details .can-be-set-with-box {
+	display: flex;
+}
 .ring-specs-popup .setting-details .can-be-set-with-box p {
 	margin: 0;
 }

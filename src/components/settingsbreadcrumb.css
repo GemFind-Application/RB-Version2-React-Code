@@ -182,7 +182,9 @@
 	background-color: var(--menus-background);
 	color: var(--backgroundmenutext);
 }
-
+.lab-settings.active .lab-growned2 {
+    color: #FFF;
+}
 .lab-growned2 {
 	position: relative;
 	display: inline-block;
