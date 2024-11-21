@@ -170,11 +170,7 @@ const ProductDetails = ({ className = "",shopUrl,settingDetail,diamondDetail ,ri
             </div>
             <div className="engagement-ring-parent">
               <b className="engagement-ring">{settingDetail.settingName?settingDetail.settingName:''}</b>
-              <div className="wrapper2">
-                <b className="b20"><ShowCostInCard settingDetailForCost={settingDetail} configAppData={configAppData}> </ShowCostInCard></b>
-                <div className="line-wrapper">
-                  <div className="line-div" />
-                </div>
+              <div className="wrapper2">                
                 <div className="carat-weight-labels">
                   <div className="the-total-carat">The total carat weight:</div>
                 </div>
