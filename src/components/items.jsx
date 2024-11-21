@@ -14,7 +14,7 @@ const [showVideoPopup, setShowVideoPopup] = useState(false);
 const [videoUrl, setVideoUrl] = useState('');
 const [isDiamondPresentInCompare, setIsDiamondPresentInCompare] = useState(false);
 const [showDetailsPopup, setShowDetailsPopup] = useState(false);
-
+const [showPopupId, setShowPopupId] = useState(null);
 const navigate = useNavigate();
 const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
 const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
@@ -43,7 +43,13 @@ useEffect(() => {
   };
 
   const toggleDetailsPopup = () => {
-    setShowDetailsPopup(!showDetailsPopup);
+    //e.stopPropagation();
+    setShowDetailsPopup(true);
+    //setShowPopupId(id);
+  };
+  const hideDetailsPopup = () => {
+   setShowDetailsPopup(false);
+   // setShowPopupId(id);
   };
 
   return (
@@ -109,7 +115,7 @@ useEffect(() => {
           diamond={diamond} 
           configAppData={configAppData}
           additionOptionSetting={additionOptionSetting}
-          onClose={() => setShowDetailsPopup(false)} 
+          onClose={() => hideDetailsPopup(false)} 
         />
       )}
     </div>
