@@ -466,6 +466,7 @@ console.log(showVideoPopup)
                             </div>
                           </div>
                         }
+                        <div className="settingoptiondetails">
                         {uniqueSideStoneQualities.length > 0 && (
                           <div className="filter-opened4">
                             <div className="select-side-stone">Select Side Stone Quality</div>
@@ -482,7 +483,8 @@ console.log(showVideoPopup)
                             </div>
                           </div>
                         )}
-                        {/* {uniqueCenterStoneSizes.length > 0 && (
+
+                         {/* {uniqueCenterStoneSizes.length > 0 && (
                           <div className="filter-opened4 center-stone-selection">
                             <div className="select-side-stone">Select Center Stone Size(Ct)</div>
                             <div className="center-stone">
@@ -536,7 +538,8 @@ console.log(showVideoPopup)
                             </div>
                           </div>
                         )}
-                        {/* <div className="filter-opened6">
+
+                         {/* <div className="filter-opened6">
                           <div className="select-ring-size">Select Ring Size</div>
                           <div className="from-to4">
                             {product.ringSize && product.ringSize.map((size, index) => (
@@ -575,6 +578,7 @@ console.log(showVideoPopup)
                             ))}
                           </select>
                         </div>
+
                         {(diamondNavigation && (diamondNavigation.navStandard || diamondNavigation.navLabGrown)) && (
                           <div className="filter-opened7">
                             <div className="select-side-stone">Select Diamond Type</div>
@@ -622,6 +626,13 @@ console.log(showVideoPopup)
                             </div>
                           </div>
                         )}
+
+                        </div>
+                        
+                       
+                       
+                       
+                       
                       </div>
                       
                           <div className="filter-opened7">
