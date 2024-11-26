@@ -1889,6 +1889,26 @@ button.button-fav1.button15 {
 	/* height: 52px;
 	border-radius: 56px; */
 }
+@media screen and (min-width: 768px) {
+	select.select--outline {
+		text-align: left;
+	}
+	form.setting-details-form {
+		width: 100%;
+	}
+	.settingoptiondetails {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		justify-content: space-between;
+		width: 100%;
+		gap: 20px;
+	}
+}
+@media screen and (min-width: 1380px) {
+	.settingoptiondetails {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
 @media screen and (max-width: 480px) {
 	.main1 .metal-type {
 		max-width: 69px;
