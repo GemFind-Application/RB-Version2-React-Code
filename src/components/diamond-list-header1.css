@@ -256,6 +256,9 @@
 	max-width: 100%;
 	gap: var(--gap-xl);
 }
+.diamond-card-details .f_50 {
+	/* width: 50px; */
+}
 .show--more-diamond_info,
 .list-diamond--video,
 .compare-list--diamond {

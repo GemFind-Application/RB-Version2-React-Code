@@ -728,8 +728,8 @@
 	gap: var(--gap-5xs);
 }
 .main1 .filter-opened4 {
-	max-width: 790px;
-	width: 100%;
+	/* max-width: 790px;
+	width: 100%; */
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -1651,7 +1651,7 @@
 	}
 	.main1 .center-stone {
 		flex-wrap: wrap;
-		padding-right: 180px;
+		/* padding-right: 180px; */
 		box-sizing: border-box;
 	}
 	.main1 .actions1 {
@@ -1896,17 +1896,16 @@ button.button-fav1.button15 {
 	form.setting-details-form {
 		width: 100%;
 	}
-	.settingoptiondetails {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		justify-content: space-between;
-		width: 100%;
-		gap: 20px;
-	}
 }
-@media screen and (min-width: 1380px) {
+@media screen and (min-width: 1300px) {
 	.settingoptiondetails {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		/* display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr)); */
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        gap: 20px;
+        align-items: center;
 	}
 }
 @media screen and (max-width: 480px) {

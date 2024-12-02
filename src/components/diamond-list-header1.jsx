@@ -63,11 +63,11 @@ const DiamondListHeader1 = ({ className = "", diamond ,isLabGrown ,configAppData
         </div>
         <div className="cell">
           <div className="diamond-carat-info">
-            <b className="diamond-carat-value">{diamond.carat && diamond.carat !== "" ? diamond.carat : '-'}</b>
+            <b className="diamond-carat-value f_50">{diamond.carat && diamond.carat !== "" ? diamond.carat : '-'}</b>
             <div className="carat2">{`Carat `}</div>
           </div>
           <div className="diamond-carat-info">
-            <b className="d1">{diamond.color && diamond.color !== "" ? diamond.color : '-'}</b>
+            <b className="diamond-carat-value f_50">{diamond.color && diamond.color !== "" ? diamond.color : '-'}</b>
             <div className="color3">Color</div>
           </div>
         </div>
@@ -83,11 +83,11 @@ const DiamondListHeader1 = ({ className = "", diamond ,isLabGrown ,configAppData
         </div>
         <div className="cell">
           <div className="diamond-table-value">
-            <b className="diamond-table-label">{diamond.table && diamond.table !== "" ? diamond.table + "%" : '-'}</b>
+            <b className="diamond-table-label f_50">{diamond.table && diamond.table !== "" ? diamond.table + "%" : '-'}</b>
             <div className="table5">Table</div>
           </div>
           <div className="diamond-table-value">
-            <b className="diamond-depth-label">{diamond.depth && diamond.depth !== "" ? diamond.depth + "%" : '-'}</b>
+            <b className="diamond-depth-label f_50">{diamond.depth && diamond.depth !== "" ? diamond.depth + "%" : '-'}</b>
             <div className="depth4">Depth</div>
           </div>
         </div>
