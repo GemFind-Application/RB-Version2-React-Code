@@ -26,7 +26,7 @@
     overflow: auto;
 }
 .portalPopupOverlay .popup-overlay.resetPopup {
-	max-width: 260px !important;
+	max-width: 322px !important;
 }
 .portalPopupOverlay .popup-overlay.resetPopup .success-message {
 	text-align: center;

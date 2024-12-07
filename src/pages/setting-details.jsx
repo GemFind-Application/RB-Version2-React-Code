@@ -466,7 +466,6 @@ console.log(showVideoPopup)
                             </div>
                           </div>
                         }
-                        <div className="settingoptiondetails">
                         {uniqueSideStoneQualities.length > 0 && (
                           <div className="filter-opened4">
                             <div className="select-side-stone">Select Side Stone Quality</div>
@@ -483,7 +482,7 @@ console.log(showVideoPopup)
                             </div>
                           </div>
                         )}
-
+                        <div className="settingoptiondetails">
                          {/* {uniqueCenterStoneSizes.length > 0 && (
                           <div className="filter-opened4 center-stone-selection">
                             <div className="select-side-stone">Select Center Stone Size(Ct)</div>
