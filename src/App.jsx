@@ -89,7 +89,7 @@ function App() {
         dealerid:1089,
         products_pp:48,       
         font_family:'Manrope',
-        shop:'https://gemfind-product-demo-10.myshopify.com/',
+        shop:'gemfind-product-demo-10.myshopify.com',
         dealerauthapi:'http://api.jewelcloud.com/api/RingBuilder'
       }
       setShopUrl(data.shop+shopUrlforEmail)

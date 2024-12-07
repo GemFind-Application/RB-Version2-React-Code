@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Search, ChevronDown, BookmarkMinus, RotateCcw, X } from 'lucide-react';
 import './SettingsFilterPanel.css';
 import MultiRangeSlider from './MultiRangeSlider';
+
 import PopupAlert from './PopupAlert';
 import { debounce } from "lodash";
 import Nouislider from "nouislider-react";
@@ -216,7 +217,7 @@ const SettingsFilterPanel = ({
                     className={`filter-button ${openFilter === filter ? 'active' : ''}`}
                     onClick={() => toggleFilter(filter)}
                   >
-                    <div className="filter-label">{filter.charAt(0).toUpperCase() + filter.slice(1)}</div>
+                    <div className="filter-label">{filter!=="metalType" ? (filter.charAt(0).toUpperCase() + filter.slice(1)):"Metal Type"}</div>
                     <ChevronDown size={16} />
                    
                   </button>
@@ -255,11 +256,11 @@ const SettingsFilterPanel = ({
               }
             </div>
               {filterData.priceRange.length > 0 &&
-              <div className="actions13">
-                <button className="button30" onClick={saveFilters}>
+              <div className="actions13">                
+                <button className="button30" onClick={saveFilters} title="Save">
                   <BookmarkMinus size={16} />
                 </button>
-                <button className="button31" onClick={() => {
+                <button className="button31" title="Reset" onClick={() => {
                   confirmReset();
                   setPriceRange([filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]);
                 }}>

@@ -101,7 +101,7 @@ useEffect(() => {
       <div className="paction">
       <div className="down">
               <b className="empty3"><ShowCostInCardDiamond configAppData={configAppData} diamondDetail={diamond}></ShowCostInCardDiamond></b>
-              <b className="vs2-excellent">{diamond.clarity} {diamond.polish && diamond.polish != '' && ',' + diamond.polish}</b>
+              <b className="vs2-excellent">{diamond.clarity}{diamond.polish && diamond.polish != '' && ', ' + diamond.polish}</b>
             </div>
             <div className="down2">
             <Link to={`/${diamondDetailUrl}/${utils.getDiamondViewUrl(diamond,isLabGrown)}`} className="diamond_item--link button40">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>

@@ -52,7 +52,7 @@ const DiamondFilter = ({ className = "",
   const [popupContent, setPopupContent] = useState(null);
   const [availableFilter, setAvailableFilter] = useState(['shape', 'price', 'carat', 'cut', 'colour', 'clarity']);
   const [searchQuery, setSearchQuery] = useState(selectedFilters.search ? selectedFilters.search != "" ? selectedFilters.search : '' : '');
- //console.log(advancedFilters)
+
   useEffect(() => {
     if(filterData.diamondColorRange){
       setAvailableFilter(['shape', 'price', 'carat', 'diamondColorRange','intensity' ,'clarity'])
@@ -79,24 +79,39 @@ const DiamondFilter = ({ className = "",
   const togglePopup = (popup) => {
     setActivePopup(activePopup === popup ? null : popup);
   };
-console.log(activePopup)
+//console.log(activePopup)
   const handlePriceChange = ({ min, max }) => {
     setPriceRange([min, max]);
+    applyFilters(prev => ({
+      ...prev,['price']:[min,max]
+    }));
     // setPriceRange(newRange);
-    handleDebounce({ min, max });
+    //handleDebounce({ min, max });
     // You can add logic here to update filters or trigger a search
   };
   const handleCaratChange = ({ min, max }) => {
     setCaratRange([min, max]);
-    handleCaratDebounce({ min, max });
+    applyFilters(prev => ({
+      ...prev,['carat']:[min,max]
+    }));
+    //handleCaratDebounce({ min, max });
   };
   const handleTableChange = ({ min, max }) => {
     setTableRange([min, max]);
-    handleTableDebounce({ min, max });
+    applyAdvanceFilters(prev => ({
+      ...prev,['table']:[min,max]
+    }));
+    //handleTableDebounce({ min, max });
   };
   const handleDepthChange = ({ min, max }) => {
+    console.log("here now changing ");
+    console.log(advancedFilters)
     setDepthRange([min, max]);
-    handleDepthDebounce({ min, max });
+    applyAdvanceFilters(prev => ({
+      ...prev,['depth']:[min,max]
+    }));
+   // applyAdvanceFilters({ ...advancedFilters, depth: [min, max] });
+   // handleDepthDebounce({ min, max });
   };
   const handleSortChange = (newSort) => {
     setSortBy(newSort);
@@ -117,22 +132,7 @@ console.log(activePopup)
     applyAdvanceFilters({ ...advancedFilters, depth: [value.min, value.max] });
   };
 
-  const handleDebounce = useCallback(
-    debounce(handleSetTimeRange, 500),
-    [selectedFilters],
-  );
-  const handleCaratDebounce = useCallback(
-    debounce(handleSetCaratRange, 500),
-    [selectedFilters],
-  );
-  const handleTableDebounce = useCallback(
-    debounce(handleSetTableRange, 500),
-    [advancedFilters],
-  );
-  const handleDepthDebounce = useCallback(
-    debounce(handleSetDepthRange, 500),
-    [advancedFilters],
-  );
+  
  // popup - use this for setting the content
  const handleInfoClick = (filterType) => {
   const content = getPopupContent(filterType);
@@ -155,16 +155,14 @@ const closePopup = () => {
   };
 
   const handleAdvancedFilterChange = (filterType, value) => {
-    if (filterType === 'depth' || filterType === 'table') {
-     
-    } else {
-      setAdvancedFilters(prev => ({
+    
+    setAdvancedFilters(prev => ({
         ...prev,
         [filterType]: prev[filterType].includes(value)
           ? prev[filterType].filter(item => item !== value)
           : [...prev[filterType], value]
       }));
-    }
+    
   };
 
   const applyAdvancedFilters = () => {
@@ -229,6 +227,7 @@ if(filter==='intensity'){
 }
 
 }
+console.log(advancedFilters.polish)
   return (
     <div className={`diamond-inner ${className}`}>
       <div className="frame-parent9">

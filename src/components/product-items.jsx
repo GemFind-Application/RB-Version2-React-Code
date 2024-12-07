@@ -8,6 +8,7 @@ import { X } from 'lucide-react';
 import './PopupAlert.css';
 import VideoPopup from "./VideoPopup";
 import { settingService } from "../Services";
+import { useNavigate } from "react-router-dom";
 const SkeletonProductItem = () => (
   
   <div className="skeleton">
@@ -34,6 +35,7 @@ const SkeletonProductItem = () => (
 );
 
 const ProductItems = ({ product, className = "", isLoading = false, onClick ,showVirtualTryOnIframe,filterMetalType,configAppData}) => {
+  const navigate = useNavigate();
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const videoRef = useRef(null);
   const [viewUrlSetting, setViewUrlSetting] = useState('');
@@ -96,7 +98,10 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
       videoRef.current.currentTime = 0;
     }
   };
-
+  const openDetailPage =(url)=>{
+    console.log(url)
+    navigate(url);
+  }
   const showNewImage=(item)=>{
     const requestOptions = {
       method: 'GET', 
@@ -133,7 +138,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
   return (
     <div className={`ring__items product-items ${className}`} >
       <div className="ring-items__header">
-        <h2 className="product-title">{utils.truncateString(product.name)}</h2>
+        <h2 className="product-title" onClick={()=>openDetailPage(`/${settingUrl}/${viewUrlSetting}`)}>{utils.truncateString(product.name)}</h2>
         <div className="ring-items__wrapper">
           <div 
             className="ring-items__item-video" 
@@ -164,7 +169,7 @@ const ProductItems = ({ product, className = "", isLoading = false, onClick ,sho
           Your browser does not support the video tag.
           </video></div>:
            
-            <img className="image-9-icon15" alt={product.name} src={imageToShowasMain} />
+            <img className="image-9-icon15" alt={product.name} src={imageToShowasMain}   onClick={()=>openDetailPage(`/${settingUrl}/${viewUrlSetting}`)}/>
             }
           </div>
           <div className="thumbnailBox">

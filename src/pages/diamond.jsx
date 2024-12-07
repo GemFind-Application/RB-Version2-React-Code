@@ -168,6 +168,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
       }else{
         newselectedClarity=selectedFilters.clarity;
       }  
+      //console.log(advancedFilters.certificates)
       try {       
             let option = {
               pageNumber:page,    
@@ -226,6 +227,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
     setCurrentPage(1);
   };
   const applyAdvanceFilters = (filters) => {
+    console.log("step")
     setAdvancedFilters(filters);
     setCurrentPage(1);
   };
@@ -310,7 +312,8 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
       <DiamondNavigation diamondNavigation={diamondNavigation} setIsLabGrown={setIsLabGrown} isLabGrown={isLabGrown} configAppData={configAppData}/>
       {isDiamondFilterLoaded ? 
       isDiamondFilterLoaded &&
-      <div ref={scrollRef}><DiamondFilter 
+      <div ref={scrollRef}>
+        <DiamondFilter 
       
       
        filterData={filterData}

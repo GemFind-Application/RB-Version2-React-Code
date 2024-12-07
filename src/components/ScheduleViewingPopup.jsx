@@ -129,7 +129,7 @@ const ScheduleViewingPopup = ({ onClose, locations, settingId, isLabSetting, rin
   const handleDateChange = (date) => {
     if(formData.location==""){
      (document.getElementsByName('location')[0].focus());
-     setErrors({ ...errors, ['location']: 'Please selcet location first' });
+     setErrors({ ...errors, ['location']: 'Please select location first' });
     }else{    
     const start = new Date(date);
     const end = new Date(date);

@@ -180,7 +180,7 @@ const EmailFriendPopup = ({ onClose,settingId,isLabSetting,ringurl,shopurl,diamo
             <input 
               type="email" 
               name="friend_email" 
-              placeholder={errors.friend_email || "Your Friends E-mail"}
+              placeholder={errors.friendsemail || "Your Friends E-mail"}
               value={formData.friendsemail}
               onChange={handleInputChange} 
               className={errors.friendsemail ? 'error' : ''}

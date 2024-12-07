@@ -285,7 +285,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
           ))
         )}
       </div>
-      {isProductLoaded &&
+      {(isProductLoaded && products.length>0) &&
       <PaginationPanel 
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}

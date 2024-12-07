@@ -6,19 +6,19 @@ import { utils } from "../Helpers";
 import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
 const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent,step}) => {
-console.log("value of step=="+step)
+//console.log("value of step=="+step)
   const [minVal, setMinVal] = useState(parseFloat(value[0]));
   const [maxVal, setMaxVal] = useState(parseFloat(value[1]));
   const [minD, setMinD] = useState(min);
   const [maxD, setMaxD] = useState(max);
   const [showOnlyValue, setShowOnlyValue] = useState(true);
-  console.log(value)
+  //console.log(value)
   const [labelMax, setLabelMax] = useState(parseFloat(value[1]));
   const [labelMin, setLabelMin] = useState(parseFloat(value[0]));
   const minValRef = useRef(null);
   const maxValRef = useRef(null);
   const range = useRef(null);
-console.log(labelMax)
+//console.log(labelMax)
   const getPercent = useCallback(
     (value) => Math.round(((value - minD) / (maxD - minD)) * 100),
     [minD, maxD]

@@ -157,11 +157,12 @@ function getQueryParam(option){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'PolishId='+option.polish;    
   }
-  console.log(option)
-  if(option.certificates && option.certificates!==undefined &&  option.certificates!=""){
+ console.log(option.certificates)
+  if(option.certificates && option.certificates!==undefined &&  option.certificates!="" && option.certificates!="Show All Cerificate"){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'Certificate='+option.certificates;    
   }
+  console.log(filterString)
   if(option.fluorescence && option.fluorescence!==undefined&& option.fluorescence!=""){
     filterString += filterString.length > 0 ? `&` : '';
     filterString += 'FluorescenceId='+option.fluorescence;    
