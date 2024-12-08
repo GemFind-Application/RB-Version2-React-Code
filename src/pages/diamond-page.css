@@ -205,13 +205,6 @@
   cursor: pointer;
   line-height: 1;
 }
-.diamondGradingReport {
-  cursor: pointer !important;
-  color: var(--link-color);
-}
-.diamondGradingReport:hover {
-  color: var(--over-effect)
-}
 .bread1 .back-to-all:hover {
   color: var(--over-effect)
 }
@@ -434,11 +427,8 @@
   padding: var(--padding-6xs-5) 0px 0px;
   box-sizing: border-box;
 }
-.group-icon1 {
-  height: 24px;
-  width: 24px;
-  position: relative;
-  min-height: 24px;
+.dd102d7 {
+  max-width: 18px;
 }
 .ships {
   display: flex;
@@ -450,8 +440,16 @@
   color: var(--grey);
 }
 .diamond-grading-report {
-  position: relative;
-  font-weight: 500;
+    position: relative;
+    font-weight: 500;
+    color: var(--textcolor);
+}
+.diamond-grading-report a.diamondGradingReport {
+  color: var(--textcolor);
+  cursor: pointer;
+}
+.diamond-grading-report a.diamondGradingReport:hover span {
+  text-decoration: underline;
 }
 .header-items3 {
   display: flex;
@@ -711,7 +709,7 @@
 .summary-items {
   display: flex;
   align-content: flex-start;
-  gap: var(--gap-3xs);
+  gap: 6px;
 }
 .summary-items .si_label {
   color: var(--grey);

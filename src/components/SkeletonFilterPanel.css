@@ -63,11 +63,11 @@
 .settings-sort-page.sortby_sde {
   display: flex;
   align-items: center;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 .settings-sort-page.sortby_sde select {
   margin: 0 5px;
-  width: 54px;
+  /* width: 54px; */
 }
 .settings-sort-page.sortby_sde .sortOrder {
   line-height: 1;
@@ -81,10 +81,13 @@
 .settings-sort-page .no-appearance {
   padding: 0 1rem 0 0;
   background-position: right center;
-  /* margin-right: 0; */
+  margin-right: 0;
+}
+.settings-sort-page .no-appearance:focus-visible {
+  border: 0 none;
 }
 .settings-sort {
-  gap: var(--gap-6xl);
+  gap: 10px;
 }
 
 .sort-by4,
@@ -311,9 +314,6 @@
   /* margin: 0;
   padding: 0; */
 }
-.diamond .settings-sort {
-  gap: 0;
-}
 
 @media screen and (max-width: 1275px) {
   .settings-founded {
@@ -340,7 +340,7 @@
     flex-wrap: wrap;
   }
   .settings-sort-page.sortby_sde select {
-    width: 80px;
+    /* width: 80px; */
   }
 }
 

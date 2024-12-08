@@ -82,48 +82,48 @@ const DiamondExpandDetail = ({ className = "", diamond,configAppData ,getdiamond
             </div>
           <div className="stats">
             <div className="spec-labels1">
-                <div className="stock-number">Stock Number:</div>
+                <div className="stats-label">Stock Number:</div>
                 <a className="spec-values">{diamond.sku || '-'}</a>
             </div>
             <div className="spec-labels1">
-              <a className="price-per-carat">Price Per Carat:</a>
-              <a className="a">{diamond.fltCaratPrice ? <ShowFltCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowFltCostInCardDiamond> : '-'}</a>
+              <div className="stats-label">Price Per Carat:</div>
+              <a className="spec-values">{diamond.fltCaratPrice ? <ShowFltCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowFltCostInCardDiamond> : '-'}</a>
             </div>
             <div className="spec-labels1">
-              <div className="carat-weight">Carat Weight:</div>
-              <b className="b2">{diamond.carat || '-'}</b>
+              <div className="stats-label">Carat Weight:</div>
+              <b className="spec-values">{diamond.carat || '-'}</b>
             </div>
             <div className="spec-labels1">
-              <div className="cut1">Cut:</div>
-              <a className="excellent">{diamond.cut || '-'}</a>
+              <div className="stats-label">Cut:</div>
+              <a className="spec-values">{diamond.cut || '-'}</a>
             </div>
             <div className="spec-labels1">
-              <div className="color">Color:</div>
-              <b className="e">{diamond.color || '-'}</b>
+              <div className="stats-label">Color:</div>
+              <b className="spec-values">{diamond.color || '-'}</b>
             </div>
             <div className="spec-labels1">
-              <div className="clarity">Clarity:</div>
-              <b className="i11">{diamond.clarity || '-'}</b>
+              <div className="stats-label">Clarity:</div>
+              <b className="spec-values">{diamond.clarity || '-'}</b>
             </div>
             <div className="spec-labels1">
-              <div className="polish">Polish:</div>
-              <b className="very-good">{diamond.polish || '-'}</b>
+              <div className="stats-label">Polish:</div>
+              <b className="spec-values">{diamond.polish || '-'}</b>
             </div>
             <div className="spec-labels1">
-              <div className="symmetry">Symmetry:</div>
-              <b className="excellent1">{diamond.symmetry || '-'}</b>
+              <div className="stats-label">Symmetry:</div>
+              <b className="spec-values">{diamond.symmetry || '-'}</b>
             </div>
             <div className="spec-labels1">
-              <div className="girdle">Girdle:</div>
-              <b className="b3">{diamond.gridle || diamond.girdleThin || '-'}</b>
+              <div className="stats-label">Girdle:</div>
+              <b className="spec-values">{diamond.gridle || diamond.girdleThin || '-'}</b>
             </div>
             <div className="spec-labels1">
-              <div className="color">Culet:</div>
-              <b className="none">{diamond.culet || '-'}</b>
+              <div className="stats-label">Culet:</div>
+              <b className="spec-values">{diamond.culet || '-'}</b>
             </div>
             <div className="spec-labels1">
-              <div className="fluorescence1">Fluorescence:</div>
-              <b className="none">{diamond.fluorescence || '-'}</b>
+              <div className="stats-label">Fluorescence:</div>
+              <b className="spec-values">{diamond.fluorescence || '-'}</b>
             </div>
             
           </div>

@@ -409,12 +409,7 @@ setShowLoading(true);
                               Diamond Details
                             </div>
                           </div>
-                          <img
-                            className="group-icon1"
-                            loading="lazy"
-                            alt=""
-                            src={`${imageUrl}`+"/group.svg"}
-                          />
+                          <img className="dd102d7" loading="lazy" alt="" width="24" height="24" src={`${imageUrl}`+"/group.svg"} />
                         </div>
                         <div className="header-items1">
                           <div className="header-items-child" />
@@ -423,8 +418,7 @@ setShowLoading(true);
                         <div className="header-items3">
                           
                         {(additionOptionSetting.show_Certificate_in_Diamond_Search && diamondDetail.certificateIconUrl!="") &&
-                            <div className="diamond-grading-report">Diamond Grading Report:
-                              <a  onClick={openUrl} className={'diamondGradingReport'}>View</a>
+                            <div className="diamond-grading-report"><a  onClick={openUrl} className={'diamondGradingReport'}>Diamond Grading Report: <span>View</span></a>
                             </div>
                           }
                         </div>

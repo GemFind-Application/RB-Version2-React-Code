@@ -942,6 +942,10 @@ div.diamondfilterShape {
 		display: flex;
 		align-items: center;
 	}
+	.flex-advanced-filter .group-inner .option--btn,
+	.dropdown-content .option--btn {
+		border-right: 1px solid var(--beige-03);
+	}
 }
 @media screen and (max-width: 825px) {
 	.frame-child5 {

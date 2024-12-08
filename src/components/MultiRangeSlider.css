@@ -206,7 +206,7 @@ background-color: var(--slider-color);
 }
 .advanced-filter-group .container.price_slider_box .sliderValues2 input {
   position: relative;
-  width: 33px;
+  width: 25px;
   right: 0;
   bottom: 0;
   padding: 0;

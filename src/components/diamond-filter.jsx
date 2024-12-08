@@ -399,7 +399,7 @@ console.log(advancedFilters.polish)
       )}
             {activeDropdown && (<>
             {(activeDropdown === 'cut'||activeDropdown === 'colour'||activeDropdown === 'clarity')&&
-              <div className='fromto'>From - to</div>}
+              <div className='fromto'>From - To</div>}
               <div className={`filter-options-container ${activeDropdown === 'price' || activeDropdown === 'carat' ? 'priceFilterBox' : ''} ${activeDropdown === 'cut' || activeDropdown === 'clarity' || activeDropdown === 'colour' ? 'cutClarityColor' : ''}  `}>
                 {activeDropdown === 'shape' && (
                     filterData.shapes.map(shape => (
