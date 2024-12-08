@@ -20,9 +20,9 @@
   flex: 2;
 }
 .stock-number {
-  position: relative;
+  /* position: relative;
   font-weight: 500;
-  display: inline-block;
+  display: inline-block; */
   /* min-width: 98px; */
 }
 .spec-values {
@@ -32,7 +32,6 @@
   color: var(--black);
   display: inline-block;
   padding-left: 6px;
-  /* min-width: 74px; */
 }
 .spec-labels {
   /* border-radius: var(--br-base);
@@ -64,17 +63,22 @@
   display: inline-block;
   margin: 0 20px 15px 0;
 }
+.spec-labels1 div.stats-label {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+}
 .spec-labels1 div.color,
 .spec-labels1 div.clarity {
   padding-left: 0;
 }
 .price-per-carat {
-  text-decoration: none;
+  /* text-decoration: none;
   position: relative;
   font-weight: 500;
   color: inherit;
-  display: inline-block;
-  min-width: 102px;
+  display: inline-block; */
+  /* min-width: 102px; */
 }
 .a {
   text-decoration: none;
@@ -82,26 +86,26 @@
   font-weight: 700;
   color: var(--black);
   display: inline-block;
-  padding-left: 6px;
+  /* padding-left: 6px; */
   white-space: nowrap;
 }
 .carat-weight {
   position: relative;
   font-weight: 500;
   display: inline-block;
-  padding-left: 6px;
+  /* padding-left: 6px; */
 }
 .b2 {
   position: relative;
   display: inline-block;
   color: var(--black);
-  padding-left: 6px;
+  /* padding-left: 6px; */
 }
 .cut1 {
   position: relative;
   font-weight: 500;
   display: inline-block;
-  padding-left: 6px;
+  /* padding-left: 6px; */
 }
 .excellent {
   text-decoration: none;
@@ -109,7 +113,7 @@
   font-weight: 700;
   color: var(--black);
   display: inline-block;
-  padding-left: 6px;
+  /* padding-left: 6px; */
 }
 .color {
   position: relative;
@@ -127,12 +131,6 @@
   position: relative;
   font-weight: 500;
   display: inline-block;
-  padding-left: 6px;
-}
-.i11 {
-  position: relative;
-  display: inline-block;
-  color: var(--black);
   padding-left: 6px;
 }
 .polish {

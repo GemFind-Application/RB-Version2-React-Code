@@ -49,6 +49,7 @@
 	min-height: 56px;
 	align-items: center;
 	display: flex;
+	cursor: pointer;
 }
 
 .video-icon3 {
@@ -229,6 +230,7 @@
 	overflow: hidden;
 	border: none;
 	padding-bottom: 100%;
+	cursor: pointer;
 }
 
 .productImage video,

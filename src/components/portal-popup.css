@@ -26,9 +26,10 @@
     overflow: auto;
 }
 .portalPopupOverlay .popup-overlay.resetPopup {
-	max-width: 322px !important;
+	max-width: 370px !important;
 }
-.portalPopupOverlay .popup-overlay.resetPopup .success-message {
+.portalPopupOverlay .popup-overlay.resetPopup .success-message,
+.portalPopupOverlay .popup-overlay.resetPopup .success-message p.text-left {
 	text-align: center;
 }
 .portalPopupOverlay .popup-overlay.resetPopup .success-message button {
@@ -222,6 +223,7 @@
 .portalPopupOverlay .popup-content .success-message h2 {
     font-size: var(--h2-size);
     margin-top: 20px;
+	margin-bottom: 10px;
 }
 .portalPopupOverlay .popup-content .success-message p {
 	text-align: center;
