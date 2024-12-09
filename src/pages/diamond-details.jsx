@@ -105,7 +105,9 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
             }
           }
           } 
-      }     
+      }else{
+          navigate("/diamondtools");
+      }
     } catch (error) {
       console.error("Error fetching product details:", error);
       setError("Failed to fetch diamond data. Please try again later.");
@@ -119,7 +121,7 @@ const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
       formData.append('diamondid',diamondDetail.diamondId);
       //console.log( window.location)
       formData.append('shop',window.location.hostname)
-      formData.append('diamond_type',diamondDetail.isLabCreated===true?'labcreated':'',)
+      formData.append('diamondtype',diamondDetail.isLabCreated===true?'labcreated':'',)
       const apiurlForForms = `${import.meta.env.VITE_APP_FORM_API_URL}`;
       let  url=apiurlForForms+"/diamondtools/printdiamond";
       const requestOptions = {

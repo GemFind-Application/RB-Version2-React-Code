@@ -124,7 +124,7 @@
 	top: -5px;
 	right: -10px;
 	border-radius: var(--br-xl);
-	background-color: var(--beige-05);
+	background-color: var(--menus-background);
 	border: 2px solid var(--white);
 	box-sizing: border-box;
 	width: 24px;

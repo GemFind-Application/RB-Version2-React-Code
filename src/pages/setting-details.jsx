@@ -137,6 +137,7 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
       setShowLoading(true)
       const res = await settingService.getSettingDetail(settingId,configAppData.dealerid,isLabGrown,configAppData.shop); 
       if(res) {
+        //console.log("in res");
         if(selectedParam!=""){
         let url =  utils.getUrl(res.metalType,res.settingName,settingId,'details')
           //setViewUrlSetting(url)
@@ -200,7 +201,9 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
           setUniqueDiamondShape(allDiamondShape);
         }   
         setShowLoading(false);   
-      }     
+      }else{
+        navigate("/settings");
+      }  
     } catch (error) {
       console.error("Error fetching product details:", error);
       setShowLoading(false);
