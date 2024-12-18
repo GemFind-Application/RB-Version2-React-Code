@@ -8,10 +8,10 @@ export default function ShowCostInCardDiamond({diamondDetail,configAppData}) {
         configAppData.price_row_format === 'left'     ?   
           (diamondDetail.fltPrice && diamondDetail.currencyFrom =='USD' )
               ? "$"+(utils.numberWithCommas(Math.trunc(diamondDetail.fltPrice)))
-              :  utils.numberWithCommas(Math.trunc(diamondDetail.fltPrice))+' '+diamondDetail.currencySymbol
+              :  utils.numberWithCommas(Math.trunc(diamondDetail.fltPrice))+' '+diamondDetail.currencySymbol+ " "+diamondDetail.currencyFrom
         :   (diamondDetail.fltPrice && diamondDetail.currencyFrom =='USD' )
               ? "$"+(utils.numberWithCommas(Math.trunc(diamondDetail.fltPrice)))
-              :  diamondDetail.currencySymbol+ " " +utils.numberWithCommas(Math.trunc(diamondDetail.fltPrice))
+              : diamondDetail.currencyFrom+" "+  diamondDetail.currencySymbol+ " " +utils.numberWithCommas(Math.trunc(diamondDetail.fltPrice))
         : "Call for Price"  
       }
     </>
