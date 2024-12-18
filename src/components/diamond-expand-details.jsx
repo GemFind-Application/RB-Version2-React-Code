@@ -6,7 +6,7 @@ import ShowCostInCardDiamond from "./showCostInCardDiamond";
 import { useNavigate, useParams } from "react-router-dom";
 import ShowFltCostInCardDiamond from "./ShowFltCostInCardDiamond";
 import { utils } from "../Helpers";
-const DiamondExpandDetail = ({ className = "", diamond,configAppData ,getdiamondDetail,isLabGrown}) => {
+const DiamondExpandDetail = ({ className = "", diamond,configAppData ,getdiamondDetail,isLabGrown,}) => {
   const navigate = useNavigate();
   const images = [];
   const [isSettingSelected, setIsSettingSelected] = useState(false);

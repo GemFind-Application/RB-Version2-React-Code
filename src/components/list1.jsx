@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 
 import "./list1.css";
 
-const List1 = ({ className = "" ,diamond,configAppData,addCompareDiamondIds,compareDiamondsId, additionOptionSetting, isLabGrown}) => {
+const List1 = ({ saveFiltersAfterDetails,className = "" ,diamond,configAppData,addCompareDiamondIds,compareDiamondsId, additionOptionSetting, isLabGrown}) => {
   
   return (
     <div className={`list5 ${className}`}>
-      <DiamondListHeader1 diamond={diamond} isLabGrown={isLabGrown} configAppData={configAppData} addCompareDiamondIds={addCompareDiamondIds} compareDiamondsId={compareDiamondsId} additionOptionSetting={additionOptionSetting}/>
+      <DiamondListHeader1 saveFiltersAfterDetails ={saveFiltersAfterDetails} diamond={diamond} isLabGrown={isLabGrown} configAppData={configAppData} addCompareDiamondIds={addCompareDiamondIds} compareDiamondsId={compareDiamondsId} additionOptionSetting={additionOptionSetting}/>
     </div>
   );
 };

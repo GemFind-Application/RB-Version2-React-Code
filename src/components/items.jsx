@@ -9,7 +9,7 @@ import { diamondService } from "../Services";
 import { utils } from "../Helpers";
 
 import { useNavigate } from 'react-router-dom';
-const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData,additionOptionSetting,compareDiamondsId,isLabGrown}) => {
+const Items = ({ className = "",diamond ,addCompareDiamondIds,configAppData,additionOptionSetting,compareDiamondsId,isLabGrown,saveFiltersAfterDetails}) => {
 const [showVideoPopup, setShowVideoPopup] = useState(false);
 const [videoUrl, setVideoUrl] = useState('');
 const [isDiamondPresentInCompare, setIsDiamondPresentInCompare] = useState(false);
@@ -104,7 +104,7 @@ useEffect(() => {
               <b className="vs2-excellent">{diamond.clarity}{diamond.polish && diamond.polish != '' && ', ' + diamond.polish}</b>
             </div>
             <div className="down2">
-            <Link to={`/${diamondDetailUrl}/${utils.getDiamondViewUrl(diamond,isLabGrown)}`} className="diamond_item--link button40">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>
+            <Link to={`/${diamondDetailUrl}/${utils.getDiamondViewUrl(diamond,isLabGrown)}`} onClick={() => saveFiltersAfterDetails()} className="diamond_item--link button40">Select - <ShowCostInCardDiamond diamondDetail={diamond} configAppData={configAppData}></ShowCostInCardDiamond></Link>
             </div>
       </div>
       {(showVideoPopup && videoUrl!="")  && (

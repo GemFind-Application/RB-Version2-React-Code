@@ -7,7 +7,7 @@ import VideoModal from "./VideoModal";
 import { diamondService } from "../Services";
 import { utils } from "../Helpers";
 import { useNavigate } from 'react-router-dom';
-const DiamondListHeader1 = ({ className = "", diamond ,isLabGrown ,configAppData,addCompareDiamondIds,compareDiamondsId,additionOptionSetting}) => {
+const DiamondListHeader1 = ({ className = "", diamond ,isLabGrown ,configAppData,addCompareDiamondIds,compareDiamondsId,additionOptionSetting,saveFiltersAfterDetails}) => {
   const [showVideoPopup, setShowVideoPopup] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
   const [error, setError] = useState('');
@@ -44,6 +44,7 @@ const DiamondListHeader1 = ({ className = "", diamond ,isLabGrown ,configAppData
     }  
   }; 
   const getdiamondDetail = (e)=>{
+    saveFiltersAfterDetails();
     const diamondDetailUrl= `${import.meta.env.VITE_DIAMOND_DETAIL_PAGE}`;
     navigate("/"+ diamondDetailUrl+"/"+utils.getDiamondViewUrl(diamond,isLabGrown))
   }
@@ -162,7 +163,7 @@ const DiamondListHeader1 = ({ className = "", diamond ,isLabGrown ,configAppData
       {/* show the DiamondExpandDetail */}
       {isExpanded && (
         <div className="diamond-expand-detail-wrapper">
-          <DiamondExpandDetail configAppData={configAppData} diamond={diamond} getdiamondDetail={getdiamondDetail} isLabGrown={isLabGrown}/>
+          <DiamondExpandDetail  configAppData={configAppData} diamond={diamond} getdiamondDetail={getdiamondDetail} isLabGrown={isLabGrown}/>
         </div>
       )}
        {(showVideoPopup && videoUrl!="")  && (

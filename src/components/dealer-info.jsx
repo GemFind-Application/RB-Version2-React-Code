@@ -44,7 +44,7 @@ const DealerInfo = ({ className = "", onClose, settingId, isLabSetting, shopurl,
           password: password,
           settingId: settingId,
           isLabSetting: isLabSetting,
-          shopurl: 'gemfind-demo-store-18.myshopify.com'
+          shopurl: window.location.host
         }
         page = "setting";
       }
