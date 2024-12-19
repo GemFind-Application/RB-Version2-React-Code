@@ -214,3 +214,19 @@ background-color: var(--slider-color);
 .advanced-filter-group .container.price_slider_box span.percSymbol {
   margin-left: 10px;
 }
+.container.price_slider_box .sliderValues .sliderValues1 .currencySymbolleft {
+  position: absolute;
+  left: 55px;
+  font-size: 14px;
+  bottom: -35px;
+  line-height: 18px;
+  font-family: var(--body-font-family);
+}
+.container.price_slider_box .sliderValues .sliderValues2 .currencySymbolleft {
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  bottom: -35px;
+  line-height: 18px;
+  font-family: var(--body-font-family);
+}

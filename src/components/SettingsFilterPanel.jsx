@@ -93,7 +93,7 @@ const SettingsFilterPanel = ({
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
 
   const [popupContent, setPopupContent] = useState(null);
-
+  const [currencyToShow, setCurrencyToShow] = useState('$');
   useEffect(() => {
    // setPriceRange(activeFilters.price || [0, 29678.00]);
     let filterAvailable = [];
@@ -106,6 +106,21 @@ const SettingsFilterPanel = ({
     setAvailableFilter(filterAvailable)
    // setOpenFilter(openFilter!=="" ? null : filter);
    // openFilter === filter ? null : filter
+   console.log(configAppData.price_row_format)
+   if(configAppData.price_row_format=='left'){
+        if(filterData.currencyFrom=="USD"){
+          setCurrencyToShow('$')
+        }else{
+          setCurrencyToShow(filterData.currencySymbol+" "+ filterData.currencyFrom)
+        }
+
+   }else{
+    if(filterData.currencyFrom=="USD"){
+      setCurrencyToShow('$')
+    }else{
+      setCurrencyToShow(filterData.currencyFrom+" "+ filterData.currencySymbol)
+    }
+   }
     
   }, []);
   const toggleFilter = (filter) => {
@@ -332,6 +347,8 @@ const SettingsFilterPanel = ({
                 onChange={handlePriceChange}
                 value={priceRange}
                 step={'stepby1'}
+                currencyToShow = {currencyToShow}
+                currencyPosition={configAppData.price_row_format}
               />
               
             </div>

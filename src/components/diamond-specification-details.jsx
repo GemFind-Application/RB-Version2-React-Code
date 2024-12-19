@@ -49,7 +49,7 @@ const DiamondSpecificationDetail = ({ className = "", diamond,onClose,configAppD
 
             <div className="spec-labels1">
               <div className="stats-label">Price Per Carat:</div>
-              <a className="spec-values">{diamond.fltPrice ? <ShowPerCaratPrice diamondDetail={diamond}></ShowPerCaratPrice> : '-'}</a>
+              <a className="spec-values">{diamond.fltPrice ? <ShowPerCaratPrice diamondDetail={diamond} configAppData={configAppData}></ShowPerCaratPrice> : '-'}</a>
             </div>
             <div className="spec-labels1">
               <div className="stats-label">Carat Weight:</div>

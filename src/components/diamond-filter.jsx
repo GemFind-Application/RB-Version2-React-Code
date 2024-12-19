@@ -52,10 +52,25 @@ const DiamondFilter = ({ className = "",
   const [popupContent, setPopupContent] = useState(null);
   const [availableFilter, setAvailableFilter] = useState(['shape', 'price', 'carat', 'cut', 'colour', 'clarity']);
   const [searchQuery, setSearchQuery] = useState(selectedFilters.search ? selectedFilters.search != "" ? selectedFilters.search : '' : '');
-
+const [currencyToShow, setCurrencyToShow] = useState('$');
   useEffect(() => {
     if(filterData.diamondColorRange){
       setAvailableFilter(['shape', 'price', 'carat', 'diamondColorRange','intensity' ,'clarity'])
+    }
+    console.log(configAppData.price_row_format)
+    if(configAppData.price_row_format=='left'){
+         if(filterData.currencyFrom=="USD"){
+           setCurrencyToShow('$')
+         }else{
+           setCurrencyToShow(filterData.currencySymbol+" "+ filterData.currencyFrom)
+         }
+ 
+    }else{
+     if(filterData.currencyFrom=="USD"){
+       setCurrencyToShow('$')
+     }else{
+       setCurrencyToShow(filterData.currencyFrom+" "+ filterData.currencySymbol)
+     }
     }
     setPriceRange(selectedFilters.price.length === 0 ? [filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice] : [selectedFilters.price[0], selectedFilters.price[1]]);
     setCaratRange(selectedFilters.carat.length === 0 ? [filterData.caratRange[0].minCarat, filterData.caratRange[0].maxCarat] : [selectedFilters.carat[0], selectedFilters.carat[1]]);
@@ -433,6 +448,8 @@ console.log(advancedFilters.polish)
                         value={priceRange}
                         price={true}
                         step={1}
+                        currencyToShow = {currencyToShow}
+                        currencyPosition={configAppData.price_row_format}
                       />
                     </div>
                   )}

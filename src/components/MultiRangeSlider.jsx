@@ -5,7 +5,7 @@ import './MultiRangeSlider.css';
 import { utils } from "../Helpers";
 import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
-const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent,step}) => {
+const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent,step,currencyToShow,currencyPosition}) => {
 //console.log("value of step=="+step)
   const [minVal, setMinVal] = useState(parseFloat(value[0]));
   const [maxVal, setMaxVal] = useState(parseFloat(value[1]));
@@ -126,7 +126,7 @@ const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent,s
           <div className='sliderValues'>
           {!showOnlyValue ? 
             <><div className="sliderValues1">
-              <span className='currencySymbol'>{isPrice?'$':''}</span>
+              <span className={currencyPosition=='left'?'currencySymbol':'currencySymbolleft'}>{isPrice?currencyToShow:''}</span>
               <input
                     type="text"
                     value={step?Number(minVal):minVal}
@@ -137,7 +137,7 @@ const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent,s
               <span className='percSymbol'>{showPercent?'%':''}</span>                
             </div>
             <div className="sliderValues2">
-              <span className='currencySymbol'>{isPrice?'$':''}</span>
+              <span className={currencyPosition=='left'?'currencySymbol':'currencySymbolleft'}>{isPrice?currencyToShow:''}</span>
             <input
                   type="text"
                 
@@ -148,7 +148,7 @@ const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent,s
                   /><span>{showPercent?'%':''}</span>
               </div></>:
                <><div className="sliderValues1">
-               <span className='currencySymbol'>{isPrice?'$':''}</span>
+               <span className={currencyPosition=='left'?'currencySymbol':'currencySymbolleft'}>{isPrice?currencyToShow:''}</span>
                <input
                      type="text"
                      value={step?Number(labelMin):labelMin}
@@ -159,7 +159,7 @@ const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent,s
                <span className='percSymbol'>{showPercent?'%':''}</span>                
              </div>
              <div className="sliderValues2">
-               <span className='currencySymbol'>{isPrice?'$':''}</span>
+               <span className={currencyPosition=='left'?'currencySymbol':'currencySymbolleft'}>{isPrice?currencyToShow:''}</span>
              <input
                    type="text"
                  

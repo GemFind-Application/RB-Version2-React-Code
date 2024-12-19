@@ -659,10 +659,10 @@ console.log(showVideoPopup)
                         </button> */}
                         {isDiamondSelectedFirst==false ?
                         <button type="button" className="button52" onClick={selectRingSetting} >
-                          <b className="select-485">Add Your Diamond - <ShowCostInCard settingDetailForCost={product} configAppData={{configAppData}}></ShowCostInCard></b>
+                          <b className="select-485">Add Your Diamond - <ShowCostInCard settingDetailForCost={product} configAppData={configAppData}></ShowCostInCard></b>
                         </button>:
                         <button type="button" className="button52" onClick={selectRingSetting} >
-                        <b className="select-485">Complete Your Ring - Select - <ShowCostInCard settingDetailForCost={product} configAppData={{configAppData}}></ShowCostInCard></b>
+                        <b className="select-485">Complete Your Ring - Select - <ShowCostInCard settingDetailForCost={product} configAppData={configAppData}></ShowCostInCard></b>
                       </button>
                         }
                         {configAppData.display_tryon=="1" &&
