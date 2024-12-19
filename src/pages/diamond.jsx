@@ -102,7 +102,8 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
         let selectedRingShape = '';
         let selectedCaratRangeForSetting = [];
         if(selectedRingSetting){
-          const resSetting = await settingService.getSettingDetail(selectedRingSetting.settingId,configAppData.dealerid,isLab);          
+          const resSetting = await settingService.getSettingDetail(selectedRingSetting.settingId,configAppData.dealerid,isLab,configAppData.shop);          
+          
           if(resSetting) {
             selectedRingShape = resSetting.centerStoneFit;
             setSelectedSettingShape(selectedRingShape);
@@ -120,7 +121,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
               price:  [],
               intensity:[],
               search: ''});
-            setFilterData(res[1][0]);
+            setFilterData(res[1][0]);  
           
             setSelectedFilters({
               search: storedData ?storedData.search!="" ? (storedData.search) :'':'',
@@ -132,7 +133,7 @@ const Diamond = ({isLabGrown,setIsLabGrown,onCompareContainerClick,compareDiamon
               clarity:((storedData==null || (storedData && storedData.clarity.length===0))) ? 
                                   res[1][0].clarityRange.map(item=> {return item.clarityId}):storedData?storedData.clarity:[],
               price: ((storedData==null || (storedData&&storedData.price.length===0)) )? [res[1][0].priceRange[0].minPrice,res[1][0].priceRange[0].maxPrice]:storedData?storedData.price:[],
-              carat: (selectedRingShape!="" && selectedCaratRangeForSetting.length >0 && storedData.carat.length=== 0) ?  selectedCaratRangeForSetting  :  ( (storedData==null || (storedData  &&storedData.carat.length=== 0)))?[res[1][0].caratRange[0].minCarat,res[1][0].caratRange[0].maxCarat]:storedData?storedData.carat:[],
+              carat: (selectedRingShape!="" && selectedCaratRangeForSetting.length >0 && (storedData  &&storedData.carat.length=== 0)) ?  selectedCaratRangeForSetting  :  ( (storedData==null || (storedData  &&storedData.carat.length=== 0)))?[res[1][0].caratRange[0].minCarat,res[1][0].caratRange[0].maxCarat]:storedData?storedData.carat:[],
             });
             setAdvancedFilters({
               polish:  advanceFilterStoredData ? advanceFilterStoredData.polish.length > 0 ?advanceFilterStoredData.polish:[]:[],

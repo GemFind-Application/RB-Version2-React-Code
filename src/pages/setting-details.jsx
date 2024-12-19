@@ -280,6 +280,13 @@ const SettingPage = ({formSetting,settingNavigationData,isLabGrown,shopUrl,confi
       if(selectedDiamond && selectedDiamond.diamondId){
         navigate("/diamondtools/completering/");
       }else{
+          
+        localStorage.removeItem('saveDiamondFiltersMined');
+        localStorage.removeItem('saveAdvanceDiamondFiltersMined');
+        localStorage.removeItem('saveDiamondFiltersLab');
+        localStorage.removeItem('saveAdvanceDiamondFiltersLab');
+        localStorage.removeItem('saveDiamondFiltersfancy');
+        localStorage.removeItem('saveAdvanceDiamondFiltersFancy');
         if(selectedDiamondType!='Mined'){
           setIsLabGrown(true)
           navigate('/diamondtools/diamondtype/navlabgrown'); 

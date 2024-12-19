@@ -77,7 +77,7 @@ function App() {
         let data = {
         show_powered_by:false,
         sorting_order: 'cost-l-h',
-        price_row_format:'left',
+        price_row_format:'right',
         default_viewmode:'grid',   
         display_tryon:"1",
         show_filter_info:"true",
@@ -86,7 +86,7 @@ function App() {
         enable_print:true,
         enable_schedule_viewing:true,
         enable_hint:true,
-        dealerid:1089,
+        dealerid:4461,
         products_pp:48,       
         font_family:'Manrope',
         shop:'gemfind-product-demo-10.myshopify.com',
