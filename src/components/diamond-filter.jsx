@@ -369,13 +369,15 @@ console.log(advancedFilters.polish)
                     </div>
                     <div className="diamond-save-reset" >
                       <div className="save--filter" onClick={saveFilters}>
-                        <button className="save--diamond_filter">
+                        <button className="save--diamond_filter relative" data-position="top">
                           <img className="icons3" width="14" height="15" alt="save--diamond_filter" src={`${imageUrl}`+"/vector-4.svg"} />
+                          <span className="hidden">Save Filters</span>
                         </button>
                       </div>
                       <div className="reset--filter" onClick={confirmReset}>
-                        <button className="reset--diamond_filter">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                        <button className="reset--diamond_filter relative" data-position="top">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                          <span className="hidden">Reset the Filter</span>
                         </button>
                       </div>
                     </div>

@@ -81,7 +81,6 @@
   
   .slider__left-value {
     left: 0;
-    
     text-align: left;
   }
   body .noUi-horizontal{
@@ -216,7 +215,7 @@ background-color: var(--slider-color);
 }
 .container.price_slider_box .sliderValues .sliderValues1 .currencySymbolleft {
   position: absolute;
-  left: 55px;
+  left: -10px;
   font-size: 14px;
   bottom: -35px;
   line-height: 18px;
@@ -224,9 +223,37 @@ background-color: var(--slider-color);
 }
 .container.price_slider_box .sliderValues .sliderValues2 .currencySymbolleft {
   position: absolute;
-  right: 0;
+  right: 15px;
   font-size: 14px;
   bottom: -35px;
   line-height: 18px;
   font-family: var(--body-font-family);
+}
+
+.filter-options-container.priceFilterBox .sliderValues .slider__left-value {
+	width: 70px;
+	border: 1px solid var(--colorbeige);
+	text-align: center;
+	border-radius: 6px;
+	line-height: 18px;
+  left: 23px;
+}
+.filter-options-container.priceFilterBox .sliderValues .slider__right-value {
+	width: 70px;
+	border: 1px solid var(--colorbeige);
+	text-align: center;
+	border-radius: 6px;
+	line-height: 18px;
+}
+.filter-options-container.priceFilterBox .sliderValues .sliderValues1 .currencySymbol {
+  left: 72px;
+}
+.filter-options-container.priceFilterBox .sliderValues .currencySymbol + .slider__left-value {
+  left: 0;
+}
+.filter-options-container.priceFilterBox .sliderValues .sliderValues2 .currencySymbol {
+  right: -70px;
+}
+.filter-options-container.priceFilterBox .sliderValues .currencySymbol + .slider__right-value {
+  right: -40px;
 }
