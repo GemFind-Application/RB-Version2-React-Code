@@ -271,15 +271,17 @@ const SettingsFilterPanel = ({
               }
             </div>
               {filterData.priceRange.length > 0 &&
-              <div className="actions13">                
-                <button className="button30" onClick={saveFilters} title="Save">
+              <div className="actions13">
+                <button className="button30 relative" onClick={saveFilters} title="Save" data-position="top">
                   <BookmarkMinus size={16} />
+                  <span className="hidden">Save Filters</span>
                 </button>
-                <button className="button31" title="Reset" onClick={() => {
+                <button className="button31 relative" title="Reset" data-position="top" onClick={() => {
                   confirmReset();
                   setPriceRange([filterData.priceRange[0].minPrice, filterData.priceRange[0].maxPrice]);
                 }}>
                   <RotateCcw size={16} />
+                  <span className="hidden">Reset the Filter</span>
                 </button>
               </div>
                }
