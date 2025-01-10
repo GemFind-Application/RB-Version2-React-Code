@@ -1,4 +1,4 @@
-.container {
+.gf_container {
 	height: 5px;
 	display: flex;
 	align-items: center;
@@ -8,7 +8,7 @@
 	width: 100%;
 }
 @media(min-width: 992px) {
-	.container {
+	.gf_container {
 		min-width: 420px;
 	}
 	.advanced--price-sliders {
@@ -51,7 +51,7 @@ body .noUi-horizontal .noUi-handle {
 	top: -7px;
 	box-shadow: none;
 }
-body .container .noUi-target {
+body .gf_container .noUi-target {
 	width: 100%
 }
 body .noUi-handle:before,
@@ -143,16 +143,16 @@ body .noUi-handle {
 	/*  right: 0 !important;
     top: 0 !important; */
 }
-.advanced-filter-group .container.price_slider_box {
+.advanced-filter-group .gf_container.price_slider_box {
 	position: relative;
 	margin-top: 20px;
 	width: 100% !important;
 	min-width: 100%;
 }
-.advanced-filter-group .container.price_slider_box .sliderValues {
+.advanced-filter-group .gf_container.price_slider_box .sliderValues {
 	margin-top: 10px;
 }
-.container.price_slider_box .sliderValues .sliderValues1 .currencySymbol {
+.gf_container.price_slider_box .sliderValues .sliderValues1 .currencySymbol {
 	position: absolute;
 	left: 10px;
 	font-size: 14px;
@@ -160,7 +160,7 @@ body .noUi-handle {
 	line-height: 18px;
 	font-family: var(--body-font-family);
 }
-.container.price_slider_box .sliderValues .sliderValues2 .currencySymbol {
+.gf_container.price_slider_box .sliderValues .sliderValues2 .currencySymbol {
 	position: absolute;
 	right: 0;
 	font-size: 14px;
@@ -168,36 +168,36 @@ body .noUi-handle {
 	line-height: 18px;
 	font-family: var(--body-font-family);
 }
-.advanced-filter-group .container.price_slider_box .sliderValues2,
-.advanced-filter-group .container.price_slider_box .sliderValues1 {
+.advanced-filter-group .gf_container.price_slider_box .sliderValues2,
+.advanced-filter-group .gf_container.price_slider_box .sliderValues1 {
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin-bottom: -20px;
 }
-.advanced-filter-group .container.price_slider_box .sliderValues1 {
+.advanced-filter-group .gf_container.price_slider_box .sliderValues1 {
 	position: absolute;
 	left: 5px;
 }
-.advanced-filter-group .container.price_slider_box .sliderValues1 input {
+.advanced-filter-group .gf_container.price_slider_box .sliderValues1 input {
 	position: relative;
 	width: 20px;
 	right: auto;
 	bottom: 0;
 	padding: 0;
 }
-.advanced-filter-group .container.price_slider_box .sliderValues2 input {
+.advanced-filter-group .gf_container.price_slider_box .sliderValues2 input {
 	position: relative;
 	width: 25px;
 	right: 0;
 	bottom: 0;
 	padding: 0;
 }
-.advanced-filter-group .container.price_slider_box span.percSymbol {
+.advanced-filter-group .gf_container.price_slider_box span.percSymbol {
 	margin-left: 10px;
 }
-.container.price_slider_box .sliderValues .sliderValues1 .currencySymbolleft {
+.gf_container.price_slider_box .sliderValues .sliderValues1 .currencySymbolleft {
 	position: absolute;
 	left: -10px;
 	font-size: 14px;
@@ -205,7 +205,7 @@ body .noUi-handle {
 	line-height: 18px;
 	font-family: var(--body-font-family);
 }
-.container.price_slider_box .sliderValues .sliderValues2 .currencySymbolleft {
+.gf_container.price_slider_box .sliderValues .sliderValues2 .currencySymbolleft {
 	position: absolute;
 	right: 40px;
 	font-size: 14px;

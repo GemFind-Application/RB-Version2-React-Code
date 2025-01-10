@@ -564,7 +564,7 @@
   display: inline-block;
   min-width: 8px;
 }
-.container {
+.gf_container {
   border-radius: var(--br-5xs);
   background-color: var(--beige-00);
   display: flex;

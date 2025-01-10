@@ -93,7 +93,7 @@ const MultiRangeSlider = ({ min, max, onChange,value ,isPrice=true,showPercent,s
  // onBlur={callAction}
  //console.log(labelMax)
   return (
-    <div className="container price_slider_box" style={{width:'50%'}}>
+    <div className="gf_container price_slider_box" style={{width:'50%'}}>
       {step==1 ?
      <Nouislider
               connect

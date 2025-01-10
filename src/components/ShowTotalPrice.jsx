@@ -12,7 +12,7 @@ export default function ShowTotalPrice({settingDetailForCost,diamondDetail,confi
           :  utils.numberWithCommas(Number(settingDetailForCost.cost)+(Number(diamondDetail.fltPrice)))+' '+diamondDetail.currencySymbol+" "+ diamondDetail.currencyFrom        
         :
           (settingDetailForCost.cost && diamondDetail.currencyFrom =='USD' )
-          ? "$=="+(utils.numberWithCommas(Number(settingDetailForCost.cost)+(Number(diamondDetail.fltPrice))))
+          ? "$"+(utils.numberWithCommas(Number(settingDetailForCost.cost)+(Number(diamondDetail.fltPrice))))
           :  diamondDetail.currencyFrom + " "+diamondDetail.currencySymbol+" " + utils.numberWithCommas((Number(settingDetailForCost.cost)+(Number(diamondDetail.fltPrice))).toFixed(2))
 
       : "Call for Price"  
