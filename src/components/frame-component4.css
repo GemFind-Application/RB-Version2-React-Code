@@ -202,10 +202,10 @@
 	min-width: 45px;
 }
 .icon {
-	height: 52px;
+	/* height: 52px;
 	width: 52px;
 	position: relative;
-	border-radius: var(--br-base);
+	border-radius: var(--br-base); */
 }
 .steps-content2 {
 	flex: 1;

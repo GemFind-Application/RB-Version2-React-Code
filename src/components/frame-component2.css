@@ -968,7 +968,7 @@ div.diamondfilterShape {
 	.div103 {
 		flex-wrap: wrap;
 	}
-	.advanced-filter-group .container.price_slider_box {
+	.advanced-filter-group .gf_container.price_slider_box {
 		width: 100% !important;
 	}
 }

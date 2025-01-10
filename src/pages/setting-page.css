@@ -1422,6 +1422,7 @@
 	align-items: flex-start;
 	justify-content: center;
 	box-sizing: border-box;
+	margin-inline: 0;
 }
 .pdp_content {
 	display: flex;

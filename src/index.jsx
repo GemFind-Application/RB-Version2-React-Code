@@ -7,7 +7,12 @@ import "./global.css";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
-const baseurl = window.location.hostname=='localhost'?'': "/apps/ringbuilderdev";
+
+// Dev
+// const baseurl = window.location.hostname=='localhost'?'': "/apps/ringbuilderdev";
+// Live
+const baseurl = window.location.hostname=='localhost'?'': "/apps/ringbuilder";
+
 root.render(
   <BrowserRouter basename={baseurl}>
     <App />
