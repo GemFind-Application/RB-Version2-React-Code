@@ -231,6 +231,7 @@ const Settings = ({settingNavigationData,setIsLabGrown,isLabGrown,configAppData,
         isLabGrown={isLabGrown}
         setIsLabGrown={setIsLabGrown}
         className={className}
+        settingNavigation={settingNavigationData}
       />
       <div className="settingsfilter-wrapper" ref={scrollRef}>
         {filterData && isSettingFilterLoaded ? (

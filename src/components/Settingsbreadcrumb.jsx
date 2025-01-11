@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import PopupAlert from "./PopupAlert";  
 import "./settingsbreadcrumb.css";
 
-const Settingsbreadcrumb = ({ className = "", configAppData, isLabGrown, setIsLabGrown }) => {
+const Settingsbreadcrumb = ({ settingNavigation,className = "", configAppData, isLabGrown, setIsLabGrown }) => {
   const [popupContent, setPopupContent] = useState(null);
   const navigate = useNavigate();
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
@@ -98,12 +98,12 @@ const Settingsbreadcrumb = ({ className = "", configAppData, isLabGrown, setIsLa
           </div>
         </div>
         <div className="mined-lab-wrapper">
-                {configAppData.navStandard && (
+                {settingNavigation.navMinedSetting && (
                   <div 
                     className={`mined-settings ${!isLabGrown ? 'active' : ''}`} 
                     onClick={() => handleLabGrownToggle(false)}
                   >
-                    <div className="mined2">{configAppData.navStandard}</div>
+                    <div className="mined2">{settingNavigation.navMinedSetting}</div>
                     {configAppData.show_filter_info === "true" && (
                       <div className="separator">
                         <b 
@@ -119,12 +119,12 @@ const Settingsbreadcrumb = ({ className = "", configAppData, isLabGrown, setIsLa
                     )}
                   </div>
                 )}
-                {configAppData.navLabGrown && (
+                {settingNavigation.navLabSetting && (
                   <div 
                     className={`lab-settings ${isLabGrown ? 'active' : ''}`} 
                     onClick={() => handleLabGrownToggle(true)}
                   >
-                    <div className="lab-growned2">{configAppData.navLabGrown}</div>
+                    <div className="lab-growned2">{settingNavigation.navLabSetting}</div>
                     {configAppData.show_filter_info === "true" && (
                       <div className="separator">
                         <b 

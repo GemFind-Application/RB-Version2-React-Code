@@ -56,7 +56,7 @@ function getSettingFilters(option,dealerId) {
 function getSettingDetail(settingId,dealerId,isLabGrown,shop) {
 
   if(isLabGrown==true){
-    return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetMountingDetail?DealerId=${dealerId}&SID=${settingId}&shop${shop}`);
+    return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetMountingDetail?DealerId=${dealerId}&SID=${settingId}&shop=${shop}`);
   }else{
     return fetchWrapper.get(`${apiurlForForms}/reactconfig/GetMountingDetail?DealerId=${dealerId}&SID=${settingId}&shop=${shop}`);
   }
@@ -71,8 +71,9 @@ function getAllSettings(option,dealerId) {
 }
 //to get setting vanigation
 function getSettingNavigation(dealerId){ 
+  console.log("=====here"+dealerId)
   if(dealerId!=null &&dealerId!=undefined ){
-    return fetchWrapper.get(`${baseUrl}/GetNavigation?DealerId=${dealerId}`);
+    return fetchWrapper.get(`${baseUrl}/GetRBNavigation?DealerId=${dealerId}`);
   }
 }
 //drop a hint call
