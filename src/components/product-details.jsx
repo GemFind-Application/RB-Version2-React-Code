@@ -98,12 +98,12 @@ const ProductDetails = ({ className = "", shopUrl, settingDetail, diamondDetail,
     }
     //console.log(formData)
     let formDataToSend = new FormData();
-    Object.keys(formDataToSend).forEach(function (key) {
-      formDataToSend.append(key, formData[key]);
+    Object.keys(formData).forEach(function (key) {
+      formDataToSend.append(key, formData[key]===undefined?'':formData[key]);
     });
 
     const completePurchase = `${import.meta.env.VITE_ADD_TO_CART_COMPLETE_PURCHASE_PREFIX}`;
-    console.log("response addcart")
+   // console.log("response addcart")
     const requestOptions = {
       method: 'POST',
       body: (formDataToSend)
