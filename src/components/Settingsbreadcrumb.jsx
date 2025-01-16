@@ -2,10 +2,10 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import StepItems from "./step-items";
 import PropTypes from "prop-types";
-import PopupAlert from "./PopupAlert";  
+import PopupAlert from "./PopupAlert";
 import "./settingsbreadcrumb.css";
 
-const Settingsbreadcrumb = ({ settingNavigation,className = "", configAppData, isLabGrown, setIsLabGrown }) => {
+const Settingsbreadcrumb = ({ settingNavigation, className = "", configAppData, isLabGrown, setIsLabGrown }) => {
   const [popupContent, setPopupContent] = useState(null);
   const navigate = useNavigate();
   const imageUrl = `${import.meta.env.VITE_IMAGE_URL}`;
@@ -43,13 +43,13 @@ const Settingsbreadcrumb = ({ settingNavigation,className = "", configAppData, i
   const closePopup = () => {
     setPopupContent(null);
   };
-//console.log()
+  //console.log()
   // Debugging
   // console.log("Rendering Settingsbreadcrumb");
   // console.log("navStandard:", configAppData.navStandard);
   // console.log("navLabGrown:", configAppData.navLabGrown);
-  
-  return ( 
+
+  return (
     <div className={`settingsfilter-wrapper listtop_w ${className}`}>
       <div className="settingsfilter-container listtop_c">
         {/*<div className="settings-breadcrumb">
@@ -64,7 +64,7 @@ const Settingsbreadcrumb = ({ settingNavigation,className = "", configAppData, i
             <div className="h16 rb_setting_b">
               <b className="settings1 rb_setting_c">SETTINGS</b>
               <b className="create-your-own3 rb_setting_heading"> {configAppData.shop_title}</b>
-              <div className="settings-desc rb_setting_desc">Lorem nisl fringilla magna malesuada egestas dui. Fringilla fermentum fusce interdum nulla velit vestibulum. Pretium iaculis id elementum commodo convallis. A rhoncus malesuada orci aliquam ipsum quis praesent. Egestas molestie nec enim et sem in orci.
+              <div className="settings-desc rb_setting_desc">
                 {configAppData.announcement_text}
               </div>
             </div>
@@ -98,49 +98,49 @@ const Settingsbreadcrumb = ({ settingNavigation,className = "", configAppData, i
           </div>
         </div>
         <div className="mined-lab-wrapper">
-                {settingNavigation.navMinedSetting && (
-                  <div 
-                    className={`mined-settings ${!isLabGrown ? 'active' : ''}`} 
-                    onClick={() => handleLabGrownToggle(false)}
+          {settingNavigation.navMinedSetting && (
+            <div
+              className={`mined-settings ${!isLabGrown ? 'active' : ''}`}
+              onClick={() => handleLabGrownToggle(false)}
+            >
+              <div className="mined2">{settingNavigation.navMinedSetting}</div>
+              {configAppData.show_filter_info === "true" && (
+                <div className="separator">
+                  <b
+                    className="i22"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleInfoClick('mined');
+                    }}
                   >
-                    <div className="mined2">{settingNavigation.navMinedSetting}</div>
-                    {configAppData.show_filter_info === "true" && (
-                      <div className="separator">
-                        <b 
-                          className="i22" 
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleInfoClick('mined');
-                          }}
-                        >
-                          i
-                        </b>
-                      </div>
-                    )}
-                  </div>
-                )}
-                {settingNavigation.navLabSetting && (
-                  <div 
-                    className={`lab-settings ${isLabGrown ? 'active' : ''}`} 
-                    onClick={() => handleLabGrownToggle(true)}
+                    i
+                  </b>
+                </div>
+              )}
+            </div>
+          )}
+          {settingNavigation.navLabSetting && (
+            <div
+              className={`lab-settings ${isLabGrown ? 'active' : ''}`}
+              onClick={() => handleLabGrownToggle(true)}
+            >
+              <div className="lab-growned2">{settingNavigation.navLabSetting}</div>
+              {configAppData.show_filter_info === "true" && (
+                <div className="separator">
+                  <b
+                    className="i22"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleInfoClick('labgrown');
+                    }}
                   >
-                    <div className="lab-growned2">{settingNavigation.navLabSetting}</div>
-                    {configAppData.show_filter_info === "true" && (
-                      <div className="separator">
-                        <b 
-                          className="i22" 
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleInfoClick('labgrown');
-                          }}
-                        >
-                          i
-                        </b>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
+                    i
+                  </b>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
       {popupContent && (
         <PopupAlert content={popupContent} onClose={closePopup} />
