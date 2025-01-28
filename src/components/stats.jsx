@@ -69,7 +69,7 @@ const Stats = ({
           </div>
         </div>
       }
-      {showPrint && showPrint !== false &&
+      {configAppData.enable_print && configAppData.enable_print == "true" &&
         <div className="stat-items3" onClick={openPrintRequest}>
           <div>
             {<div style={{ display: 'none' }}> <ComponentToPrint ref={componentRef} data={[diamondContent ? diamondContent : '']} /></div>}
