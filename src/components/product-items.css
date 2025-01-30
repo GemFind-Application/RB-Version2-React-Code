@@ -35,7 +35,7 @@
 	/* transition: color 0.3s ease-in-out, transform 0.3s ease-in-out; */
 }
 .ring__items.product-items:hover {
-	background-color: #C9AEA129;
+	background-color: var(--hoverBGC);
 }
 
 .product-title {
